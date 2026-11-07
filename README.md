@@ -280,6 +280,8 @@ DEMO_ROOT=<empty folder> PANE_GRID_MODS=<filetree>:<usage-gauge>:<skill-kanban>/
 <venv>/bin/python verification/demo/banner.py
 ```
 
+For sites that do not play APNG, `<venv>/bin/python verification/demo/gif.py <folder>` writes a GIF of each recording with the same frames, timing and colours.
+
 ## License
 
 [MIT](LICENSE)
