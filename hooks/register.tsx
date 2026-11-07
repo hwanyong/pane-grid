@@ -323,13 +323,16 @@ export const register: Register = on => {
   })
 
   // grid pane 의 Button 누름. 규약 mod 가 pane-grid 위에 있어도 아래에 있어도 같은 hook 이 받는다.
+  // 동작은 chain 이 끝난 뒤에 한다. 탭을 닫는 동작(k · break 등)은 이 pane 을 닫고, 그 뒤의 next(e) 는 chain 맨 아래의
+  // Button onPress 를 handle 로 부르는데 pane 과 함께 그 handle 이 없어져 `no handler is held under handle` 로 실패했다.
   on('ui.press', { component: 'Pane', requestId: /^grid-/, element: /^(place|hotkey):/ }, async ($, e, next) => {
+    const pressed = await next(e)
     const words = pressWords(e.element)
     if (words) {
       const text = await runAction($, words)
       $.ui.toast(`pane-grid: ${text.split('\n')[0]}`)
     }
-    return next(e)
+    return pressed
   }).catch(($, e, next) => {
     log($, `press failed: ${JSON.stringify(next.error)}`)
     return next.called ? next(e) : { element: e.element }
