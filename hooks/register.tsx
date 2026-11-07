@@ -18,6 +18,12 @@ const FILE = '.claude/pane-grid/layout.json'
 const INVALID_COPY = '.claude/pane-grid/layout.invalid.json'
 // hotkey Button 줄. 높이를 고정해야 칸 사각형과 휠 `pointer.row` 를 맞출 수 있다.
 const TOOLBAR_ROWS = 2
+// 엔진의 탭 줄과 hotkey 줄 사이, hotkey 줄과 grid 사이의 고정 구분선(끌 수 없다). 각 1행이다.
+const RULE_ROWS = 1
+// grid 위의 행 수: 구분선 · hotkey 줄 · 구분선.
+const HEADER_ROWS = RULE_ROWS + TOOLBAR_ROWS + RULE_ROWS
+const VERTICAL = '│'
+const HORIZONTAL = '─'
 // 칸에는 테두리가 없고 제목 1행만 있다. 칸 사이는 끌어서 크기를 바꾸는 분할선 1칸이다(tree.ts DIVIDER).
 const CELL_CHROME_ROWS = 1
 const SHOWN_POLL_MS = 1000
@@ -98,7 +104,7 @@ const placements = (tabs: GridTab[]): Record<string, GridPlacement> => {
   return placed
 }
 
-const gridRect = (measured: Measured): Rect => ({ x: 0, y: 0, width: measured.columns, height: Math.max(measured.rows - TOOLBAR_ROWS, 0) })
+const gridRect = (measured: Measured): Rect => ({ x: 0, y: 0, width: measured.columns, height: Math.max(measured.rows - HEADER_ROWS, 0) })
 
 const contentSize = (rect: Rect) => ({
   columns: Math.max(rect.width, 0),
@@ -141,6 +147,9 @@ const loadFile = async ($: EngineInterface): Promise<GridTab[]> => {
   return defaultTabs()
 }
 
+// 엔진 pane 으로 여는 것: 탭마다 pane id 와 title. 이 값이 같으면 syncPanes 가 할 일이 없다.
+const paneSpec = (tabs: GridTab[]) => tabs.map(tab => `${paneId(tab.name)}\t${titleOf(tab)}`).join('\n')
+
 // 탭 목록과 엔진 pane 을 맞춘다. 같은 id 를 다시 열면 title 만 바뀐다.
 const syncPanes = async ($: EngineInterface, tabs: GridTab[]) => {
   const ids = new Set(tabs.map(tab => paneId(tab.name)))
@@ -167,7 +176,8 @@ const runAction = async ($: EngineInterface, words: string[]) => {
   if (outcome.isChanged) {
     await publish($, outcome.tabs)
     await persist($, outcome.tabs)
-    await syncPanes($, outcome.tabs)
+    // 활성 칸 · 칸 나누기 · 크기처럼 탭 목록과 title 이 그대로인 동작에서는 pane 을 다시 열지 않는다.
+    if (paneSpec(outcome.tabs) != paneSpec(layout.tabs)) await syncPanes($, outcome.tabs)
   }
   if (outcome.focus) {
     const tab = outcome.tabs.find(item => item.name == outcome.focus)
@@ -357,7 +367,7 @@ export const register: Register = on => {
     const drawDivider = (kind: 'row' | 'column', path: string, index: number, start: number, rect: Rect): RenderElement => {
       const key = `${DIVIDER_KEY}${path}:${index}`
       if (Client) return <Client key={key} module="./divider.tsx" props={{ kind, start, length: kind == 'row' ? rect.height : rect.width }} width={rect.width} height={rect.height} />
-      const line = kind == 'row' ? Array.from({ length: rect.height }, () => '│').join('\n') : '─'.repeat(rect.width)
+      const line = kind == 'row' ? Array.from({ length: rect.height }, () => VERTICAL).join('\n') : HORIZONTAL.repeat(rect.width)
       return <Box key={key} width={rect.width} height={rect.height}><Text dimColor>{line}</Text></Box>
     }
 
@@ -376,13 +386,18 @@ export const register: Register = on => {
       )
     }
 
+    // 고정 구분선. 분할선과 같은 글자로 그리지만 Client 가 아니므로 끌 수 없다.
+    const drawRule = () => <Box width={measured.columns} height={RULE_ROWS}><Text dimColor wrap="truncate">{HORIZONTAL.repeat(measured.columns)}</Text></Box>
+
     const area = gridRect(measured)
     const grid = tab.zoomed ? drawCell(tab.zoomed, area) : drawNode(tab.root, area, ROOT_PATH)
     return (
       <Box flexDirection="column">
+        {drawRule()}
         <Box height={TOOLBAR_ROWS} flexWrap="wrap" columnGap={1} overflow="hidden">
           {HOTKEYS.map(item => <Button key={`${HOTKEY_KEY}${item.key}`} plain hotkey={item.key} label={item.label} onPress={noop} />)}
         </Box>
+        {drawRule()}
         {grid}
         {Client ? <Client key={`${MEASURE_KEY}${tab.name}`} module="./measure.tsx" props={measured} width={0} height={0} /> : null}
       </Box>
@@ -407,7 +422,7 @@ const pressWords = (element: string): string[] | undefined => {
 const cellAt = (tab: GridTab, measured: Measured, pointer: { column: number; row: number } | undefined) => {
   if (!pointer) return tab.zoomed ?? tab.active
   const area = gridRect(measured)
-  const row = pointer.row - TOOLBAR_ROWS
+  const row = pointer.row - HEADER_ROWS
   const rects: [string, Rect][] = tab.zoomed ? [[tab.zoomed, area]] : [...geometry(tab.root, area)]
   const hit = rects.find(([, rect]) => pointer.column >= rect.x && pointer.column < rect.x + rect.width && row >= rect.y && row < rect.y + rect.height)
   return hit?.[0]

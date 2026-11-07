@@ -44,7 +44,7 @@ Claude Code 의 mod(function hooks plugin)는 `$.ui.open` 으로 pane 을 연다
 
 같은 날 뒤이은 사용자 결정: **3.2 · 3.3 을 계획에서 뺐다.** 남의 mod 는 라이선스가 허락하면 fork 해서 3.1 의 hook 을 넣는다(`docs/grid-and-tabs.md` 결정 1 · 7). 3.2 · 3.3 에만 걸린 R4 · R7 · R8 도 뺐다. 아래 3.2 · 3.3 절과 R1 ~ R3 결과는 그 결정의 근거로 남긴다.
 
-같은 날 사용자 결정: **`pane-grid` 는 `CLAUDE_CODE_PLUGIN_DIRS` 로 불러온다.** 설치본은 먼저 설치된 mod 보다 아래에 놓여 3.2 가 동작하지 않았다(§4.1 R1b). 이 변수 없이 시작한 세션(데스크톱 앱 등)에는 `pane-grid` 가 로드되지 않는다.
+같은 날 사용자 결정: **`pane-grid` 는 `CLAUDE_CODE_PLUGIN_DIRS` 로 불러온다.** 설치본은 먼저 설치된 mod 보다 아래에 놓여 3.2 가 동작하지 않았다(§4.1 R1b). 이 변수 없이 시작한 세션(데스크톱 앱 등)에는 `pane-grid` 가 로드되지 않는다. 2026-11-07 에 이 결정을 대체했다. pane-grid 0.3.0 은 로드 순서와 무관하게 칸을 채우므로(`docs/grid-and-tabs.md` 결정 15 · §3.7) 마켓플레이스 설치본으로 쓴다(README 「How do I install it?」).
 
 ### 3.1 규약 mod: `slot:<plugin>` 규약
 
@@ -164,7 +164,7 @@ r1: Pane requestId=pending-questions placement=dock tree=Box(part=pending-questi
 | `verification/r11-state/` | 독립 동작 · R11 · R13 일부 · R15 · R17 시험 mod 두 개(`host/` · `member/`) |
 | `verification/r19-command/` | slash 명령 뒤 탭 바꾸기(R19) 시험 mod |
 | `verification/r20-scroll/` | 칸마다 스크롤(R20) · 자기 pane 여닫기(R21) 시험 mod 두 개(`host/` · `member/`) |
-| `verification/logs/` | 실제 세션 debug log 와 `tmux capture-pane` 출력. `.gitignore` 로 제외했다 |
+| `verification/logs/` | 실제 세션 debug log 와 `tmux capture-pane` 출력. 판정 근거라 저장소에 올린다(2026-11-07 사용자 결정) |
 
 `verification/harness-probe/` 의 `*.test.tsx` 는 `claude plugin test` 용 파일이다. `~/.claude/CLAUDE.md` §16 은 단위 시험 파일을 쓰지 않도록 정하므로, 이 파일들은 API 가능성을 가르기 위한 측정 기록으로만 두고 구현 확인은 §4 의 실제 세션 실행으로 한다.
 

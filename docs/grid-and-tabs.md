@@ -34,6 +34,11 @@
 16. **칸의 둥근 테두리를 지우고 끌어서 크기를 바꾸는 분할선을 넣는다(§3.8).** 「각 슬롯의 라운드 박스 테두리는 지우고 크기 제어가 가능한 분할선만 추가해서 공간 효율성을 올리자.」
 17. **칸 아무 곳이나 클릭하면 그 칸이 활성 칸이 된다(§3.8).** 「키보드(o: next) 나 클릭으로 일일이 포커스를 제어하는게 힘들다.」
 
+2026-11-07 사용자 결정 두 가지:
+
+18. **칸에서 뺀 mod 가 자기 pane 을 다시 열면서 보이는 탭이 바뀌는 동작을 그대로 둔다**(§4.1 「칸에서 빼기」). §4.2 에 남아 있던 항목이다.
+19. **엔진의 탭 줄과 hotkey 줄 사이, hotkey 줄과 grid 사이에 끌 수 없는 구분선을 하나씩 둔다(§3.8).** 「탭 버튼과 hotkey 버튼 사이에 구분선(이동 불가), hotkey 버튼과 슬롯 사이에 구분선(이동 불가) 두곳에 추가해.」
+
 | mod | 저장소 | 그리는 곳 |
 |---|---|---|
 | `usage-gauge` 0.2.0 | `/Users/uhd/LOCAL/01-01_Projects/plugin-usage-gauge` | `AbovePrompt`(prompt 위 band). pane 이 없다 |
@@ -228,6 +233,7 @@ pane-grid 가 그리는 key 는 다섯 가지다(`hooks/register.tsx` 의 `SLOT_
 | 크기 단위 | `size` 는 백분율이고 소수 둘째 자리까지 둔다(`normalize` 의 `PRECISION`). `moveDivider` 가 칸 수에서 다시 계산한 크기를 정수로 반올림하지 않고 담기 위해서다 |
 | 클릭으로 활성화 | 활성이 아닌 칸 위에 그 칸 크기의 `Client`(`hooks/activate.tsx`, key `activate:<칸 id>`)를 덮는다. `down` 에서 `post` 하면 `ui.message` hook 이 `select-cell` 을 실행하고 `$.ui.open({ id, focus: true })` 로 grid pane 에 키보드 포커스를 준다. 활성 칸에는 덮지 않으므로 그 안의 Button 은 바로 눌린다 |
 | Client 가 없는 surface | 분할선은 흐린 Text 줄이고, 크기는 `/grid resize`, 활성 칸은 `/grid select-cell` 로 바꾼다 |
+| 고정 구분선(결정 19) | pane 본문 맨 위(엔진의 탭 줄 바로 아래)와 hotkey 줄 아래에 `─` 한 줄씩이다. `Client` 가 아니라 흐린 Text 라 끌 수 없다. grid 위의 행 수는 `HEADER_ROWS`(구분선 1 · hotkey 줄 `TOOLBAR_ROWS` 2 · 구분선 1 = 4)이고, 칸 사각형(`gridRect`)과 휠의 `pointer.row`(`cellAt`)가 같은 값을 뺀다 |
 
 덮는 방식을 고른 이유는 §4.1 8회차의 측정이다. 칸 아래에 깐 `Client` 는 글자 줄을 누른 것을 받지 못했다.
 
@@ -327,7 +333,7 @@ tsc 로 고친 것(4회차 전):
 - 설치본의 로드 순서는 `enabledPlugins` 키 순서다. `installedAt` 을 바꾸지 않고 키 순서만 바꿨는데 로드 순서가 따라 바뀌었다. `docs/direction.md` 의 R1c 가 남긴 질문의 답이다.
 - 규약 mod 가 pane-grid 보다 먼저 로드되면 규약 mod 의 hook 이 바깥에서 실행된다. pane-grid 의 `next(e)` 결과에 `cell:` Box 가 없고, 규약 mod 는 pane-grid 가 반환한 grid 뒤에 Box 를 덧붙인다. 칸 수집이 실행 순서에 묶여 있다는 뜻이다.
 - 빈 칸 선택지(`next.trace`)에도 pane-grid 보다 먼저 로드된 mod 는 나오지 않는다. trace 는 pane-grid 아래에서 실행된 hook 만 적는다.
-- 그래서 칸 안내 문구를 두 가지로 나눴다(`hooks/register.tsx` 의 `placedNote`). trace 에 이름이 있는데 Box 가 없으면 `draws nothing here`, trace 에 이름이 없으면 설치하거나 `enabledPlugins` 의 순서를 바꾸라고 적는다. README 의 「Install order matters」 절과 `docs/add-pane-grid-cell.md` Step 7 에 같은 조건을 적었다.
+- 그래서 칸 안내 문구를 두 가지로 나눴다(`hooks/register.tsx` 의 `placedNote`). trace 에 이름이 있는데 Box 가 없으면 `draws nothing here`, trace 에 이름이 없으면 설치하거나 `enabledPlugins` 의 순서를 바꾸라고 적는다. README 의 「Install order matters」 절과 `docs/add-pane-grid-cell.md` Step 7 에 같은 조건을 적었다. 이 문구 · 절은 0.3.0 에서 바뀌었다. 지금 안내 문구는 `hooks/register.tsx` 의 `drawSlot` 과 `UNFILLED_HINT` 가 만들고(§3.7 「안내 문구」), README 의 그 절은 로드 순서와 무관하다는 문단(「How do I install it?」)으로 바뀌었다.
 
 8회차 결과(2026-11-07, 2.1.319): §3.7 · §3.8 을 구현한 pane-grid 0.3.0 과 템플릿을 고친 규약 mod 세 개로, `--plugin-dir` 순서를 바꿔 네 번 실행했다. 배치는 두 열이고 왼쪽 열은 c1 usage-gauge 40 · c2 pending-questions 60, 오른쪽 열은 c3 uhd-kanban 60 · c4 빈 칸 40, 활성 칸 c4 다. 화면은 `tmux` 로 띄우고 클릭 · 끌기는 SGR mouse escape 를 보내서 했다.
 
@@ -360,6 +366,19 @@ tsc 로 고친 것(4회차 전):
 
 남은 것: 설치본(`enabledPlugins`) 순서로는 8회차를 다시 실행하지 않았다. 7회차에서 설치본의 로드 순서도 `--plugin-dir` 과 같은 hook 순서를 만든다는 것을 확인했으므로 같은 결과로 본다.
 
+9회차 결과(2026-11-07, 2.1.319): 결정 19 의 고정 구분선과, `runAction` 이 `syncPanes` 를 탭의 pane id · title(`paneSpec`)이 바뀔 때만 부르도록 한 변경을 확인했다. 설치본 pane-grid 를 `--settings` 로 끄고 작업판을 `--plugin-dir` 로 불러, 170열 × 45행 `tmux` 세션에서 실행했다. 다른 mod 는 설치본(usage-gauge · uhd-kanban · pending-questions · filetree)이다. 실행 전에 `~/.claude/pane-grid/layout.json` 의 사본을 두고, 끝난 뒤 되돌려 SHA-256 이 같은 것을 확인했다.
+
+| 확인한 것 | 결과 | 근거 |
+|---|---|---|
+| 고정 구분선 두 줄 | 엔진 탭 줄 아래 `─` 한 줄, hotkey 두 줄, `─` 한 줄, 그 아래 c2 의 제목이 그려졌다 | `verification/logs/run9-rules-screen.txt`(pane 열만 남겼다) |
+| `/grid next` 세 번 | `ui.open pane-grid` 줄이 늘지 않았다(시작 때 1줄 그대로) | `verification/logs/run9-rules-syncpanes.log` |
+| `/grid zoom` 두 번(대조군. title 에 `[Z]` 가 붙고 빠진다) | 한 번마다 `ui.open pane-grid grid-main (asked …)` 가 1줄씩 늘었다 | 같은 파일 |
+
+- zoom 쪽에서 줄이 늘었으므로 next 쪽에서 0줄인 것은 `syncPanes` 를 부르지 않은 결과다(로그가 찍히지 않은 것이 아니다).
+- 실패한 hook 줄은 0건이었다.
+- 시작하고 17초 뒤 filetree 가 자기 pane 을 열어(`ui.open filetree filetree (unasked …)`, 첫 `/grid` 동작보다 앞) 보이는 pane 이 filetree 로 바뀌었다. `/grid` 동작과는 무관하다.
+- 휠 위치(`cellAt`): 두 번째 세션에서 c2 와 c3 의 경계에 SGR mouse 휠을 보냈다. 터미널 16행(c2 의 마지막 행)에서는 c2 의 첫 줄만, 18행(c3 의 제목 행)에서는 c3 의 첫 줄만 올라갔다. 16행은 빼는 값이 옛 `TOOLBAR_ROWS`(2)였다면 c3 으로 판정되는 자리라 이 실행이 오프셋 오류를 가른다. `ui.scroll` 2회 모두 실패 줄이 없었다(같은 로그 파일의 `run 2` 절).
+
 녹화(`verification/demo/record.py`)에서 본 것(2.1.319):
 
 - hotkey 줄의 `q: list` 같은 글자는 Button 이다. 그 자리를 클릭하면 그 동작이 실행되고 포커스는 prompt 에 남아 다음 글자 키가 prompt 에 입력됐다. Button 이 없는 자리(hotkey 줄의 오른쪽 끝)를 클릭하면 포커스가 grid pane 으로 옮겨졌다.
@@ -372,7 +391,6 @@ tsc 로 고친 것(4회차 전):
 |---|---|---|
 | R13 나머지 | 두 mod 가 같은 key 의 Button 을 한 `grid` 트리에 그릴 때 각각 눌리는가 | 두 mod 의 `onPress` 로그가 따로 나온다 |
 | 결정 8 | grid 탭이 가려지면 uhd-kanban 애니메이션이 멈추고, 다시 보이면 다시 시작하는가 | run.status 열에 live 카드가 있는 보드에서, 가려진 동안 `blit` 0번 · 다시 보인 뒤 재개 |
-| 칸에서 빼기 | 다시 연 자기 pane 으로 보이는 탭이 바뀌는 것을 그대로 둘지 | 사용자 결정 |
 
 ## 5. mod 별 수정 범위
 

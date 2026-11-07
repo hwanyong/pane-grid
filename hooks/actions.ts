@@ -15,7 +15,7 @@ export type Outcome = {
   focus?: string
 }
 
-export const USAGE = [
+const USAGE = [
   'split -h|-v [plugin]     split the active cell left-right (-h) or top-bottom (-v)',
   'kill                     remove the active cell',
   'next                     make the next cell active',
@@ -54,7 +54,7 @@ const unusedTabName = (tabs: GridTab[]) => {
   return `w${index}`
 }
 
-export const listText = (tabs: GridTab[], current: string) =>
+const listText = (tabs: GridTab[], current: string) =>
   tabs.map(tab => `${tab.name == current ? '*' : ' '} ${tab.name} active=${tab.active}${tab.zoomed ? ' zoomed' : ''} ${describe(tab.root)}`).join('\n')
 
 export const apply = (tabs: GridTab[], current: string, words: string[]): Outcome => {

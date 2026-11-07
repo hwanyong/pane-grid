@@ -1,0 +1,40 @@
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c2 uhd-kanban
+Reading the board
+
+
+
+
+
+
+
+
+
+
+───────────────────────────────────────────────────────────────────────────
+c3 pending-questions
+Mode: manual [ Switch to auto ] [ Rescan last response ]
+
+No pending questions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+───────────────────────────────────────────────────────────────────────────
+c1 usage-gauge
+

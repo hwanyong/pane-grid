@@ -27,7 +27,7 @@ export const newCellId = (tabs: GridTab[]) => {
 }
 
 // 나란히 놓은 자식 사이의 분할선 폭(열) 또는 높이(행).
-export const DIVIDER = 1
+const DIVIDER = 1
 // 비율은 소수 둘째 자리까지 둔다. 분할선을 끌어 놓은 칸 수를 정수 비율로 내리면 1% 가 2칸 이상인 넓은 pane 에서 칸 단위로 놓이지 않는다.
 const PRECISION = 100
 
@@ -129,7 +129,7 @@ export const preset = (root: GridNode, name: Preset): GridNode => {
 }
 
 // 나눈 노드의 자식 길이(칸 수). 분할선을 뺀 길이를 비율의 누적합으로 반올림해 나눈다. 누적합으로 나누므로 합이 늘 그 길이다.
-export const partLengths = (node: GridSplit, length: number): number[] => {
+const partLengths = (node: GridSplit, length: number): number[] => {
   const room = Math.max(length - DIVIDER * (node.children.length - 1), 0)
   const bounds = node.children.map((_, index) => (index == node.children.length - 1
     ? room
@@ -157,7 +157,7 @@ export const splitRects = (node: GridSplit, rect: Rect): { parts: { node: GridNo
   }
 }
 
-export const childRects = (node: GridSplit, rect: Rect) => splitRects(node, rect).parts
+const childRects = (node: GridSplit, rect: Rect) => splitRects(node, rect).parts
 
 // 분할선 `index` 를 부모 시작에서 `at` 칸 자리로 옮긴다. 양옆 두 자식만 길이가 바뀌고, 둘 다 1칸 이상 남긴다.
 // 다른 자식의 길이는 그대로 두고 모든 비율을 지금 칸 수에서 다시 계산한다.

@@ -4,7 +4,7 @@ import { cellsOf, normalize } from './tree'
 // `~/.claude/pane-grid/layout.json` 의 형식과 검사. 이 파일이 배치의 원본이다(docs/grid-and-tabs.md §3.1, 결정 12).
 // 형식: { "version": 1, "tabs": GridTab[] }. 칸 스크롤 위치와 칸 크기는 파일에 적지 않는다.
 
-export const FILE_VERSION = 1
+const FILE_VERSION = 1
 export const TAB_NAME = /^[a-z0-9][a-z0-9_-]{0,31}$/
 const CELL_ID = /^[a-z0-9][a-z0-9_-]{0,31}$/
 const PLUGIN_NAME = /^[a-z0-9][a-z0-9_.-]{0,127}$/

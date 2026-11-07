@@ -95,7 +95,7 @@ def structure():
             "엔진이 정하고 hook 이 바꾸면 거부된다",
             "순서: @inline(--plugin-dir · CLAUDE_CODE_PLUGIN_DIRS)",
             "→ 설치본 → builtin → core",
-            "설치본 순서: enabledPlugins 키 순서 또는 installedAt (미확정)",
+            "설치본 순서: enabledPlugins 키 순서 (grid-and-tabs.md 7회차)",
             "next 를 부르지 않고 답하면 그보다 index 가 큰 hook 은 실행되지 않는다",
         ]),
         ("② 반환 트리 검사", [

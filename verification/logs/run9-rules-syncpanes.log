@@ -1,0 +1,31 @@
+2026-11-07T09:21:02.788Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-07T09:21:03.695Z [DEBUG] ui.open pane-grid grid-main (unasked, 170 columns): placed
+2026-11-07T09:21:19.984Z [DEBUG] ui.open filetree filetree (unasked, 170 columns): placed
+2026-11-07T09:21:36.872Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action next: active cell c1
+2026-11-07T09:21:42.903Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action next: active cell c2
+2026-11-07T09:21:48.933Z [DEBUG] ui.open pane-grid grid-main (asked, 170 columns): placed
+2026-11-07T09:21:48.934Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action zoom: zoomed c2
+2026-11-07T09:21:54.963Z [DEBUG] ui.open pane-grid grid-main (asked, 170 columns): placed
+2026-11-07T09:21:54.964Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action zoom: unzoomed
+2026-11-07T09:22:00.991Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action next: active cell c3
+2026-11-07T09:22:37.870Z [DEBUG] ui.open filetree filetree (unasked, 170 columns): placed
+# run 2: wheel at the c2/c3 boundary
+2026-11-07T09:24:04.609Z [DEBUG] ui.open pane-grid grid-main (unasked, 170 columns): placed
+2026-11-07T09:24:25.589Z [DEBUG] ui.open pane-grid grid-main (asked, 170 columns): placed
+2026-11-07T09:24:25.589Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action select main: showing main
+2026-11-07T09:24:51.135Z [DEBUG] hooks module pane-grid@inline, filetree@claude-code-filetree ui.scroll settled in 3.2ms (worker hop, next() included) key=grid-main
+2026-11-07T09:24:53.157Z [DEBUG] hooks module pane-grid@inline, filetree@claude-code-filetree ui.scroll settled in 2.6ms (worker hop, next() included) key=grid-main
+# screen after wheel at terminal row 16 and row 18 (pane columns only)
+== wheel at terminal row 16 (1-based 17), col 110
+c2 uhd-kanban
+
+
+...
+c3 pending-questions
+Mode: manual [ Switch to auto ] [ Rescan last response 
+
+No pending questions.
+== wheel at terminal row 18 (1-based 19), col 110
+c2 uhd-kanban
+
+
