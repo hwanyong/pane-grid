@@ -168,6 +168,20 @@ r1: Pane requestId=pending-questions placement=dock tree=Box(part=pending-questi
 
 `verification/harness-probe/` 의 `*.test.tsx` 는 `claude plugin test` 용 파일이다. `~/.claude/CLAUDE.md` §16 은 단위 시험 파일을 쓰지 않도록 정하므로, 이 파일들은 API 가능성을 가르기 위한 측정 기록으로만 두고 구현 확인은 §4 의 실제 세션 실행으로 한다.
 
+### 5.1 배포 브랜치 `release`
+
+Claude plugin directory 는 `release` 브랜치를 추적한다. `release` 는 main 의 트리에서 `verification/` 만 뺀 브랜치다. 디렉터리에 올리는 plugin 폴더에는 mod 가 쓰지 않는 시험 mod · debug log 를 넣지 않는다. `.gitattributes` 의 `export-ignore` 로는 뺄 수 없다. 디렉터리 검증이 그 속성을 보면 「Couldn’t validate that repository」 로 멈춘다(Plugin pre-submission checklist 의 Repository and folder layout 표).
+
+`release` 는 직접 고치지 않는다. 배포할 때마다 main 에서 아래 명령으로 만든다. main 에서 `verification/` 안의 파일이 바뀌었으면 merge 가 modify/delete 충돌로 멈추고, `git rm` 이 그 충돌을 삭제로 정한다.
+
+```
+git switch release
+git merge --no-ff --no-commit main
+git rm -r -q --ignore-unmatch verification
+git commit -m "release: <버전>"
+git push origin release
+```
+
 ## 6. 정한 것
 
 1. `verification/harness-probe/` 는 ✕1 ~ ✕5 와 3.2 · 3.3 을 뺀 결정의 근거로 남긴다(2026-11-06 사용자 결정, `docs/grid-and-tabs.md` 결정 11).
