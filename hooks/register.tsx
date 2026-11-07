@@ -31,6 +31,9 @@ const ENGINE_NAME = 'engine'
 const INSTALLED_TIERS: readonly Tier[] = ['prepend', 'user', 'append']
 // 빈 칸 선택지의 hotkey 는 활성 칸에서만 1-9 를 붙인다. 칸마다 붙이면 같은 숫자가 겹친다.
 const CHOICE_HOTKEYS = 9
+// 규약 mod 의 hook 은 pane-grid 의 hook 보다 아래(뒤에 로드)에 있어야 next(e) 결과에 칸 Box 가 들어온다.
+// 설치본의 순서는 ~/.claude/settings.json 의 enabledPlugins 키 순서다(docs/grid-and-tabs.md §4.1 7회차).
+const ORDER_HINT = 'install it, or put pane-grid first in enabledPlugins'
 
 // docs/grid-and-tabs.md §2.3 결정 10. 이름 바꾸기(`r`)는 이름 입력이 필요해 slash 명령으로만 한다.
 const HOTKEYS: { key: string; label: string; words: string[] }[] = [
@@ -246,7 +249,7 @@ export const register: Register = on => {
 
     // 빈 칸: 불러온 규약 mod 를 Button 으로 늘어놓는다. 누르면 그 칸에 놓고(다른 칸에 있던 것은 옮긴다) 그 칸을 활성으로 한다.
     const drawChoices = (id: string, isActive: boolean): RenderElement => {
-      if (ready.length == 0) return <Text dimColor>{'empty: no grid-ready mod is loaded. /grid place <plugin>'}</Text>
+      if (ready.length == 0) return <Text dimColor>{`empty: no grid-ready mod is loaded after pane-grid. ${ORDER_HINT}`}</Text>
       return (
         <Box flexDirection="column">
           <Text dimColor>empty. place a mod here:</Text>
@@ -260,12 +263,15 @@ export const register: Register = on => {
       )
     }
 
+    // 놓인 mod 가 칸 Box 를 내지 않았을 때: trace 에 없으면 설치되지 않았거나 pane-grid 보다 먼저 로드된 것이다.
+    const placedNote = (plugin: string) => (ready.includes(plugin) ? `${plugin} draws nothing here` : `${plugin} is not loaded after pane-grid: ${ORDER_HINT}`)
+
     const drawCell = (id: string, rect: Rect): RenderElement => {
       const cell = findCell(tab.root, id)
       const isActive = id == tab.active
       const size = contentSize(rect)
       const content = cell?.plugin ? cells.get(cell.plugin) : undefined
-      const empty = cell?.plugin ? <Text dimColor>{cell.plugin} draws nothing here</Text> : drawChoices(id, isActive)
+      const empty = cell?.plugin ? <Text dimColor>{placedNote(cell.plugin)}</Text> : drawChoices(id, isActive)
       return (
         <Box key={`cellbox:${id}`} width={rect.width} height={rect.height} flexDirection="column" borderStyle="round" borderColor={isActive ? ACTIVE_COLOR : undefined} borderDimColor={!isActive}>
           <Button key={`title:${id}`} plain label={`${id} ${cell?.plugin ?? '-'}`} dimColor={!isActive} onPress={activate(id)} />

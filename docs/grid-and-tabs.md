@@ -240,6 +240,8 @@ tmux 세션(170열 × 45행) 안에서 실행했고, 탭 전환 · Button 누르
 | 3 | pane-grid · usage-gauge · uhd-kanban · pending-questions | `$CLAUDE_JOB_DIR/tmp/pg3`(`uhd-kanban init` 으로 만든 보드, 카드 7장) | `verification/logs/impl-three-mods.log` · `impl-three-mods-screen.txt` |
 | 4 | 3회차와 같다. 배치 형식을 아래 「tsc 로 고친 것」대로 바꾼 뒤 | 같은 폴더 | `verification/logs/impl-children.log` · `impl-children-screen.txt` |
 | 5 | 4회차와 같은 네 mod. 빈 칸 선택지(§3.6)를 넣은 뒤. 설치판 대신 HOME 을 시험 폴더로 바꿔 사용자의 `~/.claude/pane-grid/layout.json` 을 읽지 않았다 | `$CLAUDE_JOB_DIR/tmp/pick` | `verification/logs/impl-choices.log` |
+| 6 | pane-grid 와 `tool-calls`(plugin-authoring 스킬의 예제 `pane.tsx` 를 그대로 쓴 pane mod). 그 mod 를 `skills/add-pane-grid-cell` 스킬로 고친 뒤 | `$CLAUDE_JOB_DIR/tmp/skilltest` | `verification/logs/skill-tool-calls.diff` · `skill-tool-calls.log` |
+| 7 | 설치본 네 개(usage-gauge · uhd-kanban · pending-questions · pane-grid). 저장소마다 로컬 마켓플레이스로 `claude plugin install` 을 이 순서로 실행했다. `--plugin-dir` 없이 세 번 실행했다 | `$CLAUDE_JOB_DIR/tmp/order` | `verification/logs/install-order.log` |
 
 로그는 debug log 에서 판정에 쓴 줄만 뽑았다. 3회차 로그의 `PGDIAG` 줄은 시험 동안 uhd-kanban 에 넣었다가 지운 진단 줄이다.
 
@@ -269,6 +271,27 @@ tsc 로 고친 것(4회차 전):
 4회차 결과: `/grid split -h uhd-kanban` · `split -v usage-gauge` · `place pending-questions` · `resize 40` 뒤 `layout.json` 이 새 형식으로 쓰였고, 세 mod 가 칸에 그렸다(c1 26열 = 67열의 40%). `/grid place -` 로 uhd-kanban 을 빼자 자기 pane 이 다시 열렸다. 그래서 `as never` 로 넘긴 matcher 가 실행 중에도 pane-grid 의 `layout` 쓰기를 고른다. debug log 의 `uhd-kanban@inline state.set skipped: re-entry (the plugin's own code raised it; …)` 줄 두 개는 uhd-kanban 이 자기 state 를 쓸 때 엔진이 같은 mod 의 `state.set` hook 을 matcher 를 보기 전에 빼고 남긴 것이다(2.1.319 실행 파일의 그 문자열 앞 코드에서 읽었다). matcher 가 `pane-grid` 라 빼지 않아도 실행되지 않는다.
 
 5회차 결과: 칸 두 개(c1 usage-gauge · c2 빈 칸)로 시작했다. c2 에 선택지 세 개(`1: pending-questions` · `2: uhd-kanban` · `3: usage-gauge (move from c1)`)가 그려졌다. grid pane 을 클릭해 포커스를 준 뒤 `2` 를 누르자 c2 에 uhd-kanban 이 놓였다. `s` 로 c2 를 나눠 생긴 c3 에서 `3` 을 누르자 usage-gauge 가 c1 에서 c3 으로 옮겨졌고, 빈 c1 의 선택지는 hotkey 없이 그려졌다. c1 의 `pending-questions` 를 클릭하자 c1 에 놓였고 pending-questions 자기 pane 탭이 닫혔다. 선택지에 규약 mod 가 아닌 이름은 나오지 않았다(이 시험에서 불러온 user tier mod 는 네 개뿐이다). 실패한 hook 줄은 0건이었다.
+
+6회차 결과: `tool-calls` 저장소에서 `claude -p "/pane-grid:add-pane-grid-cell"` 를 실행했다. 스킬은 `hooks/pane-grid.ts` 를 복사하고 `readShownTab` 을 지웠고(타이머가 없는 mod), 가이드의 Step 1 ~ 4(자기 pane 의 경우)를 적용하고 Step 5 · 6 은 해당 hook 이 없다는 이유로 건너뛰었다. 고친 mod 는 `claude plugin validate` 통과, tsc 오류 0건이었다. 실제 세션에서 빈 칸의 선택지에 `1: tool-calls` 가 그려졌고, `1` 을 누르자 칸에 그려지고 자기 pane 탭이 닫혔다. `/grid place -` 뒤 자기 pane 이 다시 열렸다(`ui.open tool-calls tool-calls (unasked, 200 columns): placed`). 실패한 hook 줄은 0건이었다.
+
+7회차 결과: 1회차 ~ 6회차는 모두 pane-grid 를 `--plugin-dir` 의 첫 폴더로 불러왔고, 설치본은 시험하지 않았다. 세 번 실행했다.
+
+| 실행 | `enabledPlugins` 키 순서 | 로드 순서(`$ built for`) | 칸 |
+|---|---|---|---|
+| a | 설치한 순서. pane-grid 가 마지막 | usage-gauge → uhd-kanban → pending-questions → pane-grid | 두 칸 모두 `<plugin> draws nothing here` |
+| b | pane-grid 키만 맨 앞으로 옮겼다. `installedAt` 은 그대로 | pane-grid → usage-gauge → uhd-kanban → pending-questions | 두 칸 모두 그려졌다 |
+| c | a 와 같다. 칸 안내 문구를 고친 `register.tsx` 를 설치본 폴더에 복사한 뒤 | a 와 같다 | 두 칸 모두 `<plugin> is not loaded after pane-grid: install it, or put pane-grid first in enabledPlugins` |
+
+- 설치본의 로드 순서는 `enabledPlugins` 키 순서다. `installedAt` 을 바꾸지 않고 키 순서만 바꿨는데 로드 순서가 따라 바뀌었다. `docs/direction.md` 의 R1c 가 남긴 질문의 답이다.
+- 규약 mod 가 pane-grid 보다 먼저 로드되면 규약 mod 의 hook 이 바깥에서 실행된다. pane-grid 의 `next(e)` 결과에 `cell:` Box 가 없고, 규약 mod 는 pane-grid 가 반환한 grid 뒤에 Box 를 덧붙인다. 칸 수집이 실행 순서에 묶여 있다는 뜻이다.
+- 빈 칸 선택지(`next.trace`)에도 pane-grid 보다 먼저 로드된 mod 는 나오지 않는다. trace 는 pane-grid 아래에서 실행된 hook 만 적는다.
+- 그래서 칸 안내 문구를 두 가지로 나눴다(`hooks/register.tsx` 의 `placedNote`). trace 에 이름이 있는데 Box 가 없으면 `draws nothing here`, trace 에 이름이 없으면 설치하거나 `enabledPlugins` 의 순서를 바꾸라고 적는다. README 의 「Install order matters」 절과 `docs/add-pane-grid-cell.md` Step 7 에 같은 조건을 적었다.
+
+녹화(`verification/demo/record.py`)에서 본 것(2.1.319):
+
+- hotkey 줄의 `q: list` 같은 글자는 Button 이다. 그 자리를 클릭하면 그 동작이 실행되고 포커스는 prompt 에 남아 다음 글자 키가 prompt 에 입력됐다. Button 이 없는 자리(hotkey 줄의 오른쪽 끝)를 클릭하면 포커스가 grid pane 으로 옮겨졌다.
+- `c`(`/grid new`)로 연 탭은 숨은 탭으로 열렸고 보이는 탭은 바뀌지 않았다. 탭 표시줄의 이름을 클릭하자 보였다.
+- 칸에 놓이지 않은 규약 mod 가 자기 pane 을 열면 grid 탭이 숨은 탭이 될 수 있었다. 이때 `/grid select main` 으로 보이게 했다.
 
 ### 4.2 남은 확인
 

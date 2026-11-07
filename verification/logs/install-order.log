@@ -1,0 +1,25 @@
+# 7회차: 설치본 네 개(로컬 마켓플레이스), HOME=$CLAUDE_JOB_DIR/tmp/order/home, claude 2.1.319
+
+## run a
+hooks module usage-gauge@usage-gauge loaded
+hooks module uhd-kanban@skill-kanban loaded
+hooks module pending-questions@pending-questions loaded
+hooks module pane-grid@pane-grid loaded
+$ built for usage-gauge,uhd-kanban,pending-questions,pane-grid,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+failed hook lines: 0
+
+## run b
+hooks module pane-grid@pane-grid loaded
+hooks module usage-gauge@usage-gauge loaded
+hooks module uhd-kanban@skill-kanban loaded
+hooks module pending-questions@pending-questions loaded
+$ built for pane-grid,usage-gauge,uhd-kanban,pending-questions,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+failed hook lines: 0
+
+## run c
+hooks module usage-gauge@usage-gauge loaded
+hooks module uhd-kanban@skill-kanban loaded
+hooks module pending-questions@pending-questions loaded
+hooks module pane-grid@pane-grid loaded
+$ built for usage-gauge,uhd-kanban,pending-questions,pane-grid,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+failed hook lines: 0

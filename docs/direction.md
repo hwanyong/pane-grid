@@ -48,6 +48,8 @@ Claude Code 의 mod(function hooks plugin)는 `$.ui.open` 으로 pane 을 연다
 
 ### 3.1 규약 mod: `slot:<plugin>` 규약
 
+구현한 규약은 이 절과 다르다(`docs/grid-and-tabs.md` §3.2 · §3.3). pane id 는 `grid` 하나가 아니라 배치마다 `grid-<이름>` 이고, 규약 mod 의 matcher 는 `requestId: /^grid-/` 다. `pane-grid` 는 `slot:<plugin>` Box 를 그리지 않고 `cell:<plugin>` Box 만 모은다(`hooks/register.tsx` 의 `CELL_KEY`). 그래서 규약 mod 는 `cell:<plugin>` Box 를 덧붙이기만 하고, `pane-grid` 가 규약 mod 보다 먼저 로드되어야 한다(아래 줄의 「`cell:*` 쪽」만 구현했다. 설치본에서 확인한 것은 `docs/grid-and-tabs.md` §4.1 7회차). 규약 mod 를 만드는 절차는 `docs/add-pane-grid-cell.md` 가 갖는다. 아래는 2026-11-06 의 처음 설계로 남긴다.
+
 - `pane-grid` 가 pane `grid` 를 열고 배치 정보에 따라 `key="slot:<plugin>"` Box 를 행 · 열로 그린다.
 - 규약 mod 는 `{ component: 'Pane', requestId: 'grid' }` 를 hook 한다. `next(e)` 결과에 자기 `slot:<plugin>` 이 있으면 그 Box 를 채우고, 없으면 `key="cell:<plugin>"` Box 를 덧붙여 반환한다.
 - `pane-grid` 는 `next(e)` 결과에서 `cell:*` Box 를 모아 제자리에 둔다.
@@ -122,7 +124,7 @@ r1: Pane requestId=pending-questions placement=dock tree=Box(part=pending-questi
 - debug log 의 로드 순서는 `usage-gauge` → `uhd-kanban` → `pending-questions` → `filetree` → `pane-grid-r1` 이었다(`hooks module ... loaded` 줄과 `$ built for` 줄). 시험 mod 가 대상 mod 들보다 아래에 있었고, 대상 mod 의 hook 이 `next(e)` 를 부르지 않아 그 아래가 실행되지 않았다.
 - 이 실행이 R1 의 실패 쪽 확인을 겸한다. 아래에 있으면 로그가 0줄이다.
 - 끝난 뒤 `claude plugin uninstall pane-grid-r1@pane-grid` 와 `claude plugin marketplace remove pane-grid` 를 실행하고 `marketplace.json` 을 지웠다. `~/.claude/settings.json` 은 설치 전 사본과 `diff` 로 같았다.
-- 남은 것: 순서를 정하는 것이 `enabledPlugins` 키 순서인지 `installedAt` 인지는 이번에도 가르지 못했다. 두 값이 같은 순서로 움직였다(R1c).
+- 남은 것: 순서를 정하는 것이 `enabledPlugins` 키 순서인지 `installedAt` 인지는 이번에도 가르지 못했다. 두 값이 같은 순서로 움직였다(R1c). 2026-11-07 에 키 순서만 바꿔 실행해 `enabledPlugins` 키 순서로 확인했다(`docs/grid-and-tabs.md` §4.1 7회차).
 
 **R1c 중 `CLAUDE_CODE_PLUGIN_DIRS`: 통과(2026-11-06).** `--plugin-dir` 도 설치본도 없이, 세션 하나에만 `CLAUDE_CODE_PLUGIN_DIRS=<저장소>/verification/r1-order` 를 주고 시작했다(`verification/logs/r1c.log`).
 
