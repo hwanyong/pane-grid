@@ -175,6 +175,20 @@ on('state.set', { plugin: 'pane-grid', key: 'layout' }, async ($, e, next) => {
 
 `placeOwnPane` 은 `$.ui.panes()` 로 자기 pane 이 열렸는지 보고, 칸이 있으면 `$.ui.close`, 없으면 `$.ui.open` 을 부른다. 이 hook 은 pane-grid 의 `state.set` 안에서 실행된다(debug log `state.set nested in pane-grid-r20-host#2`).
 
+### 3.6 빈 칸의 선택지
+
+2026-11-07 사용자 제안(「빈 칸이 열리면 선택 가능한 플러그인을 보여주는 것은 어떨까?」)으로 넣었다. 빈 칸은 `/grid place <plugin>` 안내 한 줄 대신 지금 불러온 규약 mod 를 Button 으로 늘어놓는다.
+
+| 항목 | 정한 것 |
+|---|---|
+| 선택지의 출처 | pane-grid 의 grid pane `ui.render` hook 이 `await next(e)` 뒤 읽는 `next.trace`. 그 render 에서 실행된 hook 의 plugin 이름 중 tier 가 `prepend` · `user` · `append` 이고 `pane-grid` · `engine` 이 아닌 것. 규약 mod 는 칸이 없어도 §3.3 ① 의 hook 을 걸고 `next(e)` 를 반환하므로 이름이 남는다. 규약 mod 쪽은 고칠 것이 없다 |
+| 누르면 | `place <plugin> <칸 id>`. 그 칸에 놓고 그 칸을 활성으로 한다. 다른 칸에 있던 같은 mod 는 비운다(결정 6). 다른 칸에 있는 mod 는 `(move from c1)` 처럼 지금 칸을 붙여 적는다 |
+| hotkey | 활성 칸의 선택지에만 `1` ~ `9`. 칸마다 붙이면 같은 숫자가 겹치고, 엔진은 같은 hotkey 의 Button 중 나중에 그린 것을 누른다. 활성이 아닌 칸의 선택지는 클릭으로 누른다 |
+| 선택지가 0개 | `empty: no grid-ready mod is loaded. /grid place <plugin>` |
+| 한계 | grid pane 의 `ui.render` 에 걸리는 hook 을 가진 mod 는 규약 mod 가 아니어도 선택지에 나온다(matcher 없이 모든 `ui.render` 를 hook 하는 mod). 그런 mod 를 놓으면 칸에 `<plugin> draws nothing here` 가 그려진다 |
+
+`/grid place` 는 칸 id 를 두 번째 인자로 받도록 넓혔다(`place <plugin>|- [<id>]`). 생략하면 전처럼 활성 칸이다.
+
 ## 4. 실행해서 확인한 것
 
 시험 mod 두 개를 `verification/r11-state/` 에 두었다. `host/` 는 pane-grid 역할(배치 state 를 쓰고 pane `r11grid-a`(Grid A) · `r11grid-b`(Grid B)를 연다), `member/` 는 규약 mod 역할(자기 pane `r11m` 과 grid 칸을 그리고 자기 state `count` 를 4초마다 올린다)이다. 실행 명령과 로그:
@@ -225,6 +239,7 @@ tmux 세션(170열 × 45행) 안에서 실행했고, 탭 전환 · Button 누르
 | 2 | usage-gauge 만 | 같은 폴더 | `verification/logs/impl-usage-gauge-alone.log` |
 | 3 | pane-grid · usage-gauge · uhd-kanban · pending-questions | `$CLAUDE_JOB_DIR/tmp/pg3`(`uhd-kanban init` 으로 만든 보드, 카드 7장) | `verification/logs/impl-three-mods.log` · `impl-three-mods-screen.txt` |
 | 4 | 3회차와 같다. 배치 형식을 아래 「tsc 로 고친 것」대로 바꾼 뒤 | 같은 폴더 | `verification/logs/impl-children.log` · `impl-children-screen.txt` |
+| 5 | 4회차와 같은 네 mod. 빈 칸 선택지(§3.6)를 넣은 뒤. 설치판 대신 HOME 을 시험 폴더로 바꿔 사용자의 `~/.claude/pane-grid/layout.json` 을 읽지 않았다 | `$CLAUDE_JOB_DIR/tmp/pick` | `verification/logs/impl-choices.log` |
 
 로그는 debug log 에서 판정에 쓴 줄만 뽑았다. 3회차 로그의 `PGDIAG` 줄은 시험 동안 uhd-kanban 에 넣었다가 지운 진단 줄이다.
 
@@ -252,6 +267,8 @@ tsc 로 고친 것(4회차 전):
 - 고친 뒤 네 플러그인 모두 tsc 오류 0건, `claude plugin validate` 통과다.
 
 4회차 결과: `/grid split -h uhd-kanban` · `split -v usage-gauge` · `place pending-questions` · `resize 40` 뒤 `layout.json` 이 새 형식으로 쓰였고, 세 mod 가 칸에 그렸다(c1 26열 = 67열의 40%). `/grid place -` 로 uhd-kanban 을 빼자 자기 pane 이 다시 열렸다. 그래서 `as never` 로 넘긴 matcher 가 실행 중에도 pane-grid 의 `layout` 쓰기를 고른다. debug log 의 `uhd-kanban@inline state.set skipped: re-entry (the plugin's own code raised it; …)` 줄 두 개는 uhd-kanban 이 자기 state 를 쓸 때 엔진이 같은 mod 의 `state.set` hook 을 matcher 를 보기 전에 빼고 남긴 것이다(2.1.319 실행 파일의 그 문자열 앞 코드에서 읽었다). matcher 가 `pane-grid` 라 빼지 않아도 실행되지 않는다.
+
+5회차 결과: 칸 두 개(c1 usage-gauge · c2 빈 칸)로 시작했다. c2 에 선택지 세 개(`1: pending-questions` · `2: uhd-kanban` · `3: usage-gauge (move from c1)`)가 그려졌다. grid pane 을 클릭해 포커스를 준 뒤 `2` 를 누르자 c2 에 uhd-kanban 이 놓였다. `s` 로 c2 를 나눠 생긴 c3 에서 `3` 을 누르자 usage-gauge 가 c1 에서 c3 으로 옮겨졌고, 빈 c1 의 선택지는 hotkey 없이 그려졌다. c1 의 `pending-questions` 를 클릭하자 c1 에 놓였고 pending-questions 자기 pane 탭이 닫혔다. 선택지에 규약 mod 가 아닌 이름은 나오지 않았다(이 시험에서 불러온 user tier mod 는 네 개뿐이다). 실패한 hook 줄은 0건이었다.
 
 ### 4.2 남은 확인
 

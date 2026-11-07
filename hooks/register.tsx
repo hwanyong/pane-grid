@@ -1,5 +1,5 @@
 import { update } from 'claude-code'
-import type { EngineInterface, Register, RenderElement, RenderNode } from 'claude-code'
+import type { EngineInterface, Register, RenderElement, RenderNode, Tier, TraceEntry } from 'claude-code'
 import type { GridLayout, GridNode, GridPlacement, GridScroll, GridShown, GridTab } from '../types'
 import { apply, checkOutcome } from './actions'
 import { defaultTabs, parseLayoutFile, serializeLayoutFile } from './layout-file'
@@ -25,6 +25,12 @@ const SHOWN_POLL_MS = 1000
 // 규약 mod 가 칸에 그린 Box 의 key 머리말. 뒤에 mod 이름이 온다(docs/grid-and-tabs.md §3.3).
 const CELL_KEY = 'cell:'
 const ACTIVE_COLOR = 'green'
+// trace 에서 규약 mod 를 고를 때 빼는 이름과 tier. 사람이 설치한 mod 만 빈 칸의 선택지가 된다.
+const OWN_NAME = 'pane-grid'
+const ENGINE_NAME = 'engine'
+const INSTALLED_TIERS: readonly Tier[] = ['prepend', 'user', 'append']
+// 빈 칸 선택지의 hotkey 는 활성 칸에서만 1-9 를 붙인다. 칸마다 붙이면 같은 숫자가 겹친다.
+const CHOICE_HOTKEYS = 9
 
 // docs/grid-and-tabs.md §2.3 결정 10. 이름 바꾸기(`r`)는 이름 입력이 필요해 slash 명령으로만 한다.
 const HOTKEYS: { key: string; label: string; words: string[] }[] = [
@@ -180,6 +186,11 @@ const collectCells = (node: RenderNode, out: Map<string, RenderElement>): void =
   if ('children' in node) for (const child of node.children ?? []) collectCells(child, out)
 }
 
+// grid pane 의 ui.render 에 hook 을 건 mod: 규약 mod 는 놓이지 않았어도 이 hook 을 걸고 있으므로 next.trace 에 이름이 남는다.
+const gridReady = (trace: readonly TraceEntry[]) => [
+  ...new Set(trace.filter(entry => INSTALLED_TIERS.includes(entry.tier) && entry.plugin != OWN_NAME && entry.plugin != ENGINE_NAME).map(entry => entry.plugin)),
+].sort()
+
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     run.home = String((await $.env.get('HOME')) ?? '')
@@ -220,6 +231,8 @@ export const register: Register = on => {
     const below = await next(e)
     const cells = new Map<string, RenderElement>()
     collectCells(below, cells)
+    const ready = gridReady(next.trace)
+    const placedIn = new Map((layout?.tabs ?? []).flatMap(item => cellsOf(item.root)).flatMap(cell => (cell.plugin ? [[cell.plugin, cell.id] as const] : [])))
     const measured = { columns: e.props.bodyColumns, rows: e.props.scroll.bodyRows }
     const before = run.measured.get(tab.name)
     if (!before || before.columns != measured.columns || before.rows != measured.rows) {
@@ -231,14 +244,28 @@ export const register: Register = on => {
     const activate = (id: string) => () => void runAction($, ['select-cell', id])
     const press = (words: string[]) => async () => $.ui.toast(`pane-grid: ${(await runAction($, words)).split('\n')[0]}`)
 
+    // 빈 칸: 불러온 규약 mod 를 Button 으로 늘어놓는다. 누르면 그 칸에 놓고(다른 칸에 있던 것은 옮긴다) 그 칸을 활성으로 한다.
+    const drawChoices = (id: string, isActive: boolean): RenderElement => {
+      if (ready.length == 0) return <Text dimColor>{'empty: no grid-ready mod is loaded. /grid place <plugin>'}</Text>
+      return (
+        <Box flexDirection="column">
+          <Text dimColor>empty. place a mod here:</Text>
+          {ready.map((plugin, index) => {
+            const from = placedIn.get(plugin)
+            const label = from ? `${plugin} (move from ${from})` : plugin
+            const hotkey = isActive && index < CHOICE_HOTKEYS ? String(index + 1) : undefined
+            return <Button key={`place:${id}:${plugin}`} plain label={label} hotkey={hotkey} onPress={press(['place', plugin, id])} />
+          })}
+        </Box>
+      )
+    }
+
     const drawCell = (id: string, rect: Rect): RenderElement => {
       const cell = findCell(tab.root, id)
       const isActive = id == tab.active
       const size = contentSize(rect)
       const content = cell?.plugin ? cells.get(cell.plugin) : undefined
-      const empty = cell?.plugin
-        ? <Text dimColor>{cell.plugin} draws nothing here</Text>
-        : <Text dimColor>{'empty: /grid place <plugin>'}</Text>
+      const empty = cell?.plugin ? <Text dimColor>{cell.plugin} draws nothing here</Text> : drawChoices(id, isActive)
       return (
         <Box key={`cellbox:${id}`} width={rect.width} height={rect.height} flexDirection="column" borderStyle="round" borderColor={isActive ? ACTIVE_COLOR : undefined} borderDimColor={!isActive}>
           <Button key={`title:${id}`} plain label={`${id} ${cell?.plugin ?? '-'}`} dimColor={!isActive} onPress={activate(id)} />

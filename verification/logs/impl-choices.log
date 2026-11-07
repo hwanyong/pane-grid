@@ -1,0 +1,15 @@
+2026-11-07T06:38:11.774Z [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=usage-gauge
+2026-11-07T06:38:11.794Z [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=usage-gauge
+2026-11-07T06:38:26.332Z [pane-grid] $.ui.log (to debug): pane-grid: action select main: showing main
+2026-11-07T06:38:42.972Z [pane-grid] $.ui.log (to debug): pane-grid: layout revision=3 tabs=main placed=usage-gauge,uhd-kanban
+2026-11-07T06:38:42.973Z [pane-grid] $.ui.log (to debug): pane-grid: action place uhd-kanban c2: placed uhd-kanban in c2
+2026-11-07T06:38:42.973Z $.ui.toast (pane-grid): pane-grid: placed uhd-kanban in c2
+2026-11-07T06:38:50.106Z [pane-grid] $.ui.log (to debug): pane-grid: layout revision=4 tabs=main placed=usage-gauge,uhd-kanban
+2026-11-07T06:38:50.107Z [pane-grid] $.ui.log (to debug): pane-grid: action split -v: split c2 into c2 and c3
+2026-11-07T06:38:50.107Z $.ui.toast (pane-grid): pane-grid: split c2 into c2 and c3
+2026-11-07T06:38:52.623Z [pane-grid] $.ui.log (to debug): pane-grid: layout revision=5 tabs=main placed=uhd-kanban,usage-gauge
+2026-11-07T06:38:52.625Z [pane-grid] $.ui.log (to debug): pane-grid: action place usage-gauge c3: placed usage-gauge in c3
+2026-11-07T06:38:52.625Z $.ui.toast (pane-grid): pane-grid: placed usage-gauge in c3
+2026-11-07T06:39:03.145Z [pane-grid] $.ui.log (to debug): pane-grid: layout revision=6 tabs=main placed=pending-questions,uhd-kanban,usage-gauge
+2026-11-07T06:39:03.146Z [pane-grid] $.ui.log (to debug): pane-grid: action place pending-questions c1: placed pending-questions in c1
+2026-11-07T06:39:03.146Z $.ui.toast (pane-grid): pane-grid: placed pending-questions in c1

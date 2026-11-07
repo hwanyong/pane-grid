@@ -16,22 +16,22 @@ export type Outcome = {
 }
 
 export const USAGE = [
-  'split -h|-v [plugin]   split the active cell left-right (-h) or top-bottom (-v)',
-  'kill                   remove the active cell',
-  'next                   make the next cell active',
-  'select-cell <id>       make that cell active',
-  'place <plugin>|-       put a plugin in the active cell, or empty it',
-  'swap [<id>]            swap the active cell with that cell (default: the next one)',
-  'zoom                   draw the active cell alone, or undo it',
-  'resize <1-99>          set the active cell\'s share of its parent in percent',
-  `layout <preset>        ${PRESETS.join(' | ')}`,
-  'new [<name>]           open a new tab',
-  'select <name>          show that tab',
-  'rename <name>          rename the current tab',
-  'close                  close the current tab',
-  'break                  move the active cell to a new tab',
-  'list                   print the tabs and their cells',
-  'reload                 read ~/.claude/pane-grid/layout.json again',
+  'split -h|-v [plugin]     split the active cell left-right (-h) or top-bottom (-v)',
+  'kill                     remove the active cell',
+  'next                     make the next cell active',
+  'select-cell <id>         make that cell active',
+  'place <plugin>|- [<id>]  put a plugin in the active cell (or that cell), or empty it',
+  'swap [<id>]              swap the active cell with that cell (default: the next one)',
+  'zoom                     draw the active cell alone, or undo it',
+  'resize <1-99>            set the active cell\'s share of its parent in percent',
+  `layout <preset>          ${PRESETS.join(' | ')}`,
+  'new [<name>]             open a new tab',
+  'select <name>            show that tab',
+  'rename <name>            rename the current tab',
+  'close                    close the current tab',
+  'break                    move the active cell to a new tab',
+  'list                     print the tabs and their cells',
+  'reload                   read ~/.claude/pane-grid/layout.json again',
 ].join('\n')
 
 const same = (tabs: GridTab[], current: string, text: string): Outcome => ({ tabs, current, text, isChanged: false })
@@ -93,12 +93,13 @@ export const apply = (tabs: GridTab[], current: string, words: string[]): Outcom
   }
 
   if (verb == 'place') {
-    const [plugin] = rest
-    if (!plugin) return same(tabs, tab.name, 'usage: place <plugin>|-')
+    const [plugin, id = tab.active] = rest
+    if (!plugin) return same(tabs, tab.name, 'usage: place <plugin>|- [<id>]')
+    if (!findCell(tab.root, id)) return same(tabs, tab.name, `no cell ${id} in ${tab.name}`)
     const base = plugin == '-' ? tabs : unplace(tabs, plugin)
     const own = base.find(item => item.name == tab.name) ?? tab
-    const root = mapCells(own.root, cell => (cell.id != own.active ? cell : plugin == '-' ? { kind: 'cell', id: cell.id } : { kind: 'cell', id: cell.id, plugin }))
-    return changed(replaceTab(base, { ...own, root }), tab.name, plugin == '-' ? `emptied ${own.active}` : `placed ${plugin} in ${own.active}`)
+    const root = mapCells(own.root, cell => (cell.id != id ? cell : plugin == '-' ? { kind: 'cell', id } : { kind: 'cell', id, plugin }))
+    return changed(replaceTab(base, { ...own, root, active: id }), tab.name, plugin == '-' ? `emptied ${id}` : `placed ${plugin} in ${id}`)
   }
 
   if (verb == 'swap') {
