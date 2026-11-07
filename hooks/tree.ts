@@ -1,4 +1,4 @@
-import type { GridCell, GridChild, GridNode, GridSplit, GridTab } from './grid-types'
+import type { GridCell, GridChild, GridNode, GridSplit, GridTab } from '../types/index.d.ts'
 
 // 배치 트리를 다루는 순수 함수. 입력 트리를 바꾸지 않고 새 트리를 반환한다.
 // 크기 규칙은 tmux 3.7c 실측(docs/grid-and-tabs.md §2.1)을 따른다.

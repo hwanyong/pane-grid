@@ -1,6 +1,6 @@
 import { update } from 'claude-code'
 import type { EngineInterface, Register, RenderElement, RenderNode, Tier, TraceEntry } from 'claude-code'
-import type { GridLayout, GridNode, GridPlacement, GridScroll, GridShown, GridTab } from './grid-types'
+import type { GridLayout, GridNode, GridPlacement, GridScroll, GridShown, GridTab } from '../types/index.d.ts'
 import { apply, checkOutcome } from './actions'
 import { defaultTabs, parseLayoutFile, serializeLayoutFile } from './layout-file'
 import { isScrollIn, scrollsKey, TOOLBAR_KEYS } from '../skills/add-pane-grid-cell/pane-grid'
@@ -372,10 +372,11 @@ export const register: Register = on => {
     run.measured.set(tab.name, measured)
     const { Box, Text, Button } = $.ui.resolve(e)
     // Client(surface module)는 terminal · desktop 의 표에만 있다. 다른 surface 에서는 분할선을 글자로 그리고, 칸 누름은 덮지 않는다.
-    // `e.surface` 로 좁힌 뒤 꺼낸다. plugin directory 의 검증은 `'Client' in …` 으로 고른 Client 를 읽지 못해 차단한다.
-    const Client = e.surface == 'terminal' || e.surface == 'desktop' ? $.ui.resolve(e).Client : undefined
+    // Client 는 `h('Client', { module: './<name>.tsx', … })` 로 적는다. plugin directory 의 검증은 Client 요소를 이 꼴(또는 `<Client module=… />`)로만 읽고,
+    // 표에서 꺼낸 Client 를 값으로 쓰면(조건 · 대입) 차단한다(MOD_IMPORT_DYNAMIC_COMPUTED). 그래서 그릴지는 surface 로 가른다.
+    const hasClient = e.surface == 'terminal' || e.surface == 'desktop'
     // 잰 크기는 measure Client 가 ui.message 로 돌려보내 그 hook 이 칸 크기를 쓴다. Client 가 없는 surface 에서는 render 가 끝난 뒤 쓴다.
-    if (isResized && !Client) $.clock.after(0, () => void publishPlacements($))
+    if (isResized && !hasClient) $.clock.after(0, () => void publishPlacements($))
 
     // 빈 칸: pane-grid 아래의 규약 mod(trace) 를 Button 으로 늘어놓는다. 위의 규약 mod 는 이 `choices:` Box 에 자기 Button 을 더한다.
     // 누름은 ui.press hook 이 받아 그 칸에 놓고(다른 칸에 있던 것은 옮긴다) 그 칸을 활성으로 한다.
@@ -411,18 +412,18 @@ export const register: Register = on => {
           <Box width={size.columns} height={size.rows} overflow="hidden" flexDirection="column">
             <Box marginTop={-(scroll[id] ?? 0)} flexShrink={0} flexDirection="column">{cell?.plugin ? drawSlot(cell.plugin) : drawChoices(id, isActive)}</Box>
           </Box>
-          {isActive || !Client ? null : (
+          {isActive || !hasClient ? null : (
             <Box position="absolute" top={0} left={0} width={rect.width} height={rect.height}>
-              <Client key={`${ACTIVATE_KEY}${id}`} module="./activate.tsx" props={null} width={rect.width} height={rect.height} />
+              {h('Client', { key: `${ACTIVATE_KEY}${id}`, module: './activate.tsx', props: null, width: rect.width, height: rect.height })}
             </Box>
           )}
         </Box>
       )
     }
 
-    const drawDivider = (kind: 'row' | 'column', path: string, index: number, start: number, rect: Rect): RenderElement => {
+    const drawDivider = (kind: 'row' | 'column', path: string, index: number, start: number, rect: Rect): RenderNode | null | undefined => {
       const key = `${DIVIDER_KEY}${path}:${index}`
-      if (Client) return <Client key={key} module="./divider.tsx" props={{ kind, start, length: kind == 'row' ? rect.height : rect.width }} width={rect.width} height={rect.height} />
+      if (hasClient) return h('Client', { key, module: './divider.tsx', props: { kind, start, length: kind == 'row' ? rect.height : rect.width }, width: rect.width, height: rect.height })
       const line = kind == 'row' ? Array.from({ length: rect.height }, () => VERTICAL).join('\n') : HORIZONTAL.repeat(rect.width)
       return <Box key={key} width={rect.width} height={rect.height}><Text dimColor>{line}</Text></Box>
     }
@@ -455,7 +456,7 @@ export const register: Register = on => {
         </Box>
         {drawRule()}
         {grid}
-        {Client ? <Client key={`${MEASURE_KEY}${tab.name}`} module="./measure.tsx" props={measured} width={0} height={0} /> : null}
+        {hasClient ? h('Client', { key: `${MEASURE_KEY}${tab.name}`, module: './measure.tsx', props: measured, width: 0, height: 0 }) : null}
       </Box>
     )
   }).catch(($, e, next) => {

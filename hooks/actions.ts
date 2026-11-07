@@ -1,4 +1,4 @@
-import type { GridCell, GridNode, GridTab } from './grid-types'
+import type { GridCell, GridNode, GridTab } from '../types/index.d.ts'
 import { TAB_NAME, checkUnique } from './layout-file'
 import { PRESETS, cellsOf, describe, findCell, newCellId, preset, remove, resize, split, swap } from './tree'
 import type { Preset } from './tree'

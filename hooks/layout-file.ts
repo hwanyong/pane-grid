@@ -1,4 +1,4 @@
-import type { GridChild, GridNode, GridTab } from './grid-types'
+import type { GridChild, GridNode, GridTab } from '../types/index.d.ts'
 import { cellsOf, normalize } from './tree'
 
 // `~/.claude/pane-grid/layout.json` 의 형식과 검사. 이 파일이 배치의 원본이다(docs/grid-and-tabs.md §3.1, 결정 12).
