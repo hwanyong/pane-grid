@@ -1,0 +1,45 @@
+                                                                                                      │ Pending questions   Files: plugin-pane-grid                     ✕
+ ▐▛███▛█   Claude Code v2.1.318                                                                       │󰊢 plugin-pane-grid                        󱧳              
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                                   │ main                                                        ?:23
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                              │
+                                                                                                      │ search                                                  Aa .* 󰦪
+▎ Debug mode enabled · logging to                                                                     │    Name                               Git (LOC)         Modified
+▎ /var/folders/_7/wyfrljvs30bbvg2sc3fj9jk80000gn/T/pane-grid-r1b.vAqc/r1b.log                         │▸  .claude-plugin                           ?:1 2026-11-06 03:02
+                                                                                                      │▸  .git                                         2026-11-06 02:50
+⏺ pane-grid-r1: r1: loaded                                                                            │▸  docs                                     ?:1 2026-11-06 03:00
+                                                                                                      │▸  verification                            ?:20 2026-11-06 03:02
+                                                                                                      │  󰊢 .gitignore                                   2026-11-06 02:50 ?
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+Session 5-hour window                 -% / 100%   Weekly 7-day window                  55% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ████████████│█████████████░░░░░░░░░░░░░░░░░░░░░     │
+Reset · waiting for the next response             Resets in 5d 4h · target 26%                        │?: shortcuts
+                                                                                                      │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── Claude Code mod pane 분할 플러그인 ─
+❯ Try "how do I log an error?"
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)

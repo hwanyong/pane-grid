@@ -1,0 +1,231 @@
+2026-11-07T03:58:42.166Z r20h: render cells=0 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={} t=1794023922165
+2026-11-07T03:58:42.479Z r20m: place session.start hasCell=false isOpen=false t=1794023922469
+2026-11-07T03:58:42.479Z r20m: open isPlaced=true t=1794023922479
+2026-11-07T03:58:42.487Z r20m: panes after session.start: [r20m:shown=true] t=1794023922480
+2026-11-07T03:58:42.487Z r20m: render own t=1794023922482
+2026-11-07T03:58:42.488Z r20h: render cells=0 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={} t=1794023922487
+2026-11-07T03:58:45.472Z r20h: open r20grid focus isPlaced=true t=1794023925469
+2026-11-07T03:58:45.473Z r20h: render cells=0 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={} t=1794023925473
+2026-11-07T03:58:48.474Z r20m: state.set seen version=1 cells=pane-grid-r20-member t=1794023928472
+2026-11-07T03:58:48.474Z r20m: place state.set hasCell=true isOpen=true t=1794023928474
+2026-11-07T03:58:48.476Z r20m: render grid version=1 t=1794023928475
+2026-11-07T03:58:48.476Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={} t=1794023928476
+2026-11-07T03:58:48.477Z r20m: close t=1794023928477
+2026-11-07T03:58:48.479Z r20m: panes after state.set: [] t=1794023928477
+2026-11-07T03:58:48.479Z r20h: state.set version=1 cells=pane-grid-r20-member offsets={} isSet=true t=1794023928479
+2026-11-07T03:58:55.750Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023935750
+2026-11-07T03:58:55.753Z r20m: state.set seen version=2 cells=pane-grid-r20-member t=1794023935751
+2026-11-07T03:58:55.753Z r20m: place state.set hasCell=true isOpen=false t=1794023935753
+2026-11-07T03:58:55.754Z r20m: panes after state.set: [] t=1794023935754
+2026-11-07T03:58:55.754Z r20m: render grid version=2 t=1794023935754
+2026-11-07T03:58:55.755Z r20h: state.set version=2 cells=pane-grid-r20-member offsets={"host":1} isSet=true t=1794023935755
+2026-11-07T03:58:55.755Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":1} t=1794023935755
+2026-11-07T03:58:55.755Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:58:56.966Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023936966
+2026-11-07T03:58:56.969Z r20m: state.set seen version=3 cells=pane-grid-r20-member t=1794023936967
+2026-11-07T03:58:56.969Z r20m: place state.set hasCell=true isOpen=false t=1794023936969
+2026-11-07T03:58:56.970Z r20m: panes after state.set: [] t=1794023936969
+2026-11-07T03:58:56.970Z r20m: render grid version=3 t=1794023936970
+2026-11-07T03:58:56.970Z r20h: state.set version=3 cells=pane-grid-r20-member offsets={"host":2} isSet=true t=1794023936970
+2026-11-07T03:58:56.970Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":2} t=1794023936970
+2026-11-07T03:58:56.970Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:58:58.193Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023938193
+2026-11-07T03:58:58.196Z r20m: state.set seen version=4 cells=pane-grid-r20-member t=1794023938194
+2026-11-07T03:58:58.196Z r20m: place state.set hasCell=true isOpen=false t=1794023938196
+2026-11-07T03:58:58.197Z r20m: panes after state.set: [] t=1794023938196
+2026-11-07T03:58:58.197Z r20m: render grid version=4 t=1794023938197
+2026-11-07T03:58:58.197Z r20h: state.set version=4 cells=pane-grid-r20-member offsets={"host":3} isSet=true t=1794023938197
+2026-11-07T03:58:58.197Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":3} t=1794023938197
+2026-11-07T03:58:58.197Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:58:59.418Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023939418
+2026-11-07T03:58:59.421Z r20m: state.set seen version=5 cells=pane-grid-r20-member t=1794023939419
+2026-11-07T03:58:59.421Z r20m: place state.set hasCell=true isOpen=false t=1794023939421
+2026-11-07T03:58:59.422Z r20m: panes after state.set: [] t=1794023939422
+2026-11-07T03:58:59.422Z r20m: render grid version=5 t=1794023939422
+2026-11-07T03:58:59.422Z r20h: state.set version=5 cells=pane-grid-r20-member offsets={"host":4} isSet=true t=1794023939422
+2026-11-07T03:58:59.422Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":4} t=1794023939422
+2026-11-07T03:58:59.422Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:00.636Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023940636
+2026-11-07T03:59:00.638Z r20m: state.set seen version=6 cells=pane-grid-r20-member t=1794023940637
+2026-11-07T03:59:00.638Z r20m: place state.set hasCell=true isOpen=false t=1794023940638
+2026-11-07T03:59:00.639Z r20m: panes after state.set: [] t=1794023940638
+2026-11-07T03:59:00.639Z r20m: render grid version=6 t=1794023940639
+2026-11-07T03:59:00.639Z r20h: state.set version=6 cells=pane-grid-r20-member offsets={"host":5} isSet=true t=1794023940639
+2026-11-07T03:59:00.639Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":5} t=1794023940639
+2026-11-07T03:59:00.639Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:01.859Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023941859
+2026-11-07T03:59:01.862Z r20m: state.set seen version=7 cells=pane-grid-r20-member t=1794023941860
+2026-11-07T03:59:01.862Z r20m: place state.set hasCell=true isOpen=false t=1794023941862
+2026-11-07T03:59:01.863Z r20m: panes after state.set: [] t=1794023941863
+2026-11-07T03:59:01.863Z r20m: render grid version=7 t=1794023941863
+2026-11-07T03:59:01.863Z r20h: state.set version=7 cells=pane-grid-r20-member offsets={"host":6} isSet=true t=1794023941863
+2026-11-07T03:59:01.863Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":6} t=1794023941863
+2026-11-07T03:59:01.864Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:03.082Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023943082
+2026-11-07T03:59:03.084Z r20m: state.set seen version=8 cells=pane-grid-r20-member t=1794023943083
+2026-11-07T03:59:03.084Z r20m: place state.set hasCell=true isOpen=false t=1794023943084
+2026-11-07T03:59:03.085Z r20m: panes after state.set: [] t=1794023943085
+2026-11-07T03:59:03.085Z r20m: render grid version=8 t=1794023943085
+2026-11-07T03:59:03.085Z r20h: state.set version=8 cells=pane-grid-r20-member offsets={"host":7} isSet=true t=1794023943085
+2026-11-07T03:59:03.085Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":7} t=1794023943085
+2026-11-07T03:59:03.085Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:04.307Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023944306
+2026-11-07T03:59:04.309Z r20m: state.set seen version=9 cells=pane-grid-r20-member t=1794023944307
+2026-11-07T03:59:04.309Z r20m: place state.set hasCell=true isOpen=false t=1794023944309
+2026-11-07T03:59:04.310Z r20m: panes after state.set: [] t=1794023944309
+2026-11-07T03:59:04.310Z r20m: render grid version=9 t=1794023944310
+2026-11-07T03:59:04.310Z r20h: state.set version=9 cells=pane-grid-r20-member offsets={"host":8} isSet=true t=1794023944310
+2026-11-07T03:59:04.310Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":8} t=1794023944310
+2026-11-07T03:59:04.310Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:11.656Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023951656
+2026-11-07T03:59:11.658Z r20m: state.set seen version=10 cells=pane-grid-r20-member t=1794023951657
+2026-11-07T03:59:11.658Z r20m: place state.set hasCell=true isOpen=false t=1794023951658
+2026-11-07T03:59:11.659Z r20m: panes after state.set: [] t=1794023951659
+2026-11-07T03:59:11.659Z r20m: render grid version=10 t=1794023951659
+2026-11-07T03:59:11.659Z r20h: state.set version=10 cells=pane-grid-r20-member offsets={"host":9} isSet=true t=1794023951659
+2026-11-07T03:59:11.660Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":9} t=1794023951659
+2026-11-07T03:59:11.660Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:12.366Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023952366
+2026-11-07T03:59:12.369Z r20m: state.set seen version=11 cells=pane-grid-r20-member t=1794023952367
+2026-11-07T03:59:12.369Z r20m: place state.set hasCell=true isOpen=false t=1794023952369
+2026-11-07T03:59:12.370Z r20m: panes after state.set: [] t=1794023952369
+2026-11-07T03:59:12.370Z r20m: render grid version=11 t=1794023952370
+2026-11-07T03:59:12.370Z r20h: state.set version=11 cells=pane-grid-r20-member offsets={"host":10} isSet=true t=1794023952370
+2026-11-07T03:59:12.370Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":10} t=1794023952370
+2026-11-07T03:59:12.370Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:13.089Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023953089
+2026-11-07T03:59:13.091Z r20m: state.set seen version=12 cells=pane-grid-r20-member t=1794023953090
+2026-11-07T03:59:13.091Z r20m: place state.set hasCell=true isOpen=false t=1794023953091
+2026-11-07T03:59:13.092Z r20m: panes after state.set: [] t=1794023953092
+2026-11-07T03:59:13.092Z r20m: render grid version=12 t=1794023953092
+2026-11-07T03:59:13.093Z r20h: state.set version=12 cells=pane-grid-r20-member offsets={"host":11} isSet=true t=1794023953092
+2026-11-07T03:59:13.093Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":11} t=1794023953093
+2026-11-07T03:59:13.093Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:13.804Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023953804
+2026-11-07T03:59:13.806Z r20m: state.set seen version=13 cells=pane-grid-r20-member t=1794023953805
+2026-11-07T03:59:13.806Z r20m: place state.set hasCell=true isOpen=false t=1794023953806
+2026-11-07T03:59:13.807Z r20m: panes after state.set: [] t=1794023953806
+2026-11-07T03:59:13.809Z r20m: render grid version=13 t=1794023953807
+2026-11-07T03:59:13.810Z r20h: state.set version=13 cells=pane-grid-r20-member offsets={"host":12} isSet=true t=1794023953807
+2026-11-07T03:59:13.810Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:13.810Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":12} t=1794023953810
+2026-11-07T03:59:14.518Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023954518
+2026-11-07T03:59:14.520Z r20m: state.set seen version=14 cells=pane-grid-r20-member t=1794023954519
+2026-11-07T03:59:14.520Z r20m: place state.set hasCell=true isOpen=false t=1794023954520
+2026-11-07T03:59:14.521Z r20m: panes after state.set: [] t=1794023954520
+2026-11-07T03:59:14.521Z r20m: render grid version=14 t=1794023954521
+2026-11-07T03:59:14.521Z r20h: state.set version=14 cells=pane-grid-r20-member offsets={"host":13} isSet=true t=1794023954521
+2026-11-07T03:59:14.521Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":13} t=1794023954521
+2026-11-07T03:59:14.521Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:15.235Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023955235
+2026-11-07T03:59:15.238Z r20m: state.set seen version=15 cells=pane-grid-r20-member t=1794023955236
+2026-11-07T03:59:15.238Z r20m: place state.set hasCell=true isOpen=false t=1794023955238
+2026-11-07T03:59:15.238Z r20m: panes after state.set: [] t=1794023955238
+2026-11-07T03:59:15.238Z r20m: render grid version=15 t=1794023955238
+2026-11-07T03:59:15.239Z r20h: state.set version=15 cells=pane-grid-r20-member offsets={"host":14} isSet=true t=1794023955239
+2026-11-07T03:59:15.239Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":14} t=1794023955239
+2026-11-07T03:59:15.239Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:15.945Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023955945
+2026-11-07T03:59:15.947Z r20m: state.set seen version=16 cells=pane-grid-r20-member t=1794023955946
+2026-11-07T03:59:15.947Z r20m: place state.set hasCell=true isOpen=false t=1794023955947
+2026-11-07T03:59:15.948Z r20m: panes after state.set: [] t=1794023955948
+2026-11-07T03:59:15.948Z r20m: render grid version=16 t=1794023955948
+2026-11-07T03:59:15.948Z r20h: state.set version=16 cells=pane-grid-r20-member offsets={"host":15} isSet=true t=1794023955948
+2026-11-07T03:59:15.948Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":15} t=1794023955948
+2026-11-07T03:59:15.948Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:16.664Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023956663
+2026-11-07T03:59:16.666Z r20m: state.set seen version=17 cells=pane-grid-r20-member t=1794023956664
+2026-11-07T03:59:16.666Z r20m: place state.set hasCell=true isOpen=false t=1794023956666
+2026-11-07T03:59:16.667Z r20m: panes after state.set: [] t=1794023956666
+2026-11-07T03:59:16.667Z r20m: render grid version=17 t=1794023956667
+2026-11-07T03:59:16.667Z r20h: state.set version=17 cells=pane-grid-r20-member offsets={"host":16} isSet=true t=1794023956667
+2026-11-07T03:59:16.667Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":16} t=1794023956667
+2026-11-07T03:59:16.667Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:17.380Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023957380
+2026-11-07T03:59:17.382Z r20m: state.set seen version=18 cells=pane-grid-r20-member t=1794023957381
+2026-11-07T03:59:17.382Z r20m: place state.set hasCell=true isOpen=false t=1794023957382
+2026-11-07T03:59:17.383Z r20m: panes after state.set: [] t=1794023957383
+2026-11-07T03:59:17.383Z r20m: render grid version=18 t=1794023957383
+2026-11-07T03:59:17.384Z r20h: state.set version=18 cells=pane-grid-r20-member offsets={"host":17} isSet=true t=1794023957383
+2026-11-07T03:59:17.384Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":17} t=1794023957384
+2026-11-07T03:59:17.384Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:18.098Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023958098
+2026-11-07T03:59:18.101Z r20m: state.set seen version=19 cells=pane-grid-r20-member t=1794023958099
+2026-11-07T03:59:18.101Z r20m: place state.set hasCell=true isOpen=false t=1794023958101
+2026-11-07T03:59:18.102Z r20m: panes after state.set: [] t=1794023958101
+2026-11-07T03:59:18.102Z r20m: render grid version=19 t=1794023958102
+2026-11-07T03:59:18.102Z r20h: state.set version=19 cells=pane-grid-r20-member offsets={"host":18} isSet=true t=1794023958102
+2026-11-07T03:59:18.102Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":18} t=1794023958102
+2026-11-07T03:59:18.102Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:18.811Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023958811
+2026-11-07T03:59:18.814Z r20m: state.set seen version=20 cells=pane-grid-r20-member t=1794023958812
+2026-11-07T03:59:18.814Z r20m: place state.set hasCell=true isOpen=false t=1794023958814
+2026-11-07T03:59:18.814Z r20m: panes after state.set: [] t=1794023958814
+2026-11-07T03:59:18.815Z r20m: render grid version=20 t=1794023958815
+2026-11-07T03:59:18.816Z r20h: state.set version=20 cells=pane-grid-r20-member offsets={"host":19} isSet=true t=1794023958816
+2026-11-07T03:59:18.816Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":19} t=1794023958816
+2026-11-07T03:59:18.816Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:19.530Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023959530
+2026-11-07T03:59:19.532Z r20m: state.set seen version=21 cells=pane-grid-r20-member t=1794023959531
+2026-11-07T03:59:19.532Z r20m: place state.set hasCell=true isOpen=false t=1794023959532
+2026-11-07T03:59:19.533Z r20m: panes after state.set: [] t=1794023959533
+2026-11-07T03:59:19.533Z r20m: render grid version=21 t=1794023959533
+2026-11-07T03:59:19.533Z r20h: state.set version=21 cells=pane-grid-r20-member offsets={"host":20} isSet=true t=1794023959533
+2026-11-07T03:59:19.533Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":20} t=1794023959533
+2026-11-07T03:59:19.533Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:20.246Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023960246
+2026-11-07T03:59:20.248Z r20m: state.set seen version=22 cells=pane-grid-r20-member t=1794023960247
+2026-11-07T03:59:20.248Z r20m: place state.set hasCell=true isOpen=false t=1794023960248
+2026-11-07T03:59:20.249Z r20m: panes after state.set: [] t=1794023960249
+2026-11-07T03:59:20.249Z r20m: render grid version=22 t=1794023960249
+2026-11-07T03:59:20.249Z r20h: state.set version=22 cells=pane-grid-r20-member offsets={"host":21} isSet=true t=1794023960249
+2026-11-07T03:59:20.249Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":21} t=1794023960249
+2026-11-07T03:59:20.249Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:20.965Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023960964
+2026-11-07T03:59:20.967Z r20m: state.set seen version=23 cells=pane-grid-r20-member t=1794023960965
+2026-11-07T03:59:20.967Z r20m: place state.set hasCell=true isOpen=false t=1794023960967
+2026-11-07T03:59:20.967Z r20m: panes after state.set: [] t=1794023960967
+2026-11-07T03:59:20.968Z r20m: render grid version=23 t=1794023960968
+2026-11-07T03:59:20.968Z r20h: state.set version=23 cells=pane-grid-r20-member offsets={"host":22} isSet=true t=1794023960968
+2026-11-07T03:59:20.968Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":22} t=1794023960968
+2026-11-07T03:59:20.968Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:21.684Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023961684
+2026-11-07T03:59:21.686Z r20m: state.set seen version=24 cells=pane-grid-r20-member t=1794023961684
+2026-11-07T03:59:21.687Z r20m: place state.set hasCell=true isOpen=false t=1794023961686
+2026-11-07T03:59:21.687Z r20m: panes after state.set: [] t=1794023961687
+2026-11-07T03:59:21.687Z r20m: render grid version=24 t=1794023961687
+2026-11-07T03:59:21.688Z r20h: state.set version=24 cells=pane-grid-r20-member offsets={"host":23} isSet=true t=1794023961688
+2026-11-07T03:59:21.688Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":23} t=1794023961688
+2026-11-07T03:59:21.688Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:22.398Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023962398
+2026-11-07T03:59:22.400Z r20m: state.set seen version=25 cells=pane-grid-r20-member t=1794023962399
+2026-11-07T03:59:22.400Z r20m: place state.set hasCell=true isOpen=false t=1794023962400
+2026-11-07T03:59:22.400Z r20m: panes after state.set: [] t=1794023962400
+2026-11-07T03:59:22.401Z r20m: render grid version=25 t=1794023962401
+2026-11-07T03:59:22.402Z r20h: state.set version=25 cells=pane-grid-r20-member offsets={"host":24} isSet=true t=1794023962402
+2026-11-07T03:59:22.402Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":24} t=1794023962402
+2026-11-07T03:59:22.402Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:23.111Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023963111
+2026-11-07T03:59:23.113Z r20m: state.set seen version=26 cells=pane-grid-r20-member t=1794023963112
+2026-11-07T03:59:23.113Z r20m: place state.set hasCell=true isOpen=false t=1794023963113
+2026-11-07T03:59:23.114Z r20m: panes after state.set: [] t=1794023963113
+2026-11-07T03:59:23.114Z r20m: render grid version=26 t=1794023963114
+2026-11-07T03:59:23.114Z r20h: state.set version=26 cells=pane-grid-r20-member offsets={"host":25} isSet=true t=1794023963114
+2026-11-07T03:59:23.114Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":25} t=1794023963114
+2026-11-07T03:59:23.114Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:23.831Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023963831
+2026-11-07T03:59:23.834Z r20m: state.set seen version=27 cells=pane-grid-r20-member t=1794023963832
+2026-11-07T03:59:23.834Z r20m: place state.set hasCell=true isOpen=false t=1794023963834
+2026-11-07T03:59:23.835Z r20m: panes after state.set: [] t=1794023963834
+2026-11-07T03:59:23.835Z r20m: render grid version=27 t=1794023963835
+2026-11-07T03:59:23.835Z r20h: state.set version=27 cells=pane-grid-r20-member offsets={"host":26} isSet=true t=1794023963835
+2026-11-07T03:59:23.835Z ui.scroll Pane r20grid (person) by 1 to 0: moved
+2026-11-07T03:59:23.836Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":26} t=1794023963835
+2026-11-07T03:59:24.548Z r20h: scroll by=1 offset=0 bodyRows=38 contentRows=20 pointer={"column":8,"row":3} origin=person cell=host t=1794023964548
+2026-11-07T03:59:24.550Z r20m: state.set seen version=28 cells=pane-grid-r20-member t=1794023964549
+2026-11-07T03:59:24.550Z r20m: place state.set hasCell=true isOpen=false t=1794023964550
+2026-11-07T03:59:24.551Z r20m: panes after state.set: [] t=1794023964551
+2026-11-07T03:59:24.551Z r20m: render grid version=28 t=1794023964551
+2026-11-07T03:59:24.551Z r20h: state.set version=28 cells=pane-grid-r20-member offsets={"host":26} isSet=true t=1794023964551
+2026-11-07T03:59:24.551Z r20h: render cells=1 bodyColumns=67 scroll={"offset":0,"bodyRows":38} offsets={"host":26} t=1794023964551
+2026-11-07T03:59:24.551Z ui.scroll Pane r20grid (person) by 1 to 0: moved

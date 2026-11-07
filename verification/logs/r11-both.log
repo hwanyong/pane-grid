@@ -1,0 +1,58 @@
+2026-11-06T18:10:33.016Z r11h: state.set version=1 isSet=true t=1793988633016
+2026-11-06T18:10:33.031Z r11m: session.start hostLayout={"version":1,"cells":{"r11grid-a":["pane-grid-r11-member"],"r11grid-b":["pane-grid-r11-member"]}} version=1 t=1793988633031
+2026-11-06T18:10:33.048Z r11m: open r11m isPlaced=true t=1793988633032
+2026-11-06T18:10:33.048Z r11m: render grid r11grid-b layoutVersion=1 count=0 t=1793988633047
+2026-11-06T18:10:33.051Z r11h: render r11grid-b cells=1 tick=0 t=1793988633048
+2026-11-06T18:10:33.052Z r11m: render own count=0 t=1793988633049
+2026-11-06T18:10:36.038Z r11h: open r11grid-a focus isPlaced=true t=1793988636033
+2026-11-06T18:10:36.038Z r11h: tick=1 r11grid-a:shown=true,r11grid-b:shown=false t=1793988636038
+2026-11-06T18:10:36.039Z r11m: render grid r11grid-a layoutVersion=1 count=0 t=1793988636039
+2026-11-06T18:10:36.039Z r11h: render r11grid-a cells=1 tick=1 t=1793988636039
+2026-11-06T18:10:37.051Z r11m: count.set 1 isSet=true t=1793988637049
+2026-11-06T18:10:37.052Z r11m: render grid r11grid-a layoutVersion=1 count=1 t=1793988637052
+2026-11-06T18:10:37.052Z r11h: render r11grid-a cells=1 tick=1 t=1793988637052
+2026-11-06T18:10:39.033Z r11h: tick=2 r11grid-a:shown=true,r11grid-b:shown=false t=1793988639033
+2026-11-06T18:10:41.051Z r11m: count.set 2 isSet=true t=1793988641050
+2026-11-06T18:10:41.053Z r11m: render grid r11grid-a layoutVersion=1 count=2 t=1793988641053
+2026-11-06T18:10:41.053Z r11h: render r11grid-a cells=1 tick=2 t=1793988641053
+2026-11-06T18:10:42.036Z r11h: state.set version=2 isSet=true t=1793988642035
+2026-11-06T18:10:42.036Z r11h: tick=3 r11grid-a:shown=true,r11grid-b:shown=false t=1793988642036
+2026-11-06T18:10:42.037Z r11m: render grid r11grid-a layoutVersion=2 count=2 t=1793988642037
+2026-11-06T18:10:42.038Z r11h: render r11grid-a cells=1 tick=3 t=1793988642037
+2026-11-06T18:10:45.036Z r11h: tick=4 r11grid-a:shown=true,r11grid-b:shown=false t=1793988645036
+2026-11-06T18:10:45.053Z r11m: count.set 3 isSet=true t=1793988645052
+2026-11-06T18:10:45.055Z r11m: render grid r11grid-a layoutVersion=2 count=3 t=1793988645055
+2026-11-06T18:10:45.055Z r11h: render r11grid-a cells=1 tick=4 t=1793988645055
+2026-11-06T18:10:48.039Z r11h: open r11grid-b focus isPlaced=true t=1793988648038
+2026-11-06T18:10:48.039Z r11h: tick=5 r11grid-a:shown=true,r11grid-b:shown=false t=1793988648039
+2026-11-06T18:10:49.055Z r11m: count.set 4 isSet=true t=1793988649054
+2026-11-06T18:10:49.057Z r11m: render grid r11grid-a layoutVersion=2 count=4 t=1793988649056
+2026-11-06T18:10:49.057Z r11h: render r11grid-a cells=1 tick=5 t=1793988649057
+2026-11-06T18:10:51.038Z r11h: tick=6 r11grid-a:shown=true,r11grid-b:shown=false t=1793988651038
+2026-11-06T18:10:53.056Z r11m: count.set 5 isSet=true t=1793988653055
+2026-11-06T18:10:53.057Z r11m: render grid r11grid-a layoutVersion=2 count=5 t=1793988653057
+2026-11-06T18:10:53.057Z r11h: render r11grid-a cells=1 tick=6 t=1793988653057
+2026-11-06T18:10:54.041Z r11h: state.set version=3 isSet=true t=1793988654040
+2026-11-06T18:10:54.041Z r11h: tick=7 r11grid-a:shown=true,r11grid-b:shown=false t=1793988654041
+2026-11-06T18:10:54.042Z r11m: render grid r11grid-a layoutVersion=3 count=5 t=1793988654042
+2026-11-06T18:10:54.042Z r11h: render r11grid-a cells=1 tick=7 t=1793988654042
+2026-11-06T18:10:57.041Z r11h: tick=8 r11grid-a:shown=true,r11grid-b:shown=false t=1793988657041
+2026-11-06T18:10:57.057Z r11m: count.set 6 isSet=true t=1793988657056
+2026-11-06T18:10:57.059Z r11m: render grid r11grid-a layoutVersion=3 count=6 t=1793988657059
+2026-11-06T18:10:57.059Z r11h: render r11grid-a cells=1 tick=8 t=1793988657059
+2026-11-06T18:11:00.044Z r11h: open r11grid-a focus isPlaced=true t=1793988660043
+2026-11-06T18:11:00.044Z r11h: tick=9 r11grid-a:shown=true,r11grid-b:shown=false t=1793988660044
+2026-11-06T18:11:01.059Z r11m: count.set 7 isSet=true t=1793988661058
+2026-11-06T18:11:01.061Z r11m: render grid r11grid-a layoutVersion=3 count=7 t=1793988661061
+2026-11-06T18:11:01.061Z r11h: render r11grid-a cells=1 tick=9 t=1793988661061
+2026-11-06T18:11:03.044Z r11h: tick=10 r11grid-a:shown=true,r11grid-b:shown=false t=1793988663043
+2026-11-06T18:11:05.061Z r11m: count.set 8 isSet=true t=1793988665060
+2026-11-06T18:11:05.062Z r11m: render grid r11grid-a layoutVersion=3 count=8 t=1793988665062
+2026-11-06T18:11:05.062Z r11h: render r11grid-a cells=1 tick=10 t=1793988665062
+2026-11-06T18:11:06.045Z r11h: tick=11 r11grid-a:shown=true,r11grid-b:shown=false t=1793988666045
+2026-11-06T18:11:09.046Z r11h: tick=12 r11grid-a:shown=true,r11grid-b:shown=false t=1793988669046
+2026-11-06T18:11:09.062Z r11m: count.set 9 isSet=true t=1793988669061
+2026-11-06T18:11:09.063Z r11m: render grid r11grid-a layoutVersion=3 count=9 t=1793988669063
+2026-11-06T18:11:09.063Z r11h: render r11grid-a cells=1 tick=12 t=1793988669063
+2026-11-06T18:11:39.914Z r11m: render grid r11grid-b layoutVersion=3 count=9 t=1793988699914
+2026-11-06T18:11:39.914Z r11h: render r11grid-b cells=1 tick=12 t=1793988699914

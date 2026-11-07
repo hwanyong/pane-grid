@@ -1,0 +1,45 @@
+                                                                                                      │ R2   Pending questions   Files: plugin-pane-grid                ✕
+ ▐▛███▛█   Claude Code v2.1.318                                                                       │R2 tick 15
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                                   │
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                              │
+                                                                                                      │
+▎ Debug mode enabled · logging to                                                                     │
+▎ /var/folders/_7/wyfrljvs30bbvg2sc3fj9jk80000gn/T/pane-grid-r2.qv7T/r2.log                           │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+Session 5-hour window                 -% / 100%   Weekly 7-day window                  55% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ████████████│█████████████░░░░░░░░░░░░░░░░░░░░░     │
+Reset · waiting for the next response             Resets in 5d 4h · target 26%                        │
+                                                                                                      │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── Claude Code mod pane 분할 플러그인 ─
+❯ Try "refactor <filepath>"
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)

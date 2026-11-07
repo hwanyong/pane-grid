@@ -1,0 +1,45 @@
+                                                                                                      │ Pending questions   Files: plugin-pane-grid                     ✕
+ ▐▛███▛█   Claude Code v2.1.318                                                                       │󰊢 plugin-pane-grid                        󱧳              
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                                   │ main                                                        ?:22
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                              │
+                                                                                                      │ search                                                  Aa .* 󰦪
+▎ Debug mode enabled · logging to                                                                     │    Name                               Git (LOC)         Modified
+▎ /var/folders/_7/wyfrljvs30bbvg2sc3fj9jk80000gn/T/pane-grid-r1c.eowo/r1c.log                         │▸  .git                                         2026-11-06 02:50
+                                                                                                      │▸  docs                                     ?:1 2026-11-06 03:04
+⏺ pane-grid-r1: r1: loaded                                                                            │▸  verification                            ?:20 2026-11-06 03:03
+                                                                                                      │  󰊢 .gitignore                                   2026-11-06 02:50 ?
+⏺ pane-grid-r1: r1: Pane requestId=pending-questions placement=dock                                   │
+  tree=Box(part=pending-questions) trace=[1:usage-gauge/user/returned                                 │
+  2:uhd-kanban/user/returned 3:pending-questions/user/returned]                                       │
+                                                                                                      │
+⏺ pane-grid-r1: r1: Pane requestId=filetree placement=dock tree=Box(part=filetree)                    │
+  trace=[1:usage-gauge/user/returned 2:uhd-kanban/user/returned                                       │
+  3:pending-questions/user/returned 4:filetree/user/returned]                                         │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+                                                                                                      │
+Session 5-hour window                 -% / 100%   Weekly 7-day window                  55% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ████████████│█████████████░░░░░░░░░░░░░░░░░░░░░     │
+Reset · waiting for the next response             Resets in 5d 4h · target 26%                        │?: shortcuts
+   tmux detected · scroll with PgUp/PgDn · or add 'set -g mouse on' to ~/.tmux.conf for wheel scroll  │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── Claude Code mod pane 분할 플러그인 ─
+❯ Try "how do I log an error?"
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
