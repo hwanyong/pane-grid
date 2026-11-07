@@ -1,0 +1,13 @@
+{
+  "name": "pane-grid",
+  "description": "A Claude Code mod that splits a Claude Code pane into a tmux-style grid of other Claude mods' panes, with split, resize, zoom and layout tabs",
+  "owner": {
+    "name": "hwanyong"
+  },
+  "plugins": [
+    {
+      "name": "pane-grid",
+      "source": "./"
+    }
+  ]
+}

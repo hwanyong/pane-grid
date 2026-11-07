@@ -1,6 +1,23 @@
 {
   "name": "pane-grid",
   "version": "0.2.0",
-  "description": "Splits a pane into a grid of other mods' panes, one engine pane tab per layout, with tmux-style split commands",
+  "description": "A Claude Code mod that splits a Claude Code pane into a tmux-style grid of other Claude mods' panes, with split, resize, zoom and layout tabs",
+  "author": {
+    "name": "hwanyong"
+  },
+  "homepage": "https://github.com/hwanyong/pane-grid",
+  "repository": "https://github.com/hwanyong/pane-grid",
+  "license": "MIT",
+  "keywords": [
+    "claude",
+    "claude-code",
+    "claude-code-mod",
+    "mod",
+    "pane",
+    "grid",
+    "tmux",
+    "layout",
+    "split"
+  ],
   "types": "./types/index.d.ts"
 }

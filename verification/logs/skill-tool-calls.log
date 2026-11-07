@@ -1,0 +1,5 @@
+2026-11-07T06:48:38.025Z ui.open tool-calls tool-calls (unasked, 200 columns): placed
+2026-11-07T06:48:49.862Z [pane-grid] $.ui.log (to debug): pane-grid: action select main: showing main
+2026-11-07T06:48:58.146Z [pane-grid] $.ui.log (to debug): pane-grid: action place tool-calls c1: placed tool-calls in c1
+2026-11-07T06:49:01.679Z ui.open tool-calls tool-calls (unasked, 200 columns): placed
+2026-11-07T06:49:01.681Z [pane-grid] $.ui.log (to debug): pane-grid: action place -: emptied c1
