@@ -370,10 +370,10 @@ export const register: Register = on => {
     const before = run.measured.get(tab.name)
     const isResized = !before || before.columns != measured.columns || before.rows != measured.rows
     run.measured.set(tab.name, measured)
-    const elements = $.ui.resolve(e)
-    const { Box, Text, Button } = elements
-    // Client(surface module)는 terminal 의 표에만 있다. 다른 surface 에서는 분할선을 글자로 그리고, 칸 누름은 덮지 않는다.
-    const Client = 'Client' in elements ? elements.Client : undefined
+    const { Box, Text, Button } = $.ui.resolve(e)
+    // Client(surface module)는 terminal · desktop 의 표에만 있다. 다른 surface 에서는 분할선을 글자로 그리고, 칸 누름은 덮지 않는다.
+    // `e.surface` 로 좁힌 뒤 꺼낸다. plugin directory 의 검증은 `'Client' in …` 으로 고른 Client 를 읽지 못해 차단한다.
+    const Client = e.surface == 'terminal' || e.surface == 'desktop' ? $.ui.resolve(e).Client : undefined
     // 잰 크기는 measure Client 가 ui.message 로 돌려보내 그 hook 이 칸 크기를 쓴다. Client 가 없는 surface 에서는 render 가 끝난 뒤 쓴다.
     if (isResized && !Client) $.clock.after(0, () => void publishPlacements($))
 
