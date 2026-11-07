@@ -115,6 +115,7 @@ const publish = async ($: EngineInterface, tabs: GridTab[]) => {
   const placed = placements(tabs)
   const layout = await update($, LAYOUT, (current): GridLayout => ({ version: 1, revision: (current?.revision ?? 0) + 1, tabs, placed }))
   log($, `layout revision=${layout.revision} tabs=${tabs.map(tab => tab.name).join(',')} placed=${Object.keys(placed).join(',')}`)
+  return layout
 }
 
 // 탭 크기를 잰 뒤 칸 크기가 바뀌었을 때만 다시 쓴다. render 중에는 쓸 수 없으므로 render 가 끝난 뒤 부른다.
@@ -167,8 +168,7 @@ const currentTab = async ($: EngineInterface, tabs: GridTab[]) => {
 
 // slash 명령과 hotkey 의 공통 입구.
 const runAction = async ($: EngineInterface, words: string[]) => {
-  const layout = await readLayout($)
-  if (!layout) return 'pane-grid has not loaded its layout yet'
+  const layout = await ensureLayout($)
   const outcome = apply(layout.tabs, await currentTab($, layout.tabs), words)
   const broken = checkOutcome(outcome)
   if (broken) return `refused: ${broken}`
@@ -210,14 +210,30 @@ const dragDivider = async ($: EngineInterface, tabName: string, path: string, in
   if (isFinal) await persist($, tabs)
 }
 
-const reload = async ($: EngineInterface) => {
+// 원본 파일을 읽어 state 사본과 엔진 pane 을 다시 만든다. 쓴 값을 돌려준다: 한 dispatch 의 $.state.get 은 모두 같은 시점을 읽어
+// 방금 쓴 값을 다시 읽지 못한다.
+const loadLayout = async ($: EngineInterface) => {
   const tabs = await loadFile($)
-  await publish($, tabs)
+  const layout = await publish($, tabs)
   await syncPanes($, tabs)
-  return `loaded ${tabs.length} tab(s) from ~/${FILE}`
+  return layout
+}
+
+const reload = async ($: EngineInterface) => `loaded ${(await loadLayout($)).tabs.length} tab(s) from ~/${FILE}`
+
+// $.state 는 세션 id 마다 따로 있다. /clear 는 같은 프로세스를 새 세션 id 로 이어 가고 session.start 를 다시 부르지 않으므로
+// (SessionEndInput.reason), 그 뒤에는 layout 사본이 비어 있다. 비어 있으면 원본 파일에서 다시 만든다. render 중에는 쓸 수 없으므로
+// render hook 은 이것을 render 가 끝난 뒤 부른다.
+const ensureLayout = async ($: EngineInterface): Promise<GridLayout> => {
+  const layout = await readLayout($)
+  if (layout) return layout
+  log($, 'layout state is empty (a /clear starts a new session state); loading the layout file again')
+  return loadLayout($)
 }
 
 const watchShown = async ($: EngineInterface) => {
+  // grid 탭이 가려져 있으면 render hook 이 불리지 않는다. 규약 mod 는 layout 이 비면 자기 pane 으로 돌아가므로 여기서도 되살린다.
+  await ensureLayout($)
   const pane = (await $.ui.panes()).find(item => item.isShown && item.id.startsWith(PANE_PREFIX))
   const shown: GridShown = pane ? tabOf(pane.id) : null
   if (shown) run.current = shown
@@ -302,6 +318,7 @@ export const register: Register = on => {
 
   on('ui.render', { component: 'Pane', requestId: /^grid-/ }, async ($, e, next) => {
     const layout = await readLayout($)
+    if (!layout) $.clock.after(0, () => void ensureLayout($))
     const tab = layout?.tabs.find(item => item.name == tabOf(e.requestId))
     if (!tab) return next(e)
     const scroll: GridScroll = (await $.state.get(SCROLL)).value ?? {}

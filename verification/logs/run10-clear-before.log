@@ -1,0 +1,10 @@
+# before the fix: installed pane-grid 0.3.1, /clear with the grid tab shown, then /grid list, then /grid reload
+2026-11-07T09:48:21.512Z [DEBUG] hooks module pane-grid@pane-grid loaded (worker, environment 5, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-07T09:48:36.871Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=uhd-kanban,pending-questions,usage-gauge
+2026-11-07T09:48:36.871Z [DEBUG] ui.open pane-grid grid-main (unasked, 170 columns): placed
+2026-11-07T09:48:36.958Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=uhd-kanban,pending-questions,usage-gauge
+2026-11-07T09:49:00.435Z [DEBUG] SessionEnd:clear [command hook] completed with status 0
+2026-11-07T09:49:36.567Z [DEBUG] pane-grid (user) answered command.run without next() in 7.6ms; nothing beneath it ran for this dispatch
+2026-11-07T09:49:49.270Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=uhd-kanban,pending-questions,usage-gauge
+2026-11-07T09:49:49.271Z [DEBUG] ui.open pane-grid grid-main (asked, 170 columns): placed
+2026-11-07T09:49:49.271Z [DEBUG] pane-grid (user) answered command.run without next() in 11.4ms; nothing beneath it ran for this dispatch

@@ -126,6 +126,7 @@ tmux 글자 중 `hotkey` 로 쓸 수 없는 것을 대신하는 글자(결정 10
 - 칸 너비는 `pane-grid` 가 `e.props.bodyColumns` 와 트리 비율로 계산한다. 규약 mod 는 계산하지 않고 이 값을 읽는다. 계산 규칙이 mod 마다 복사되면 SSOT 가 깨지기 때문이다.
 - 규약 mod 는 `grid` 요청을 그릴 때 이 값을 읽는다. 읽은 것만으로 구독이 걸려서, `pane-grid` 가 값을 다시 쓰면 규약 mod 의 칸도 다시 그려진다(R11).
 - 사람이 hotkey · 명령으로 배치를 바꾸면 `pane-grid` 가 `layout.json` 에 다시 써서 파일이 SSOT 로 남는다.
+- `$.state` 는 세션 id 마다 따로 있다. `/clear` 는 같은 프로세스를 새 세션 id 로 이어 가고 `session.start` 를 다시 부르지 않으므로(`SessionEndInput.reason` 문서), 그 뒤 `layout` · `scroll` · `shown` 이 비어 있다. `ensureLayout` 이 `layout` 이 빈 것을 보면 파일에서 다시 만든다. 부르는 곳은 grid pane 의 render(render 가 끝난 뒤 `$.clock.after(0)`) · 1초 poll(`watchShown`) · slash 명령과 hotkey(`runAction`) 세 곳이다. grid 탭이 가려져 있으면 render 가 불리지 않으므로 poll 이 되살린다. 칸 스크롤 위치는 되살리지 않는다(10회차).
 - 칸마다의 스크롤 위치(§3.4)는 `layout` 이 아니라 다른 key `{ plugin: 'pane-grid', key: 'scroll' }` 에 쓴다. `layout` 을 쓸 때마다 모든 규약 mod 의 `state.set` hook(§3.5)이 실행되기 때문이다. R20 실행에서 스크롤 위치를 `layout` 에 함께 썼더니 휠 한 칸마다 member 의 hook 이 실행됐다(4회차 실행: 휠 29회, member hook 30회, `verification/logs/r20-run4.log`).
 
 ### 3.2 탭: 배치마다 엔진 pane 하나
@@ -378,6 +379,17 @@ tsc 로 고친 것(4회차 전):
 - 실패한 hook 줄은 0건이었다.
 - 시작하고 17초 뒤 filetree 가 자기 pane 을 열어(`ui.open filetree filetree (unasked …)`, 첫 `/grid` 동작보다 앞) 보이는 pane 이 filetree 로 바뀌었다. `/grid` 동작과는 무관하다.
 - 휠 위치(`cellAt`): 두 번째 세션에서 c2 와 c3 의 경계에 SGR mouse 휠을 보냈다. 터미널 16행(c2 의 마지막 행)에서는 c2 의 첫 줄만, 18행(c3 의 제목 행)에서는 c3 의 첫 줄만 올라갔다. 16행은 빼는 값이 옛 `TOOLBAR_ROWS`(2)였다면 c3 으로 판정되는 자리라 이 실행이 오프셋 오류를 가른다. `ui.scroll` 2회 모두 실패 줄이 없었다(같은 로그 파일의 `run 2` 절).
+
+10회차 결과(2026-11-07, 2.1.319): `/clear` 뒤 grid pane 이 비는 문제와 그 수정을 확인했다. 170열 × 45행 `tmux` 세션에서 `claude --model haiku` 로 실행했고, 다른 mod 는 설치본(usage-gauge · uhd-kanban · pending-questions · filetree)이다. 수정 전은 설치본 pane-grid 0.3.1, 수정 후는 작업판을 `--plugin-dir` 로 불렀다(로그에 `pane-grid@inline` 만 불려 왔다).
+
+| 확인한 것 | 결과 | 근거 |
+|---|---|---|
+| 수정 전, grid 탭이 보이는 채로 `/clear` | grid pane 이 탭 줄만 남고 비었다. 이어 `/grid list` 가 `pane-grid has not loaded its layout yet` 을 출력했다. `/grid reload` 뒤 다시 그려졌고 `revision=1` 이었다(`/clear` 전에는 2) | `verification/logs/run10-clear-before.log`, 화면은 `tmux capture-pane` 출력 |
+| 수정 후, grid 탭이 보이는 채로 `/clear` | `SessionEnd:clear` 뒤 21 ms 에 `layout state is empty` 줄, 이어 `revision=1` 줄이 한 번씩 나왔다. grid 가 다시 그려졌다 | `verification/logs/run10-clear-after.log` 의 run 1 |
+| 수정 후, Files 탭이 보이는 채로 `/clear` | grid pane 의 render 줄(`key=grid-main`) 없이 488 ms 뒤 같은 두 줄이 나왔다. 1초 poll 이 `/clear` 뒤에도 돈다. 보이는 탭은 Files 그대로였고, usage-gauge 가 prompt 위에 자기 band 를 그리지 않았다 | 같은 파일의 run 2 |
+
+- 수정 전 `revision` 이 1 로 돌아간 것으로 `layout` 값이 `/clear` 에서 비었다는 것을 가렸다(`publish` 는 이전 값의 `revision` 에 1 을 더한다).
+- 사용자 화면(2026-11-07)에서 grid pane 이 빈 것과 함께 usage-gauge 의 band 가 prompt 위에 나타났다. `layout` 이 비면 규약 mod 는 `readPlacement` 가 `undefined` 라 자기 자리로 돌아가기 때문이다. grid 탭이 가려진 경우도 되살려야 하는 이유다.
 
 녹화(`verification/demo/record.py`)에서 본 것(2.1.319):
 

@@ -1,0 +1,18 @@
+# after the fix: pane-grid from --plugin-dir. run 1: /clear with the grid tab shown
+2026-11-07T09:51:33.531Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-07T09:51:34.664Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=uhd-kanban,pending-questions,usage-gauge
+2026-11-07T09:51:34.665Z [DEBUG] ui.open pane-grid grid-main (unasked, 170 columns): placed
+2026-11-07T09:51:34.715Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=uhd-kanban,pending-questions,usage-gauge
+2026-11-07T09:52:04.295Z [DEBUG] SessionEnd:clear [command hook] completed with status 0
+2026-11-07T09:52:04.316Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+2026-11-07T09:52:04.393Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=uhd-kanban,pending-questions,usage-gauge
+2026-11-07T09:52:04.394Z [DEBUG] ui.open pane-grid grid-main (unasked, 170 columns): placed
+# run 2: /clear with the Files tab shown (grid tab hidden)
+2026-11-07T09:52:22.252Z [DEBUG] SessionEnd:clear [command hook] completed with status 0
+2026-11-07T09:52:22.740Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+2026-11-07T09:52:22.742Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=uhd-kanban,pending-questions,usage-gauge
+2026-11-07T09:52:22.742Z [DEBUG] ui.open pane-grid grid-main (unasked, 170 columns): placed
+# the lines below were written while the test session was closed with tmux kill-server
+2026-11-07T09:52:42.782Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+2026-11-07T09:52:42.785Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=uhd-kanban,pending-questions,usage-gauge
+2026-11-07T09:52:42.785Z [DEBUG] ui.open pane-grid grid-main (unasked, 170 columns): placed

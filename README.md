@@ -141,7 +141,7 @@ Hotkeys work while the grid pane has focus. Commands work at the Claude Code pro
 
 ## Where is the layout saved?
 
-In `~/.claude/pane-grid/layout.json`, written after every change and read when a Claude Code session starts. You can edit it and run `/grid reload`.
+In `~/.claude/pane-grid/layout.json`, written after every change and read when a Claude Code session starts and again after `/clear`. You can edit it and run `/grid reload`.
 
 ```json
 {
