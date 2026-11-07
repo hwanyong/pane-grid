@@ -19,8 +19,10 @@ export type GridNode = GridCell | GridSplit
 // 탭 하나 = 엔진 pane 하나(`grid-<name>`). `active` 는 활성 칸 id, `zoomed` 는 zoom 한 칸 id.
 export type GridTab = { name: string; root: GridNode; active: string; zoomed?: string }
 
-// 규약 mod 가 읽는 자기 칸. pane-grid 가 그 탭 pane 을 그릴 때 잰 칸 내용 크기다.
-export type GridPlacement = { tab: string; requestId: string; cell: string; columns: number; rows: number }
+// 규약 mod 가 읽는 자기 칸. pane-grid 가 그 탭 pane 을 그릴 때 잰 칸 내용의 자리와 크기다.
+// `column` · `row`: 칸 내용의 왼쪽 위, pane 본문 좌표(`UiScrollPointer` 와 같다). `isActive`: 활성 칸이거나 zoom 한 칸이다.
+// 0.4.0 에서 `column` · `row` · `isActive` 를 더했다. 더한 것뿐이라 GridVersion 은 그대로다.
+export type GridPlacement = { tab: string; requestId: string; cell: string; column: number; row: number; columns: number; rows: number; isActive: boolean }
 
 // `layout`: 탭 목록과, 칸에 넣은 mod 마다 그 자리. mod 하나는 한 칸에만 놓인다(결정 6).
 export type GridLayout = {

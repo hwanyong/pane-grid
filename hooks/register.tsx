@@ -3,6 +3,7 @@ import type { EngineInterface, Register, RenderElement, RenderNode, Tier, TraceE
 import type { GridLayout, GridNode, GridPlacement, GridScroll, GridShown, GridTab } from '../types'
 import { apply, checkOutcome } from './actions'
 import { defaultTabs, parseLayoutFile, serializeLayoutFile } from './layout-file'
+import { isScrollIn, scrollsKey } from '../skills/add-pane-grid-cell/pane-grid'
 import { ROOT_PATH, cellsOf, childPath, findCell, geometry, moveDivider, rectAt, replaceAt, splitAt, splitRects } from './tree'
 import type { Rect } from './tree'
 
@@ -75,6 +76,8 @@ const run = {
   // slash 명령이 다룰 탭. 보이는 grid 탭이 있으면 그것, 없으면 마지막으로 보였던 탭.
   current: '',
   measured: new Map<string, Measured>(),
+  // 칸 안의 `scrolls:<plugin>` Box 로 자기 행을 스스로 스크롤한다고 알린 아래 규약 mod. render 마다 다시 모은다.
+  scrolling: new Set<string>(),
 }
 
 const noop = () => {}
@@ -87,7 +90,7 @@ const titleOf = (tab: GridTab) => (tab.zoomed ? `${tab.name} [Z]` : tab.name)
 
 const readLayout = async ($: EngineInterface): Promise<GridLayout | undefined> => (await $.state.get(LAYOUT)).value
 
-// 칸 내용 크기. 탭을 아직 그리지 않았으면 0 이다.
+// 칸 내용 자리와 크기. 탭을 아직 그리지 않았거나 다른 칸을 zoom 해 가려졌으면 0 이다. zoom 한 칸은 grid 전체에 그린다.
 const placements = (tabs: GridTab[]): Record<string, GridPlacement> => {
   const placed: Record<string, GridPlacement> = {}
   for (const tab of tabs) {
@@ -95,10 +98,10 @@ const placements = (tabs: GridTab[]): Record<string, GridPlacement> => {
     const rects = measured ? geometry(tab.root, gridRect(measured)) : new Map<string, Rect>()
     for (const cell of cellsOf(tab.root)) {
       if (!cell.plugin) continue
-      const rect = rects.get(cell.id)
+      const rect = measured && tab.zoomed == cell.id ? gridRect(measured) : rects.get(cell.id)
       const isShown = !tab.zoomed || tab.zoomed == cell.id
-      const size = rect && isShown ? contentSize(rect) : { columns: 0, rows: 0 }
-      placed[cell.plugin] = { tab: tab.name, requestId: paneId(tab.name), cell: cell.id, ...size }
+      const area = rect && isShown ? contentArea(rect) : { column: 0, row: 0, columns: 0, rows: 0 }
+      placed[cell.plugin] = { tab: tab.name, requestId: paneId(tab.name), cell: cell.id, ...area, isActive: (tab.zoomed ?? tab.active) == cell.id }
     }
   }
   return placed
@@ -111,7 +114,26 @@ const contentSize = (rect: Rect) => ({
   rows: Math.max(rect.height - CELL_CHROME_ROWS, 0),
 })
 
+// 칸 내용의 왼쪽 위를 pane 본문 좌표(`UiScrollPointer` 와 같은 좌표)로 더한다. 위에 구분선 · hotkey 줄 · 칸 제목이 있다.
+const contentArea = (rect: Rect) => ({ column: rect.x, row: HEADER_ROWS + rect.y + CELL_CHROME_ROWS, ...contentSize(rect) })
+
+// 칸 id 마다 놓인 mod. 탭을 모두 본다(칸 id 는 탭을 통틀어 하나뿐이다).
+const occupants = (tabs: GridTab[]) => new Map(tabs.flatMap(tab => cellsOf(tab.root)).map(cell => [cell.id, cell.plugin ?? ''] as const))
+
+// 놓인 mod 가 바뀌었거나 없어진 칸의 스크롤 행 수를 지운다. 새 mod 는 맨 위부터 그려지고, 자기 행을 스스로 스크롤하는 mod 의
+// 칸은 pane-grid 의 marginTop 이 0 으로 남는다.
+const dropStaleScroll = async ($: EngineInterface, before: GridTab[], after: GridTab[]) => {
+  const was = occupants(before)
+  const now = occupants(after)
+  const scroll: GridScroll = (await $.state.get(SCROLL)).value ?? {}
+  const stale = Object.keys(scroll).filter(id => was.get(id) != now.get(id) || !now.has(id))
+  if (stale.length == 0) return
+  await update($, SCROLL, current => Object.fromEntries(Object.entries(current ?? {}).filter(([id]) => !stale.includes(id))))
+  log($, `scroll reset for ${stale.join(',')}`)
+}
+
 const publish = async ($: EngineInterface, tabs: GridTab[]) => {
+  await dropStaleScroll($, (await readLayout($))?.tabs ?? [], tabs)
   const placed = placements(tabs)
   const layout = await update($, LAYOUT, (current): GridLayout => ({ version: 1, revision: (current?.revision ?? 0) + 1, tabs, placed }))
   log($, `layout revision=${layout.revision} tabs=${tabs.map(tab => tab.name).join(',')} placed=${Object.keys(placed).join(',')}`)
@@ -241,6 +263,14 @@ const watchShown = async ($: EngineInterface) => {
   if (held.version == 0 || held.value != shown) await $.state.set(SHOWN, shown)
 }
 
+// Box 아래에 key 가 `key` 인 노드가 있는가.
+const holdsKey = (node: RenderNode, key: string): boolean => {
+  if (typeof node == 'string') return false
+  const props: Record<string, unknown> | undefined = 'props' in node ? node.props : undefined
+  if (props?.key == key) return true
+  return 'children' in node && (node.children ?? []).some(child => holdsKey(child, key))
+}
+
 // 규약 mod 가 그린 칸: key 가 `cell:<plugin>` 인 Box.
 const collectCells = (node: RenderNode, out: Map<string, RenderElement>): void => {
   if (typeof node == 'string') return
@@ -273,13 +303,16 @@ export const register: Register = on => {
     return next.called ? next(e) : { text: 'pane-grid: the command failed; see the debug log' }
   })
 
-  on('ui.scroll', { component: 'Pane', requestId: /^grid-/ }, async ($, e) => {
+  on('ui.scroll', { component: 'Pane', requestId: /^grid-/ }, async ($, e, next) => {
     const layout = await readLayout($)
     const tab = layout?.tabs.find(item => item.name == tabOf(e.requestId))
     const measured = run.measured.get(tabOf(e.requestId))
     if (!tab || !measured) return {}
     const id = cellAt(tab, measured, e.pointer)
     if (!id) return {}
+    // 자기 행을 스스로 스크롤하는 아래 규약 mod 의 칸: 그 mod 의 ui.scroll hook 에 넘긴다. 칸 제목 줄의 휠은 버린다.
+    const plugin = findCell(tab.root, id)?.plugin
+    if (plugin && run.scrolling.has(plugin)) return isScrollIn(layout?.placed[plugin], e) ? next(e) : {}
     await update($, SCROLL, scroll => ({ ...scroll, [id]: Math.max((scroll?.[id] ?? 0) + e.by, 0) }))
     return {}
   }).catch(($, e, next) => {
@@ -325,6 +358,10 @@ export const register: Register = on => {
     const below = await next(e)
     const cells = new Map<string, RenderElement>()
     collectCells(below, cells)
+    for (const [plugin, cell] of cells) {
+      if (holdsKey(cell, scrollsKey(plugin))) run.scrolling.add(plugin)
+      else run.scrolling.delete(plugin)
+    }
     const ready = gridReady(next.trace)
     const placedIn = new Map((layout?.tabs ?? []).flatMap(item => cellsOf(item.root)).flatMap(cell => (cell.plugin ? [[cell.plugin, cell.id] as const] : [])))
     const measured = { columns: e.props.bodyColumns, rows: e.props.scroll.bodyRows }

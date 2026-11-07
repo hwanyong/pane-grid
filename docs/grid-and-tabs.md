@@ -165,6 +165,36 @@ tmux 글자 중 `hotkey` 로 쓸 수 없는 것을 대신하는 글자(결정 10
 - 칸 내용의 전체 행 수는 엔진이 알려 주지 않는다. `e.contentRows` 는 pane 트리 전체의 행 수였다(칸 높이 6 · 머리 줄 1 · 아래 줄 1 의 8). 칸의 `offset` 상한을 정하려면 규약 mod 가 자기 행 수를 자기 state 에 적는다.
 - `{}` 반환이 pane 창을 붙잡는지는 시험하지 못했다. 시험 pane 의 `contentRows`(8)가 `bodyRows`(38)보다 작아 pane 창이 움직일 수 없었다. pane-grid 는 칸 높이 합을 `bodyRows` 와 같게 그리므로 같은 조건이다.
 
+#### 자기 행을 스스로 스크롤하는 규약 mod(0.4.0)
+
+위 ⑤ 의 `marginTop` 은 `cell:` Box 전체를 민다. filetree 처럼 머리 줄(경로 · branch · 검색 줄)을 고정하고 그 아래 목록만 자기 `ui.scroll` hook 으로 움직이는 mod 는, 칸에 놓으면 휠이 pane-grid 에 가서 머리 줄이 칸 밖으로 밀리고 목록은 움직이지 않았다(0.3.2 와 filetree `pane-grid-cell` 브랜치, 2026-11-07 tmux 실행). 0.4.0 에서 그런 mod 가 자기 칸의 `ui.scroll` 을 받게 했다.
+
+| 단계 | 하는 쪽 | 하는 일 |
+|---|---|---|
+| ① | 규약 mod | `cell:<plugin>` Box 안에 빈 Box `scrollsKey(plugin)`(`scrolls:<plugin>`)를 그린다 |
+| ② | pane-grid | grid render 에서 `next(e)` 결과의 `cell:` Box 마다 그 Box 가 있는지 보고 `run.scrolling` 에 모은다. 모듈 변수라 다시 불러오면 비고, 다음 render 에서 다시 모인다 |
+| ③ | pane-grid | `layout.placed[plugin]` 에 `column` · `row`(칸 내용의 왼쪽 위, pane 본문 좌표)와 `isActive`(활성 칸이거나 zoom 한 칸)를 더 쓴다 |
+| ④ | 양쪽 | 읽기 모듈의 `isScrollIn(placement, e)` 로 그 `ui.scroll` 이 그 칸의 것인지 정한다. 휠이면 `e.pointer` 가 칸 내용 안에 있는가, 스크롤 키면 `isActive` 다. 두 쪽이 같은 함수를 쓴다(pane-grid 는 `skills/add-pane-grid-cell/pane-grid.ts` 를 import 한다) |
+| ⑤ | pane-grid | 휠 아래 칸이 `run.scrolling` 의 mod 칸이면 `isScrollIn` 이 참일 때 `next(e)` 를 부르고, 거짓일 때(칸 제목 줄) `{}` 를 반환한다. 그 칸의 `scroll` 값은 바꾸지 않는다 |
+| ⑥ | 규약 mod | `ui.scroll` hook 의 matcher 에 `/^grid-/` 를 더하고, `isScrollIn` 이 참이면 지금처럼 자기 행을 움직이고 `{}` 를 반환한다. 거짓이면 `next(e)` 다 |
+
+로드 순서마다 갈리는 것은 ⑤ 하나다. 규약 mod 가 pane-grid 보다 먼저 로드되면 그 mod 의 hook 이 먼저 실행되어 자기 칸의 event 를 `next(e)` 없이 끝내므로, pane-grid 는 그 event 를 받지 않는다. 이때 pane-grid 는 ① 의 Box 를 볼 수 없지만(그 mod 의 `cell:` Box 는 pane-grid 가 반환한 뒤에 slot 에 들어간다) 볼 필요가 없다.
+
+칸에 놓인 mod 가 바뀌면 그 칸의 `scroll` 값을 지운다(`hooks/register.tsx` 의 `dropStaleScroll`, `publish` 가 부른다). 칸 id 마다 놓인 mod 를 쓰기 전후로 견주어 달라졌거나 없어진 칸이 대상이다. 지우지 않으면 앞의 mod 를 민 `marginTop` 이 새 mod 에 남는다. 스스로 스크롤하는 mod 의 칸은 ⑤ 때문에 그 값이 다시 늘지 않는다. `swap` 은 칸 id 와 mod 를 함께 옮기므로(`hooks/tree.ts` 의 `swap`) 값이 지워지지 않는다.
+
+0.4.0 에서 함께 고친 것: zoom 한 칸의 `columns` · `rows` 가 zoom 하기 전 칸 크기로 쓰여 있었다. `placements` 는 `geometry` 의 칸 사각형을 썼는데 zoom 한 칸은 grid 전체(`gridRect`)에 그려진다. 지금은 zoom 한 칸에 `gridRect` 를 쓴다.
+
+2026-11-07 tmux 실행(200x50, 70개 파일을 둔 시험 저장소, filetree `pane-grid-cell` 브랜치):
+
+| 확인한 것 | 결과 |
+|---|---|
+| pane-grid 먼저 로드, filetree 칸 위 휠 아래 3칸 | 머리 줄 5행은 그대로이고 목록이 9행 내려갔다(filetree 는 한 칸에 3행씩 움직인다) |
+| 같은 칸의 제목 줄 위 휠 | 화면이 바뀌지 않았다 |
+| 빈 칸 위 휠 2칸 | 빈 칸의 안내 문구가 2행 위로 밀렸다(지금까지의 `marginTop`) |
+| 그 빈 칸(`scroll` 값 2)에 `/grid place filetree c1` | debug log 에 `scroll reset for c1` 이 찍혔고 filetree 가 첫 행부터 그려졌다 |
+| filetree 먼저 로드, 같은 휠 | 머리 줄은 그대로이고 목록이 9행 내려갔다. 옆 빈 칸 휠은 그 칸만 밀었다 |
+| 두 실행의 debug log | `pane-grid` · `filetree` 의 hook 실패 줄 0건 |
+
 ### 3.5 grid 에 넣은 mod 는 자기 자리에 그리지 않는다
 
 결정 6 에 따라, 규약 mod 는 「`pane-grid` 의 `layout` 에 자기 칸이 있는가」로 자기 자리를 정한다.

@@ -49,7 +49,7 @@ Claude Code mods draw panes beside the chat: a kanban board, the questions Claud
 | Presets | `/grid layout` applies `even-horizontal`, `even-vertical`, `main-vertical`, `main-horizontal` or `tiled`. `/grid resize <1-99>` sets a share from the prompt | [Arrange](#how-do-i-resize-zoom-and-rearrange-cells) |
 | Zoom, next, swap | `z` draws the active cell alone, `o` moves to the next cell, `w` swaps two cells | [Arrange](#how-do-i-resize-zoom-and-rearrange-cells) |
 | Layout tabs | Each layout is a Claude Code pane tab. `c` opens one, `b` breaks a cell out into one, `k` closes one | [Tabs](#how-do-layout-tabs-work) |
-| Scroll per cell | The mouse wheel scrolls the cell under the pointer; page keys scroll the active cell | [Overview](#pane-grid-a-claude-code-mod-that-splits-a-claude-code-pane-into-a-tmux-style-grid) |
+| Scroll per cell | The mouse wheel scrolls the cell under the pointer; page keys scroll the active cell. A mod that scrolls its own rows under a fixed header keeps doing so in its cell ([Step 7 of the guide](docs/add-pane-grid-cell.md#step-7-scroll-your-own-rows-in-the-cell-optional)) | [Overview](#pane-grid-a-claude-code-mod-that-splits-a-claude-code-pane-into-a-tmux-style-grid) |
 | One place per mod | A placed mod stops drawing in its own pane or band, and returns there when its cell is emptied | [Own pane](#what-happens-to-a-mods-own-pane) |
 | Saved layout | Layouts are kept in `~/.claude/pane-grid/layout.json` and restored in every new Claude Code session | [Layout file](#where-is-the-layout-saved) |
 | Skill for mod authors | `/pane-grid:add-pane-grid-cell` makes another Claude Code mod grid-ready | [Make a mod grid-ready](#how-do-i-make-my-claude-code-mod-grid-ready) |

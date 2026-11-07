@@ -14,7 +14,8 @@ You can do every step by hand, or let Claude do them: paste the prompt in [Use t
 - [Step 4: leave your own pane or band while placed](#step-4-leave-your-own-pane-or-band-while-placed)
 - [Step 5: accept Button presses from the grid pane](#step-5-accept-button-presses-from-the-grid-pane)
 - [Step 6: stop timers while the grid tab is hidden (optional)](#step-6-stop-timers-while-the-grid-tab-is-hidden-optional)
-- [Step 7: check it](#step-7-check-it)
+- [Step 7: scroll your own rows in the cell (optional)](#step-7-scroll-your-own-rows-in-the-cell-optional)
+- [Step 8: check it](#step-8-check-it)
 - [Use the skill](#use-the-skill)
 - [FAQ](#faq)
 
@@ -42,14 +43,14 @@ Two values in `$.state`, owned by the plugin `pane-grid`.
 
 | Key | Type | Meaning |
 |---|---|---|
-| `layout` | `{ version: 1, revision, tabs, placed }` | `placed` maps a plugin name to `{ tab, requestId, cell, columns, rows }`. `requestId` is the grid pane id, `columns` and `rows` are the cell's inner size |
+| `layout` | `{ version: 1, revision, tabs, placed }` | `placed` maps a plugin name to `{ tab, requestId, cell, column, row, columns, rows, isActive }`. `requestId` is the grid pane id, `columns` and `rows` are the cell's inner size, `column` and `row` its top left in the grid pane's body (0.4.0), `isActive` whether it is the active or zoomed cell (0.4.0) |
 | `shown` | `string \| null` | The name of the grid layout on screen; `null` when no grid pane is shown |
 
 The values are declared in pane-grid's own contract (`types/index.d.ts`), which your mod does not import. The reading module in Step 1 reads them as `unknown` and checks them at run time.
 
 ## Step 1: copy the reading module
 
-Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pane-grid.ts) to `hooks/pane-grid.ts` in your mod, unchanged. It exports five functions.
+Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pane-grid.ts) to `hooks/pane-grid.ts` in your mod, unchanged. It exports seven functions.
 
 | Function | Use |
 |---|---|
@@ -58,6 +59,8 @@ Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pan
 | `readShownTab($)` | Reads `shown`. Only Step 6 needs it; delete it if you skip Step 6 |
 | `offerChoice(below, plugin, placement, makeButton)` | Adds your Button, made by `makeButton`, to each empty cell's choices in `below`. Returns `below` unchanged when it holds no choices |
 | `fillSlot(below, plugin, cell)` | Puts `cell` into your slot in `below`. Returns `undefined` when `below` holds no slot |
+| `scrollsKey(plugin)` | The key of the Box that tells pane-grid your mod scrolls its own rows. Only Step 7 needs it; delete it if you skip Step 7 |
+| `isScrollIn(placement, e)` | Whether a `ui.scroll` on a grid pane is for your cell. Only Step 7 needs it; delete it if you skip Step 7 |
 
 `readPlacement` and `readShownTab` are `function` declarations on purpose. `claude plugin validate` follows `$` across an import only through function declarations.
 
@@ -194,7 +197,39 @@ on('state.set', { plugin: 'pane-grid' as never, key: 'shown' as never }, async (
 
 `readShownTab($)` gives the same value outside a `state.set` hook, for example inside the timer callback.
 
-## Step 7: check it
+## Step 7: scroll your own rows in the cell (optional)
+
+Skip this step if your mod lets the engine scroll its pane. pane-grid then scrolls your cell for you: the wheel over the cell moves the whole `cell:` Box up, header rows included.
+
+A mod with a `ui.scroll` hook that moves its own rows under a fixed header (a list, a tree, a log) keeps doing so in the cell with two changes:
+
+```tsx
+import { isScrollIn, readPlacement, scrollsKey } from './pane-grid'
+
+on('ui.scroll', { component: 'Pane', requestId: [PANE, /^grid-/] }, async ($, e, next) => {
+  if (e.requestId != PANE && !isScrollIn(await readPlacement($, PLUGIN), e)) return next(e)
+  // scroll your rows by e.by as before and return {}
+})
+```
+
+```tsx
+<Box key={`cell:${PLUGIN}`} flexDirection="column">
+  <Box key={scrollsKey(PLUGIN)} />
+  {drawPane(columns)}
+</Box>
+```
+
+| Part | What it does |
+|---|---|
+| `scrollsKey` Box | An empty Box inside your `cell:` Box. pane-grid finds it in the grid render and hands the `ui.scroll` of your cell to the next hook instead of moving the cell. Without it pane-grid keeps moving the cell, so an older copy of the module is unaffected |
+| `isScrollIn` | true for the wheel over your cell's content area, and for a scroll key while your cell is the active one. Every other event goes on with `next(e)`, so the other cells still scroll. The wheel over the cell's title row is dropped |
+| Pointer row | The row in your cell is `e.pointer.row - placement.row`, and the column `e.pointer.column - placement.column`. A mod that reads `e.pointer` uses these in a cell |
+
+Load order does not matter here either. When your mod loads before pane-grid, your hook sees the event first and answers it without `next(e)`. When it loads after, pane-grid sees the event first and calls `next(e)` for your cell.
+
+`isScrollIn` is false with pane-grid before 0.4.0, which does not write `column`, `row` and `isActive`: your hook then calls `next(e)` and that pane-grid moves the cell as before.
+
+## Step 8: check it
 
 1. `claude plugin validate <your mod>`: the output lists `state reads: pane-grid.layout` and the `state.set{plugin=pane-grid, key=layout}` hook.
 2. Type-check: `tsc -p <your mod> --noEmit` once the engine has written `.claude-plugin/types/`.
@@ -213,6 +248,7 @@ on('state.set', { plugin: 'pane-grid' as never, key: 'shown' as never }, async (
    | `/grid split -h` | A new empty cell lists your mod among its choices, in both load orders |
    | Press its digit, or `/grid place <your mod>` | Your content in the cell; your own pane or band is gone |
    | `/grid resize 30` | Your content redraws at the new width |
+   | Wheel over your cell (Step 7 only) | Your rows scroll under your header; the wheel over another cell scrolls that cell |
    | `/grid place -` | Your own pane or band is back |
    | Run without pane-grid | Your mod behaves as before |
 
@@ -235,13 +271,13 @@ Do not commit. List what you changed and what I should check in a live session.
 
 With pane-grid already installed, running `/pane-grid:add-pane-grid-cell` alone does the same.
 
-The skill copies the reading module, finds where your mod draws, applies Steps 2 to 6 that match it, runs `claude plugin validate`, and lists what it changed and what you should check in a live session (Step 7.3). It does not commit.
+The skill copies the reading module, finds where your mod draws, applies Steps 2 to 7 that match it, runs `claude plugin validate`, and lists what it changed and what you should check in a live session (Step 8.3). It does not commit.
 
 ## FAQ
 
 ### Does my mod need pane-grid installed to work?
 
-No. Every pane-grid read returns `undefined` without it, and the hooks of Steps 3 to 6 then return `next(e)` or do nothing.
+No. Every pane-grid read returns `undefined` without it, and the hooks of Steps 3 to 7 then return `next(e)` or do nothing.
 
 ### Can my mod be in two cells at once?
 
