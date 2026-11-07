@@ -268,6 +268,17 @@ pane-grid 가 그리는 key 는 다섯 가지다(`hooks/register.tsx` 의 `SLOT_
 
 덮는 방식을 고른 이유는 §4.1 8회차의 측정이다. 칸 아래에 깐 `Client` 는 글자 줄을 누른 것을 받지 못했다.
 
+#### 칸 안의 Button `hotkey`(0.4.1)
+
+칸 안에 그린 Button 의 `hotkey` 는 그 칸이 아니라 grid pane 전체에 걸린다. 엔진은 pane 이 키보드를 가진 동안 그 pane 의 모든 Button `hotkey` 를 보고, 같은 글자가 둘이면 나중에 그린 Button 을 누른다. pane-grid 는 hotkey 줄을 `{grid}` 보다 먼저 그리므로(`hooks/register.tsx`) 칸 안의 같은 글자가 이긴다. `autoFocus` 도 같아서, pane 이 키보드를 받으면 그 pane 의 첫 `autoFocus` 요소에 포커스가 간다.
+
+2026-11-07 녹화(`verification/demo/record.py`, filetree `pane-grid-cell` 브랜치 02a6ad9)에서 세 가지가 이것으로 틀렸다. filetree 가 보이지 않게 그린 hotkey 의 `c` 가 툴바의 `c`(new tab)를, `z` 가 `z`(zoom)를 가져갔고, 활성이 아닌 filetree 칸의 `autoFocus` 가 숫자 키를 prompt 로 보냈다.
+
+| 쪽 | 0.4.1 에서 한 것 |
+|---|---|
+| pane-grid | 툴바 글자를 읽기 모듈의 `TOOLBAR_KEYS` 하나로 두고, `HOTKEYS` 는 그 배열에서 만든다. 규약 mod 는 같은 배열을 읽어 그 글자를 빼고 그린다 |
+| 규약 mod | `placement.isActive` 일 때만 Button `hotkey` 와 `autoFocus` 를 그리고, `TOOLBAR_KEYS` 의 글자는 그리지 않는다(`docs/add-pane-grid-cell.md` Step 5) |
+
 ## 4. 실행해서 확인한 것
 
 시험 mod 두 개를 `verification/r11-state/` 에 두었다. `host/` 는 pane-grid 역할(배치 state 를 쓰고 pane `r11grid-a`(Grid A) · `r11grid-b`(Grid B)를 연다), `member/` 는 규약 mod 역할(자기 pane `r11m` 과 grid 칸을 그리고 자기 state `count` 를 4초마다 올린다)이다. 실행 명령과 로그:

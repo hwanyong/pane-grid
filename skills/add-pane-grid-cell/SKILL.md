@@ -22,6 +22,7 @@ Classify every `ui.render` hook:
 | `{ component: 'Pane', requestId: <id> }` with `$.ui.open({ id })` | Step 4, "A pane of your own" |
 | `{ component: 'AbovePrompt' }` | Step 4, "A band above the prompt" |
 | `ui.press` hooks with `requestId: <pane id>` | Step 5 |
+| Button `hotkey`s or `autoFocus` drawn in the pane | Step 5 (hotkeys) |
 | `$.clock.every`, `$.ui.blit`, polling | Step 6 |
 | `ui.scroll` hooks with `requestId: <pane id>` that return without `next(e)` | Step 7 |
 

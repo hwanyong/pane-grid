@@ -24,6 +24,10 @@ const SCROLLS_KEY = 'scrolls:'
 // Empty-cell choices take hotkeys 1-9 in the active cell only.
 const CHOICE_HOTKEYS = 9
 
+// The letters of pane-grid's toolbar hotkeys. A Button `hotkey` drawn in a cell acts for the whole grid pane, and of two
+// Buttons with one hotkey the engine presses the later drawn. Leave these letters out of the hotkeys your cell draws.
+export const TOOLBAR_KEYS = ['v', 's', 'o', 'z', 'x', 'w', 'b', 'c', 'k', 'q'] as const
+
 // tab: the layout holding the cell. requestId: that layout's grid pane id (`grid-<tab>`).
 // columns and rows: the size to draw in. Both are 0 until pane-grid has measured the pane.
 // column and row: the top left of that area in the grid pane's body, as `UiScrollPointer` counts. isActive: the cell

@@ -1,4 +1,4 @@
-<a href="docs/add-pane-grid-cell.md"><img src="docs/images/banner.png" width="860" alt="Banner on a dark background. Orange text pane-grid, then the title Join the Pane Grid ecosystem, the line Make your Claude Code mod draw in a grid cell, an orange button with the command /pane-grid:add-pane-grid-cell, and the line A Claude Code mod: tmux-style grid for Claude Code panes. On the right, a Claude Code screenshot with one pane split into three cells: pending-questions on top, a uhd-kanban board and usage-gauge rate-limit bars below."></a>
+<a href="docs/add-pane-grid-cell.md"><img src="docs/images/banner.png" width="860" alt="Banner on a dark background. Orange text pane-grid, then the title Join the Pane Grid ecosystem, the line Make your Claude Code mod draw in a grid cell, an orange button with the command /pane-grid:add-pane-grid-cell, and the line A Claude Code mod: tmux-style grid for Claude Code panes. On the right, a Claude Code screenshot with one pane split into four cells: filetree and pending-questions on top, a uhd-kanban board and usage-gauge rate-limit bars below."></a>
 
 > [!TIP]
 > **Join the Pane Grid ecosystem.** Any Claude Code mod can draw in a pane-grid cell. Open Claude Code in your mod's repository and paste the [prompt with this repository's address](#how-do-i-make-my-claude-code-mod-grid-ready): Claude installs pane-grid from `https://github.com/hwanyong/pane-grid`, runs **`/pane-grid:add-pane-grid-cell`** and applies the [grid-ready guide](docs/add-pane-grid-cell.md) to your code. Then [add your mod to the list](#which-claude-code-mods-are-grid-ready).
@@ -11,7 +11,7 @@
 
 **pane-grid is a Claude Code mod (a plugin with a hooks module) that shows several Claude Code mods side by side in one pane.** Claude Code shows one mod pane at a time and puts the rest in tabs. pane-grid opens one pane, splits it into cells the way tmux splits a window, and lets each grid-ready mod draw in its own cell. Splits, resizing, zoom, swap, layout presets and layout tabs work from `/grid` commands and single-key hotkeys, and the layout is saved to `~/.claude/pane-grid/layout.json`.
 
-<img src="docs/images/demo-overview.png" width="860" alt="Animated recording of a Claude Code session. The right half is one pane-grid pane split into three cells: pending-questions on top, a uhd-kanban board and usage-gauge rate-limit bars below. The prompt Prepare the billing release. is sent, Claude answers with three numbered questions, and pending-questions lists them as q1 to q3 in its cell. The mouse wheel then scrolls the questions cell while the other two cells stay still.">
+<img src="docs/images/demo-overview.png" width="860" alt="Animated recording of a Claude Code session. The right half is one pane-grid pane split into four cells: filetree and pending-questions on top, a uhd-kanban board and usage-gauge rate-limit bars below. The prompt Prepare the billing release. is sent, Claude answers with three numbered questions, and pending-questions lists them as q1 to q3 in its cell. The mouse wheel then scrolls the questions cell while the other three cells stay still. Clicking the filetree cell makes it active, clicking src and then webhooks expands those folders, and the wheel scrolls the tree while its search row and column header stay in place.">
 
 *Recorded from a real Claude Code session. See [About the recordings](#about-the-recordings).*
 
@@ -74,7 +74,7 @@ Install order does not matter: pane-grid and grid-ready mods draw the same grid 
 
 ## How do I split a pane and place a mod?
 
-<img src="docs/images/demo-split-place.png" width="860" alt="Animated recording of a pane-grid pane with one empty cell that lists pending-questions, uhd-kanban and usage-gauge with digits 1 to 3. Pressing 2 places uhd-kanban. Pressing v splits the cell left and right and the new cell lists the remaining mods; 3 places usage-gauge. Pressing s splits again and 1 places pending-questions. Pressing s once more makes a cell that lists uhd-kanban as move from c1, and 2 moves the board there.">
+<img src="docs/images/demo-split-place.png" width="860" alt="Animated recording of a pane-grid pane with one empty cell that lists filetree, pending-questions, uhd-kanban and usage-gauge with digits 1 to 4. Pressing 3 places uhd-kanban in c1, and its pane tab closes. Pressing v splits c1 into c1 and c2; c2 lists the four mods, uhd-kanban as move from c1, and 1 places filetree, which closes its Files tab. Pressing s splits c2 into c2 and c3 and 2 places pending-questions in c3. Pressing s once more splits c3 into c3 and c4; c4 lists filetree, pending-questions and uhd-kanban as move from their cells, and 3 moves the board to c4, leaving c1 empty.">
 
 1. Click a cell. It becomes the active cell (its title turns green) and the grid pane takes the keyboard, so hotkeys work. The first click on a cell that is not active only activates it; a Button under the pointer is pressed by the next click.
 2. An empty cell lists the grid-ready mods that are loaded. In the active cell each has a digit: press it, or click the name, to place that mod.
@@ -85,7 +85,7 @@ The same actions are `/grid split -h`, `/grid split -v` and `/grid place <mod> [
 
 ## How do I resize, zoom and rearrange cells?
 
-<img src="docs/images/demo-arrange.png" width="860" alt="Animated recording of a three-cell pane-grid pane without cell borders. Dragging the vertical divider between the uhd-kanban and usage-gauge cells 14 columns to the left resizes both, and dragging the horizontal divider 5 rows up makes the bottom row taller; a held divider turns green. /grid layout tiled and /grid layout main-vertical rebuild the cells. Clicking the pending-questions cell makes it active, z zooms it over the whole pane and z restores it, o makes the next cell active and w swaps two cells.">
+<img src="docs/images/demo-arrange.png" width="860" alt="Animated recording of a four-cell pane-grid pane without cell borders. Dragging the vertical divider between the uhd-kanban and usage-gauge cells 14 columns to the left resizes both, and dragging the horizontal divider 5 rows up makes the bottom row taller; a held divider turns green. /grid layout tiled and /grid layout main-vertical rebuild the cells. Clicking the pending-questions cell makes it active, z zooms it over the whole pane and z restores it, o makes the next cell active and w swaps two cells.">
 
 - Drag the divider between two cells (`│` between left and right, `─` between top and bottom) to resize both. The new sizes are saved when you release the button.
 - `/grid resize 35` gives the active cell 35% of its parent split.
@@ -95,7 +95,7 @@ The same actions are `/grid split -h`, `/grid split -v` and `/grid place <mod> [
 
 ## How do layout tabs work?
 
-<img src="docs/images/demo-tabs.png" width="860" alt="Animated recording of pane-grid layout tabs. b moves the active cell to a new tab w2, c opens an empty tab w3, clicking w3 in the tab bar shows it and 1 moves pending-questions into it. /grid list prints the three tabs with their cells, and /grid select main shows the first tab again.">
+<img src="docs/images/demo-tabs.png" width="860" alt="Animated recording of pane-grid layout tabs. b moves the active cell to a new tab w2, c opens an empty tab w3, clicking w3 in the tab bar shows it and 1 moves filetree into it. /grid list prints the three tabs with their cells, and /grid select main shows the first tab again.">
 
 Each layout is one Claude Code pane tab with the id `grid-<name>`. Switching tabs is Claude Code's own tab switching (click a name in the tab bar), and `/grid select <name>` shows a tab from the prompt. When a different tab is shown, focus returns to the prompt; click a cell again before using hotkeys.
 
@@ -108,9 +108,9 @@ A hidden tab is not drawn. A mod that runs an animation stops it while its tab i
 
 ## What happens to a mod's own pane?
 
-<img src="docs/images/demo-return.png" width="860" alt="Animated recording of a uhd-kanban board placed in cell c2. /grid place - c2 empties the cell and uhd-kanban opens its own pane tab with the board. /grid place uhd-kanban c2 puts it back in the cell and its own pane tab closes.">
+<img src="docs/images/demo-return.png" width="860" alt="Animated recording of a pane-grid pane with four cells and a uhd-kanban board in cell c3. /grid place - c3 empties the cell and uhd-kanban opens its own pane tab with the board. /grid place uhd-kanban c3 puts it back in the cell and its own pane tab closes.">
 
-A grid-ready mod draws in one place. While it has a cell, it closes its own pane (uhd-kanban, pending-questions) or stops drawing its band above the prompt (usage-gauge). `/grid place -` empties the active cell, and the mod opens its own pane or band again. Without pane-grid installed, every grid-ready mod works as it did before.
+A grid-ready mod draws in one place. While it has a cell, it closes its own pane (uhd-kanban, pending-questions, the Files tab of filetree) or stops drawing its band above the prompt (usage-gauge). `/grid place -` empties the active cell, and the mod opens its own pane or band again. Without pane-grid installed, every grid-ready mod works as it did before.
 
 ## Command and hotkey reference
 
@@ -257,12 +257,12 @@ In `~/.claude/pane-grid/layout.json`. Copy the file to another machine and run `
 
 ## About the recordings
 
-The animated images are APNG files recorded from real Claude Code 2.1.319 sessions running pane-grid 0.3.1 with pending-questions, uhd-kanban and usage-gauge, and the `haiku` model. The terminal was captured with `tmux capture-pane -e` and drawn to images by [`verification/demo/`](verification/demo/).
+The animated images are APNG files recorded from real Claude Code 2.1.319 sessions running pane-grid 0.4.1 with filetree (the `pane-grid-cell` branch of hwanyong/claude-code-filetree), pending-questions, uhd-kanban and usage-gauge, and the `haiku` model. The terminal was captured with `tmux capture-pane -e` and drawn to images by [`verification/demo/`](verification/demo/).
 
 - Claude's response was fixed with a system prompt (`--append-system-prompt-file`) so that the recording repeats. Splits, hotkeys, clicks, scrolling and question extraction ran for real.
 - Waits were shortened. The title bar, the strip under the terminal and the orange outlines are not part of the interface.
 - Lines from Claude Code that are not about these mods (account plan, notices, tips) were removed from the images.
-- The project, the board's cards and the questions are fictional. The rate-limit gauges show the recording account's usage.
+- The project, its files, the board's cards and the questions are fictional. The rate-limit gauges show the recording account's usage.
 
 ## Development
 
@@ -275,7 +275,7 @@ claude plugin validate .
 To record the images again: create a venv with `pillow` and `fonttools`, then run
 
 ```
-DEMO_ROOT=<empty folder> PANE_GRID_MODS=<usage-gauge>:<skill-kanban>/plugins/uhd-kanban:<pending-questions> \
+DEMO_ROOT=<empty folder> PANE_GRID_MODS=<filetree>:<usage-gauge>:<skill-kanban>/plugins/uhd-kanban:<pending-questions> \
   <venv>/bin/python verification/demo/record.py
 <venv>/bin/python verification/demo/banner.py
 ```

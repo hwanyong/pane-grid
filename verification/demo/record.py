@@ -5,11 +5,11 @@
     <venv>/bin/python verification/demo/record.py [장면 이름 ...]
 
 venv 에는 pillow 와 fonttools 를 설치한다. tmux 와 로그인된 claude 가 필요하다.
-PANE_GRID_MODS 에는 usage-gauge · uhd-kanban(skill-kanban 저장소의 plugins/uhd-kanban) · pending-questions 폴더를 적는다.
+PANE_GRID_MODS 에는 filetree · usage-gauge · uhd-kanban(skill-kanban 저장소의 plugins/uhd-kanban) · pending-questions 폴더를 적는다.
 
 세션은 DEMO_ROOT/home 을 HOME 으로 쓰므로 사용자의 설정 · 플러그인 · ~/.claude/pane-grid/layout.json 을 읽지 않는다.
 로그인은 키체인 폴더만 링크해 가져온다. 응답은 --append-system-prompt-file 의 대본으로 고정한다.
-pane-grid 와 규약 mod 세 개 · hotkey · 클릭 · 질문 추출은 실제로 동작한다.
+pane-grid 와 규약 mod 네 개 · hotkey · 클릭 · 질문 추출은 실제로 동작한다.
 """
 import json
 import os
@@ -88,11 +88,29 @@ def tab(name, root, active):
     return {'name': name, 'root': root, 'active': active}
 
 
-THREE_MODS = tab('main', split(
+FOUR_MODS = tab('main', split(
     'column',
-    (cell('c1', 'pending-questions'), 50),
-    (split('row', (cell('c2', 'uhd-kanban'), 60), (cell('c3', 'usage-gauge'), 40)), 50),
-), 'c2')
+    (split('row', (cell('c1', 'filetree'), 38), (cell('c2', 'pending-questions'), 62)), 50),
+    (split('row', (cell('c3', 'uhd-kanban'), 60), (cell('c4', 'usage-gauge'), 40)), 50),
+), 'c3')
+
+# filetree 가 그릴 프로젝트 파일. (경로, 내용)
+SOURCES = (
+    ('README.md', '# billing-api\n\nInvoices, taxes and receipts for the shop.\n'),
+    ('package.json', '{\n  "name": "billing-api",\n  "version": "2.3.0",\n  "type": "module"\n}\n'),
+    ('tsconfig.json', '{\n  "compilerOptions": { "strict": true }\n}\n'),
+    ('docs/release-2.4.md', '# Billing 2.4\n\n- Invoice PDF export\n- Retry failed webhooks\n'),
+    ('src/index.ts', "export { invoice } from './billing/invoice'\n"),
+    ('src/billing/currency.ts', 'export const rates = new Map<string, number>()\n'),
+    ('src/billing/invoice.ts', "import { tax } from './tax'\n\nexport function invoice(lines: number[]) {\n  const net = lines.reduce((a, b) => a + b, 0)\n  return { net, tax: tax(net) }\n}\n"),
+    ('src/billing/receipt.ts', 'export function receipt(id: string) {\n  return `receipt-${id}`\n}\n'),
+    ('src/billing/tax.ts', 'const RATE = 0.1\n\nexport function tax(net: number) {\n  return Math.round(net * RATE * 100) / 100\n}\n\nexport function refundTax(net: number) {\n  return -tax(net)\n}\n'),
+    ('src/pdf/export.ts', 'export async function exportPdf(id: string) {\n  return new Uint8Array()\n}\n'),
+    ('src/webhooks/handler.ts', 'export function handle(event: unknown) {\n  return event\n}\n'),
+    ('src/webhooks/retry.ts', 'export const MAX_RETRIES = 5\n'),
+    ('test/invoice.test.ts', "import { invoice } from '../src/billing/invoice'\n"),
+    ('test/tax.test.ts', "import { tax } from '../src/billing/tax'\n"),
+)
 
 
 def write_layout(*tabs):
@@ -131,6 +149,13 @@ def write_board():
         )
 
 
+def write_sources():
+    for path, text in SOURCES:
+        file = PROJECT / path
+        file.parent.mkdir(parents=True, exist_ok=True)
+        file.write_text(text)
+
+
 def prepare_home():
     (HOME / 'bin').mkdir(parents=True, exist_ok=True)
     (HOME / 'Library').mkdir(exist_ok=True)
@@ -158,6 +183,7 @@ def prepare_home():
     wrapper.chmod(0o755)
     (ROOT / 'tmux.conf').write_text(TMUX_CONF)
     write_board()
+    write_sources()
 
 
 def tmux(*args, check=True):
@@ -399,20 +425,26 @@ class Take:
 
 
 def scene_overview():
-    take = Take('demo-overview', 'pane-grid: three mods in one pane', [THREE_MODS], RELEASE_SCRIPT)
+    take = Take('demo-overview', 'pane-grid: four mods in one pane', [FOUR_MODS], RELEASE_SCRIPT)
     take.start_claude()
-    take.say('1. One grid pane holds three mods: questions, a kanban board, rate limits')
-    take.hold(2600)
+    take.say('1. One grid pane holds four mods: files, questions, a kanban board, rate limits')
+    take.hold(2800)
     take.say('2. Claude asks three questions at the end of a response')
     take.enter_prompt('Prepare the billing release.')
     take.wait_for(r'Three things')
     take.say('3. pending-questions draws them in its cell')
     take.wait_for(r'q1\. Which')
-    take.hold(2400, (r'c1 pending-questions', None))
-    take.still('grid-three-mods')
+    take.hold(2400, (r'c2 pending-questions', None))
+    take.still('grid-four-mods')
     take.say('4. The wheel scrolls only the cell under the pointer')
     take.wheel(r'q1\. Which', 8)
     take.hold(1600)
+    take.say('5. filetree opens folders with a click and scrolls its tree under its header')
+    take.click(r'c1 filetree', label='click c1', duration=700)
+    take.click(r'(?<=\s)src(?=\s|$)', label='click src', duration=900)
+    take.click(r'(?<=\s)webhooks(?=\s|$)', label='click webhooks', duration=900)
+    take.wheel(r'(?<=\s)docs(?=\s|$)', 3)
+    take.hold(2000, (r'c1 filetree', None))
     take.finish()
 
 
@@ -423,39 +455,39 @@ def scene_split():
     take.hold(2200, (r'empty\. place', r'usage-gauge'))
     take.focus_grid()
     take.say('2. A digit places that mod in the active cell')
-    take.press('2', '2')
+    take.press('3', '3')
     take.hold(1200)
     take.say('3. v splits the active cell left and right')
     take.press('v', 'v')
     take.hold(1400, (r'empty\. place', r'usage-gauge'))
-    take.say('4. The new cell offers the rest. 3 places usage-gauge')
-    take.press('3', '3')
-    take.hold(1200)
+    take.say('4. The new cell offers the rest. 1 places filetree')
+    take.press('1', '1')
+    take.hold(1400)
     take.say('5. s splits top and bottom')
     take.press('s', 's')
-    take.press('1', '1')
+    take.press('2', '2')
     take.hold(2200)
     take.say('6. A mod lives in one cell. Picking it again moves it')
     take.press('s', 's')
     take.hold(1600, (r'move from', None))
-    take.press('2', '2')
+    take.press('3', '3')
     take.hold(2400)
     take.finish()
 
 
 def scene_arrange():
-    take = Take('demo-arrange', 'pane-grid: drag, presets, focus, zoom, swap', [THREE_MODS])
+    take = Take('demo-arrange', 'pane-grid: drag, presets, focus, zoom, swap', [FOUR_MODS])
     take.start_claude()
     take.say('1. Drag a divider to resize the cells on both sides')
-    # c3 의 제목은 분할선 바로 오른쪽에서 시작한다. c2 의 제목 줄 바로 위가 가로 분할선이다.
-    take.drag(r'c3 usage-gauge', (-1, 0), (-14, 0))
-    take.drag(r'c2 uhd-kanban', (6, -1), (0, -5))
+    # c4 의 제목은 분할선 바로 오른쪽에서 시작한다. c3 의 제목 줄 바로 위가 가로 분할선이다.
+    take.drag(r'c4 usage-gauge', (-1, 0), (-14, 0))
+    take.drag(r'c3 uhd-kanban', (6, -1), (0, -5))
     take.hold(1200)
     take.say('2. /grid layout applies a tmux preset')
     take.grid('layout tiled', 1800)
     take.grid('layout main-vertical', 1800)
     take.say('3. Click a cell to make it active; its hotkeys work right away')
-    take.click(r'c1 pending-questions', label='click c1', duration=1400)
+    take.click(r'c2 pending-questions', label='click c2', duration=1400)
     take.say('4. z zooms the active cell, z again restores the grid')
     take.press('z', 'z', duration=1800)
     take.press('z', 'z', duration=1200)
@@ -466,7 +498,7 @@ def scene_arrange():
 
 
 def scene_tabs():
-    take = Take('demo-tabs', 'pane-grid: one pane tab per layout', [THREE_MODS])
+    take = Take('demo-tabs', 'pane-grid: one pane tab per layout', [FOUR_MODS])
     take.start_claude()
     take.focus_grid()
     take.say('1. b breaks the active cell out into a new layout tab')
@@ -487,14 +519,14 @@ def scene_tabs():
 
 
 def scene_return():
-    take = Take('demo-return', 'pane-grid: a mod returns to its own pane', [THREE_MODS])
+    take = Take('demo-return', 'pane-grid: a mod returns to its own pane', [FOUR_MODS])
     take.start_claude()
     take.say('1. While placed, uhd-kanban does not open its own pane')
-    take.hold(1800, (r'c2 uhd-kanban', None))
+    take.hold(1800, (r'c3 uhd-kanban', None))
     take.say('2. Emptying the cell gives the board its own pane back')
-    take.grid('place - c2', 2600)
+    take.grid('place - c3', 2600)
     take.say('3. Placing it again closes that pane')
-    take.grid('place uhd-kanban c2', 2400)
+    take.grid('place uhd-kanban c3', 2400)
     take.finish()
 
 

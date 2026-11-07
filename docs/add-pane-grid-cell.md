@@ -1,6 +1,6 @@
 # Make your Claude Code mod draw in a pane-grid cell
 
-This guide shows how to make a Claude Code mod (a plugin with a hooks module) draw inside a cell of a [pane-grid](../README.md) layout. A mod that follows it is called **grid-ready** in this repository. The steps were taken from the three mods that already follow it: [usage-gauge](https://github.com/hwanyong/usage-gauge), [uhd-kanban](https://github.com/hwanyong/skill-kanban) and [pending-questions](https://github.com/hwanyong/pending-questions).
+This guide shows how to make a Claude Code mod (a plugin with a hooks module) draw inside a cell of a [pane-grid](../README.md) layout. A mod that follows it is called **grid-ready** in this repository. The steps were taken from the mods that already follow it: [usage-gauge](https://github.com/hwanyong/usage-gauge), [uhd-kanban](https://github.com/hwanyong/skill-kanban), [pending-questions](https://github.com/hwanyong/pending-questions) and [filetree](https://github.com/hwanyong/claude-code-filetree/tree/pane-grid-cell).
 
 You can do every step by hand, or let Claude do them: paste the prompt in [Use the skill](#use-the-skill), which names `https://github.com/hwanyong/pane-grid`, into a Claude Code session opened in your mod's repository. The skill reads this guide and applies it to your code.
 
@@ -50,9 +50,9 @@ The values are declared in pane-grid's own contract (`types/index.d.ts`), which 
 
 ## Step 1: copy the reading module
 
-Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pane-grid.ts) to `hooks/pane-grid.ts` in your mod, unchanged. It exports seven functions.
+Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pane-grid.ts) to `hooks/pane-grid.ts` in your mod, unchanged. It exports seven functions and one constant.
 
-| Function | Use |
+| Export | Use |
 |---|---|
 | `placementIn(layout, plugin)` | Finds your cell in a layout value. Pure; use it on a `state.set` hook's `value` and `previous` |
 | `readPlacement($, plugin)` | Reads the current layout and finds your cell. Called while drawing, it makes the drawing redraw when the layout changes |
@@ -61,6 +61,7 @@ Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pan
 | `fillSlot(below, plugin, cell)` | Puts `cell` into your slot in `below`. Returns `undefined` when `below` holds no slot |
 | `scrollsKey(plugin)` | The key of the Box that tells pane-grid your mod scrolls its own rows. Only Step 7 needs it; delete it if you skip Step 7 |
 | `isScrollIn(placement, e)` | Whether a `ui.scroll` on a grid pane is for your cell. Only Step 7 needs it; delete it if you skip Step 7 |
+| `TOOLBAR_KEYS` | The letters of pane-grid's toolbar hotkeys. Only Step 5 needs it, when your cell draws Button `hotkey`s; delete it otherwise |
 
 `readPlacement` and `readShownTab` are `function` declarations on purpose. `claude plugin validate` follows `$` across an import only through function declarations.
 
@@ -174,7 +175,15 @@ on('ui.press', { plugin: PLUGIN, component: 'Pane', requestId: [PANE, /^grid-/],
 })
 ```
 
-Button `hotkey`s inside a cell work while the grid pane has focus. pane-grid's toolbar uses the letters `v s o z x w b c k q` and the digits `1`-`9` in the active empty cell, so prefer other keys.
+A Button `hotkey` inside a cell acts for the whole grid pane while it has focus, whichever cell is active. Of two Buttons with one hotkey the engine presses the later drawn, and cells are drawn after pane-grid's toolbar. So if your cell draws hotkeys:
+
+- draw them only while `placement.isActive` is true, so they do not act while the person works in another cell
+- leave out the letters in `TOOLBAR_KEYS` (`v s o z x w b c k q`), so the toolbar keeps working while your cell is active. The digits `1`-`9` belong to the active empty cell's choices, so they never collide with a placed mod
+- give `autoFocus` under the same condition. The grid pane's focus ring starts on the first `autoFocus` element drawn when the pane takes the keyboard
+
+```tsx
+const keys = placement ? (placement.isActive ? myKeys.filter(k => !(TOOLBAR_KEYS as readonly string[]).includes(k.key)) : []) : myKeys
+```
 
 ## Step 6: stop timers while the grid tab is hidden (optional)
 

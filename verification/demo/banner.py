@@ -1,7 +1,7 @@
 """README 맨 위의 배너 · GitHub social preview · plugin 아이콘을 그린다.
 
 사용법: <venv>/bin/python verification/demo/banner.py
-record.py 가 남긴 docs/images/grid-three-mods.png 를 화면 사진으로 쓴다. 먼저 record.py overview 를 실행한다.
+record.py 가 남긴 docs/images/grid-four-mods.png 를 화면 사진으로 쓴다. 먼저 record.py overview 를 실행한다.
 """
 from pathlib import Path
 
@@ -11,7 +11,7 @@ import render
 
 REPO = Path(__file__).resolve().parents[2]
 IMAGES = REPO / 'docs' / 'images'
-SCREEN = IMAGES / 'grid-three-mods.png'
+SCREEN = IMAGES / 'grid-four-mods.png'
 
 TITLE = 'Join the Pane Grid ecosystem'
 SUBTITLE = 'Make your Claude Code mod draw in a grid cell.'

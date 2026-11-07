@@ -3,7 +3,7 @@ import type { EngineInterface, Register, RenderElement, RenderNode, Tier, TraceE
 import type { GridLayout, GridNode, GridPlacement, GridScroll, GridShown, GridTab } from './grid-types'
 import { apply, checkOutcome } from './actions'
 import { defaultTabs, parseLayoutFile, serializeLayoutFile } from './layout-file'
-import { isScrollIn, scrollsKey } from '../skills/add-pane-grid-cell/pane-grid'
+import { isScrollIn, scrollsKey, TOOLBAR_KEYS } from '../skills/add-pane-grid-cell/pane-grid'
 import { ROOT_PATH, cellsOf, childPath, findCell, geometry, moveDivider, rectAt, replaceAt, splitAt, splitRects } from './tree'
 import type { Rect } from './tree'
 
@@ -53,18 +53,20 @@ const CHOICE_HOTKEYS = 9
 const UNFILLED_HINT = 'not loaded, or its hooks/pane-grid.ts is older than pane-grid 0.3.0'
 
 // docs/grid-and-tabs.md §2.3 결정 10. 이름 바꾸기(`r`)는 이름 입력이 필요해 slash 명령으로만 한다.
-const HOTKEYS: { key: string; label: string; words: string[] }[] = [
-  { key: 'v', label: 'split-h', words: ['split', '-h'] },
-  { key: 's', label: 'split-v', words: ['split', '-v'] },
-  { key: 'o', label: 'next', words: ['next'] },
-  { key: 'z', label: 'zoom', words: ['zoom'] },
-  { key: 'x', label: 'kill', words: ['kill'] },
-  { key: 'w', label: 'swap', words: ['swap'] },
-  { key: 'b', label: 'break', words: ['break'] },
-  { key: 'c', label: 'new tab', words: ['new'] },
-  { key: 'k', label: 'close tab', words: ['close'] },
-  { key: 'q', label: 'list', words: ['list'] },
-]
+// 글자는 읽기 모듈의 TOOLBAR_KEYS 가 갖고(규약 mod 가 그 글자를 피한다), 여기서는 글자마다 이름과 명령을 붙인다.
+const TOOLBAR: Record<(typeof TOOLBAR_KEYS)[number], { label: string; words: string[] }> = {
+  v: { label: 'split-h', words: ['split', '-h'] },
+  s: { label: 'split-v', words: ['split', '-v'] },
+  o: { label: 'next', words: ['next'] },
+  z: { label: 'zoom', words: ['zoom'] },
+  x: { label: 'kill', words: ['kill'] },
+  w: { label: 'swap', words: ['swap'] },
+  b: { label: 'break', words: ['break'] },
+  c: { label: 'new tab', words: ['new'] },
+  k: { label: 'close tab', words: ['close'] },
+  q: { label: 'list', words: ['list'] },
+}
+const HOTKEYS = TOOLBAR_KEYS.map(key => ({ key, ...TOOLBAR[key] }))
 
 type Measured = { columns: number; rows: number }
 
