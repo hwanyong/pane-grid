@@ -3,6 +3,9 @@
 > [!TIP]
 > **Join the Pane Grid ecosystem.** Any Claude Code mod can draw in a pane-grid cell. Open Claude Code in your mod's repository and paste the [prompt with this repository's address](#how-do-i-make-my-claude-code-mod-grid-ready): Claude installs pane-grid from `https://github.com/hwanyong/pane-grid`, runs **`/pane-grid:add-pane-grid-cell`** and applies the [grid-ready guide](docs/add-pane-grid-cell.md) to your code. Then [add your mod to the list](#which-claude-code-mods-are-grid-ready).
 
+> [!IMPORTANT]
+> **Want a mod in a cell that isn't grid-ready yet? Don't wait for its author.** Fork the mod's repository, open Claude Code in your fork and paste the [same prompt](#how-do-i-make-my-claude-code-mod-grid-ready). Push the change, then install the mod from your fork with `/plugin install <mod> --marketplace <your-account>/<repository>` (add `#<branch>` for a branch). If the original is already installed, remove its marketplace first, since the fork's marketplace has the same name. **Then tell me about it in [issue #1](https://github.com/hwanyong/pane-grid/issues/1)** and I'll add it to [the grid-ready list](#which-claude-code-mods-are-grid-ready) so everyone can use it.
+
 # pane-grid: a Claude Code mod that splits a Claude Code pane into a tmux-style grid
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -176,7 +179,7 @@ In `~/.claude/pane-grid/layout.json`, written after every change and read when a
 | [uhd-kanban](https://github.com/hwanyong/skill-kanban) | A kanban board of the project's cards, with animated card moves | `/plugin install uhd-kanban --marketplace hwanyong/skill-kanban` |
 | [usage-gauge](https://github.com/hwanyong/usage-gauge) | Session and weekly rate-limit gauges with a pace marker | `/plugin install usage-gauge --marketplace hwanyong/usage-gauge` |
 
-Made your mod grid-ready? Open a pull request that adds a row to this table.
+Made a mod grid-ready, your own or a fork? Open a pull request that adds a row to this table, or post the link in [issue #1](https://github.com/hwanyong/pane-grid/issues/1) and I'll add it.
 
 ## How do I make my Claude Code mod grid-ready?
 
