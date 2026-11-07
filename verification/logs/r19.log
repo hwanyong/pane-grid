@@ -1,0 +1,15 @@
+2026-11-07T05:38:55.584Z r19: skillsPath=none, skillsPaths=0 paths
+2026-11-07T05:38:56.218Z r19: session.start panes=[r19a:shown=false,r19b:shown=true] t=1794029936206
+2026-11-07T05:38:56.220Z r19: render r19b t=1794029936212
+2026-11-07T05:39:15.752Z r19: command.run args="a" origin=composer t=1794029955743
+2026-11-07T05:39:15.770Z r19: render r19a t=1794029955757
+2026-11-07T05:39:15.770Z r19: open r19a focus now isPlaced=true before=[r19a:shown=false,r19b:shown=false] after=[r19a:shown=true,r19b:shown=false] t=1794029955757
+2026-11-07T05:39:18.258Z r19: render r19a t=1794029958258
+2026-11-07T05:39:19.069Z r19: command.run args="b" origin=composer t=1794029959064
+2026-11-07T05:39:19.083Z r19: render r19b t=1794029959072
+2026-11-07T05:39:19.083Z r19: open r19b focus now isPlaced=true before=[r19a:shown=true,r19b:shown=false] after=[r19a:shown=false,r19b:shown=true] t=1794029959072
+2026-11-07T05:39:21.586Z r19: render r19b t=1794029961585
+2026-11-07T05:39:22.394Z r19: command.run args="a later" origin=composer t=1794029962390
+2026-11-07T05:39:22.698Z r19: render r19a t=1794029962698
+2026-11-07T05:39:22.698Z r19: open r19a focus later isPlaced=true before=[r19a:shown=false,r19b:shown=true] after=[r19a:shown=true,r19b:shown=false] t=1794029962698
+2026-11-07T05:39:31.371Z r19: render r19a t=1794029971370

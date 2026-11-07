@@ -160,6 +160,7 @@ r1: Pane requestId=pending-questions placement=dock tree=Box(part=pending-questi
 | `verification/r1-order/` | R1 · R1b · R1c 시험 mod. 모든 `Pane` render 의 `next.trace` 를 `$.ui.log` 로 남긴다 |
 | `verification/r2-hidden-tab/` | R2 · R3 시험 mod |
 | `verification/r11-state/` | 독립 동작 · R11 · R13 일부 · R15 · R17 시험 mod 두 개(`host/` · `member/`) |
+| `verification/r19-command/` | slash 명령 뒤 탭 바꾸기(R19) 시험 mod |
 | `verification/r20-scroll/` | 칸마다 스크롤(R20) · 자기 pane 여닫기(R21) 시험 mod 두 개(`host/` · `member/`) |
 | `verification/logs/` | 실제 세션 debug log 와 `tmux capture-pane` 출력. `.gitignore` 로 제외했다 |
 

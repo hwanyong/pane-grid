@@ -1,0 +1,165 @@
+2026-11-07T06:11:59.324Z [DEBUG] --plugin-dir /Users/uhd/LOCAL/01-01_Projects/skill-kanban.pane-grid-cell/plugins/uhd-kanban is one plugin: .claude-plugin at its top marks it
+2026-11-07T06:11:59.327Z [DEBUG] --plugin-dir /Users/uhd/LOCAL/01-01_Projects/plugin-pane-grid is one plugin: .claude-plugin at its top marks it
+2026-11-07T06:11:59.366Z [DEBUG] Read hooks.json for plugin uhd-kanban (enabled=true): /Users/uhd/LOCAL/01-01_Projects/skill-kanban.pane-grid-cell/plugins/uhd-kanban/hooks/hooks.json
+2026-11-07T06:11:59.366Z [DEBUG] Read hooks.json for plugin pane-grid (enabled=true): /Users/uhd/LOCAL/01-01_Projects/plugin-pane-grid/hooks/hooks.json
+2026-11-07T06:11:59.374Z [DEBUG] Loaded inline plugin from path: pane-grid
+2026-11-07T06:11:59.374Z [DEBUG] Loaded inline plugin from path: uhd-kanban
+2026-11-07T06:11:59.378Z [DEBUG] Read hooks.json for plugin uhd-kanban (enabled=false; will NOT register, plugin is disabled): /Users/uhd/LOCAL/01-01_Projects/skill-kanban/plugins/uhd-kanban/hooks/hooks.json
+2026-11-07T06:11:59.383Z [DEBUG] Plugin "uhd-kanban" from --plugin-dir overrides installed version
+2026-11-07T06:11:59.384Z [DEBUG] Checking plugin pane-grid: skillsPath=none, skillsPaths=0 paths
+2026-11-07T06:11:59.384Z [DEBUG] Checking plugin uhd-kanban: skillsPath=exists, skillsPaths=0 paths
+2026-11-07T06:11:59.384Z [DEBUG] Attempting to load skills from plugin uhd-kanban default skillsPath: /Users/uhd/LOCAL/01-01_Projects/skill-kanban.pane-grid-cell/plugins/uhd-kanban/skills
+2026-11-07T06:11:59.394Z [DEBUG] Loaded 2 skills from plugin uhd-kanban default directory
+2026-11-07T06:11:59.647Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/pane-grid/pane-grid-r1: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-07T06:11:59.648Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/pane-grid: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-07T06:11:59.720Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.render
+2026-11-07T06:11:59.740Z [DEBUG] hooks module uhd-kanban@inline loaded (worker, environment 3, tier user); events: session.start,command.run,classic.PreToolUse,ui.render,state.set
+2026-11-07T06:11:59.811Z [DEBUG] engine.create: no plugin-provided interfaces; $ built for pane-grid,usage-gauge,uhd-kanban,pending-questions,filetree,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+2026-11-07T06:11:59.811Z [DEBUG] plugin.register: pane-grid (user, pane-grid@inline), judged by core alone: admitted
+2026-11-07T06:11:59.811Z [DEBUG] plugin.register: uhd-kanban (user, uhd-kanban@inline), judged by core alone: admitted
+2026-11-07T06:11:59.816Z [DEBUG] plugin-dir watch: watching pane-grid, usage-gauge, uhd-kanban, pending-questions; folders of plugins none
+2026-11-07T06:11:59.866Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 23.5ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:11:59.872Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 20.9ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:00.118Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/skill-kanban/uhd-kanban: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-07T06:12:00.121Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/skill-kanban/uhd-kanban-board: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-07T06:12:00.141Z [DEBUG] type root of uhd-kanban at /Users/uhd/LOCAL/01-01_Projects/skill-kanban.pane-grid-cell/plugins/uhd-kanban/.claude-plugin/types: entries claude-code, claude-code-tools, claude-code-mcp; wrote nothing
+2026-11-07T06:12:00.145Z [DEBUG] type root of pane-grid at /Users/uhd/LOCAL/01-01_Projects/plugin-pane-grid/.claude-plugin/types: entries claude-code, claude-code-tools, claude-code-mcp; wrote nothing
+2026-11-07T06:12:00.150Z [DEBUG] $.command.register (pane-grid): /grid listed
+2026-11-07T06:12:00.161Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline: state.set nested in pane-grid#0
+2026-11-07T06:12:00.164Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline state.set settled in 2.7ms (worker hop, next() included)
+2026-11-07T06:12:00.165Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=
+2026-11-07T06:12:00.165Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 1.4ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:00.165Z [DEBUG] ui.open pane-grid grid-main (unasked, 200 columns): placed
+2026-11-07T06:12:00.171Z [DEBUG] $.process.run (uhd-kanban): node with 2 args in /Users/uhd/.claude/jobs/21e350f9/tmp/pg3 (pid 39580)
+2026-11-07T06:12:00.174Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 5.3ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:00.177Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 7.2ms (worker hop, next() included) key=grid-main
+2026-11-07T06:12:00.235Z [DEBUG] $.process.run (uhd-kanban): node exited 0 in 65ms, 3 + 0 chars
+2026-11-07T06:12:00.236Z [DEBUG] $.command.register (uhd-kanban): /kanban-board listed
+2026-11-07T06:12:00.240Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 5.1ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:00.247Z [DEBUG] $.process.run (uhd-kanban): node with 3 args in /Users/uhd/.claude/jobs/21e350f9/tmp/pg3 (pid 39614)
+2026-11-07T06:12:00.272Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 1.5ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:00.355Z [DEBUG] $.process.run (uhd-kanban): node exited 0 in 109ms, 2382 + 0 chars
+2026-11-07T06:12:00.366Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree session.start settled in 220.9ms (worker hop, next() included)
+2026-11-07T06:12:00.367Z [DEBUG] hooks module uhd-kanban@inline state.set skipped: re-entry (the plugin's own code raised it; origin uhd-kanban)
+2026-11-07T06:12:00.368Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 13.1ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:00.375Z [DEBUG] ui.open uhd-kanban uhd-kanban-board (unasked, 200 columns): placed
+2026-11-07T06:12:00.382Z [DEBUG] uhd-kanban (user) answered ui.render without next() in 4.1ms; nothing beneath it ran for this dispatch
+2026-11-07T06:12:00.382Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 5.4ms (worker hop, next() included) key=uhd-kanban-board
+2026-11-07T06:12:00.390Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 0.9ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:01.172Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline: state.set nested in pane-grid
+2026-11-07T06:12:01.172Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline state.set settled in 0.7ms (worker hop, next() included)
+2026-11-07T06:12:31.360Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline: state.set nested in pane-grid#1
+2026-11-07T06:12:31.360Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 4.7ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:31.363Z [DEBUG] hooks module filetree@claude-code-filetree: ui.close nested in pane-grid#1 > uhd-kanban#5
+2026-11-07T06:12:31.365Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 3.3ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:31.366Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline state.set settled in 6.2ms (worker hop, next() included)
+2026-11-07T06:12:31.367Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=uhd-kanban
+2026-11-07T06:12:31.367Z [DEBUG] $.fs.write (pane-grid): /Users/uhd/.claude/pane-grid/layout.json (488 bytes)
+2026-11-07T06:12:31.367Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:12:31.367Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action split -h uhd-kanban: split c1 into c1 and c2
+2026-11-07T06:12:31.367Z [DEBUG] pane-grid (user) answered command.run without next() in 23.4ms; nothing beneath it ran for this dispatch
+2026-11-07T06:12:31.367Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree command.run settled in 23.7ms (worker hop, next() included)
+2026-11-07T06:12:31.434Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 5.2ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:34.386Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline: state.set nested in pane-grid#1
+2026-11-07T06:12:34.386Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 3.3ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:34.388Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline state.set settled in 2.3ms (worker hop, next() included)
+2026-11-07T06:12:34.388Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 0.8ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:34.388Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=3 tabs=main placed=uhd-kanban,usage-gauge
+2026-11-07T06:12:34.389Z [DEBUG] $.fs.write (pane-grid): /Users/uhd/.claude/pane-grid/layout.json (923 bytes)
+2026-11-07T06:12:34.389Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:12:34.390Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action split -v usage-gauge: split c2 into c2 and c3
+2026-11-07T06:12:34.390Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree command.run settled in 13.2ms (worker hop, next() included)
+2026-11-07T06:12:34.411Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 4.2ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:37.418Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 5.1ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:37.418Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline: state.set nested in pane-grid#1
+2026-11-07T06:12:37.421Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline state.set settled in 2.6ms (worker hop, next() included)
+2026-11-07T06:12:37.421Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 1.2ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:37.421Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=4 tabs=main placed=uhd-kanban,usage-gauge
+2026-11-07T06:12:37.422Z [DEBUG] $.fs.write (pane-grid): /Users/uhd/.claude/pane-grid/layout.json (923 bytes)
+2026-11-07T06:12:37.422Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:12:37.422Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action select-cell c1: active cell c1
+2026-11-07T06:12:37.422Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree command.run settled in 16.7ms (worker hop, next() included)
+2026-11-07T06:12:37.454Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 3.9ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:40.448Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 3.2ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:40.448Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline: state.set nested in pane-grid#1
+2026-11-07T06:12:40.450Z [DEBUG] hooks module filetree@claude-code-filetree: ui.close nested in pane-grid#1 > pending-questions#9
+2026-11-07T06:12:40.452Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 2.2ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:40.452Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline state.set settled in 4.0ms (worker hop, next() included)
+2026-11-07T06:12:40.452Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=5 tabs=main placed=pending-questions,uhd-kanban,usage-gauge
+2026-11-07T06:12:40.452Z [DEBUG] $.fs.write (pane-grid): /Users/uhd/.claude/pane-grid/layout.json (968 bytes)
+2026-11-07T06:12:40.452Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:12:40.453Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action place pending-questions: placed pending-questions in c1
+2026-11-07T06:12:40.453Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree command.run settled in 12.9ms (worker hop, next() included)
+2026-11-07T06:12:40.473Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 3.7ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:41.368Z [DEBUG] pane-grid (user) answered command.run without next() 3 more times in the last 10s (the last in 12.6ms)
+2026-11-07T06:12:43.480Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 3.7ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:43.480Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline: state.set nested in pane-grid#1
+2026-11-07T06:12:43.483Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline state.set settled in 2.3ms (worker hop, next() included)
+2026-11-07T06:12:43.483Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 1.0ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:43.483Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=6 tabs=main placed=pending-questions,uhd-kanban,usage-gauge
+2026-11-07T06:12:43.483Z [DEBUG] $.fs.write (pane-grid): /Users/uhd/.claude/pane-grid/layout.json (968 bytes)
+2026-11-07T06:12:43.484Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:12:43.484Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action resize 40: resized c1 to 40%
+2026-11-07T06:12:43.484Z [DEBUG] pane-grid (user) answered command.run without next() in 12.2ms; nothing beneath it ran for this dispatch
+2026-11-07T06:12:43.484Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree command.run settled in 12.4ms (worker hop, next() included)
+2026-11-07T06:12:43.505Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 2.9ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:46.533Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action list: * main active=c1 {c1=pending-questions:40,[c2=uhd-kanban:50,c3=usage-gauge:50]:60}
+2026-11-07T06:12:46.533Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree command.run settled in 8.6ms (worker hop, next() included)
+2026-11-07T06:12:46.544Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 13.5ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:46.552Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 3.1ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:12:53.485Z [DEBUG] pane-grid (user) answered command.run without next() 1 more times in the last 10s (the last in 8.4ms)
+2026-11-07T06:12:54.875Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 5.5ms (worker hop, next() included) key=grid-main
+2026-11-07T06:12:55.247Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline: state.set nested in pane-grid
+2026-11-07T06:12:55.248Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline state.set settled in 0.7ms (worker hop, next() included)
+2026-11-07T06:13:00.371Z [DEBUG] $.process.run (uhd-kanban): node with 3 args in /Users/uhd/.claude/jobs/21e350f9/tmp/pg3 (pid 50653)
+2026-11-07T06:13:00.375Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 6.0ms (worker hop, next() included) key=grid-main
+2026-11-07T06:13:00.412Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 7.4ms (worker hop, next() included) key=grid-main
+2026-11-07T06:13:00.486Z [DEBUG] $.process.run (uhd-kanban): node exited 0 in 116ms, 2382 + 0 chars
+2026-11-07T06:13:00.487Z [DEBUG] hooks module uhd-kanban@inline state.set skipped: re-entry (the plugin's own code raised it; origin uhd-kanban)
+2026-11-07T06:13:00.493Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 4.4ms (worker hop, next() included) key=grid-main
+2026-11-07T06:13:37.553Z [DEBUG] --plugin-dir /Users/uhd/LOCAL/01-01_Projects/plugin-pane-grid is one plugin: .claude-plugin at its top marks it
+2026-11-07T06:13:37.553Z [DEBUG] --plugin-dir /Users/uhd/LOCAL/01-01_Projects/skill-kanban.pane-grid-cell/plugins/uhd-kanban is one plugin: .claude-plugin at its top marks it
+2026-11-07T06:13:37.557Z [DEBUG] Loading plugin uhd-kanban from source: "./plugins/uhd-kanban"
+2026-11-07T06:13:37.581Z [DEBUG] Read hooks.json for plugin uhd-kanban (enabled=true): /Users/uhd/LOCAL/01-01_Projects/skill-kanban.pane-grid-cell/plugins/uhd-kanban/hooks/hooks.json
+2026-11-07T06:13:37.583Z [DEBUG] Read hooks.json for plugin pane-grid (enabled=true): /Users/uhd/LOCAL/01-01_Projects/plugin-pane-grid/hooks/hooks.json
+2026-11-07T06:13:37.590Z [DEBUG] Loaded inline plugin from path: uhd-kanban
+2026-11-07T06:13:37.590Z [DEBUG] Loaded inline plugin from path: pane-grid
+2026-11-07T06:13:37.593Z [DEBUG] Read hooks.json for plugin uhd-kanban (enabled=false; will NOT register, plugin is disabled): /Users/uhd/LOCAL/01-01_Projects/skill-kanban/plugins/uhd-kanban/hooks/hooks.json
+2026-11-07T06:13:37.615Z [DEBUG] Plugin "uhd-kanban" from --plugin-dir overrides installed version
+2026-11-07T06:13:44.981Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline: state.set nested in pane-grid#1
+2026-11-07T06:13:44.981Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 3.5ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:13:44.984Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline state.set settled in 2.9ms (worker hop, next() included)
+2026-11-07T06:13:44.984Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 0.8ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:13:44.984Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=7 tabs=main placed=pending-questions,uhd-kanban,usage-gauge
+2026-11-07T06:13:44.985Z [DEBUG] $.fs.write (pane-grid): /Users/uhd/.claude/pane-grid/layout.json (968 bytes)
+2026-11-07T06:13:44.985Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:13:44.985Z [DEBUG] pane-grid (user) answered command.run without next() in 13.7ms; nothing beneath it ran for this dispatch
+2026-11-07T06:13:44.985Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree command.run settled in 14.0ms (worker hop, next() included)
+2026-11-07T06:13:44.999Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action select-cell c2: active cell c2
+2026-11-07T06:13:45.009Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 4.8ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:13:45.010Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 26.7ms (worker hop, next() included) key=grid-main
+2026-11-07T06:13:48.027Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 3.0ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:13:48.027Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline: state.set nested in pane-grid#1
+2026-11-07T06:13:48.029Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 0.8ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:13:48.030Z [DEBUG] ui.open uhd-kanban uhd-kanban-board (unasked, 200 columns): placed
+2026-11-07T06:13:48.031Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline state.set settled in 4.0ms (worker hop, next() included)
+2026-11-07T06:13:48.031Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=8 tabs=main placed=pending-questions,usage-gauge
+2026-11-07T06:13:48.031Z [DEBUG] $.fs.write (pane-grid): /Users/uhd/.claude/pane-grid/layout.json (924 bytes)
+2026-11-07T06:13:48.032Z [DEBUG] uhd-kanban (user) answered ui.render without next() in 1.3ms; nothing beneath it ran for this dispatch
+2026-11-07T06:13:48.032Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 1.6ms (worker hop, next() included) key=uhd-kanban-board
+2026-11-07T06:13:48.033Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:13:48.033Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action place -: emptied c2
+2026-11-07T06:13:48.033Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree command.run settled in 14.4ms (worker hop, next() included)
+2026-11-07T06:13:48.052Z [DEBUG] hooks module pane-grid@inline, usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 23.8ms (worker hop, next() included) key=grid-main
+2026-11-07T06:13:48.054Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 4.7ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:13:48.339Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline: state.set nested in pane-grid
+2026-11-07T06:13:48.339Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline state.set settled in 0.5ms (worker hop, next() included)
+2026-11-07T06:13:54.986Z [DEBUG] pane-grid (user) answered command.run without next() 1 more times in the last 10s (the last in 14.1ms)
+2026-11-07T06:14:00.302Z [DEBUG] uhd-kanban (user) answered ui.render without next() in 0.4ms; nothing beneath it ran for this dispatch
+2026-11-07T06:14:00.302Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 0.6ms (worker hop, next() included) key=uhd-kanban-board
+2026-11-07T06:14:00.304Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 2.8ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:14:00.365Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline: state.set nested in pane-grid
+2026-11-07T06:14:00.366Z [DEBUG] hooks module uhd-kanban@inline, pending-questions@inline state.set settled in 0.5ms (worker hop, next() included)
+2026-11-07T06:14:00.369Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 0.7ms (worker hop, next() included) key=above-prompt
+2026-11-07T06:14:00.372Z [DEBUG] $.process.run (uhd-kanban): node with 3 args in /Users/uhd/.claude/jobs/21e350f9/tmp/pg3 (pid 55604)
+2026-11-07T06:14:00.404Z [DEBUG] hooks module usage-gauge@inline, uhd-kanban@inline, pending-questions@inline, filetree@claude-code-filetree ui.render settled in 0.7ms (worker hop, next() included) key=above-prompt

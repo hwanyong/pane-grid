@@ -1,0 +1,4 @@
+2026-11-07T05:52:59.637Z [DEBUG] Read hooks.json for plugin usage-gauge (enabled=false; will NOT register, plugin is disabled): /Users/uhd/.claude/plugins/cache/usage-gauge/usage-gauge/0.2.0/hooks/hooks.json
+2026-11-07T05:52:59.650Z [DEBUG] Loaded inline plugin from path: usage-gauge
+2026-11-07T05:52:59.895Z [DEBUG] plugin.register: usage-gauge (user, usage-gauge@inline), judged by core alone: admitted
+2026-11-07T05:53:00.313Z [DEBUG] $.command.register (usage-gauge): /usage-gauge listed

@@ -1,0 +1,59 @@
+2026-11-07T05:59:18.443Z [DEBUG] [concurrentSessions] updatePidFile failed: ENOENT: no such file or directory, open '/Users/uhd/.claude/sessions/17422.json'
+2026-11-07T05:59:18.744Z [DEBUG] ui.open filetree filetree (unasked, 200 columns): placed
+2026-11-07T05:59:18.920Z [DEBUG] hooks module filetree@claude-code-filetree loaded (worker, environment 5, tier user); events: session.start,config.set,command.run,tool.call,tool.check,turn.start,turn.complete,ui.message,session.end,ui.close,ui.focus,ui.scroll,prompt.submit,ui.render
+2026-11-07T05:59:18.921Z [DEBUG] hooks module cc-plugin-diff@builtin loaded (native, environment 9, tier builtin); events: session.start,ui.render,command.run,ui.close,ui.focus,ui.scroll,tool.call,prompt.submit
+2026-11-07T05:59:19.081Z [ERROR] restoreTerminalModes write failed: Error: EIO: i/o error, write
+2026-11-07T05:59:19.109Z [DEBUG] ui.open pane-grid grid-main (unasked, 200 columns): placed
+2026-11-07T05:59:19.258Z [DEBUG] ui.open pending-questions pending-questions (unasked, 200 columns): placed
+2026-11-07T05:59:19.265Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG begin requestId=grid-main last=false layout=false isShown=false plan=false
+2026-11-07T05:59:19.324Z [DEBUG] ui.open filetree filetree (unasked, 200 columns): placed
+2026-11-07T05:59:29.408Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:00:19.361Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG begin requestId=grid-main last=true layout=true isShown=true plan=true
+2026-11-07T06:00:19.467Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:19.568Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:19.670Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:19.771Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:19.872Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:19.974Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:20.075Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:20.177Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:20.278Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:20.379Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:20.480Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:20.581Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:20.685Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:20.785Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:20.885Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:20.987Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:00:21.088Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG blit grid-main bar:k1 deny=null
+2026-11-07T06:01:19.355Z [DEBUG] [uhd-kanban] $.ui.log (to debug): PGDIAG begin requestId=grid-main last=true layout=true isShown=true plan=false
+2026-11-07T06:01:39.242Z [DEBUG] hooks module uhd-kanban@inline reloaded in 7.3ms; events: session.start,command.run,classic.PreToolUse,ui.render,state.set
+2026-11-07T06:01:39.615Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:01:43.635Z [DEBUG] hooks module filetree@claude-code-filetree: ui.close nested in pane-grid#1 > pending-questions#9
+2026-11-07T06:01:43.636Z [DEBUG] hooks module filetree@claude-code-filetree ui.close settled in 0.5ms (worker hop, next() included)
+2026-11-07T06:01:43.637Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:02:00.823Z [DEBUG] hooks module pending-questions@inline reloaded in 6.2ms; events: session.start,session.end,command.run,prompt.submit,turn.complete,ui.press,tool.call,ui.render,state.set
+2026-11-07T06:02:15.151Z [DEBUG] $.tool.call (pending-questions): AskUserQuestion (questions)
+2026-11-07T06:02:15.161Z [DEBUG] Hooks: PreToolUse:AskUserQuestion [command hook 1] finished with status 0 (6ms)
+2026-11-07T06:02:15.161Z [DEBUG] "Hook PreToolUse:AskUserQuestion (PreToolUse) success:\n{}"
+2026-11-07T06:02:15.165Z [DEBUG] executePermissionRequestHooks called for tool: AskUserQuestion
+2026-11-07T06:02:15.183Z [DEBUG] Hooks: PermissionRequest:AskUserQuestion [command hook] finished with status 0 (17ms)
+2026-11-07T06:02:15.183Z [DEBUG] "Hook PermissionRequest:AskUserQuestion (PermissionRequest) success:\n{}"
+2026-11-07T06:02:25.954Z [DEBUG] Aborting: tool=AskUserQuestion isAbort=undefined hasFeedback=false isSubagent=false
+2026-11-07T06:02:25.954Z [INFO] Slow permission decision: 10792ms for AskUserQuestion (mode=auto, behavior=ask)
+2026-11-07T06:02:25.954Z [DEBUG] AskUserQuestion tool permission denied
+2026-11-07T06:02:25.969Z [DEBUG] $.tool.call (pending-questions): AskUserQuestion answered in 10818ms, 436 chars, denied
+2026-11-07T06:02:42.703Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:02:46.720Z [DEBUG] ui.open uhd-kanban uhd-kanban-board (unasked, 200 columns): placed
+2026-11-07T06:02:46.724Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:02:58.239Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:03:02.271Z [DEBUG] hooks module filetree@claude-code-filetree: ui.close nested in pane-grid#1 > uhd-kanban#5
+2026-11-07T06:03:02.272Z [DEBUG] hooks module filetree@claude-code-filetree ui.close settled in 1.0ms (worker hop, next() included)
+2026-11-07T06:03:02.274Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:03:06.294Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:03:06.294Z [DEBUG] ui.open pane-grid grid-w2 (asked, 200 columns): placed
+2026-11-07T06:03:06.294Z [DEBUG] ui.open pane-grid grid-w2 (asked, 200 columns): placed
+2026-11-07T06:03:19.095Z [DEBUG] hooks module filetree@claude-code-filetree: ui.close nested in pane-grid#1
+2026-11-07T06:03:19.096Z [DEBUG] hooks module filetree@claude-code-filetree ui.close settled in 1.2ms (worker hop, next() included)
+2026-11-07T06:03:19.097Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed
+2026-11-07T06:03:19.097Z [DEBUG] ui.open pane-grid grid-main (asked, 200 columns): placed

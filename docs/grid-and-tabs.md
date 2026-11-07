@@ -22,11 +22,17 @@
 10. **hotkey 글자는 §2.3 의 표대로다.**
 11. **`verification/harness-probe/` 는 근거로 남긴다.**
 
+같은 날 구현 전에 정한 세 가지. 사용자가 다른 안을 고르지 않아 권하는 안으로 진행한다:
+
+12. **배치 파일은 `~/.claude/pane-grid/layout.json` 하나다.** 어느 프로젝트를 열어도 같은 배치다.
+13. **slash 명령은 `/grid` 하나에 하위 명령을 붙인다**(`/grid split -h` · `/grid new <이름>` · `/grid select <이름>`).
+14. **배치 파일이 없으면 칸 하나짜리 빈 탭 `main` 을 연다.** 어느 mod 도 grid 에 넣지 않으므로 세 mod 는 지금처럼 자기 자리에 그린다.
+
 | mod | 저장소 | 그리는 곳 |
 |---|---|---|
 | `usage-gauge` 0.2.0 | `/Users/uhd/LOCAL/01-01_Projects/plugin-usage-gauge` | `AbovePrompt`(prompt 위 band). pane 이 없다 |
-| `uhd-kanban` 0.10.4 | `/Users/uhd/LOCAL/01-01_Projects/skill-kanban/plugins/uhd-kanban` | pane `uhd-kanban-board` |
-| `pending-questions` | `/Users/uhd/LOCAL/01-01_Projects/plugin-pending-questions` | pane `pending-questions` |
+| `uhd-kanban` 0.10.5 | `/Users/uhd/LOCAL/01-01_Projects/skill-kanban/plugins/uhd-kanban` | pane `uhd-kanban-board` |
+| `pending-questions` 0.1.7 | `/Users/uhd/LOCAL/01-01_Projects/plugin-pending-questions` | pane `pending-questions` |
 
 ## 1. 엔진이 주는 것
 
@@ -85,7 +91,7 @@ tmux 기본 바인딩은 prefix(`C-b`) 다음 한 글자다: `%` 좌우 나누�
 | 수단 | 동작 조건 | tmux 와 다른 점 |
 |---|---|---|
 | `hotkey` | 그 grid pane 이 포커스를 가졌을 때. `ctrl+x tab` 이 prefix 자리에 온다 | 숫자 · 영문 소문자만 받는다. `%` `"` `{` `}` `!` `,` `&` 는 쓸 수 없어 글자를 다시 정해야 한다. 포커스가 풀릴 때까지 계속 동작한다(tmux prefix 는 한 번) |
-| slash 명령(`/grid split -h` 같은 `command.run`) | prompt 에서 | 사람의 명령이 연 pane 은 asked 라 너비 제한이 없다. 명령 뒤 입력창이 비므로 `focus` 가 받아들여질 수 있다(R19) |
+| slash 명령(`/grid split -h` 같은 `command.run`) | prompt 에서 | 사람의 명령이 연 pane 은 asked 라 너비 제한이 없다. 명령 뒤 `focus` 가 받아들여져 탭이 바뀌었다(R19, §4) |
 
 tmux 글자 중 `hotkey` 로 쓸 수 없는 것을 대신하는 글자(결정 10):
 
@@ -98,7 +104,7 @@ tmux 글자 중 `hotkey` 로 쓸 수 없는 것을 대신하는 글자(결정 10
 | `,` | 탭 이름 바꾸기 | `r` |
 | `&` | 탭 지우기 | `k` |
 
-나머지(`o` · `z` · `x` · `c` · `q`)는 tmux 글자를 그대로 쓴다. 탭을 바꾸는 `n` · `p` · `0` ~ `9` 는 `hotkey` 로 두지 않는다. `hotkey` 는 grid pane 이 키를 가진 동안만 동작하고, 그때 `$.ui.open({ focus: true })` 는 거부되기 때문이다(§4 「코드로 탭 바꾸기」). 탭 전환은 클릭 · Tab + Enter 와 slash 명령(R19)으로 한다.
+나머지(`o` · `z` · `x` · `c` · `q`)는 tmux 글자를 그대로 쓴다. 탭을 바꾸는 `n` · `p` · `0` ~ `9` 는 `hotkey` 로 두지 않는다. `hotkey` 는 grid pane 이 키를 가진 동안만 동작하고, 그때 `$.ui.open({ focus: true })` 는 거부되기 때문이다(§4 「코드로 탭 바꾸기」). 탭 전환은 클릭 · Tab + Enter 와 slash 명령으로 한다(R19 에서 실행해 확인했다).
 
 ## 3. 설계안
 
@@ -202,20 +208,62 @@ tmux 세션(170열 × 45행) 안에서 실행했고, 탭 전환 · Button 누르
 | R20 칸 고르기 | 휠의 `pointer` 로 칸 고르기 | **통과.** 같은 행에서 왼쪽 칸은 `pointer.column` 8, 오른쪽 칸은 46 이었고 `bodyColumns` 는 67 이었다. `column < bodyColumns / 2` 로 고른 칸만 offset 이 바뀌었다. PgUp 은 `pointer` 없이 `by=-38`(`bodyRows`)로 왔다 |
 | R20 자르기 | 칸의 `overflow="hidden"` 과 내용 밀기 | absolute 내용은 칸 안으로 잘렸지만 pane 본문 -1 행 위로 가지 않았다. 음수 `marginTop` 은 offset 26(끝)까지 밀렸고 칸 밖으로 나오지 않았다(§3.4) |
 | R20 휠 위 | 휠 아래를 보낸 뒤 3초 안에 보낸 첫 휠 위 | 네 번 모두 `ui.scroll` hook 이 실행되지 않았다(debug log 에 줄이 없다). 그다음 휠 위와, 36초 뒤 보낸 휠 위는 `by=-1` 로 왔다. tmux 와 엔진 중 어디서 빠지는지는 가리지 못했다 |
+| R19 | prompt 에서 slash 명령을 실행한 뒤 `$.ui.open({ focus: true })` 로 탭 바꾸기 | **통과.** `/r19 a` · `/r19 b` 는 `command.run` hook 안에서, `/r19 a later` 는 `$.clock.after(300)` 뒤에 열었고 세 번 모두 `isShown` 이 요청한 pane 으로 바뀌었다(`origin=composer`). 그 뒤 입력한 글자는 prompt 에 들어갔다. 탭을 바꾼 뒤에도 키는 prompt 에 남으므로 명령을 이어서 칠 수 있다. 시험 mod 는 `verification/r19-command/`, 로그는 `verification/logs/r19.log` |
 | R21 | `layout` 에 자기 칸이 생기고 없어질 때 자기 pane 여닫기 | **통과.** 칸이 생기자 member 의 `state.set` hook 이 실행돼 `$.ui.close` 뒤 `panes()` 가 빈 목록이었다(hook 의 첫 로그에서 close 까지 3 ms). 칸이 빠지자 `$.ui.open` 이 `isPlaced=true` 를 반환했고 `r20m` 은 가려진 탭(`isShown=false`)으로 탭 막대에 다시 나왔다 |
 
-### 4.1 남은 확인
+### 4.1 구현한 pane-grid 와 규약 mod 세 개로 실행한 것
+
+2026-11-06 에 pane-grid 본체(이 저장소 루트의 `hooks/`)와 세 mod 의 규약 hook 을 구현하고 실제 세션에서 실행했다. 세 mod 는 저장소마다 브랜치 `pane-grid-cell` 에 고쳤다. uhd-kanban 은 설치판이 `skill-kanban/plugins/uhd-kanban` 폴더를 그대로 읽으므로(`claude plugin list` 의 `Read from`) worktree `/Users/uhd/LOCAL/01-01_Projects/skill-kanban.pane-grid-cell` 에서 고쳤다.
+
+세 mod 는 pane-grid 의 state 를 `hooks/pane-grid.ts` 하나로 읽는다. 세 파일에 같은 이름의 함수(`placementIn` · `readPlacement`, uhd-kanban 은 `readShownTab` 도)가 같은 본문으로 있다. `$` 를 받는 함수는 화살표 함수가 아니라 `function` 선언이다. `claude plugin validate` 가 import 너머로는 function 선언으로만 `$` 를 따라가고, `$.state.get` 에 넘기는 참조 상수의 export 도 거부하기 때문이다(그래서 `state.set` matcher 는 각 `register.tsx` 에 리터럴로 다시 적었다). pane-grid 의 값은 세 mod 의 계약(`types/index.d.ts`)에 없으므로(결정 9) 엔진 타입은 그 matcher 를 거부한다. 그래서 matcher 값을 `as never` 로 넘기고, hook 안에서는 엔진이 계약 없는 값의 쓰기에 붙이는 타입 `StateWrite` 로 `e` 를 읽는다.
+
+설치판과 겹치지 않도록 `--settings '{"enabledPlugins":{…:false}}'` 로 설치판을 끄고 `--plugin-dir` 로 작업판을 로드했다. tmux 세션(170열 × 45행, 3회차는 200열 × 50행) 안에서 실행했다.
+
+| 회차 | 로드한 것 | 시험 폴더 | 로그 |
+|---|---|---|---|
+| 1 | pane-grid · usage-gauge | `$CLAUDE_JOB_DIR/tmp/pg2` | `verification/logs/impl-usage-gauge.log` |
+| 2 | usage-gauge 만 | 같은 폴더 | `verification/logs/impl-usage-gauge-alone.log` |
+| 3 | pane-grid · usage-gauge · uhd-kanban · pending-questions | `$CLAUDE_JOB_DIR/tmp/pg3`(`uhd-kanban init` 으로 만든 보드, 카드 7장) | `verification/logs/impl-three-mods.log` · `impl-three-mods-screen.txt` |
+| 4 | 3회차와 같다. 배치 형식을 아래 「tsc 로 고친 것」대로 바꾼 뒤 | 같은 폴더 | `verification/logs/impl-children.log` · `impl-children-screen.txt` |
+
+로그는 debug log 에서 판정에 쓴 줄만 뽑았다. 3회차 로그의 `PGDIAG` 줄은 시험 동안 uhd-kanban 에 넣었다가 지운 진단 줄이다.
+
+| 번호 | 확인한 것 | 결과 |
+|---|---|---|
+| 칸에 그리기 | `layout.json` 에 칸을 둔 mod 가 grid 칸에 그리는가 | **통과.** usage-gauge 는 c3(32열)에, uhd-kanban 은 c1(31열)에, pending-questions 는 c2(32열)에 그렸다. 셋 모두 `placed[<mod>].columns` 를 너비로 썼다 |
+| 자기 자리 | 칸이 있는 동안 자기 자리에 그리지 않는가 | **통과.** usage-gauge 의 band 가 사라졌다. pending-questions 는 `/grid place pending-questions` 뒤 자기 pane 탭이 닫혔다(`ui.close nested in pane-grid#1 > pending-questions#9`). uhd-kanban 은 session 시작 때 자기 pane 을 열지 않았다 |
+| 칸에서 빼기 | `/grid place -` 뒤 자기 자리로 돌아가는가 | **통과.** usage-gauge 의 band 가 다시 그려졌다. uhd-kanban 은 자기 pane 이 다시 열렸고(`ui.open uhd-kanban uhd-kanban-board (unasked …): placed`), 보이는 탭도 그 pane 으로 바뀌었다. 다시 넣자 닫혔다 |
+| 독립 동작 | pane-grid 없이 usage-gauge 만 | **통과.** `layout.json` 에 칸이 남아 있어도 band 에 그렸다 |
+| R12 | grid 칸의 `Raster` 를 `$.ui.blit({ requestId: 'grid-main' })` 로 칠하기 | **통과.** 카드 k7 을 done 으로 옮긴 뒤 재배치 애니메이션이 `blit` 17번으로 재생됐고 `deny` 는 0번이었다 |
+| R14 | grid 칸에서 질문 Button 누르기 | **통과.** q1 을 누르자 pending-questions 의 `ui.press` hook 이 AskUserQuestion dialog 를 열었다(`$.tool.call (pending-questions): AskUserQuestion`) |
+| R16 | 배치에 자기 칸이 없는 mod | **통과.** 칸 하나짜리 새 배치 `w2` 에서 세 mod 모두 `next(e)` 를 반환해 빈 칸만 그려졌고, 실패한 hook 줄은 0건이었다 |
+| R9 | 세 mod 를 한 grid pane 에 | **통과.** 화면은 `impl-three-mods-screen.txt` 다. uhd-kanban 의 접기 Button(`toggle:k1`)과 pending-questions 의 q1 이 각각 눌렸다 |
+
+실행 중 본 것:
+
+- pending-questions 의 맨 윗줄(`Mode: manual` 과 Button 두 개)은 32열 칸에서 `Mode` 글의 너비가 0 이 되어 보이지 않았다. 그 Box 에 `flexWrap="wrap"` 을 넣어 Button 이 다음 줄로 넘어가게 고쳤고, 다시 로드한 뒤 보였다.
+- 1회차 세션(진단 줄을 넣기 전)에서는 카드를 두 번 옮겼는데 두 번 모두 재배치 애니메이션 없이 막대만 바뀌었다. 3회차 세션의 세 번째 이동(in-review → to-do)은 `planTransition` 이 null 을 냈다. 빠지거나 더해진 카드도, 상태가 바뀐 lane 도 없으면 계획하지 않는 기존 규칙(`plugins/uhd-kanban/hooks/frames.ts` 171행)이다. 1회차의 두 번은 진단 줄이 없어 원인을 가리지 못했다.
+
+tsc 로 고친 것(4회차 전):
+
+- 네 플러그인을 `tsc -p <플러그인 폴더> --noEmit`(TypeScript 6.0.3, `noUncheckedIndexedAccess` 켬)로 검사했다. 고치기 전 pane-grid 는 오류가 약 60건이었고 대부분 `GridSplit` 의 `children` 과 `sizes` 를 같은 색인으로 읽는 자리였다. 두 배열의 길이가 같다는 것을 형식이 보장하지 않았기 때문이다.
+- `GridSplit` 을 `{ kind, children: GridChild[] }` 로, `GridChild` 를 `{ node, size }` 로 바꿨다(`types/index.d.ts`). `layout.json` 의 나눈 노드도 `children` 의 원소마다 `{ "node": …, "size": … }` 다. `size` 가 없거나 수가 아니면 1 로 두고 합 100 으로 맞춘다. `sizes` 를 쓰는 옛 형식 파일은 `tabs[0].root.children[0].node: not an object` 로 거부한다. 옛 형식은 배포한 적이 없어 판(`version`)을 올리지 않았다.
+- `hooks/tree.ts` · `hooks/actions.ts` · `hooks/layout-file.ts` 를 node 26.10.0 으로 직접 실행해 동작 20번(`apply` 호출. 나누기 · 지우기 · 교환 · 비율 · preset 다섯 가지 중 세 가지 · break · close)와 사각형 계산(101열 × 31행에서 나머지 1열 · 1행이 마지막 자식에게 간다), 파일 읽기 · 쓰기 왕복을 확인했다.
+- 고친 뒤 네 플러그인 모두 tsc 오류 0건, `claude plugin validate` 통과다.
+
+4회차 결과: `/grid split -h uhd-kanban` · `split -v usage-gauge` · `place pending-questions` · `resize 40` 뒤 `layout.json` 이 새 형식으로 쓰였고, 세 mod 가 칸에 그렸다(c1 26열 = 67열의 40%). `/grid place -` 로 uhd-kanban 을 빼자 자기 pane 이 다시 열렸다. 그래서 `as never` 로 넘긴 matcher 가 실행 중에도 pane-grid 의 `layout` 쓰기를 고른다. debug log 의 `uhd-kanban@inline state.set skipped: re-entry (the plugin's own code raised it; …)` 줄 두 개는 uhd-kanban 이 자기 state 를 쓸 때 엔진이 같은 mod 의 `state.set` hook 을 matcher 를 보기 전에 빼고 남긴 것이다(2.1.319 실행 파일의 그 문자열 앞 코드에서 읽었다). matcher 가 `pane-grid` 라 빼지 않아도 실행되지 않는다.
+
+### 4.2 남은 확인
 
 | 번호 | 확인할 것 | 통과 기준 |
 |---|---|---|
-| R12 | uhd-kanban 이 `grid` 칸에 그린 `Raster` 를 `$.ui.blit({ requestId: 'grid-<이름>', ... })` 로 칠할 수 있는가 | `deny` 없음, 화면이 바뀐다 |
 | R13 나머지 | 두 mod 가 같은 key 의 Button 을 한 `grid` 트리에 그릴 때 각각 눌리는가 | 두 mod 의 `onPress` 로그가 따로 나온다 |
-| R14 | pending-questions 의 `ui.press` hook 이 `grid` 에서 눌린 질문 Button 을 받는가 | dialog 가 열린다 |
-| R16 | 배치에 자기 칸이 없는 mod 의 hook 이 그리지 않고 넘기는가 | render 로그 |
-| R19 | slash 명령 뒤 `$.ui.open({ focus: true })` 로 탭이 바뀌는가 | `isShown` 이 바뀐다 |
-| R9 | 규약 mod 세 개를 한 `grid` pane 에 | 화면 캡처와 세 mod 의 누름 로그 |
+| 결정 8 | grid 탭이 가려지면 uhd-kanban 애니메이션이 멈추고, 다시 보이면 다시 시작하는가 | run.status 열에 live 카드가 있는 보드에서, 가려진 동안 `blit` 0번 · 다시 보인 뒤 재개 |
+| 칸에서 빼기 | 다시 연 자기 pane 으로 보이는 탭이 바뀌는 것을 그대로 둘지 | 사용자 결정 |
 
 ## 5. mod 별 수정 범위
+
+아래 표의 「고칠 것」은 2026-11-06 에 세 저장소의 브랜치 `pane-grid-cell` 에 구현했고, 실행 결과는 §4.1 에 있다. 행 번호는 고치기 전 `main` 의 것이다.
 
 ### 5.1 `usage-gauge`
 

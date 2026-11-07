@@ -1,0 +1,50 @@
+                                                                                                                                    │ main   Files: pg3                                               ✕
+ ▐▛███▛█   Claude Code v2.1.319                                                                                                     │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                                                                 │c: new tab k: close tab q: list
+ ▝▝   ▝▝   ~/.claude/jobs/21e350f9/tmp/pg3 · /rc                                                                                    │╭───────────────────────────────╮╭────────────────────────────────╮
+                                                                                                                                    ││c1 uhd-kanban                  ││c2 pending-questions            │
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/21e350f9/tmp/pg3/debug.log                                                ││23:02 · 카드 6개 · milestone 1…││Mode: manual [ Switch to auto ] │
+                                                                                                                                    ││█to-do 1 █in-progress 0        ││[ Rescan last response ]        │
+❯ /grid select main                                                                                                                 ││█in-review 1 █done 4           ││                                │
+  ⎿  pane-grid: showing main                                                                                                        ││█decided 0 █implemented 0      ││[ q1. 배포 대상을 staging 과    │
+                                                                                                                                    ││█cancelled 0                   ││production 중 어디로 할까요? ]  │
+⏺ uhd-kanban: reloaded (5 hooks: session.start, command.run, classic.PreToolUse, ui.render, state.set)                              ││in-progress: ░돈다             ││배포 대상 환경을 정해야 다음    │
+                                                                                                                                    ││⠋다시 뜨는 중 ↻재시작 대기     ││단계로 진행할 수 있습니다.      │
+❯ /grid select-cell c2                                                                                                              ││▨이어 가기 대기 ✓끝남          ││응답은 staging을 권장합니다.    │
+  ⎿  pane-grid: active cell c2                                                                                                      ││?모르는 state ▒세션 없음       ││Recommended: staging            │
+                                                                                                                                    ││                               ││[ Not a question ]              │
+❯ /grid place pending-questions                                                                                                     ││처리량  오늘 4 · 7일 4         ││                                │
+  ⎿  pane-grid: placed pending-questions in c2                                                                                      ││유입    오늘 6 · 7일 6 · 순증 …││                                │
+                                                                                                                                    ││활동   ▁▁▁▁ 1시간 0 · 활동 없음││                                │
+❯ 도구를 쓰지 말고 다음 문장만 그대로 답해: "배포 대상을 staging 과 production 중 어디로 할까요? 권장은 staging 입니다."            ││                               ││                                │
+                                                                                                                                    ││○ ▾ k1 시험 miles… 4/6 · 약 4일││                                │
+⏺ 배포 대상을 staging 과 production 중 어디로 할까요? 권장은 staging 입니다.                                                        ││██████                         ││                                │
+                                                                                                                                    ││                               ││                                │
+✻ Cogitated for 3s · done 오후 11:01                                                                                                ││                               │╰────────────────────────────────╯
+                                                                                                                                    ││                               │╭────────────────────────────────╮
+⏺ pending-questions: reloaded (9 hooks: session.start, session.end, command.run, prompt.submit, turn.complete, ui.press,            ││                               ││c3 usage-gauge                  │
+  tool.call, ui.render, state.set)                                                                                                  ││                               ││Weekly 7-day window   64% / 100%│
+                                                                                                                                    ││                               ││████████████│███████░░░░░░░░░░░░│
+                                                                                                                                    ││                               ││Resets in 4d 8h · target 38%    │
+                                                                                                                                    ││                               ││                                │
+                                                                                                                                    ││                               ││                                │
+                                                                                                                                    ││                               ││                                │
+                                                                                                                                    ││                               ││                                │
+                                                                                                                                    ││                               ││                                │
+                                                                                                                                    ││                               ││                                │
+                                                                                                                                    ││                               ││                                │
+                                                                                                                                    ││                               ││                                │
+                                                                                                                                    ││                               ││                                │
+                                                                                                                                    ││                               ││                                │
+                                                                                                                                    ││                               ││                                │
+                                                                                                                                    ││                               ││                                │
+                                                                                                                                    ││                               ││                                │
+                                                                                                                                    ││                               ││                                │
+                                                                                                                                    │╰───────────────────────────────╯╰────────────────────────────────╯
+                                                                                                                                    │
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── Claude Code mod pane 분할 플러그인 ─
+❯ 
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ pending-questions: 1 pending (/questions)
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 1 agent

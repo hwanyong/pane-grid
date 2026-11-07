@@ -1,0 +1,46 @@
+│ main   Files: pg3                                               ✕
+│v: split-h s: split-v o: next z: zoom x: kill w: swap b: break
+│c: new tab k: close tab q: list
+│╭────────────────────────╮╭───────────────────────────────────────╮
+││c1 pending-questions    ││c2 uhd-kanban                          │
+││Mode: manual            ││23:12 · 카드 6개 · milestone 1개 · 60… │
+││[ Switch to auto ]      ││█to-do 1 █in-progress 0 █in-review 1   │
+││[ Rescan last response ]││█done 4 █decided 0 █implemented 0      │
+││                        ││█cancelled 0                           │
+││No pending questions.   ││in-progress: ░돈다 ⠋다시 뜨는 중       │
+││1 pending in another    ││↻재시작 대기 ▨이어 가기 대기 ✓끝남     │
+││session: claude --resume││?모르는 state ▒세션 없음               │
+││<other session id>      ││                                       │
+││<id end>                ││처리량 ▁▁▁▁▁▁▆ 오늘 4 · 7일 4          │
+││                        ││유입   ▁▁▁▁▁▁█ 오늘 6 · 7일 6 · 순증 +2│
+││                        ││활동   ▁▁▁▁▁▁▁▁▁▁▁▁ 1시간 0 · 활동 없음│
+││                        ││                                       │
+││                        ││○ ▾ k1 시험 milestone      4/6 · 약 4일│
+││                        ││██████                                 │
+││                        ││                                       │
+││                        ││                                       │
+││                        ││                                       │
+││                        │╰───────────────────────────────────────╯
+││                        │╭───────────────────────────────────────╮
+││                        ││c3 usage-gauge                         │
+││                        ││Weekly 7-day window          65% / 100%│
+││                        ││██████████████│██████████░░░░░░░░░░░░░░│
+││                        ││Resets in 4d 8h · target 38%           │
+││                        ││                                       │
+││                        ││                                       │
+││                        ││                                       │
+││                        ││                                       │
+││                        ││                                       │
+││                        ││                                       │
+││                        ││                                       │
+││                        ││                                       │
+││                        ││                                       │
+││                        ││                                       │
+││                        ││                                       │
+││                        ││                                       │
+││                        ││                                       │
+││                        ││                                       │
+││                        ││                                       │
+│╰────────────────────────╯╰───────────────────────────────────────╯
+│
+─────────────────────────────── Claude Code mod pane 분할 플러그인 ─
