@@ -256,7 +256,7 @@ In `~/.claude/pane-grid/layout.json`. Copy the file to another machine and run `
 
 ## About the recordings
 
-The animated images are APNG files recorded from real Claude Code 2.1.319 sessions running pane-grid 0.2.0 with pending-questions, uhd-kanban and usage-gauge, and the `haiku` model. The terminal was captured with `tmux capture-pane -e` and drawn to images by [`verification/demo/`](verification/demo/).
+The animated images are APNG files recorded from real Claude Code 2.1.319 sessions running pane-grid 0.3.1 with pending-questions, uhd-kanban and usage-gauge, and the `haiku` model. The terminal was captured with `tmux capture-pane -e` and drawn to images by [`verification/demo/`](verification/demo/).
 
 - Claude's response was fixed with a system prompt (`--append-system-prompt-file`) so that the recording repeats. Splits, hotkeys, clicks, scrolling and question extraction ran for real.
 - Waits were shortened. The title bar, the strip under the terminal and the orange outlines are not part of the interface.
