@@ -1,0 +1,55 @@
+[DEBUG] engine.create: no plugin-provided interfaces; $ built for usage-gauge,pending-questions,uhd-kanban,pane-grid,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+[DEBUG] [pending-questions] $.ui.log (to debug): restored 311aaa71-8ea2-4de1-8f68-9311f09b0523: seq none
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=usage-gauge,pending-questions,uhd-kanban
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=usage-gauge,pending-questions,uhd-kanban
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=3 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action place pending-questions c4: placed pending-questions in c4
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=4 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action select-cell c1: active cell c1
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=5 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action next: active cell c2
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=6 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=7 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=8 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=9 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=10 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] engine.create: no plugin-provided interfaces; $ built for pane-grid
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=11 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log: reloaded (6 hooks: session.start, command.run, ui.scroll, ui.press, ui.message, ui.render)
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=12 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=13 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=14 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=15 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=16 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=17 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=18 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=19 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=20 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=21 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=22 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=23 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=24 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=25 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=26 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=27 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=28 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=29 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=30 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=31 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=32 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=33 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=34 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=35 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=36 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=37 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=38 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=39 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=40 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=41 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=42 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=43 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=44 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action select-cell c1: active cell c1
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=45 tabs=main placed=usage-gauge,uhd-kanban,pending-questions
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action select-cell c4: active cell c4
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action list: * main active=c4 {[c1=usage-gauge:34.04,c2:65.96]:48.86,[c3=uhd-kanban:60,c4=pending-questions:40]:51.14}

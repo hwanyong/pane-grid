@@ -26,15 +26,21 @@ export const newCellId = (tabs: GridTab[]) => {
   return `c${index}`
 }
 
+// 나란히 놓은 자식 사이의 분할선 폭(열) 또는 높이(행).
+export const DIVIDER = 1
+// 비율은 소수 둘째 자리까지 둔다. 분할선을 끌어 놓은 칸 수를 정수 비율로 내리면 1% 가 2칸 이상인 넓은 pane 에서 칸 단위로 놓이지 않는다.
+const PRECISION = 100
+
 const sizeOf = (child: GridChild) => (child.size > 0 ? child.size : 1)
 const total = (children: GridChild[]) => children.reduce((sum, child) => sum + child.size, 0)
+const rounded = (value: number) => Math.round(value * PRECISION) / PRECISION
 
-// 합이 100 인 정수 비율로 맞춘다. 0 이하는 1 로 올리고, 나머지는 마지막 자식이 받는다.
+// 합이 100 인 비율(소수 둘째 자리)로 맞춘다. 0 이하는 1 로 올리고, 나머지는 마지막 자식이 받는다.
 export const normalize = (children: GridChild[]): GridChild[] => {
   const whole = children.reduce((sum, child) => sum + sizeOf(child), 0)
-  const scaled = children.map(child => ({ node: child.node, size: Math.max(1, Math.floor((sizeOf(child) * 100) / whole)) }))
-  const rest = 100 - total(scaled)
-  return scaled.map((child, index) => (index == scaled.length - 1 ? { node: child.node, size: child.size + rest } : child))
+  const scaled = children.map(child => ({ node: child.node, size: Math.max(1, Math.floor((sizeOf(child) * 100 * PRECISION) / whole) / PRECISION) }))
+  const rest = rounded(100 - total(scaled))
+  return scaled.map((child, index) => (index == scaled.length - 1 ? { node: child.node, size: rounded(child.size + rest) } : child))
 }
 
 const evenly = (nodes: GridNode[]): GridChild[] => normalize(nodes.map(node => ({ node, size: 1 })))
@@ -122,22 +128,93 @@ export const preset = (root: GridNode, name: Preset): GridNode => {
   return top ? group('column', top, below) : root
 }
 
-// 나눈 노드의 자식마다 사각형을 계산한다. 비율을 정수 칸 수로 내리고 나머지는 마지막 자식이 받는다.
-// render 와 geometry 가 같은 계산을 쓴다.
-export const childRects = (node: GridSplit, rect: Rect): { node: GridNode; rect: Rect }[] => {
-  const isRow = node.kind == 'row'
-  const length = isRow ? rect.width : rect.height
-  const laid = node.children.reduce<{ start: number; parts: { node: GridNode; rect: Rect }[] }>((acc, child, index) => {
-    const part = index == node.children.length - 1 ? length - acc.start : Math.floor((length * child.size) / 100)
-    const placed = isRow
-      ? { x: rect.x + acc.start, y: rect.y, width: part, height: rect.height }
-      : { x: rect.x, y: rect.y + acc.start, width: rect.width, height: part }
-    return { start: acc.start + part, parts: [...acc.parts, { node: child.node, rect: placed }] }
-  }, { start: 0, parts: [] })
-  return laid.parts
+// 나눈 노드의 자식 길이(칸 수). 분할선을 뺀 길이를 비율의 누적합으로 반올림해 나눈다. 누적합으로 나누므로 합이 늘 그 길이다.
+export const partLengths = (node: GridSplit, length: number): number[] => {
+  const room = Math.max(length - DIVIDER * (node.children.length - 1), 0)
+  const bounds = node.children.map((_, index) => (index == node.children.length - 1
+    ? room
+    : Math.round((room * total(node.children.slice(0, index + 1))) / 100)))
+  return bounds.map((bound, index) => Math.max(bound - (bounds[index - 1] ?? 0), 0))
 }
 
-// 칸 id 마다 사각형(테두리 포함)을 계산한다. 좌표는 grid 영역 왼쪽 위가 0 이다.
+// 자식 `index` 와 그 다음 자식 사이의 분할선. `start` 는 부모 사각형 시작에서 분할선까지의 칸 수다.
+export type Divider = { index: number; start: number; rect: Rect }
+
+// 나눈 노드의 자식마다 사각형과, 자식 사이의 분할선 사각형을 계산한다. render 와 geometry 가 같은 계산을 쓴다.
+export const splitRects = (node: GridSplit, rect: Rect): { parts: { node: GridNode; rect: Rect }[]; dividers: Divider[] } => {
+  const isRow = node.kind == 'row'
+  const along = (start: number, length: number): Rect => (isRow
+    ? { x: rect.x + start, y: rect.y, width: length, height: rect.height }
+    : { x: rect.x, y: rect.y + start, width: rect.width, height: length })
+  const lengths = partLengths(node, isRow ? rect.width : rect.height)
+  const starts = lengths.map((_, index) => lengths.slice(0, index).reduce((sum, length) => sum + length + DIVIDER, 0))
+  return {
+    parts: node.children.map((child, index) => ({ node: child.node, rect: along(starts[index] ?? 0, lengths[index] ?? 0) })),
+    dividers: lengths.slice(0, -1).map((length, index) => {
+      const start = (starts[index] ?? 0) + length
+      return { index, start, rect: along(start, DIVIDER) }
+    }),
+  }
+}
+
+export const childRects = (node: GridSplit, rect: Rect) => splitRects(node, rect).parts
+
+// 분할선 `index` 를 부모 시작에서 `at` 칸 자리로 옮긴다. 양옆 두 자식만 길이가 바뀌고, 둘 다 1칸 이상 남긴다.
+// 다른 자식의 길이는 그대로 두고 모든 비율을 지금 칸 수에서 다시 계산한다.
+export const moveDivider = (node: GridSplit, length: number, index: number, at: number): GridSplit => {
+  const lengths = partLengths(node, length)
+  const before = lengths[index]
+  const after = lengths[index + 1]
+  if (before == undefined || after == undefined) return node
+  const start = lengths.slice(0, index).reduce((sum, part) => sum + part + DIVIDER, 0)
+  const moved = Math.min(Math.max(at - start, 1), before + after - 1)
+  if (moved == before) return node
+  const next = lengths.map((part, position) => (position == index ? moved : position == index + 1 ? before + after - moved : part))
+  const room = next.reduce((sum, part) => sum + part, 0)
+  if (room <= 0) return node
+  return { ...node, children: normalize(node.children.map((child, position) => ({ node: child.node, size: ((next[position] ?? 0) * 100) / room }))) }
+}
+
+// 나눈 노드를 경로로 찾는다. 경로는 루트에서 자식 번호를 점으로 이은 것이고 루트는 `r` 이다(`r.1.0`).
+export const ROOT_PATH = 'r'
+export const childPath = (path: string, index: number) => `${path}.${index}`
+
+export const splitAt = (root: GridNode, path: string): GridSplit | undefined => {
+  const [head, ...indexes] = path.split('.')
+  if (head != ROOT_PATH) return undefined
+  let node: GridNode | undefined = root
+  for (const index of indexes) node = node?.kind == 'cell' ? undefined : node?.children[Number(index)]?.node
+  return node?.kind == 'cell' ? undefined : node
+}
+
+// 경로의 노드가 차지하는 사각형. 경로가 가리키는 노드가 없으면 undefined.
+export const rectAt = (root: GridNode, path: string, rect: Rect): Rect | undefined => {
+  const [head, ...indexes] = path.split('.')
+  if (head != ROOT_PATH) return undefined
+  let node: GridNode = root
+  let found: Rect = rect
+  for (const index of indexes) {
+    if (node.kind == 'cell') return undefined
+    const part = childRects(node, found)[Number(index)]
+    if (!part) return undefined
+    node = part.node
+    found = part.rect
+  }
+  return found
+}
+
+export const replaceAt = (root: GridNode, path: string, replaced: GridSplit): GridNode => {
+  const [, ...indexes] = path.split('.')
+  const swapIn = (node: GridNode, depth: number): GridNode => {
+    if (depth == indexes.length) return replaced
+    if (node.kind == 'cell') return node
+    const at = Number(indexes[depth])
+    return { ...node, children: node.children.map((child, index) => (index == at ? { ...child, node: swapIn(child.node, depth + 1) } : child)) }
+  }
+  return swapIn(root, 0)
+}
+
+// 칸 id 마다 사각형(제목 줄 포함, 분할선 제외)을 계산한다. 좌표는 grid 영역 왼쪽 위가 0 이다.
 export const geometry = (node: GridNode, rect: Rect, out = new Map<string, Rect>()): Map<string, Rect> => {
   if (node.kind == 'cell') return out.set(node.id, rect)
   for (const part of childRects(node, rect)) geometry(part.node, part.rect, out)

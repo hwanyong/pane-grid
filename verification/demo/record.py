@@ -36,7 +36,7 @@ HEIGHT = 44
 SOCKET = 'pg-demo'
 MAX_ATTEMPTS = 3
 # 화면에 나오면 그 녹화를 버리는 mod 의 오류 문구. render.FORBIDDEN 은 pending-questions 저장소와 같은 파일이라 여기 따로 둔다.
-MOD_ERRORS = re.compile(r'command failed|Cannot read|draws nothing here|not loaded after|hook skipped|: reloaded \(')
+MOD_ERRORS = re.compile(r'command failed|Cannot read|draws nothing here|is not loaded|hook skipped|: reloaded \(')
 TMUX_CONF = """set -g mouse on
 set -g status off
 set -g focus-events on
@@ -259,16 +259,40 @@ class Take:
         return None
 
     def click(self, pattern, label='click', pause=1.0, duration=500):
-        """pattern 의 첫 글자를 SGR 마우스 누름 · 뗌으로 클릭한다."""
+        """pattern 의 첫 글자를 SGR 마우스 누름 · 뗌으로 클릭한다.
+
+        누름과 뗌 사이를 띄운다. 한 프레임에 Client 의 post 는 하나만 전달된다(docs/grid-and-tabs.md §4.1 8회차).
+        """
         located = self.locate(pattern)
         if located is None:
             print(self.text())
             raise TimeoutError(f'{self.name}: nothing to click at {pattern}')
         column, row = located
         self.key_label = label
-        tmux('send-keys', '-t', 'demo', '-l', f'\x1b[<0;{column};{row}M\x1b[<0;{column};{row}m')
+        tmux('send-keys', '-t', 'demo', '-l', f'\x1b[<0;{column};{row}M')
+        time.sleep(0.3)
+        tmux('send-keys', '-t', 'demo', '-l', f'\x1b[<0;{column};{row}m')
         time.sleep(pause)
         self.shoot(duration)
+
+    def drag(self, pattern, offset, by, label='drag the divider', steps=6):
+        """pattern 의 첫 글자에서 offset(열, 행)만큼 떨어진 분할선을 잡아 by(열, 행)만큼 끈다. 움직일 때마다 프레임을 남긴다."""
+        located = self.locate(pattern)
+        if located is None:
+            print(self.text())
+            raise TimeoutError(f'{self.name}: no divider near {pattern}')
+        column, row = located[0] + offset[0], located[1] + offset[1]
+        self.key_label = label
+        tmux('send-keys', '-t', 'demo', '-l', f'\x1b[<0;{column};{row}M')
+        time.sleep(0.4)
+        self.shoot(300)
+        for step in range(1, steps + 1):
+            tmux('send-keys', '-t', 'demo', '-l', f'\x1b[<32;{column + by[0] * step // steps};{row + by[1] * step // steps}M')
+            time.sleep(0.35)
+            self.shoot(160)
+        tmux('send-keys', '-t', 'demo', '-l', f'\x1b[<0;{column + by[0]};{row + by[1]}m')
+        time.sleep(1.0)
+        self.shoot(500)
 
     def wheel(self, pattern, times, label='mouse wheel'):
         """pattern 위에서 휠을 아래로 times 번 굴린다. pane-grid 는 포인터 아래의 칸만 스크롤한다."""
@@ -286,6 +310,7 @@ class Take:
     def focus_grid(self):
         """grid pane 의 hotkey 줄 오른쪽 빈 자리를 클릭해 pane 에 포커스를 준다. hotkey 는 포커스가 pane 에 있을 때만 눌린다.
 
+        활성이 아닌 칸을 클릭하면 그 칸이 활성 칸이 되며 포커스도 옮겨지지만, 활성 칸을 바꾸지 않을 때는 이 자리를 쓴다.
         `q: list` 글자는 Button 이라 그 자리를 클릭하면 list 가 실행되고 포커스는 prompt 에 남는다.
         """
         located = self.locate(r'q: list')
@@ -419,18 +444,22 @@ def scene_split():
 
 
 def scene_arrange():
-    take = Take('demo-arrange', 'pane-grid: resize, presets, zoom, swap', [THREE_MODS])
+    take = Take('demo-arrange', 'pane-grid: drag, presets, focus, zoom, swap', [THREE_MODS])
     take.start_claude()
-    take.say('1. /grid resize sets the active cell\'s share in percent')
-    take.grid('resize 35', 1800)
+    take.say('1. Drag a divider to resize the cells on both sides')
+    # c3 의 제목은 분할선 바로 오른쪽에서 시작한다. c2 의 제목 줄 바로 위가 가로 분할선이다.
+    take.drag(r'c3 usage-gauge', (-1, 0), (-14, 0))
+    take.drag(r'c2 uhd-kanban', (6, -1), (0, -5))
+    take.hold(1200)
     take.say('2. /grid layout applies a tmux preset')
     take.grid('layout tiled', 1800)
     take.grid('layout main-vertical', 1800)
-    take.focus_grid()
-    take.say('3. z zooms the active cell, z again restores the grid')
+    take.say('3. Click a cell to make it active; its hotkeys work right away')
+    take.click(r'c1 pending-questions', label='click c1', duration=1400)
+    take.say('4. z zooms the active cell, z again restores the grid')
     take.press('z', 'z', duration=1800)
     take.press('z', 'z', duration=1200)
-    take.say('4. o moves to the next cell, w swaps it with the one after')
+    take.say('5. o moves to the next cell, w swaps it with the one after')
     take.press('o', 'o', duration=900)
     take.press('w', 'w', duration=1800)
     take.finish()

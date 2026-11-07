@@ -1,7 +1,7 @@
 <a href="docs/add-pane-grid-cell.md"><img src="docs/images/banner.png" width="860" alt="Banner on a dark background. Orange text pane-grid, then the title Join the Pane Grid ecosystem, the line Make your Claude Code mod draw in a grid cell, an orange button with the command /pane-grid:add-pane-grid-cell, and the line A Claude Code mod: tmux-style grid for Claude Code panes. On the right, a Claude Code screenshot with one pane split into three cells: pending-questions on top, a uhd-kanban board and usage-gauge rate-limit bars below."></a>
 
 > [!TIP]
-> **Join the Pane Grid ecosystem.** Any Claude Code mod can draw in a pane-grid cell. Install pane-grid, open Claude Code in your mod's repository and run **`/pane-grid:add-pane-grid-cell`**: Claude applies the [grid-ready guide](docs/add-pane-grid-cell.md) to your code. Then [add your mod to the list](#which-claude-code-mods-are-grid-ready).
+> **Join the Pane Grid ecosystem.** Any Claude Code mod can draw in a pane-grid cell. Open Claude Code in your mod's repository and paste the [prompt with this repository's address](#how-do-i-make-my-claude-code-mod-grid-ready): Claude installs pane-grid from `https://github.com/hwanyong/pane-grid`, runs **`/pane-grid:add-pane-grid-cell`** and applies the [grid-ready guide](docs/add-pane-grid-cell.md) to your code. Then [add your mod to the list](#which-claude-code-mods-are-grid-ready).
 
 # pane-grid: a Claude Code mod that splits a Claude Code pane into a tmux-style grid
 
@@ -44,7 +44,9 @@ Claude Code mods draw panes beside the chat: a kanban board, the questions Claud
 |---|---|---|
 | tmux-style splits | Split the active cell left-right (`v`) or top-bottom (`s`), to any depth | [Split and place](#how-do-i-split-a-pane-and-place-a-mod) |
 | Mod picker in empty cells | An empty cell lists the grid-ready Claude Code mods that are loaded. A digit or a click places one | [Split and place](#how-do-i-split-a-pane-and-place-a-mod) |
-| Resize and presets | `/grid resize <1-99>` sets a cell's share. `/grid layout` applies `even-horizontal`, `even-vertical`, `main-vertical`, `main-horizontal` or `tiled` | [Arrange](#how-do-i-resize-zoom-and-rearrange-cells) |
+| Drag to resize | Cells have no borders; a one-cell divider sits between them. Drag a divider with the mouse to resize the cells on both sides | [Arrange](#how-do-i-resize-zoom-and-rearrange-cells) |
+| Click to focus | Click anywhere in a cell to make it active. The grid pane takes the keyboard, so hotkeys work right away | [Split and place](#how-do-i-split-a-pane-and-place-a-mod) |
+| Presets | `/grid layout` applies `even-horizontal`, `even-vertical`, `main-vertical`, `main-horizontal` or `tiled`. `/grid resize <1-99>` sets a share from the prompt | [Arrange](#how-do-i-resize-zoom-and-rearrange-cells) |
 | Zoom, next, swap | `z` draws the active cell alone, `o` moves to the next cell, `w` swaps two cells | [Arrange](#how-do-i-resize-zoom-and-rearrange-cells) |
 | Layout tabs | Each layout is a Claude Code pane tab. `c` opens one, `b` breaks a cell out into one, `k` closes one | [Tabs](#how-do-layout-tabs-work) |
 | Scroll per cell | The mouse wheel scrolls the cell under the pointer; page keys scroll the active cell | [Overview](#pane-grid-a-claude-code-mod-that-splits-a-claude-code-pane-into-a-tmux-style-grid) |
@@ -68,29 +70,14 @@ claude plugin install pane-grid --marketplace hwanyong/pane-grid
 
 Restart Claude Code. pane-grid opens a pane tab named `main`. It holds one empty cell until you place a mod; install at least one [grid-ready mod](#which-claude-code-mods-are-grid-ready) to fill it.
 
-### Install order matters
-
-pane-grid's render hook has to run before the hooks of the mods in its cells, so pane-grid must load before them. Claude Code loads installed plugins in the order of the `enabledPlugins` keys in `~/.claude/settings.json`, and installing a plugin adds its key last. If you installed grid-ready mods before pane-grid, a cell shows `<mod> is not loaded after pane-grid`. Move the `pane-grid@pane-grid` key above them and restart Claude Code:
-
-```json
-{
-  "enabledPlugins": {
-    "pane-grid@pane-grid": true,
-    "usage-gauge@usage-gauge": true,
-    "uhd-kanban@skill-kanban": true,
-    "pending-questions@pending-questions": true
-  }
-}
-```
-
-A folder loaded with `claude --plugin-dir` or `CLAUDE_CODE_PLUGIN_DIRS` loads before installed plugins, so `claude --plugin-dir <pane-grid clone>` also works.
+Install order does not matter: pane-grid and grid-ready mods draw the same grid whichever loads first (pane-grid 0.3.0 and mods with its 0.3.0 [`hooks/pane-grid.ts`](skills/add-pane-grid-cell/pane-grid.ts)).
 
 ## How do I split a pane and place a mod?
 
 <img src="docs/images/demo-split-place.png" width="860" alt="Animated recording of a pane-grid pane with one empty cell that lists pending-questions, uhd-kanban and usage-gauge with digits 1 to 3. Pressing 2 places uhd-kanban. Pressing v splits the cell left and right and the new cell lists the remaining mods; 3 places usage-gauge. Pressing s splits again and 1 places pending-questions. Pressing s once more makes a cell that lists uhd-kanban as move from c1, and 2 moves the board there.">
 
-1. Click an empty spot in the grid pane, such as the right end of its first rows, so its hotkeys work. Those rows list the hotkeys; clicking one of them runs it instead and leaves focus in the prompt.
-2. An empty cell lists the grid-ready mods that are loaded. In the active cell each has a digit: press it to place that mod. In other cells, click the name.
+1. Click a cell. It becomes the active cell (its title turns green) and the grid pane takes the keyboard, so hotkeys work. The first click on a cell that is not active only activates it; a Button under the pointer is pressed by the next click.
+2. An empty cell lists the grid-ready mods that are loaded. In the active cell each has a digit: press it, or click the name, to place that mod.
 3. Press `v` to split the active cell left and right, or `s` to split it top and bottom. The new cell becomes active and lists the mods again.
 4. A mod is in one cell at a time. A mod that is already placed is listed as `(move from c1)`; picking it moves it.
 
@@ -98,8 +85,9 @@ The same actions are `/grid split -h`, `/grid split -v` and `/grid place <mod> [
 
 ## How do I resize, zoom and rearrange cells?
 
-<img src="docs/images/demo-arrange.png" width="860" alt="Animated recording of a three-cell pane-grid pane. /grid resize 35 narrows the active cell, /grid layout tiled and /grid layout main-vertical rebuild the cells, z zooms the active cell over the whole pane and z restores it, o makes the next cell active and w swaps two cells.">
+<img src="docs/images/demo-arrange.png" width="860" alt="Animated recording of a three-cell pane-grid pane without cell borders. Dragging the vertical divider between the uhd-kanban and usage-gauge cells 14 columns to the left resizes both, and dragging the horizontal divider 5 rows up makes the bottom row taller; a held divider turns green. /grid layout tiled and /grid layout main-vertical rebuild the cells. Clicking the pending-questions cell makes it active, z zooms it over the whole pane and z restores it, o makes the next cell active and w swaps two cells.">
 
+- Drag the divider between two cells (`│` between left and right, `─` between top and bottom) to resize both. The new sizes are saved when you release the button.
 - `/grid resize 35` gives the active cell 35% of its parent split.
 - `/grid layout <preset>` rebuilds the tab's cells, in their current order, into a tmux preset: `even-horizontal`, `even-vertical`, `main-vertical`, `main-horizontal` or `tiled`.
 - `z` (or `/grid zoom`) draws the active cell over the whole pane; press it again to restore the grid. The tab title shows `[Z]` while zoomed.
@@ -109,7 +97,7 @@ The same actions are `/grid split -h`, `/grid split -v` and `/grid place <mod> [
 
 <img src="docs/images/demo-tabs.png" width="860" alt="Animated recording of pane-grid layout tabs. b moves the active cell to a new tab w2, c opens an empty tab w3, clicking w3 in the tab bar shows it and 1 moves pending-questions into it. /grid list prints the three tabs with their cells, and /grid select main shows the first tab again.">
 
-Each layout is one Claude Code pane tab with the id `grid-<name>`. Switching tabs is Claude Code's own tab switching (click a name in the tab bar), and `/grid select <name>` shows a tab from the prompt. When a different tab is shown, focus returns to the prompt; click the grid pane again before using hotkeys.
+Each layout is one Claude Code pane tab with the id `grid-<name>`. Switching tabs is Claude Code's own tab switching (click a name in the tab bar), and `/grid select <name>` shows a tab from the prompt. When a different tab is shown, focus returns to the prompt; click a cell again before using hotkeys.
 
 - `c` (or `/grid new [<name>]`) opens a layout tab with one empty cell. Claude Code opens it behind the tab you are on: click its name in the tab bar to show it.
 - `b` (or `/grid break`) moves the active cell to a new tab.
@@ -135,7 +123,7 @@ Hotkeys work while the grid pane has focus. Commands work at the Claude Code pro
 | `1`-`9` | `/grid place <mod> [<cell>]` | Place a mod (digits: in the active empty cell) |
 | - | `/grid place - [<cell>]` | Empty a cell |
 | `o` | `/grid next` | Make the next cell active |
-| - | `/grid select-cell <cell>` | Make that cell active (or click the cell title) |
+| - | `/grid select-cell <cell>` | Make that cell active (or click anywhere in the cell) |
 | `w` | `/grid swap [<cell>]` | Swap the active cell with the next cell or that cell |
 | `z` | `/grid zoom` | Zoom the active cell, or restore |
 | `x` | `/grid kill` | Remove the active cell |
@@ -195,27 +183,41 @@ A grid-ready mod adds one `ui.render` hook for the grid pane, draws its content 
 
 | Way | How |
 |---|---|
-| Let Claude do it | Install pane-grid, open Claude Code in your mod's repository and run `/pane-grid:add-pane-grid-cell`. The skill copies the reading module, adds the hooks your mod needs, runs `claude plugin validate`, and lists what to check in a live session. It does not commit |
+| Let Claude do it | Open Claude Code in your mod's repository and paste the prompt below. It names this repository, installs pane-grid and runs the skill `/pane-grid:add-pane-grid-cell`, which copies the reading module, adds the hooks your mod needs, runs `claude plugin validate`, and lists what to check in a live session. It does not commit |
 | By hand | Follow [docs/add-pane-grid-cell.md](docs/add-pane-grid-cell.md): seven steps with code, from copying [`hooks/pane-grid.ts`](skills/add-pane-grid-cell/pane-grid.ts) to the live check |
+
+Prompt to paste into Claude Code, opened in your mod's repository:
+
+```text
+Make this Claude Code mod grid-ready for pane-grid: https://github.com/hwanyong/pane-grid
+1. Install pane-grid: claude plugin install pane-grid --marketplace hwanyong/pane-grid
+2. Run the skill /pane-grid:add-pane-grid-cell in this repository.
+   If the skill is not loaded in this session, follow the guide instead:
+   https://github.com/hwanyong/pane-grid/blob/main/docs/add-pane-grid-cell.md
+   and copy https://github.com/hwanyong/pane-grid/blob/main/skills/add-pane-grid-cell/pane-grid.ts
+   to hooks/pane-grid.ts unchanged.
+Do not commit. List what you changed and what I should check in a live session.
+```
 
 The skill was tested on a sample pane mod: it applied the guide, `claude plugin validate` and `tsc` passed, and the mod drew in a cell and returned to its own pane in a live session ([diff](verification/logs/skill-tool-calls.diff)).
 
 ## How does it work?
 
-- The Claude Code mod engine has no API that splits a pane or draws one mod inside another mod's pane. pane-grid opens its own pane per layout and draws the cell tree with `Box` borders.
-- Every grid-ready mod hooks `ui.render` for panes whose id starts with `grid-`. When it has a cell in that layout, it appends a `Box` keyed `cell:<mod name>` to the tree. pane-grid takes each keyed `Box` from the tree and puts it in its cell, so each mod's Buttons stay its own and keep working.
+- The Claude Code mod engine has no API that splits a pane or draws one mod inside another mod's pane. pane-grid opens its own pane per layout and draws the cell tree with `Box` elements, a one-cell divider between cells.
+- Every grid-ready mod hooks `ui.render` for panes whose id starts with `grid-`. A mod that loads after pane-grid appends a `Box` keyed `cell:<mod name>` to the tree, and pane-grid takes it into its cell. A mod that loads before pane-grid receives pane-grid's finished grid and puts its content into the `Box` keyed `slot:<mod name>` that pane-grid drew for it. Either way each mod's Buttons stay its own and keep working.
+- The dividers and the click-to-focus areas are `Client` regions (Claude Code's surface modules). A drag or click is sent to pane-grid's `ui.message` hook, which writes the new layout.
 - pane-grid publishes the layout and each cell's size in Claude Code's `$.state`. A mod reads its size there and redraws when the layout changes.
-- The mod picker in an empty cell comes from `next.trace` of the grid render: the mods whose `ui.render` hook ran for the grid pane.
+- The mod picker in an empty cell lists the mods beneath pane-grid from `next.trace` of the grid render, and each grid-ready mod above pane-grid adds its own Button to the `Box` keyed `choices:<cell>`. pane-grid's `ui.press` hook answers every `place:<cell>:<mod>` Button.
 
 The design notes, engine measurements and test runs are in [docs/grid-and-tabs.md](docs/grid-and-tabs.md) and [docs/direction.md](docs/direction.md) (Korean).
 
 ## Limitations
 
-- pane-grid must load before the mods in its cells. See [Install order matters](#install-order-matters).
 - Only grid-ready mods can be placed. The Claude Code mod engine does not let one mod draw another mod's pane with its Buttons working, so a mod has to opt in.
-- Cells are resized with `/grid resize` or presets; dragging a cell border with the mouse is not implemented yet.
+- A click on a cell that is not active only activates it. The engine passes no click on a mod's text to any hook, so pane-grid covers inactive cells to catch the click; the Button under the pointer is pressed by the next click.
+- Dragging dividers and clicking to focus need the terminal: other surfaces have no `Client` regions, so there the dividers are plain lines and `/grid resize` · `/grid select-cell` do the same.
 - The pane's width is Claude Code's: a mod pane takes up to 45% of the terminal, so wide layouts need a wide terminal.
-- The mod picker lists every installed mod whose `ui.render` hook runs for the grid pane. A mod that hooks every `ui.render` without a matcher shows up too, and its cell reads `<mod> draws nothing here`. Grid-ready mods that load before pane-grid are not listed.
+- The mod picker lists every installed mod whose `ui.render` hook runs for the grid pane. A mod that hooks every `ui.render` without a matcher shows up too, and its cell reads `<mod> draws nothing here`.
 - Tested in the terminal on macOS. The desktop and IDE surfaces were not tested.
 
 ## FAQ
@@ -236,9 +238,9 @@ No. It is a community Claude Code mod. Claude and Claude Code are products of An
 
 No. pane-grid makes no model calls. It draws, reads and writes `~/.claude/pane-grid/layout.json` and handles hotkeys.
 
-### Why does a cell say a mod is not loaded after pane-grid?
+### Why does a cell say a mod is not loaded?
 
-The mod loads before pane-grid, so its cell content is added after pane-grid has drawn the grid. Put `pane-grid@pane-grid` first in `enabledPlugins` (see [Install order matters](#install-order-matters)), or install the mod if it is not installed.
+The cell reads `<mod> is not loaded, or its hooks/pane-grid.ts is older than pane-grid 0.3.0`. Either the mod is not installed or is disabled, or it loads before pane-grid and its copy of `hooks/pane-grid.ts` has no `fillSlot`. Install the mod, or update it to a version with the 0.3.0 reading module.
 
 ### Does it work with mods that are not grid-ready?
 

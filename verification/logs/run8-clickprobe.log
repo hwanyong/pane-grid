@@ -1,0 +1,7 @@
+[DEBUG] engine.create: no plugin-provided interfaces; $ built for clickprobe,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+[DEBUG] [clickprobe] $.ui.log (to debug): CLICKPROBE message catch-b {"cell":"b","type":"down","x":4,"y":1}
+[DEBUG] [clickprobe] $.ui.log (to debug): CLICKPROBE press hot-h
+[DEBUG] [clickprobe] $.ui.log (to debug): CLICKPROBE onPress hot-h
+[DEBUG] [clickprobe] $.ui.log (to debug): CLICKPROBE message catch-a {"cell":"a","type":"down","x":4,"y":1}
+[DEBUG] [clickprobe] $.ui.log (to debug): CLICKPROBE press hot-h
+[DEBUG] [clickprobe] $.ui.log (to debug): CLICKPROBE onPress hot-h

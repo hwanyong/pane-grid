@@ -1,0 +1,3 @@
+[DEBUG] engine.create: no plugin-provided interfaces; $ built for pane-grid,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=usage-gauge,pending-questions,uhd-kanban
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=usage-gauge,pending-questions,uhd-kanban

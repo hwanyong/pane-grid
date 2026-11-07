@@ -1,0 +1,14 @@
+[DEBUG] engine.create: no plugin-provided interfaces; $ built for pane-grid,usage-gauge,pending-questions,uhd-kanban,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=usage-gauge,pending-questions,uhd-kanban
+[DEBUG] [pending-questions] $.ui.log (to debug): restored 1c3123e1-d48d-474a-ae30-af5710bac375: seq none
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=usage-gauge,pending-questions,uhd-kanban
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=3 tabs=main placed=pending-questions,uhd-kanban,usage-gauge
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action place usage-gauge c4: placed usage-gauge in c4
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=4 tabs=main placed=pending-questions,uhd-kanban,usage-gauge
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action select-cell c2: active cell c2
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=5 tabs=main placed=pending-questions,uhd-kanban,usage-gauge
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action split -v: split c2 into c2 and c5
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=6 tabs=main placed=pending-questions,uhd-kanban,usage-gauge
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=7 tabs=main placed=pending-questions,uhd-kanban,usage-gauge
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=8 tabs=main placed=pending-questions,uhd-kanban,usage-gauge
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=9 tabs=main placed=pending-questions,uhd-kanban,usage-gauge

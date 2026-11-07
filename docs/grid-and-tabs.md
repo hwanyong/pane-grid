@@ -28,6 +28,12 @@
 13. **slash 명령은 `/grid` 하나에 하위 명령을 붙인다**(`/grid split -h` · `/grid new <이름>` · `/grid select <이름>`).
 14. **배치 파일이 없으면 칸 하나짜리 빈 탭 `main` 을 연다.** 어느 mod 도 grid 에 넣지 않으므로 세 mod 는 지금처럼 자기 자리에 그린다.
 
+2026-11-07 사용자 결정 세 가지(§4.1 7회차를 보고 내렸다):
+
+15. **로드 순서와 무관하게 칸을 채운다(slot 방식, §3.7).** 「slot 방식 구현」. 사용자의 mod 세 개도 함께 고친다.
+16. **칸의 둥근 테두리를 지우고 끌어서 크기를 바꾸는 분할선을 넣는다(§3.8).** 「각 슬롯의 라운드 박스 테두리는 지우고 크기 제어가 가능한 분할선만 추가해서 공간 효율성을 올리자.」
+17. **칸 아무 곳이나 클릭하면 그 칸이 활성 칸이 된다(§3.8).** 「키보드(o: next) 나 클릭으로 일일이 포커스를 제어하는게 힘들다.」
+
 | mod | 저장소 | 그리는 곳 |
 |---|---|---|
 | `usage-gauge` 0.2.0 | `/Users/uhd/LOCAL/01-01_Projects/plugin-usage-gauge` | `AbovePrompt`(prompt 위 band). pane 이 없다 |
@@ -128,9 +134,9 @@ tmux 글자 중 `hotkey` 로 쓸 수 없는 것을 대신하는 글자(결정 10
 | 단계 | 규약 mod 가 하는 일 |
 |---|---|
 | ① | `{ component: 'Pane', requestId: /^grid-/ }` 를 hook 한다 |
-| ② | `pane-grid` 의 `layout` 을 읽는다. 이 배치에 자기 칸이 없으면 `next(e)` 를 그대로 반환한다 |
+| ② | `pane-grid` 의 `layout` 을 읽고 `next(e)` 를 부른다. 그 결과에 `offerChoice` 로 자기 선택지 Button 을 더한다(§3.7). 이 배치에 자기 칸이 없으면 그것을 반환한다 |
 | ③ | 자기 pane 을 그리는 함수와 **같은 함수**를 칸 너비로 불러 `key="cell:<plugin>"` Box 를 만든다 |
-| ④ | `next(e)` 결과에 그 Box 를 덧붙여 반환한다. `pane-grid` 가 hook 목록 맨 위(index 0)이므로 그 Box 를 받아 트리의 칸 자리에 놓는다 |
+| ④ | `fillSlot` 으로 그 Box 를 pane-grid 가 그린 `slot:<plugin>` Box 에 넣는다. slot 이 없으면(pane-grid 보다 뒤에 로드) `next(e)` 결과 뒤에 덧붙여 반환하고, pane-grid 가 그 Box 를 받아 칸 자리에 놓는다(§3.7) |
 
 ③ 때문에 세 mod 모두 render 본문을 「너비를 받아 트리를 반환하는 함수」로 떼어 내야 한다. 자기 pane hook 과 `grid` hook 은 그 함수를 함께 쓴다.
 
@@ -181,13 +187,49 @@ on('state.set', { plugin: 'pane-grid', key: 'layout' }, async ($, e, next) => {
 
 | 항목 | 정한 것 |
 |---|---|
-| 선택지의 출처 | pane-grid 의 grid pane `ui.render` hook 이 `await next(e)` 뒤 읽는 `next.trace`. 그 render 에서 실행된 hook 의 plugin 이름 중 tier 가 `prepend` · `user` · `append` 이고 `pane-grid` · `engine` 이 아닌 것. 규약 mod 는 칸이 없어도 §3.3 ① 의 hook 을 걸고 `next(e)` 를 반환하므로 이름이 남는다. 규약 mod 쪽은 고칠 것이 없다 |
+| 선택지의 출처 | 두 곳이다. pane-grid 보다 뒤에 로드된 mod 는 pane-grid 의 grid pane `ui.render` hook 이 `await next(e)` 뒤 읽는 `next.trace` 에서 고른다(그 render 에서 실행된 hook 의 plugin 이름 중 tier 가 `prepend` · `user` · `append` 이고 `pane-grid` · `engine` 이 아닌 것). 먼저 로드된 mod 는 trace 에 남지 않으므로 그 mod 가 `offerChoice` 로 `choices:<칸 id>` Box 에 자기 Button 을 더한다(§3.7) |
 | 누르면 | `place <plugin> <칸 id>`. 그 칸에 놓고 그 칸을 활성으로 한다. 다른 칸에 있던 같은 mod 는 비운다(결정 6). 다른 칸에 있는 mod 는 `(move from c1)` 처럼 지금 칸을 붙여 적는다 |
 | hotkey | 활성 칸의 선택지에만 `1` ~ `9`. 칸마다 붙이면 같은 숫자가 겹치고, 엔진은 같은 hotkey 의 Button 중 나중에 그린 것을 누른다. 활성이 아닌 칸의 선택지는 클릭으로 누른다 |
-| 선택지가 0개 | `empty: no grid-ready mod is loaded. /grid place <plugin>` |
+| 선택지가 0개 | `no grid-ready mod is loaded`. 이 Text 는 key 를 받지 못하므로 key `none:<칸 id>` 의 Box 에 담는다. `offerChoice` 는 Button 을 더할 때 그 Box 를 뺀다 |
 | 한계 | grid pane 의 `ui.render` 에 걸리는 hook 을 가진 mod 는 규약 mod 가 아니어도 선택지에 나온다(matcher 없이 모든 `ui.render` 를 hook 하는 mod). 그런 mod 를 놓으면 칸에 `<plugin> draws nothing here` 가 그려진다 |
 
 `/grid place` 는 칸 id 를 두 번째 인자로 받도록 넓혔다(`place <plugin>|- [<id>]`). 생략하면 전처럼 활성 칸이다.
+
+### 3.7 로드 순서와 무관한 칸 채우기(slot)
+
+결정 15 에 따라 넣었다. §4.1 7회차에서 규약 mod 가 pane-grid 보다 먼저 로드되면 칸이 비었다. 먼저 로드된 mod 의 hook 이 바깥에서 실행되어, pane-grid 가 칸을 모을 때 그 mod 의 `cell:` Box 가 아직 없기 때문이다.
+
+pane-grid 가 그리는 key 는 다섯 가지다(`hooks/register.tsx` 의 `SLOT_KEY` 등).
+
+| key | 그리는 곳 | 누가 채우나 |
+|---|---|---|
+| `slot:<plugin>` | mod 가 놓인 칸. 그 mod 의 `cell:` Box 를 아래에서 모았으면 그것을, 못 모았으면 안내 Text 를 담는다 | 먼저 로드된 mod 가 `fillSlot` 으로 자기 칸을 넣는다 |
+| `choices:<칸 id>` · `choices:<칸 id>:active` | 빈 칸. `place:<칸 id>:<plugin>` Button 을 담는다. `:active` 는 활성 칸이라 hotkey `1` ~ `9` 를 붙인다는 표시다 | 먼저 로드된 mod 가 `offerChoice` 로 자기 Button 을 더한다 |
+| `none:<칸 id>` | 선택지가 0개인 빈 칸의 안내 | `offerChoice` 가 Button 을 더할 때 뺀다 |
+| `place:<칸 id>:<plugin>` | 선택지 Button | pane-grid 의 `ui.press` hook 이 key 를 읽어 `place <plugin> <칸 id>` 를 실행한다 |
+| `hotkey:<글자>` | 도구줄의 hotkey Button | 같은 `ui.press` hook |
+
+정한 것:
+
+- **누름은 `ui.press` hook 하나가 받는다.** 먼저 로드된 mod 가 그린 Button 의 `onPress` 는 그 mod 의 것이라 pane-grid 의 함수를 부를 수 없다. 그래서 pane-grid 의 Button 도 규약 mod 의 Button 도 `onPress` 는 아무것도 하지 않고, pane-grid 의 `ui.press` hook(`{ component: 'Pane', requestId: /^grid-/, element: /^(place|hotkey):/ }`)이 key 로 동작을 정한다. 어느 순서든 같은 입구다.
+- **트리는 고쳐 쓴다.** `next(e)` 가 준 트리는 frozen 이므로 `fillSlot` · `offerChoice` 는 바꾸는 노드까지의 경로만 복사한다(템플릿의 `rewrite`). 옮긴 원소의 `part` 표시는 그대로 두었다. 엔진은 바깥 hook 이 다른 plugin 의 원소를 옮겨도 그 원소의 주인을 바꾸지 않았다(Button 이 각자 눌렸다, §4.1 8회차).
+- **칸 크기 측정.** 먼저 로드된 mod 가 있으면 pane-grid 의 render 는 그 mod 의 hook 안에서 실행된다. 이때 `$.clock.after(0)` 로 미룬 `layout` 쓰기가 render 실행 중에 불려 `denied: it was made while ui.render is being dispatched` 로 거부됐고, `placement.columns` 가 0 으로 남아 usage-gauge 가 pane 전체 너비(89열)로 그렸다. 그래서 트리 끝에 너비 · 높이 0 의 `Client`(`hooks/measure.tsx`)를 두고, 그 surface module 이 잰 칸 크기를 `post` 하면 `ui.message` hook 이 `layout` 을 쓴다. `ui.message` 는 render 밖이다. `Client` 가 없는 surface 에서는 전처럼 `$.clock.after(0)` 이다.
+- **안내 문구.** 놓인 칸에 `cell:` Box 도 채운 slot 도 없으면 trace 를 보고 두 가지로 적는다. trace 에 이름이 있으면 `<plugin> draws nothing here`, 없으면 `<plugin> is not loaded, or its hooks/pane-grid.ts is older than pane-grid 0.3.0` 이다. 먼저 로드된 mod 는 trace 에 없으므로 `fillSlot` 이 없는 옛 `hooks/pane-grid.ts` 와 설치하지 않은 경우를 가를 수 없다.
+
+### 3.8 분할선과 클릭으로 활성화
+
+결정 16 · 17 에 따라 넣었다.
+
+| 항목 | 정한 것 |
+|---|---|
+| 칸 | 테두리 없이 제목 1행(`CELL_CHROME_ROWS`)과 내용이다. 활성 칸의 제목은 초록 굵은 글자, 나머지는 흐린 글자다. 칸 내용 크기는 사각형 너비 × (높이 - 1) 이다 |
+| 분할선 | 칸 사이 1칸(`hooks/tree.ts` 의 `DIVIDER`). 가로 나눔은 `│` 세로줄, 세로 나눔은 `─` 가로줄이다. `Client`(`hooks/divider.tsx`)로 그리고 key 는 `divider:<노드 경로>:<색인>` 이다. 노드 경로는 뿌리 `r` 에서 자식 색인을 붙인 것이다(`r.0.1`) |
+| 끌기 | 왼쪽 버튼 `down` 에서 잡고, `move` · `up` 마다 분할선 위치(나눈 노드 안의 칸 수)를 `post` 한다. pane-grid 의 `ui.message` hook 이 `moveDivider` 로 양옆 자식의 크기를 다시 계산해 `layout` 을 쓰고, `up` 에서 `layout.json` 에 쓴다. 양옆은 최소 1칸이다 |
+| 크기 단위 | `size` 는 백분율이고 소수 둘째 자리까지 둔다(`normalize` 의 `PRECISION`). `moveDivider` 가 칸 수에서 다시 계산한 크기를 정수로 반올림하지 않고 담기 위해서다 |
+| 클릭으로 활성화 | 활성이 아닌 칸 위에 그 칸 크기의 `Client`(`hooks/activate.tsx`, key `activate:<칸 id>`)를 덮는다. `down` 에서 `post` 하면 `ui.message` hook 이 `select-cell` 을 실행하고 `$.ui.open({ id, focus: true })` 로 grid pane 에 키보드 포커스를 준다. 활성 칸에는 덮지 않으므로 그 안의 Button 은 바로 눌린다 |
+| Client 가 없는 surface | 분할선은 흐린 Text 줄이고, 크기는 `/grid resize`, 활성 칸은 `/grid select-cell` 로 바꾼다 |
+
+덮는 방식을 고른 이유는 §4.1 8회차의 측정이다. 칸 아래에 깐 `Client` 는 글자 줄을 누른 것을 받지 못했다.
 
 ## 4. 실행해서 확인한 것
 
@@ -286,6 +328,37 @@ tsc 로 고친 것(4회차 전):
 - 규약 mod 가 pane-grid 보다 먼저 로드되면 규약 mod 의 hook 이 바깥에서 실행된다. pane-grid 의 `next(e)` 결과에 `cell:` Box 가 없고, 규약 mod 는 pane-grid 가 반환한 grid 뒤에 Box 를 덧붙인다. 칸 수집이 실행 순서에 묶여 있다는 뜻이다.
 - 빈 칸 선택지(`next.trace`)에도 pane-grid 보다 먼저 로드된 mod 는 나오지 않는다. trace 는 pane-grid 아래에서 실행된 hook 만 적는다.
 - 그래서 칸 안내 문구를 두 가지로 나눴다(`hooks/register.tsx` 의 `placedNote`). trace 에 이름이 있는데 Box 가 없으면 `draws nothing here`, trace 에 이름이 없으면 설치하거나 `enabledPlugins` 의 순서를 바꾸라고 적는다. README 의 「Install order matters」 절과 `docs/add-pane-grid-cell.md` Step 7 에 같은 조건을 적었다.
+
+8회차 결과(2026-11-07, 2.1.319): §3.7 · §3.8 을 구현한 pane-grid 0.3.0 과 템플릿을 고친 규약 mod 세 개로, `--plugin-dir` 순서를 바꿔 네 번 실행했다. 배치는 두 열이고 왼쪽 열은 c1 usage-gauge 40 · c2 pending-questions 60, 오른쪽 열은 c3 uhd-kanban 60 · c4 빈 칸 40, 활성 칸 c4 다. 화면은 `tmux` 로 띄우고 클릭 · 끌기는 SGR mouse escape 를 보내서 했다.
+
+| 실행 | 로드 순서 | 확인한 것 | 결과 |
+|---|---|---|---|
+| memfirst | usage-gauge → pending-questions → uhd-kanban → pane-grid | 세 칸이 slot 으로 채워졌다. c4 에 바깥 mod 세 개가 `offerChoice` 로 더한 선택지 `1` ~ `3`. `2` 를 누르자 c4 에 pending-questions 가 놓였다 | 통과 |
+| memfirst | 같다 | c1 의 글자를 클릭하자 c1 이 활성 칸이 됐고 이어 누른 `o` 가 grid pane 에 들어갔다. 비활성 칸 c4 첫 클릭은 활성화만, 두 번째 클릭은 그 자리의 pending-questions `rescan` Button 을 눌렀다 | 통과 |
+| memfirst | 같다 | 세로 분할선을 -10 · +15 · -5 칸, 가로 분할선을 +3 · -6 · +6 칸 끌었다. 여섯 번 모두 끈 칸 수만큼 옮겨졌다. `q: list` 도 눌렸다 | 통과 |
+| pgfirst | pane-grid → 세 mod | `cell:` Box 수집, `next.trace` 의 선택지와 hotkey `3`, 클릭 활성화, `s` 나누기, 끌기 | 통과 |
+| mixed | usage-gauge → pane-grid → 나머지 두 mod | 안쪽 mod 의 선택지 `1` · `2` 와 바깥 mod 의 선택지 `3` 이 한 칸에 그려졌다 | 통과 |
+| alone | pane-grid 만 | 놓인 칸은 `<plugin> is not loaded, or its …`, 빈 칸은 `no grid-ready mod is loaded` | 통과 |
+
+네 실행 모두 실패한 hook 줄은 0건이다(`verification/logs/run8-*.log` 는 debug log 에서 네 plugin 의 줄과 `$ built for` 줄만 남긴 것이다).
+
+고치며 본 것:
+
+- memfirst 첫 실행에서 usage-gauge 막대가 89열로 그려졌다. 원인과 고친 것은 §3.7 「칸 크기 측정」이다. 고친 뒤 `layout revision=2` 가 나왔다.
+- 10칸 끌었는데 6칸만 옮겨졌다. `divider.tsx` 가 `onPointer` 를 처음 한 번만 등록해 처음 받은 `props.start` 를 계속 썼다. 부를 때마다 다시 등록하게 고쳤다.
+
+클릭 측정(`verification/click-probe/`, `verification/logs/run8-clickprobe.log`): 칸 하나에 Text 두 줄과 Button 하나를 그리고 `Client` 를 두 가지로 놓아 봤다.
+
+| `Client` 의 자리 | Text 를 클릭 | Button 을 클릭 | 빈 자리를 클릭 |
+|---|---|---|---|
+| 내용보다 뒤(위에 덮음) | `Client` 가 받는다 | `Client` 가 받고 Button 은 눌리지 않는다 | `Client` 가 받는다 |
+| 내용보다 앞(아래에 깖) | 어느 hook 에도 오지 않는다. Text 는 줄 전체 너비로 늘어나 있어 그 줄 어디를 눌러도 같다 | Button 이 눌린다 | `Client` 가 받는다 |
+
+- `Client` 위에서도 마우스 휠은 `ui.scroll` 로 왔다. 칸 스크롤(§3.4)은 그대로다.
+- `Client` 를 클릭해도 pane 에 키보드 포커스가 가지 않았다. 이어 누른 `h` 가 prompt 에 입력됐다. `ui.message` hook 에서 `$.ui.open({ id, focus: true })` 를 부르자 다음 `h` 가 pane 의 hotkey 로 눌렸다.
+- 한 프레임에 `post` 는 하나만 전달됐다. `down` 과 `up` 을 한꺼번에 보내자 `up` 하나만 왔다.
+
+남은 것: 설치본(`enabledPlugins`) 순서로는 8회차를 다시 실행하지 않았다. 7회차에서 설치본의 로드 순서도 `--plugin-dir` 과 같은 hook 순서를 만든다는 것을 확인했으므로 같은 결과로 본다.
 
 녹화(`verification/demo/record.py`)에서 본 것(2.1.319):
 

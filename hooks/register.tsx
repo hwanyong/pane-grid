@@ -3,7 +3,7 @@ import type { EngineInterface, Register, RenderElement, RenderNode, Tier, TraceE
 import type { GridLayout, GridNode, GridPlacement, GridScroll, GridShown, GridTab } from '../types'
 import { apply, checkOutcome } from './actions'
 import { defaultTabs, parseLayoutFile, serializeLayoutFile } from './layout-file'
-import { cellsOf, childRects, findCell, geometry } from './tree'
+import { ROOT_PATH, cellsOf, childPath, findCell, geometry, moveDivider, rectAt, replaceAt, splitAt, splitRects } from './tree'
 import type { Rect } from './tree'
 
 // pane-grid: 탭(엔진 pane `grid-<이름>`)마다 배치 트리를 그리고, 칸에 규약 mod 가 그린 `cell:<plugin>` Box 를 놓는다.
@@ -18,12 +18,23 @@ const FILE = '.claude/pane-grid/layout.json'
 const INVALID_COPY = '.claude/pane-grid/layout.invalid.json'
 // hotkey Button 줄. 높이를 고정해야 칸 사각형과 휠 `pointer.row` 를 맞출 수 있다.
 const TOOLBAR_ROWS = 2
-// 칸 테두리 위아래 2행과 제목 1행, 좌우 테두리 2열.
-const CELL_CHROME_ROWS = 3
-const CELL_CHROME_COLUMNS = 2
+// 칸에는 테두리가 없고 제목 1행만 있다. 칸 사이는 끌어서 크기를 바꾸는 분할선 1칸이다(tree.ts DIVIDER).
+const CELL_CHROME_ROWS = 1
 const SHOWN_POLL_MS = 1000
-// 규약 mod 가 칸에 그린 Box 의 key 머리말. 뒤에 mod 이름이 온다(docs/grid-and-tabs.md §3.3).
+// render tree 의 key 머리말(docs/grid-and-tabs.md §3.7). 규약 mod 가 pane-grid 보다 아래(뒤에 로드)에 있으면 `cell:<plugin>` Box 를
+// 그려 next(e) 결과로 내고, 위(먼저 로드)에 있으면 pane-grid 가 그린 `slot:<plugin>` Box 를 채우고 `choices:<cell>` Box 에 선택지 Button 을 더한다.
 const CELL_KEY = 'cell:'
+const SLOT_KEY = 'slot:'
+const CHOICES_KEY = 'choices:'
+const ACTIVE_SUFFIX = ':active'
+const NONE_KEY = 'none:'
+// pane-grid 가 그리는 Button 의 key 머리말. 누름은 모두 ui.press hook 하나가 받는다(로드 순서와 무관하게 같은 입구).
+const PLACE_KEY = 'place:'
+const HOTKEY_KEY = 'hotkey:'
+// pane-grid 의 Client(surface module) key 머리말. 누름 · 끌기는 ui.message hook 이 받는다.
+const ACTIVATE_KEY = 'activate:'
+const DIVIDER_KEY = 'divider:'
+const MEASURE_KEY = 'measure:'
 const ACTIVE_COLOR = 'green'
 // trace 에서 규약 mod 를 고를 때 빼는 이름과 tier. 사람이 설치한 mod 만 빈 칸의 선택지가 된다.
 const OWN_NAME = 'pane-grid'
@@ -31,9 +42,8 @@ const ENGINE_NAME = 'engine'
 const INSTALLED_TIERS: readonly Tier[] = ['prepend', 'user', 'append']
 // 빈 칸 선택지의 hotkey 는 활성 칸에서만 1-9 를 붙인다. 칸마다 붙이면 같은 숫자가 겹친다.
 const CHOICE_HOTKEYS = 9
-// 규약 mod 의 hook 은 pane-grid 의 hook 보다 아래(뒤에 로드)에 있어야 next(e) 결과에 칸 Box 가 들어온다.
-// 설치본의 순서는 ~/.claude/settings.json 의 enabledPlugins 키 순서다(docs/grid-and-tabs.md §4.1 7회차).
-const ORDER_HINT = 'install it, or put pane-grid first in enabledPlugins'
+// slot 을 채우지 않은 놓인 mod: 불러오지 않았거나, hooks/pane-grid.ts 가 slot 을 모르는 0.3.0 이전 사본이다.
+const UNFILLED_HINT = 'not loaded, or its hooks/pane-grid.ts is older than pane-grid 0.3.0'
 
 // docs/grid-and-tabs.md §2.3 결정 10. 이름 바꾸기(`r`)는 이름 입력이 필요해 slash 명령으로만 한다.
 const HOTKEYS: { key: string; label: string; words: string[] }[] = [
@@ -60,6 +70,8 @@ const run = {
   current: '',
   measured: new Map<string, Measured>(),
 }
+
+const noop = () => {}
 
 const log = ($: EngineInterface, text: string) => $.ui.log(`pane-grid: ${text}`, { to: 'debug' })
 
@@ -89,7 +101,7 @@ const placements = (tabs: GridTab[]): Record<string, GridPlacement> => {
 const gridRect = (measured: Measured): Rect => ({ x: 0, y: 0, width: measured.columns, height: Math.max(measured.rows - TOOLBAR_ROWS, 0) })
 
 const contentSize = (rect: Rect) => ({
-  columns: Math.max(rect.width - CELL_CHROME_COLUMNS, 0),
+  columns: Math.max(rect.width, 0),
   rows: Math.max(rect.height - CELL_CHROME_ROWS, 0),
 })
 
@@ -165,6 +177,29 @@ const runAction = async ($: EngineInterface, words: string[]) => {
   return outcome.text
 }
 
+// 칸을 눌러 활성으로 한다. pane 에 키보드를 주어 hotkey 가 곧바로 그 pane 에서 눌리게 한다.
+const activateCell = async ($: EngineInterface, tabName: string, id: string) => {
+  await runAction($, ['select-cell', id])
+  const layout = await readLayout($)
+  const tab = layout?.tabs.find(item => item.name == tabName)
+  if (tab) await $.ui.open({ id: paneId(tab.name), title: titleOf(tab), focus: true })
+}
+
+// 분할선을 끄는 동안은 state 만 바꾸고, 놓았을 때(isFinal) 파일에 쓴다.
+const dragDivider = async ($: EngineInterface, tabName: string, path: string, index: number, at: number, isFinal: boolean) => {
+  const layout = await readLayout($)
+  const tab = layout?.tabs.find(item => item.name == tabName)
+  const measured = run.measured.get(tabName)
+  if (!layout || !tab || !measured || tab.zoomed) return
+  const node = splitAt(tab.root, path)
+  const rect = rectAt(tab.root, path, gridRect(measured))
+  if (!node || !rect) return
+  const moved = moveDivider(node, node.kind == 'row' ? rect.width : rect.height, index, at)
+  const tabs = moved === node ? layout.tabs : layout.tabs.map(item => (item.name == tabName ? { ...item, root: replaceAt(item.root, path, moved) } : item))
+  if (moved !== node) await publish($, tabs)
+  if (isFinal) await persist($, tabs)
+}
+
 const reload = async ($: EngineInterface) => {
   const tabs = await loadFile($)
   await publish($, tabs)
@@ -226,6 +261,35 @@ export const register: Register = on => {
     return next(e)
   })
 
+  // grid pane 의 Button 누름. 규약 mod 가 pane-grid 위에 있어도 아래에 있어도 같은 hook 이 받는다.
+  on('ui.press', { component: 'Pane', requestId: /^grid-/, element: /^(place|hotkey):/ }, async ($, e, next) => {
+    const words = pressWords(e.element)
+    if (words) {
+      const text = await runAction($, words)
+      $.ui.toast(`pane-grid: ${text.split('\n')[0]}`)
+    }
+    return next(e)
+  }).catch(($, e, next) => {
+    log($, `press failed: ${JSON.stringify(next.error)}`)
+    return next.called ? next(e) : { element: e.element }
+  })
+
+  // 칸 누름(activate:<cell>)과 분할선 끌기(divider:<path>:<index>). data 는 surface module 이 보낸 것이므로 형식을 검사한다.
+  on('ui.message', { component: 'Pane', requestId: /^grid-/ }, async ($, e, next) => {
+    const tabName = tabOf(e.requestId)
+    const data = typeof e.data == 'object' && e.data != null ? (e.data as Record<string, unknown>) : {}
+    if (e.element.startsWith(MEASURE_KEY) && Number.isInteger(data.columns) && Number.isInteger(data.rows)) await publishPlacements($)
+    if (e.element.startsWith(ACTIVATE_KEY) && data.activate == true) await activateCell($, tabName, e.element.slice(ACTIVATE_KEY.length))
+    if (e.element.startsWith(DIVIDER_KEY) && typeof data.at == 'number' && Number.isInteger(data.at)) {
+      const [path, index] = e.element.slice(DIVIDER_KEY.length).split(':')
+      if (path && index != undefined && Number.isInteger(Number(index))) await dragDivider($, tabName, path, Number(index), data.at, data.isFinal == true)
+    }
+    return next(e)
+  }).catch(($, e, next) => {
+    log($, `message failed: ${JSON.stringify(next.error)}`)
+    return next.called ? next(e) : {}
+  })
+
   on('ui.render', { component: 'Pane', requestId: /^grid-/ }, async ($, e, next) => {
     const layout = await readLayout($)
     const tab = layout?.tabs.find(item => item.name == tabOf(e.requestId))
@@ -238,73 +302,105 @@ export const register: Register = on => {
     const placedIn = new Map((layout?.tabs ?? []).flatMap(item => cellsOf(item.root)).flatMap(cell => (cell.plugin ? [[cell.plugin, cell.id] as const] : [])))
     const measured = { columns: e.props.bodyColumns, rows: e.props.scroll.bodyRows }
     const before = run.measured.get(tab.name)
-    if (!before || before.columns != measured.columns || before.rows != measured.rows) {
-      run.measured.set(tab.name, measured)
-      $.clock.after(0, () => void publishPlacements($))
+    const isResized = !before || before.columns != measured.columns || before.rows != measured.rows
+    run.measured.set(tab.name, measured)
+    const elements = $.ui.resolve(e)
+    const { Box, Text, Button } = elements
+    // Client(surface module)는 terminal 의 표에만 있다. 다른 surface 에서는 분할선을 글자로 그리고, 칸 누름은 덮지 않는다.
+    const Client = 'Client' in elements ? elements.Client : undefined
+    // 잰 크기는 measure Client 가 ui.message 로 돌려보내 그 hook 이 칸 크기를 쓴다. Client 가 없는 surface 에서는 render 가 끝난 뒤 쓴다.
+    if (isResized && !Client) $.clock.after(0, () => void publishPlacements($))
+
+    // 빈 칸: pane-grid 아래의 규약 mod(trace) 를 Button 으로 늘어놓는다. 위의 규약 mod 는 이 `choices:` Box 에 자기 Button 을 더한다.
+    // 누름은 ui.press hook 이 받아 그 칸에 놓고(다른 칸에 있던 것은 옮긴다) 그 칸을 활성으로 한다.
+    const drawChoices = (id: string, isActive: boolean): RenderElement => (
+      <Box key={`${CHOICES_KEY}${id}${isActive ? ACTIVE_SUFFIX : ''}`} flexDirection="column">
+        <Text dimColor>empty. place a mod here:</Text>
+        {ready.map((plugin, index) => {
+          const from = placedIn.get(plugin)
+          const label = from ? `${plugin} (move from ${from})` : plugin
+          const hotkey = isActive && index < CHOICE_HOTKEYS ? String(index + 1) : undefined
+          return <Button key={`${PLACE_KEY}${id}:${plugin}`} plain label={label} hotkey={hotkey} onPress={noop} />
+        })}
+        {ready.length == 0 ? <Box key={`${NONE_KEY}${id}`}><Text dimColor>no grid-ready mod is loaded</Text></Box> : null}
+      </Box>
+    )
+
+    // 놓인 칸: `slot:` Box 안에 아래 규약 mod 의 `cell:` Box 를 넣는다. 위의 규약 mod 는 이 Box 의 children 을 자기 칸으로 바꾼다.
+    const drawSlot = (plugin: string): RenderElement => {
+      const content = cells.get(plugin)
+      const note = ready.includes(plugin) ? `${plugin} draws nothing here` : `${plugin} is ${UNFILLED_HINT}`
+      return <Box key={`${SLOT_KEY}${plugin}`} flexDirection="column">{content ?? <Text dimColor>{note}</Text>}</Box>
     }
-    const { Box, Text, Button } = $.ui.resolve(e)
 
-    const activate = (id: string) => () => void runAction($, ['select-cell', id])
-    const press = (words: string[]) => async () => $.ui.toast(`pane-grid: ${(await runAction($, words)).split('\n')[0]}`)
-
-    // 빈 칸: 불러온 규약 mod 를 Button 으로 늘어놓는다. 누르면 그 칸에 놓고(다른 칸에 있던 것은 옮긴다) 그 칸을 활성으로 한다.
-    const drawChoices = (id: string, isActive: boolean): RenderElement => {
-      if (ready.length == 0) return <Text dimColor>{`empty: no grid-ready mod is loaded after pane-grid. ${ORDER_HINT}`}</Text>
+    // 칸: 제목 1행과 내용. 활성이 아닌 칸에는 그 칸 전체를 덮는 activate Client 를 마지막에 그려(위에 칠해진다) 어디를 눌러도 활성이 되게 한다.
+    const drawCell = (id: string, rect: Rect): RenderElement => {
+      const cell = findCell(tab.root, id)
+      const isActive = id == tab.active
+      const size = contentSize(rect)
+      const title = `${id} ${cell?.plugin ?? '-'}`
       return (
-        <Box flexDirection="column">
-          <Text dimColor>empty. place a mod here:</Text>
-          {ready.map((plugin, index) => {
-            const from = placedIn.get(plugin)
-            const label = from ? `${plugin} (move from ${from})` : plugin
-            const hotkey = isActive && index < CHOICE_HOTKEYS ? String(index + 1) : undefined
-            return <Button key={`place:${id}:${plugin}`} plain label={label} hotkey={hotkey} onPress={press(['place', plugin, id])} />
+        <Box key={`cellbox:${id}`} width={rect.width} height={rect.height} flexDirection="column" position="relative">
+          {isActive ? <Text color={ACTIVE_COLOR} bold wrap="truncate">{title}</Text> : <Text dimColor wrap="truncate">{title}</Text>}
+          <Box width={size.columns} height={size.rows} overflow="hidden" flexDirection="column">
+            <Box marginTop={-(scroll[id] ?? 0)} flexShrink={0} flexDirection="column">{cell?.plugin ? drawSlot(cell.plugin) : drawChoices(id, isActive)}</Box>
+          </Box>
+          {isActive || !Client ? null : (
+            <Box position="absolute" top={0} left={0} width={rect.width} height={rect.height}>
+              <Client key={`${ACTIVATE_KEY}${id}`} module="./activate.tsx" props={null} width={rect.width} height={rect.height} />
+            </Box>
+          )}
+        </Box>
+      )
+    }
+
+    const drawDivider = (kind: 'row' | 'column', path: string, index: number, start: number, rect: Rect): RenderElement => {
+      const key = `${DIVIDER_KEY}${path}:${index}`
+      if (Client) return <Client key={key} module="./divider.tsx" props={{ kind, start, length: kind == 'row' ? rect.height : rect.width }} width={rect.width} height={rect.height} />
+      const line = kind == 'row' ? Array.from({ length: rect.height }, () => '│').join('\n') : '─'.repeat(rect.width)
+      return <Box key={key} width={rect.width} height={rect.height}><Text dimColor>{line}</Text></Box>
+    }
+
+    // 나눈 노드: 자식 사이마다 분할선을 끼운다.
+    const drawNode = (node: GridNode, rect: Rect, path: string): RenderElement => {
+      if (node.kind == 'cell') return drawCell(node.id, rect)
+      const { parts, dividers } = splitRects(node, rect)
+      return (
+        <Box flexDirection={node.kind} width={rect.width} height={rect.height}>
+          {parts.flatMap((part, index) => {
+            const divider = dividers[index]
+            const drawn = drawNode(part.node, part.rect, childPath(path, index))
+            return divider ? [drawn, drawDivider(node.kind, path, divider.index, divider.start, divider.rect)] : [drawn]
           })}
         </Box>
       )
     }
 
-    // 놓인 mod 가 칸 Box 를 내지 않았을 때: trace 에 없으면 설치되지 않았거나 pane-grid 보다 먼저 로드된 것이다.
-    const placedNote = (plugin: string) => (ready.includes(plugin) ? `${plugin} draws nothing here` : `${plugin} is not loaded after pane-grid: ${ORDER_HINT}`)
-
-    const drawCell = (id: string, rect: Rect): RenderElement => {
-      const cell = findCell(tab.root, id)
-      const isActive = id == tab.active
-      const size = contentSize(rect)
-      const content = cell?.plugin ? cells.get(cell.plugin) : undefined
-      const empty = cell?.plugin ? <Text dimColor>{placedNote(cell.plugin)}</Text> : drawChoices(id, isActive)
-      return (
-        <Box key={`cellbox:${id}`} width={rect.width} height={rect.height} flexDirection="column" borderStyle="round" borderColor={isActive ? ACTIVE_COLOR : undefined} borderDimColor={!isActive}>
-          <Button key={`title:${id}`} plain label={`${id} ${cell?.plugin ?? '-'}`} dimColor={!isActive} onPress={activate(id)} />
-          <Box width={size.columns} height={size.rows} overflow="hidden" flexDirection="column">
-            <Box marginTop={-(scroll[id] ?? 0)} flexShrink={0} flexDirection="column">{content ?? empty}</Box>
-          </Box>
-        </Box>
-      )
-    }
-
-    const drawNode = (node: GridNode, rect: Rect): RenderElement => {
-      if (node.kind == 'cell') return drawCell(node.id, rect)
-      return (
-        <Box flexDirection={node.kind} width={rect.width} height={rect.height}>
-          {childRects(node, rect).map(part => drawNode(part.node, part.rect))}
-        </Box>
-      )
-    }
-
     const area = gridRect(measured)
-    const grid = tab.zoomed ? drawCell(tab.zoomed, area) : drawNode(tab.root, area)
+    const grid = tab.zoomed ? drawCell(tab.zoomed, area) : drawNode(tab.root, area, ROOT_PATH)
     return (
       <Box flexDirection="column">
         <Box height={TOOLBAR_ROWS} flexWrap="wrap" columnGap={1} overflow="hidden">
-          {HOTKEYS.map(item => <Button key={`hotkey:${item.key}`} plain hotkey={item.key} label={item.label} onPress={press(item.words)} />)}
+          {HOTKEYS.map(item => <Button key={`${HOTKEY_KEY}${item.key}`} plain hotkey={item.key} label={item.label} onPress={noop} />)}
         </Box>
         {grid}
+        {Client ? <Client key={`${MEASURE_KEY}${tab.name}`} module="./measure.tsx" props={measured} width={0} height={0} /> : null}
       </Box>
     )
   }).catch(($, e, next) => {
     log($, `render failed: ${JSON.stringify(next.error)}`)
     return next(e)
   })
+}
+
+// Button key 를 /grid 명령의 낱말로 바꾼다. `place:<cell>:<plugin>` · `hotkey:<key>`.
+const pressWords = (element: string): string[] | undefined => {
+  if (element.startsWith(PLACE_KEY)) {
+    const [cell, plugin] = element.slice(PLACE_KEY.length).split(':')
+    return cell && plugin ? ['place', plugin, cell] : undefined
+  }
+  if (element.startsWith(HOTKEY_KEY)) return HOTKEYS.find(item => item.key == element.slice(HOTKEY_KEY.length))?.words
+  return undefined
 }
 
 // 휠이면 `pointer` 가 가리키는 칸, 페이지 키면 활성 칸(tmux 의 활성 pane). 칸 밖이면 undefined.

@@ -2,7 +2,7 @@
 
 This guide shows how to make a Claude Code mod (a plugin with a hooks module) draw inside a cell of a [pane-grid](../README.md) layout. A mod that follows it is called **grid-ready** in this repository. The steps were taken from the three mods that already follow it: [usage-gauge](https://github.com/hwanyong/usage-gauge), [uhd-kanban](https://github.com/hwanyong/skill-kanban) and [pending-questions](https://github.com/hwanyong/pending-questions).
 
-You can do every step by hand, or let Claude do them: with pane-grid installed, run `/pane-grid:add-pane-grid-cell` in a Claude Code session opened in your mod's repository. The skill reads this guide and applies it to your code. See [Use the skill](#use-the-skill).
+You can do every step by hand, or let Claude do them: paste the prompt in [Use the skill](#use-the-skill), which names `https://github.com/hwanyong/pane-grid`, into a Claude Code session opened in your mod's repository. The skill reads this guide and applies it to your code.
 
 ## Contents
 
@@ -26,14 +26,15 @@ pane-grid opens one engine pane per layout, with the id `grid-<layout name>`, an
 |---|---|
 | Hook | A `ui.render` hook on `{ component: 'Pane', requestId: /^grid-/ }` |
 | Placement | Reads pane-grid's `layout` state and finds its own entry in `placed`. No entry, or an entry for another grid pane: return `next(e)` unchanged |
-| Content | Appends one `Box` with the key `cell:<plugin name>` to the result of `next(e)`. The plugin name is the `name` in your `.claude-plugin/plugin.json` |
+| Content | Draws one `Box` with the key `cell:<plugin name>`. `fillSlot` puts it into the slot pane-grid drew for your mod; when there is no slot, your mod appends it after the result of `next(e)`. The plugin name is the `name` in your `.claude-plugin/plugin.json` |
+| Choice | Calls `offerChoice` on the result of `next(e)`, so empty cells list your mod |
 | Width | Draws that Box `placement.columns` wide. The value is 0 until pane-grid has measured the pane; fall back to `e.props.bodyColumns` |
 | One place | While it has a cell, it does not draw in its own pane or band. It goes back there when the cell is emptied |
 | Read only | It never writes pane-grid's state. `$.state` lets only the owner write |
 
 Without pane-grid installed, the `layout` read is `undefined` and your mod behaves as before. pane-grid is an optional companion, not a dependency.
 
-pane-grid lists a mod in an empty cell's choices when the mod's `ui.render` hook runs for the grid pane. A grid-ready mod's hook runs on every grid render (it returns `next(e)` when it has no cell), so it shows up in the list without any registration.
+Load order does not matter. When your mod loads after pane-grid, pane-grid finds your hook in `next.trace` of the grid render and lists your mod in empty cells; it takes your `cell:` Box from the tree. When your mod loads before pane-grid, `next(e)` already holds pane-grid's grid: `offerChoice` adds your Button to each empty cell's `choices:<cell>` Box, and `fillSlot` puts your cell into the `slot:<plugin name>` Box. Either way your hook runs on every grid render, so no registration is needed.
 
 ## What does pane-grid publish?
 
@@ -48,13 +49,15 @@ The values are declared in pane-grid's own contract (`types/index.d.ts`), which 
 
 ## Step 1: copy the reading module
 
-Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pane-grid.ts) to `hooks/pane-grid.ts` in your mod, unchanged. It exports three functions.
+Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pane-grid.ts) to `hooks/pane-grid.ts` in your mod, unchanged. It exports five functions.
 
 | Function | Use |
 |---|---|
 | `placementIn(layout, plugin)` | Finds your cell in a layout value. Pure; use it on a `state.set` hook's `value` and `previous` |
 | `readPlacement($, plugin)` | Reads the current layout and finds your cell. Called while drawing, it makes the drawing redraw when the layout changes |
 | `readShownTab($)` | Reads `shown`. Only Step 6 needs it; delete it if you skip Step 6 |
+| `offerChoice(below, plugin, placement, makeButton)` | Adds your Button, made by `makeButton`, to each empty cell's choices in `below`. Returns `below` unchanged when it holds no choices |
+| `fillSlot(below, plugin, cell)` | Puts `cell` into your slot in `below`. Returns `undefined` when `below` holds no slot |
 
 `readPlacement` and `readShownTab` are `function` declarations on purpose. `claude plugin validate` follows `$` across an import only through function declarations.
 
@@ -84,28 +87,31 @@ on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e) => drawBoar
 ## Step 3: add the grid render hook
 
 ```tsx
-import { readPlacement } from './pane-grid'
+import { fillSlot, offerChoice, readPlacement } from './pane-grid'
 
 const PLUGIN = 'your-mod' // the name in .claude-plugin/plugin.json
 
 on('ui.render', { component: 'Pane', requestId: /^grid-/ }, async ($, e, next) => {
   const placement = await readPlacement($, PLUGIN)
-  if (!placement || placement.requestId != e.requestId) return next(e)
   const below = await next(e)
-  const { Box } = $.ui.resolve(e)
+  const { Box, Button } = $.ui.resolve(e)
+  const offered = offerChoice(below, PLUGIN, placement, choice => <Button key={choice.key} plain label={choice.label} hotkey={choice.hotkey} onPress={() => {}} />)
+  if (!placement || placement.requestId != e.requestId) return offered
   const columns = placement.columns > 0 ? placement.columns : e.props.bodyColumns
-  return (
-    <Box flexDirection="column">
-      {below}
-      <Box key={`cell:${PLUGIN}`} flexDirection="column">
-        {await drawBoard($, e, columns)}
-      </Box>
+  const cell = (
+    <Box key={`cell:${PLUGIN}`} flexDirection="column">
+      {await drawBoard($, e, columns)}
     </Box>
   )
+  return fillSlot(offered, PLUGIN, cell) ?? <Box flexDirection="column">{offered}{cell}</Box>
 })
 ```
 
-Keep `{below}` in the tree: other grid-ready mods draw their cells beneath yours, and pane-grid collects every `cell:` Box from the whole tree.
+Three details:
+
+- Call `next(e)` before checking the placement, and return `offered` when your mod has no cell here. Other grid-ready mods and pane-grid itself draw beneath yours, and `offerChoice` is how empty cells list your mod when it loads first.
+- The Button's `onPress` does nothing. Its key is `place:<cell>:<plugin>`, and pane-grid's `ui.press` hook places your mod when it is pressed.
+- Keep `{offered}` in the fallback tree: pane-grid collects every `cell:` Box from the whole tree.
 
 ## Step 4: leave your own pane or band while placed
 
@@ -198,13 +204,13 @@ on('state.set', { plugin: 'pane-grid' as never, key: 'shown' as never }, async (
    claude --plugin-dir <path to pane-grid> --plugin-dir <path to your mod>
    ```
 
-   Keep pane-grid first. pane-grid collects the `cell:` Boxes from what the hooks below it return, so a mod that loads before pane-grid draws its Box after the grid is drawn, and its cell reads `<plugin> is not loaded after pane-grid`. Installed plugins load in the order of the `enabledPlugins` keys in `~/.claude/settings.json`.
+   Run it once more with the two `--plugin-dir` options swapped. Your mod should behave the same in both orders. If a placed cell reads `<plugin> is not loaded, or its hooks/pane-grid.ts is older than pane-grid 0.3.0` only when your mod comes first, its `hooks/pane-grid.ts` is an older copy, or the hook returns before calling `fillSlot`.
 
    Then, in that session:
 
    | Do | Expect |
    |---|---|
-   | `/grid split -h` | A new empty cell lists your mod among its choices |
+   | `/grid split -h` | A new empty cell lists your mod among its choices, in both load orders |
    | Press its digit, or `/grid place <your mod>` | Your content in the cell; your own pane or band is gone |
    | `/grid resize 30` | Your content redraws at the new width |
    | `/grid place -` | Your own pane or band is back |
@@ -214,11 +220,20 @@ on('state.set', { plugin: 'pane-grid' as never, key: 'shown' as never }, async (
 
 ## Use the skill
 
-pane-grid ships a skill that applies this guide to a mod.
+pane-grid ships a skill that applies this guide to a mod. Open Claude Code in your mod's repository and paste this prompt. It names the pane-grid repository, so a session without pane-grid installed knows what to install and where this guide is:
 
-1. Install pane-grid (see the [README](../README.md#how-do-i-install-it)).
-2. Open Claude Code in your mod's repository.
-3. Run `/pane-grid:add-pane-grid-cell`, or ask "make this mod grid-ready".
+```text
+Make this Claude Code mod grid-ready for pane-grid: https://github.com/hwanyong/pane-grid
+1. Install pane-grid: claude plugin install pane-grid --marketplace hwanyong/pane-grid
+2. Run the skill /pane-grid:add-pane-grid-cell in this repository.
+   If the skill is not loaded in this session, follow the guide instead:
+   https://github.com/hwanyong/pane-grid/blob/main/docs/add-pane-grid-cell.md
+   and copy https://github.com/hwanyong/pane-grid/blob/main/skills/add-pane-grid-cell/pane-grid.ts
+   to hooks/pane-grid.ts unchanged.
+Do not commit. List what you changed and what I should check in a live session.
+```
+
+With pane-grid already installed, running `/pane-grid:add-pane-grid-cell` alone does the same.
 
 The skill copies the reading module, finds where your mod draws, applies Steps 2 to 6 that match it, runs `claude plugin validate`, and lists what it changed and what you should check in a live session (Step 7.3). It does not commit.
 
