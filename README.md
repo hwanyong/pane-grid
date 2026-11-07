@@ -171,6 +171,7 @@ In `~/.claude/pane-grid/layout.json`, written after every change and read when a
 
 | Mod | What it draws in a cell | Install |
 |---|---|---|
+| [filetree](https://github.com/hwanyong/claude-code-filetree/tree/pane-grid-cell) | The project's file tree with its preview split. Clicks, keys and the wheel work in the cell. This is a fork branch; the change is proposed upstream in [data-goblin/claude-code-filetree#71](https://github.com/data-goblin/claude-code-filetree/pull/71). If filetree is installed from data-goblin, run `/plugin marketplace remove claude-code-filetree` first, since both marketplaces are named `claude-code-filetree` | `/plugin install filetree --marketplace hwanyong/claude-code-filetree#pane-grid-cell` |
 | [pending-questions](https://github.com/hwanyong/pending-questions) | The questions Claude asked you, with buttons that answer them | `/plugin install pending-questions --marketplace hwanyong/pending-questions` |
 | [uhd-kanban](https://github.com/hwanyong/skill-kanban) | A kanban board of the project's cards, with animated card moves | `/plugin install uhd-kanban --marketplace hwanyong/skill-kanban` |
 | [usage-gauge](https://github.com/hwanyong/usage-gauge) | Session and weekly rate-limit gauges with a pace marker | `/plugin install usage-gauge --marketplace hwanyong/usage-gauge` |
@@ -184,7 +185,7 @@ A grid-ready mod adds one `ui.render` hook for the grid pane, draws its content 
 | Way | How |
 |---|---|
 | Let Claude do it | Open Claude Code in your mod's repository and paste the prompt below. It names this repository, installs pane-grid and runs the skill `/pane-grid:add-pane-grid-cell`, which copies the reading module, adds the hooks your mod needs, runs `claude plugin validate`, and lists what to check in a live session. It does not commit |
-| By hand | Follow [docs/add-pane-grid-cell.md](docs/add-pane-grid-cell.md): seven steps with code, from copying [`hooks/pane-grid.ts`](skills/add-pane-grid-cell/pane-grid.ts) to the live check |
+| By hand | Follow [docs/add-pane-grid-cell.md](docs/add-pane-grid-cell.md): eight steps with code, from copying [`hooks/pane-grid.ts`](skills/add-pane-grid-cell/pane-grid.ts) to the live check |
 
 Prompt to paste into Claude Code, opened in your mod's repository:
 
