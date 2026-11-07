@@ -1,6 +1,6 @@
 import { update } from 'claude-code'
 import type { EngineInterface, Register, RenderElement, RenderNode, Tier, TraceEntry } from 'claude-code'
-import type { GridLayout, GridNode, GridPlacement, GridScroll, GridShown, GridTab } from '../types'
+import type { GridLayout, GridNode, GridPlacement, GridScroll, GridShown, GridTab } from './grid-types'
 import { apply, checkOutcome } from './actions'
 import { defaultTabs, parseLayoutFile, serializeLayoutFile } from './layout-file'
 import { isScrollIn, scrollsKey } from '../skills/add-pane-grid-cell/pane-grid'
