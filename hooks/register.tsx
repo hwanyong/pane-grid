@@ -190,10 +190,12 @@ const currentTab = async ($: EngineInterface, tabs: GridTab[]) => {
   return tabs.some(tab => tab.name == name) ? name : tabs[0]?.name ?? name
 }
 
-// slash 명령과 hotkey 의 공통 입구.
-const runAction = async ($: EngineInterface, words: string[]) => {
+// slash 명령과 hotkey 의 공통 입구. `tabName` 은 누름 · 칸 누름이 일어난 grid pane 의 탭이다. slash 명령은 그것이 없어 보이는 탭에 적용한다.
+// 누름을 보이는 탭(SHOWN_POLL_MS 마다 읽는 SHOWN)에 적용하면, 탭을 바꾼 직후의 누름이 앞의 탭에 적용될 수 있다.
+const runAction = async ($: EngineInterface, words: string[], tabName?: string) => {
   const layout = await ensureLayout($)
-  const outcome = apply(layout.tabs, await currentTab($, layout.tabs), words)
+  const pressedIn = layout.tabs.some(tab => tab.name == tabName) ? tabName : undefined
+  const outcome = apply(layout.tabs, pressedIn ?? (await currentTab($, layout.tabs)), words)
   const broken = checkOutcome(outcome)
   if (broken) return `refused: ${broken}`
   run.current = outcome.current
@@ -203,17 +205,25 @@ const runAction = async ($: EngineInterface, words: string[]) => {
     // 활성 칸 · 칸 나누기 · 크기처럼 탭 목록과 title 이 그대로인 동작에서는 pane 을 다시 열지 않는다.
     if (paneSpec(outcome.tabs) != paneSpec(layout.tabs)) await syncPanes($, outcome.tabs)
   }
-  if (outcome.focus) {
-    const tab = outcome.tabs.find(item => item.name == outcome.focus)
-    if (tab) await $.ui.open({ id: paneId(tab.name), title: titleOf(tab), focus: true })
-  }
-  log($, `action ${words.join(' ')}: ${outcome.text.split('\n')[0]}`)
-  return outcome.text
+  const hidden = outcome.focus ? await showTab($, outcome.tabs, outcome.focus) : undefined
+  const text = hidden ? `${outcome.text}; it is behind ${hidden}, click its tab to show it` : outcome.text
+  log($, `action ${words.join(' ')}: ${text.split('\n')[0]}`)
+  return text
+}
+
+// 탭을 보이게 한다. 엔진은 사람이 pane 을 쥐고 있으면 `focus` 를 거부하므로(PaneOpenArgs.focus) 그 탭이 뒤에 남을 수 있다.
+// 그때 앞에 보이는 탭의 이름을 돌려준다. 보이게 했거나 보이는 grid 탭이 없으면 undefined.
+const showTab = async ($: EngineInterface, tabs: GridTab[], name: string) => {
+  const tab = tabs.find(item => item.name == name)
+  if (!tab) return undefined
+  await $.ui.open({ id: paneId(tab.name), title: titleOf(tab), focus: true })
+  const shown = (await $.ui.panes()).find(item => item.isShown)
+  return shown && shown.id != paneId(name) && shown.id.startsWith(PANE_PREFIX) ? tabOf(shown.id) : undefined
 }
 
 // 칸을 눌러 활성으로 한다. pane 에 키보드를 주어 hotkey 가 곧바로 그 pane 에서 눌리게 한다.
 const activateCell = async ($: EngineInterface, tabName: string, id: string) => {
-  await runAction($, ['select-cell', id])
+  await runAction($, ['select-cell', id], tabName)
   const layout = await readLayout($)
   const tab = layout?.tabs.find(item => item.name == tabName)
   if (tab) await $.ui.open({ id: paneId(tab.name), title: titleOf(tab), focus: true })
@@ -329,7 +339,7 @@ export const register: Register = on => {
     const pressed = await next(e)
     const words = pressWords(e.element)
     if (words) {
-      const text = await runAction($, words)
+      const text = await runAction($, words, tabOf(e.requestId))
       $.ui.toast(`pane-grid: ${text.split('\n')[0]}`)
     }
     return pressed
