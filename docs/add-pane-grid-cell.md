@@ -75,12 +75,13 @@ $ is passed to "readPlacement", imported from "./pane-grid": $ is followed only 
 
 The measurement is in [`verification/engine-floor/`](../verification/engine-floor/): 2.1.289 and 2.1.296 refuse both functions, 2.1.299 and 2.1.322 accept them, and 2.1.297 and 2.1.298 were never published to npm.
 
-So pick the shape by the oldest engine your mod promises in its README, its CI or an `engines` field:
+So pick the shape by the oldest engine your mod promises in its README, its CI or an `engines` field, and by your repository's own checks:
 
-| Oldest engine your mod supports | Shape |
+| Your mod | Shape |
 |---|---|
-| 2.1.299 or later | Import `readPlacement` (and `readShownTab` for Step 6) from `./pane-grid`, as the steps below do |
-| Older than 2.1.299 | Delete `readPlacement` and `readShownTab` from `hooks/pane-grid.ts`. Read pane-grid's state in your own hooks file, in a function declaration there or in the hook body, and import only `placementIn` |
+| Supports 2.1.299 or later only, and nothing in the repository forbids passing `$` to an imported function | Import `readPlacement` (and `readShownTab` for Step 6) from `./pane-grid`, as the steps below do |
+| Supports an engine older than 2.1.299 | Delete `readPlacement` and `readShownTab` from `hooks/pane-grid.ts`. Read pane-grid's state in your own hooks file, in a function declaration there or in the hook body, and import only `placementIn` |
+| Has a check of its own that lets `$` be passed only to functions in the hooks file (a lint rule, a structure script), whatever the engine | The same as the row above |
 
 The second shape, declared in the file whose hooks call it:
 

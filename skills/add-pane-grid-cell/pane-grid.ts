@@ -55,8 +55,9 @@ export const placementIn = (layout: unknown, plugin: string): GridPlacement | un
 // `claude plugin validate` follows `$` across an import only through function declarations.
 // Engine floor: a hooks module that passes `$` to either of them loads in Claude Code 2.1.299 or later. Claude Code
 // 2.1.296 and older refuse it ("$ is followed only into a function declared in this same file, never across an import").
-// A mod that supports an older engine deletes both, reads pane-grid's state in its own hooks file and imports only
-// placementIn: see "Engine floor" in the guide's Step 1.
+// A mod that supports an older engine, or whose repository lets `$` be passed only to functions in the hooks file,
+// deletes both, reads pane-grid's state in its own hooks file and imports only placementIn: see "Engine floor" in the
+// guide's Step 1.
 
 // This mod's cell. Called while drawing, the drawing is redrawn when pane-grid changes the layout.
 export async function readPlacement($: EngineInterface, plugin: string): Promise<GridPlacement | undefined> {
