@@ -1,0 +1,1 @@
+{ "name": "pane-grid-floor-read-shown-tab", "version": "0.0.1", "description": "Not a plugin to install. Engine floor probe: a hooks module that passes $ to readShownTab, imported from hooks/pane-grid.ts" }

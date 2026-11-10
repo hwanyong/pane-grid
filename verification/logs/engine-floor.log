@@ -1,0 +1,65 @@
+# sh verification/engine-floor/run.sh 2.1.289 2.1.296 2.1.299 2.1.322 (2026-11-10, macOS, skills/add-pane-grid-cell/pane-grid.ts of the commit that added this log)
+2.1.289 (Claude Code)
+-- read-placement
+Validating hooks: verification/engine-floor/read-placement/hooks/hooks.json
+✘ Found 1 error:
+  ❯ modules../register.ts: read-placement: verification/engine-floor/read-placement/hooks/register.ts, compiled line 5 `const placement = await readPlacement($, PLUGIN);`: $ is passed to "readPlacement", imported from "./pane-grid": $ is followed only into a function declared in this same file, never across an import; $ is always spelled $.no… [+105 chars]
+✘ Validation failed
+-- read-shown-tab
+Validating hooks: verification/engine-floor/read-shown-tab/hooks/hooks.json
+✘ Found 1 error:
+  ❯ modules../register.ts: read-shown-tab: verification/engine-floor/read-shown-tab/hooks/register.ts, compiled line 4 `const shown = await readShownTab($);`: $ is passed to "readShownTab", imported from "./pane-grid": $ is followed only into a function declared in this same file, never across an import; $ is always spelled $.noun.event(...) … [+91 chars]
+✘ Validation failed
+-- own-file
+Validating hooks: verification/engine-floor/own-file/hooks/hooks.json
+  ❯ ./register.ts hooks: session.start, ui.render{component=Pane, requestId=/"^grid-"/}, ui.scroll{component=Pane, requestId=/"^grid-"/}
+  ❯ ./register.ts state reads: pane-grid.layout, pane-grid.shown
+✔ Validation passed with warnings
+2.1.296 (Claude Code)
+-- read-placement
+Validating hooks: verification/engine-floor/read-placement/hooks/hooks.json
+✘ Found 1 error:
+  ❯ modules../register.ts: read-placement: verification/engine-floor/read-placement/hooks/register.ts, compiled line 5 `const placement = await readPlacement($, PLUGIN);`: $ is passed to "readPlacement", imported from "./pane-grid": $ is followed only into a function declared in this same file, never across an import; $ is always spelled $.no… [+105 chars]
+✘ Validation failed
+-- read-shown-tab
+Validating hooks: verification/engine-floor/read-shown-tab/hooks/hooks.json
+✘ Found 1 error:
+  ❯ modules../register.ts: read-shown-tab: verification/engine-floor/read-shown-tab/hooks/register.ts, compiled line 4 `const shown = await readShownTab($);`: $ is passed to "readShownTab", imported from "./pane-grid": $ is followed only into a function declared in this same file, never across an import; $ is always spelled $.noun.event(...) … [+91 chars]
+✘ Validation failed
+-- own-file
+Validating hooks: verification/engine-floor/own-file/hooks/hooks.json
+  ❯ ./register.ts hooks: session.start, ui.render{component=Pane, requestId=/"^grid-"/}, ui.scroll{component=Pane, requestId=/"^grid-"/}
+  ❯ ./register.ts state reads: pane-grid.layout, pane-grid.shown
+✔ Validation passed with warnings
+2.1.299 (Claude Code)
+-- read-placement
+Validating hooks: verification/engine-floor/read-placement/hooks/hooks.json
+  ❯ ./register.ts hooks: ui.render{component=Pane, requestId=/"^grid-"/}
+  ❯ ./register.ts state reads: pane-grid.layout
+✔ Validation passed with warnings
+-- read-shown-tab
+Validating hooks: verification/engine-floor/read-shown-tab/hooks/hooks.json
+  ❯ ./register.ts hooks: ui.render{component=Pane, requestId=/"^grid-"/}
+  ❯ ./register.ts state reads: pane-grid.shown
+✔ Validation passed with warnings
+-- own-file
+Validating hooks: verification/engine-floor/own-file/hooks/hooks.json
+  ❯ ./register.ts hooks: session.start, ui.render{component=Pane, requestId=/"^grid-"/}, ui.scroll{component=Pane, requestId=/"^grid-"/}
+  ❯ ./register.ts state reads: pane-grid.layout, pane-grid.shown
+✔ Validation passed with warnings
+2.1.322 (Claude Code)
+-- read-placement
+Validating hooks: verification/engine-floor/read-placement/hooks/hooks.json
+  ❯ ./register.ts hooks: ui.render{component=Pane, requestId=/"^grid-"/}
+  ❯ ./register.ts state reads: pane-grid.layout
+✔ Validation passed with warnings
+-- read-shown-tab
+Validating hooks: verification/engine-floor/read-shown-tab/hooks/hooks.json
+  ❯ ./register.ts hooks: ui.render{component=Pane, requestId=/"^grid-"/}
+  ❯ ./register.ts state reads: pane-grid.shown
+✔ Validation passed with warnings
+-- own-file
+Validating hooks: verification/engine-floor/own-file/hooks/hooks.json
+  ❯ ./register.ts hooks: session.start, ui.render{component=Pane, requestId=/"^grid-"/}, ui.scroll{component=Pane, requestId=/"^grid-"/}
+  ❯ ./register.ts state reads: pane-grid.layout, pane-grid.shown
+✔ Validation passed with warnings

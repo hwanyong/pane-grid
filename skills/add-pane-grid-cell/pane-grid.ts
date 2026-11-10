@@ -1,6 +1,7 @@
 import type { EngineInterface, RenderElement, RenderNode, UiScrollInput } from 'claude-code'
 
-// pane-grid reading module. Copy this file to <your mod>/hooks/pane-grid.ts unchanged.
+// pane-grid reading module. Copy this file to <your mod>/hooks/pane-grid.ts without editing the exports you keep.
+// The guide's Step 1 lists the exports you may delete.
 // Source: https://github.com/hwanyong/pane-grid/blob/main/skills/add-pane-grid-cell/pane-grid.ts
 // Guide: https://github.com/hwanyong/pane-grid/blob/main/docs/add-pane-grid-cell.md
 //
@@ -52,6 +53,10 @@ export const placementIn = (layout: unknown, plugin: string): GridPlacement | un
 
 // The two functions below are function declarations, not arrow functions:
 // `claude plugin validate` follows `$` across an import only through function declarations.
+// Engine floor: a hooks module that passes `$` to either of them loads in Claude Code 2.1.299 or later. Claude Code
+// 2.1.296 and older refuse it ("$ is followed only into a function declared in this same file, never across an import").
+// A mod that supports an older engine deletes both, reads pane-grid's state in its own hooks file and imports only
+// placementIn: see "Engine floor" in the guide's Step 1.
 
 // This mod's cell. Called while drawing, the drawing is redrawn when pane-grid changes the layout.
 export async function readPlacement($: EngineInterface, plugin: string): Promise<GridPlacement | undefined> {

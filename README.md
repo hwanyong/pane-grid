@@ -199,7 +199,7 @@ Make this Claude Code mod grid-ready for pane-grid: https://github.com/hwanyong/
    If the skill is not loaded in this session, follow the guide instead:
    https://github.com/hwanyong/pane-grid/blob/main/docs/add-pane-grid-cell.md
    and copy https://github.com/hwanyong/pane-grid/blob/main/skills/add-pane-grid-cell/pane-grid.ts
-   to hooks/pane-grid.ts unchanged.
+   to hooks/pane-grid.ts without editing the exports you keep.
 Do not commit. List what you changed and what I should check in a live session.
 ```
 
@@ -222,6 +222,7 @@ The design notes, engine measurements and test runs are in [docs/grid-and-tabs.m
 - Dragging dividers and clicking to focus need the terminal: other surfaces have no `Client` regions, so there the dividers are plain lines and `/grid resize` · `/grid select-cell` do the same.
 - The pane's width is Claude Code's: a mod pane takes up to 45% of the terminal, so wide layouts need a wide terminal.
 - The mod picker lists every installed mod whose `ui.render` hook runs for the grid pane. A mod that hooks every `ui.render` without a matcher shows up too, and its cell reads `<mod> draws nothing here`.
+- A grid-ready mod that calls the reading module's `readPlacement` or `readShownTab` loads in Claude Code 2.1.299 or later. A mod that supports an older engine reads pane-grid's state in its own hooks file instead, as [Engine floor](docs/add-pane-grid-cell.md#engine-floor-claude-code-21299) in the guide shows.
 - Tested in the terminal on macOS. The desktop and IDE surfaces were not tested.
 
 ## FAQ

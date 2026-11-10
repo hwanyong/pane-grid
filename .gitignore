@@ -1,2 +1,5 @@
 .claude-plugin/types/
 **/.claude-plugin/types/
+
+# engine floor probes: run.sh copies the reading module in before each run
+verification/engine-floor/*/hooks/pane-grid.ts

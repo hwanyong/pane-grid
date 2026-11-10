@@ -1,0 +1,1 @@
+{ "name": "pane-grid-floor-read-placement", "version": "0.0.1", "description": "Not a plugin to install. Engine floor probe: a hooks module that passes $ to readPlacement, imported from hooks/pane-grid.ts" }

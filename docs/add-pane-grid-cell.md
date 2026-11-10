@@ -50,20 +50,57 @@ The values are declared in pane-grid's own contract (`types/index.d.ts`), which 
 
 ## Step 1: copy the reading module
 
-Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pane-grid.ts) to `hooks/pane-grid.ts` in your mod, unchanged. It exports seven functions and one constant.
+Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pane-grid.ts) to `hooks/pane-grid.ts` in your mod. Do not edit the exports you keep; delete only the ones the table below says you may delete. It exports seven functions and one constant.
 
 | Export | Use |
 |---|---|
 | `placementIn(layout, plugin)` | Finds your cell in a layout value. Pure; use it on a `state.set` hook's `value` and `previous` |
-| `readPlacement($, plugin)` | Reads the current layout and finds your cell. Called while drawing, it makes the drawing redraw when the layout changes |
-| `readShownTab($)` | Reads `shown`. Only Step 6 needs it; delete it if you skip Step 6 |
+| `readPlacement($, plugin)` | Reads the current layout and finds your cell. Called while drawing, it makes the drawing redraw when the layout changes. Needs Claude Code 2.1.299 or later; delete it if your mod supports an older engine ([Engine floor](#engine-floor-claude-code-21299)) |
+| `readShownTab($)` | Reads `shown`. Only Step 6 needs it; delete it if you skip Step 6. Needs Claude Code 2.1.299 or later, as `readPlacement` does |
 | `offerChoice(below, plugin, placement, makeButton)` | Adds your Button, made by `makeButton`, to each empty cell's choices in `below`. Returns `below` unchanged when it holds no choices |
 | `fillSlot(below, plugin, cell)` | Puts `cell` into your slot in `below`. Returns `undefined` when `below` holds no slot |
 | `scrollsKey(plugin)` | The key of the Box that tells pane-grid your mod scrolls its own rows. Only Step 7 needs it; delete it if you skip Step 7 |
 | `isScrollIn(placement, e)` | Whether a `ui.scroll` on a grid pane is for your cell. Only Step 7 needs it; delete it if you skip Step 7 |
 | `TOOLBAR_KEYS` | The letters of pane-grid's toolbar hotkeys. Only Step 5 needs it, when your cell draws Button `hotkey`s; delete it otherwise |
 
-`readPlacement` and `readShownTab` are `function` declarations on purpose. `claude plugin validate` follows `$` across an import only through function declarations.
+`readPlacement` and `readShownTab` are `function` declarations on purpose. From Claude Code 2.1.299, `claude plugin validate` follows `$` across an import only through function declarations.
+
+### Engine floor: Claude Code 2.1.299
+
+A hooks module that passes `$` to `readPlacement` or `readShownTab` loads in Claude Code 2.1.299 or later. Claude Code 2.1.296 and older refuse the whole module, and `claude plugin validate` fails with:
+
+```text
+$ is passed to "readPlacement", imported from "./pane-grid": $ is followed only into a function declared in this same file, never across an import
+```
+
+The measurement is in [`verification/engine-floor/`](../verification/engine-floor/): 2.1.289 and 2.1.296 refuse both functions, 2.1.299 and 2.1.322 accept them, and 2.1.297 and 2.1.298 were never published to npm.
+
+So pick the shape by the oldest engine your mod promises in its README, its CI or an `engines` field:
+
+| Oldest engine your mod supports | Shape |
+|---|---|
+| 2.1.299 or later | Import `readPlacement` (and `readShownTab` for Step 6) from `./pane-grid`, as the steps below do |
+| Older than 2.1.299 | Delete `readPlacement` and `readShownTab` from `hooks/pane-grid.ts`. Read pane-grid's state in your own hooks file, in a function declaration there or in the hook body, and import only `placementIn` |
+
+The second shape, declared in the file whose hooks call it:
+
+```tsx
+import type { EngineInterface } from 'claude-code'
+import { placementIn } from './pane-grid'
+
+async function readPlacement($: EngineInterface, plugin: string) {
+  const read = await $.state.get({ plugin: 'pane-grid', key: 'layout' } as never) as { value?: unknown }
+  return placementIn(read.value, plugin)
+}
+
+// Step 6 only.
+async function readShownTab($: EngineInterface) {
+  const read = await $.state.get({ plugin: 'pane-grid', key: 'shown' } as never) as { value?: unknown }
+  return typeof read.value == 'string' ? read.value : null
+}
+```
+
+The functions keep the module's names and arguments, so the code in Steps 3 to 7 works with `readPlacement` and `readShownTab` left out of its `import` line. A mod with hooks in several files declares them in each file that calls them. The reason is the one behind the literal `state.set` matcher in Step 4: the engine checks a `$.state` reference only in the file that uses it, and engines before 2.1.299 check `$` itself the same way.
 
 ## Step 2: draw with a width argument
 
@@ -240,7 +277,7 @@ Load order does not matter here either. When your mod loads before pane-grid, yo
 
 ## Step 8: check it
 
-1. `claude plugin validate <your mod>`: the output lists `state reads: pane-grid.layout` and the `state.set{plugin=pane-grid, key=layout}` hook.
+1. `claude plugin validate <your mod>`: the output lists `state reads: pane-grid.layout` and the `state.set{plugin=pane-grid, key=layout}` hook. If your mod supports an engine older than 2.1.299, run it with that engine too: `npx -y @anthropic-ai/claude-code@<oldest version> plugin validate <your mod>`.
 2. Type-check: `tsc -p <your mod> --noEmit` once the engine has written `.claude-plugin/types/`.
 3. Run a session with both plugins:
 
@@ -274,7 +311,7 @@ Make this Claude Code mod grid-ready for pane-grid: https://github.com/hwanyong/
    If the skill is not loaded in this session, follow the guide instead:
    https://github.com/hwanyong/pane-grid/blob/main/docs/add-pane-grid-cell.md
    and copy https://github.com/hwanyong/pane-grid/blob/main/skills/add-pane-grid-cell/pane-grid.ts
-   to hooks/pane-grid.ts unchanged.
+   to hooks/pane-grid.ts without editing the exports you keep.
 Do not commit. List what you changed and what I should check in a live session.
 ```
 

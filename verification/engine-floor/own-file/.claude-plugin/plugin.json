@@ -1,0 +1,1 @@
+{ "name": "pane-grid-floor-own-file", "version": "0.0.1", "description": "Not a plugin to install. Engine floor probe: a hooks module that reads pane-grid's layout in its own file and imports only placementIn from hooks/pane-grid.ts" }
