@@ -1,1 +1,1 @@
-{"name": "pane-grid-r20-host", "version": "0.0.1", "description": "R20/R21 probe: grid owner that scrolls each cell on its own through ui.scroll and adds then removes the member cell", "types": "./types/index.d.ts"}
+{"name": "pane-grid-r20-host", "version": "0.0.1", "description": "Not a plugin to install. R20/R21 probe: grid owner that scrolls each cell on its own through ui.scroll and adds then removes the member cell", "types": "./types/index.d.ts"}

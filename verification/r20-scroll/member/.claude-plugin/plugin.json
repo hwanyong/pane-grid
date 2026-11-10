@@ -1,1 +1,1 @@
-{"name": "pane-grid-r20-member", "version": "0.0.1", "description": "R21 probe: member that closes its own pane while the grid layout holds its cell and opens it again when the cell is gone", "types": "./types/index.d.ts"}
+{"name": "pane-grid-r20-member", "version": "0.0.1", "description": "Not a plugin to install. R21 probe: member that closes its own pane while the grid layout holds its cell and opens it again when the cell is gone", "types": "./types/index.d.ts"}

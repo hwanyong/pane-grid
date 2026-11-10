@@ -1,1 +1,1 @@
-{"name": "pane-grid-r11-member", "version": "0.0.1", "description": "R11/R15 probe: cooperative mod that keeps its own pane and adds a cell to grid panes when the host lists it", "types": "./types/index.d.ts"}
+{"name": "pane-grid-r11-member", "version": "0.0.1", "description": "Not a plugin to install. R11/R15 probe: cooperative mod that keeps its own pane and adds a cell to grid panes when the host lists it", "types": "./types/index.d.ts"}

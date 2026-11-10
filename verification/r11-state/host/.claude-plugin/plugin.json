@@ -1,1 +1,1 @@
-{"name": "pane-grid-r11-host", "version": "0.0.1", "description": "R11/R15/R17 probe: grid owner that publishes its layout in $.state and opens two grid panes as engine tabs", "types": "./types/index.d.ts"}
+{"name": "pane-grid-r11-host", "version": "0.0.1", "description": "Not a plugin to install. R11/R15/R17 probe: grid owner that publishes its layout in $.state and opens two grid panes as engine tabs", "types": "./types/index.d.ts"}
