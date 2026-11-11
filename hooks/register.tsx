@@ -1,12 +1,17 @@
 import { update } from 'claude-code'
-import type { EngineInterface, Register, RenderElement, RenderNode, Tier, TraceEntry } from 'claude-code'
+import type { EngineInterface, Register, RenderElement, RenderNode } from 'claude-code'
 import type { GridLayout, GridNode, GridPlacement, GridScroll, GridShown, GridTab } from '../types/index.d.ts'
 import { VERBS, apply, checkOutcome } from './actions'
 import type { ActivatePost, DividerPost, DividerProps, MeasurePost, MeasureProps } from './client-messages'
 import { HORIZONTAL, VERTICAL } from './glyphs'
-import { defaultTabs, parseLayoutFile, serializeLayoutFile } from './layout-file'
-import { isScrollIn, scrollsKey, TOOLBAR_KEYS } from '../skills/add-pane-grid-cell/pane-grid'
-import { ROOT_PATH, allCells, cellsOf, childPath, findCell, geometry, moveDivider, rectAt, replaceAt, splitAt, splitRects } from './tree'
+import { defaultTabs, dirName, parseLayoutFile, serializeLayoutFile } from './layout-file'
+import { RULE_ROWS, TOOLBAR_ROWS, activeOf, cellAt, contentArea, contentSize, gridRect, visibleRects } from './pane-area'
+import {
+  ACTIVATE_KEY, ACTIVE_SUFFIX, CHOICES_KEY, DIVIDER_KEY, HOTKEY_KEY, HOTKEYS, MEASURE_KEY, NONE_KEY, PLACE_KEY, PRESS_KEY, SLOT_KEY,
+  collectCells, dividerKey, gridReady, holdsKey, parseDividerKey, pressWords,
+} from './render-keys'
+import { isScrollIn, scrollsKey } from '../skills/add-pane-grid-cell/pane-grid'
+import { ROOT_PATH, allCells, cellsOf, childPath, findCell, moveDivider, rectAt, replaceAt, splitAt, splitRects } from './tree'
 import type { Rect } from './tree'
 
 // pane-grid: 탭(엔진 pane `grid-<이름>`)마다 배치 트리를 그리고, 칸에 규약 mod 가 그린 `cell:<plugin>` Box 를 놓는다.
@@ -27,57 +32,13 @@ const INVALID_NAME = 'layout.invalid.json'
 // 0.4.x 의 global 파일 자리. 0.4.x 는 CLAUDE_CONFIG_DIR 과 무관하게 $HOME 아래 이 경로에 썼다. 설정 디렉터리 아래 global 파일이 없을 때
 // 초기값으로 읽기만 한다(쓰지 않는다). CLAUDE_CONFIG_DIR 을 쓰는 사람의 0.4.x 배치가 0.5.0 에서 사라지지 않게 한다.
 const LEGACY_GLOBAL_FILE = `.claude/${GLOBAL_FILE}`
-// 프로젝트 디렉터리 이름 `<주 작업 트리의 마지막 이름>-<경로 SHA-256 의 앞 16자리 hex>`.
-const HASH_HEX = 16
 const COMMON_GIT_DIR = '/.git'
-// hotkey Button 줄. 높이를 고정해야 칸 사각형과 휠 `pointer.row` 를 맞출 수 있다.
-const TOOLBAR_ROWS = 2
-// 엔진의 탭 줄과 hotkey 줄 사이, hotkey 줄과 grid 사이의 고정 구분선(끌 수 없다). 각 1행이다.
-const RULE_ROWS = 1
-// grid 위의 행 수: 구분선 · hotkey 줄 · 구분선.
-const HEADER_ROWS = RULE_ROWS + TOOLBAR_ROWS + RULE_ROWS
-// 칸에는 테두리가 없고 제목 1행만 있다. 칸 사이는 끌어서 크기를 바꾸는 분할선 1칸이다(tree.ts DIVIDER).
-const CELL_CHROME_ROWS = 1
 const SHOWN_POLL_MS = 1000
-// render tree 의 key 머리말(docs/grid-and-tabs.md §3.7). 규약 mod 가 pane-grid 보다 아래(뒤에 로드)에 있으면 `cell:<plugin>` Box 를
-// 그려 next(e) 결과로 내고, 위(먼저 로드)에 있으면 pane-grid 가 그린 `slot:<plugin>` Box 를 채우고 `choices:<cell>` Box 에 선택지 Button 을 더한다.
-const CELL_KEY = 'cell:'
-const SLOT_KEY = 'slot:'
-const CHOICES_KEY = 'choices:'
-const ACTIVE_SUFFIX = ':active'
-const NONE_KEY = 'none:'
-// pane-grid 가 그리는 Button 의 key 머리말. 누름은 모두 ui.press hook 하나가 받는다(로드 순서와 무관하게 같은 입구).
-const PLACE_KEY = 'place:'
-const HOTKEY_KEY = 'hotkey:'
-// pane-grid 의 Client(surface module) key 머리말. 누름 · 끌기는 ui.message hook 이 받는다.
-const ACTIVATE_KEY = 'activate:'
-const DIVIDER_KEY = 'divider:'
-const MEASURE_KEY = 'measure:'
 const ACTIVE_COLOR = 'green'
-// trace 에서 규약 mod 를 고를 때 빼는 이름과 tier. 사람이 설치한 mod 만 빈 칸의 선택지가 된다.
-const OWN_NAME = 'pane-grid'
-const ENGINE_NAME = 'engine'
-const INSTALLED_TIERS: readonly Tier[] = ['prepend', 'user', 'append']
 // 빈 칸 선택지의 hotkey 는 활성 칸에서만 1-9 를 붙인다. 칸마다 붙이면 같은 숫자가 겹친다.
 const CHOICE_HOTKEYS = 9
 // slot 을 채우지 않은 놓인 mod: 불러오지 않았거나, hooks/pane-grid.ts 가 slot 을 모르는 0.3.0 이전 사본이다.
 const UNFILLED_HINT = 'not loaded, or its hooks/pane-grid.ts is older than pane-grid 0.3.0'
-
-// docs/grid-and-tabs.md §2.3 결정 10. 이름 바꾸기(`r`)는 이름 입력이 필요해 slash 명령으로만 한다.
-// 글자는 읽기 모듈의 TOOLBAR_KEYS 가 갖고(규약 mod 가 그 글자를 피한다), 여기서는 글자마다 이름과 명령을 붙인다.
-const TOOLBAR: Record<(typeof TOOLBAR_KEYS)[number], { label: string; words: string[] }> = {
-  v: { label: 'split-h', words: ['split', '-h'] },
-  s: { label: 'split-v', words: ['split', '-v'] },
-  o: { label: 'next', words: ['next'] },
-  z: { label: 'zoom', words: ['zoom'] },
-  x: { label: 'kill', words: ['kill'] },
-  w: { label: 'swap', words: ['swap'] },
-  b: { label: 'break', words: ['break'] },
-  c: { label: 'new tab', words: ['new'] },
-  k: { label: 'close tab', words: ['close'] },
-  q: { label: 'list', words: ['list'] },
-}
-const HOTKEYS = TOOLBAR_KEYS.map(key => ({ key, ...TOOLBAR[key] }))
 
 // 모듈 변수는 다시 불러오면 처음 값으로 돌아간다. 그려진 것은 모두 $.state 에서 읽고, 여기에는 다시 계산할 수 있는 것만 둔다.
 const run = {
@@ -107,19 +68,14 @@ const log = ($: EngineInterface, text: string) => $.ui.log(`pane-grid: ${text}`,
 const paneId = (tab: string) => `${PANE_PREFIX}${tab}`
 const tabOf = (requestId: string) => requestId.slice(PANE_PREFIX.length)
 const titleOf = (tab: GridTab) => (tab.zoomed ? `${tab.name} [Z]` : tab.name)
-// 활성으로 그리고 hotkey 가 다루는 칸: zoom 한 칸, 없으면 활성 칸.
-const activeOf = (tab: GridTab) => tab.zoomed ?? tab.active
 
 const readLayout = async ($: EngineInterface): Promise<GridLayout | undefined> => (await $.state.get(LAYOUT)).value
 
-// 보이는 칸과 그 사각형. zoom 한 탭은 그 칸 하나가 grid 전체이고 나머지 칸은 없다. placements · cellAt 이 함께 쓴다.
-const visibleRects = (tab: GridTab, area: Rect): Map<string, Rect> => (tab.zoomed ? new Map([[tab.zoomed, area]]) : geometry(tab.root, area))
-
 // 칸 내용 자리와 크기. 탭을 아직 그리지 않았거나 다른 칸을 zoom 해 가려졌으면 0 이다. zoom 한 칸은 grid 전체에 그린다.
-const placements = (tabs: GridTab[]): Record<string, GridPlacement> => {
+const placements = (tabs: GridTab[], measuredOf: ReadonlyMap<string, MeasureProps>): Record<string, GridPlacement> => {
   const placed: Record<string, GridPlacement> = {}
   for (const tab of tabs) {
-    const measured = run.measured.get(tab.name)
+    const measured = measuredOf.get(tab.name)
     const rects = measured ? visibleRects(tab, gridRect(measured)) : new Map<string, Rect>()
     for (const cell of cellsOf(tab.root)) {
       if (!cell.plugin) continue
@@ -130,16 +86,6 @@ const placements = (tabs: GridTab[]): Record<string, GridPlacement> => {
   }
   return placed
 }
-
-const gridRect = (measured: MeasureProps): Rect => ({ x: 0, y: 0, width: measured.columns, height: Math.max(measured.rows - HEADER_ROWS, 0) })
-
-const contentSize = (rect: Rect) => ({
-  columns: Math.max(rect.width, 0),
-  rows: Math.max(rect.height - CELL_CHROME_ROWS, 0),
-})
-
-// 칸 내용의 왼쪽 위를 pane 본문 좌표(`UiScrollPointer` 와 같은 좌표)로 더한다. 위에 구분선 · hotkey 줄 · 칸 제목이 있다.
-const contentArea = (rect: Rect) => ({ column: rect.x, row: HEADER_ROWS + rect.y + CELL_CHROME_ROWS, ...contentSize(rect) })
 
 // 칸 id 마다 놓인 mod. 탭을 모두 본다(칸 id 는 탭을 통틀어 하나뿐이다).
 const occupants = (tabs: GridTab[]) => new Map(allCells(tabs).map(cell => [cell.id, cell.plugin ?? ''] as const))
@@ -158,7 +104,7 @@ const dropStaleScroll = async ($: EngineInterface, before: GridTab[], after: Gri
 
 const publish = async ($: EngineInterface, tabs: GridTab[]) => {
   await dropStaleScroll($, (await readLayout($))?.tabs ?? [], tabs)
-  const placed = placements(tabs)
+  const placed = placements(tabs, run.measured)
   const layout = await update($, LAYOUT, (current): GridLayout => ({ version: 1, revision: (current?.revision ?? 0) + 1, tabs, placed }))
   log($, `layout revision=${layout.revision} tabs=${tabs.map(tab => tab.name).join(',')} placed=${Object.keys(placed).join(',')}`)
   return layout
@@ -168,7 +114,7 @@ const publish = async ($: EngineInterface, tabs: GridTab[]) => {
 const publishPlacements = async ($: EngineInterface) => {
   const layout = await readLayout($)
   if (!layout) return
-  const placed = placements(layout.tabs)
+  const placed = placements(layout.tabs, run.measured)
   if (JSON.stringify(placed) == JSON.stringify(layout.placed)) return
   await publish($, layout.tabs)
 }
@@ -219,15 +165,6 @@ const projectOf = async ($: EngineInterface, root: string) => {
   return findProject($, real, real)
 }
 
-// 프로젝트 디렉터리 이름: 사람이 알아볼 마지막 이름과, 경로가 달라도 이름이 같은 프로젝트를 가르는 SHA-256 앞부분.
-// 파일 안에도 원래 경로(`project`)를 적는다(serializeLayoutFile).
-const dirName = async (project: string) => {
-  const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(project)))
-  const hex = Array.from(digest, byte => byte.toString(16).padStart(2, '0')).join('').slice(0, HASH_HEX)
-  const base = (project.split('/').at(-1) ?? '').replace(/[^A-Za-z0-9._-]+/g, '-')
-  return base ? `${base}-${hex}` : hex
-}
-
 // $.session.root() 를 읽어 프로젝트를 정한다. root 가 그대로면 아무것도 하지 않는다. 프로젝트가 바뀌었으면 true.
 const resolveProject = async ($: EngineInterface) => {
   const root = await $.session.root()
@@ -264,6 +201,7 @@ const persist = async ($: EngineInterface, tabs: GridTab[]) => {
 
 // 프로젝트 파일이 있으면 그것을, 없으면 global 파일을 읽는다. 읽은 파일의 경로를 함께 돌려준다.
 // mtimeMs 는 읽기 전에 잰다. 읽은 뒤에 재면 그 사이에 다른 세션이 쓴 것을 이 세션이 읽은 것으로 여겨 덮어쓸 수 있다.
+// run.mtimeMs 를 이 파일의 것으로 정하고, 파일이 무효였으면 run.invalidText 에 원문을 남긴다(둘 다 persist 가 읽는다).
 const loadFile = async ($: EngineInterface): Promise<{ tabs: GridTab[]; path: string }> => {
   const own = await statOf($, projectFile())
   run.mtimeMs = own?.mtimeMs
@@ -392,28 +330,6 @@ const watchShown = async ($: EngineInterface) => {
   if (held.version == 0 || held.value != shown) await $.state.set(SHOWN, shown)
 }
 
-// Box 아래에 key 가 `key` 인 노드가 있는가.
-const holdsKey = (node: RenderNode, key: string): boolean => {
-  if (typeof node == 'string') return false
-  const props: Record<string, unknown> | undefined = 'props' in node ? node.props : undefined
-  if (props?.key == key) return true
-  return 'children' in node && (node.children ?? []).some(child => holdsKey(child, key))
-}
-
-// 규약 mod 가 그린 칸: key 가 `cell:<plugin>` 인 Box.
-const collectCells = (node: RenderNode, out: Map<string, RenderElement>): void => {
-  if (typeof node == 'string') return
-  const props: Record<string, unknown> | undefined = 'props' in node ? node.props : undefined
-  const key = props?.key
-  if (typeof key == 'string' && key.startsWith(CELL_KEY)) return void out.set(key.slice(CELL_KEY.length), node)
-  if ('children' in node) for (const child of node.children ?? []) collectCells(child, out)
-}
-
-// grid pane 의 ui.render 에 hook 을 건 mod: 규약 mod 는 놓이지 않았어도 이 hook 을 걸고 있으므로 next.trace 에 이름이 남는다.
-const gridReady = (trace: readonly TraceEntry[]) => [
-  ...new Set(trace.filter(entry => INSTALLED_TIERS.includes(entry.tier) && entry.plugin != OWN_NAME && entry.plugin != ENGINE_NAME).map(entry => entry.plugin)),
-].sort()
-
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     run.home = String((await $.env.get('HOME')) ?? '')
@@ -454,7 +370,7 @@ export const register: Register = on => {
   // grid pane 의 Button 누름. 규약 mod 가 pane-grid 위에 있어도 아래에 있어도 같은 hook 이 받는다.
   // 동작은 chain 이 끝난 뒤에 한다. 탭을 닫는 동작(k · break 등)은 이 pane 을 닫고, 그 뒤의 next(e) 는 chain 맨 아래의
   // Button onPress 를 handle 로 부르는데 pane 과 함께 그 handle 이 없어져 `no handler is held under handle` 로 실패했다.
-  on('ui.press', { component: 'Pane', requestId: /^grid-/, element: /^(place|hotkey):/ }, async ($, e, next) => {
+  on('ui.press', { component: 'Pane', requestId: /^grid-/, element: PRESS_KEY }, async ($, e, next) => {
     const pressed = await next(e)
     const words = pressWords(e.element)
     if (words) {
@@ -474,10 +390,8 @@ export const register: Register = on => {
     const data: Partial<Record<keyof (DividerPost & MeasurePost & ActivatePost), unknown>> = typeof e.data == 'object' && e.data != null ? e.data : {}
     if (e.element.startsWith(MEASURE_KEY) && Number.isInteger(data.columns) && Number.isInteger(data.rows)) await publishPlacements($)
     if (e.element.startsWith(ACTIVATE_KEY) && data.activate == true) await activateCell($, tabName, e.element.slice(ACTIVATE_KEY.length))
-    if (e.element.startsWith(DIVIDER_KEY) && typeof data.at == 'number' && Number.isInteger(data.at)) {
-      const [path, index] = e.element.slice(DIVIDER_KEY.length).split(':')
-      if (path && index != undefined && Number.isInteger(Number(index))) await dragDivider($, tabName, path, Number(index), data.at, data.isFinal == true)
-    }
+    const divider = e.element.startsWith(DIVIDER_KEY) ? parseDividerKey(e.element) : undefined
+    if (divider && typeof data.at == 'number' && Number.isInteger(data.at)) await dragDivider($, tabName, divider.path, divider.index, data.at, data.isFinal == true)
     return next(e)
   }).catch(($, e, next) => {
     log($, `message failed: ${JSON.stringify(next.error)}`)
@@ -554,7 +468,7 @@ export const register: Register = on => {
     }
 
     const drawDivider = (kind: 'row' | 'column', path: string, index: number, start: number, rect: Rect): RenderNode | null | undefined => {
-      const key = `${DIVIDER_KEY}${path}:${index}`
+      const key = dividerKey(path, index)
       if (hasClient) return h('Client', { key, module: './divider.tsx', props: { kind, start, length: kind == 'row' ? rect.height : rect.width } satisfies DividerProps, width: rect.width, height: rect.height })
       const line = kind == 'row' ? Array.from({ length: rect.height }, () => VERTICAL).join('\n') : HORIZONTAL.repeat(rect.width)
       return <Box key={key} width={rect.width} height={rect.height}><Text dimColor>{line}</Text></Box>
@@ -595,23 +509,4 @@ export const register: Register = on => {
     log($, `render failed: ${JSON.stringify(next.error)}`)
     return next(e)
   })
-}
-
-// Button key 를 /grid 명령의 낱말로 바꾼다. `place:<cell>:<plugin>` · `hotkey:<key>`.
-const pressWords = (element: string): string[] | undefined => {
-  if (element.startsWith(PLACE_KEY)) {
-    const [cell, plugin] = element.slice(PLACE_KEY.length).split(':')
-    return cell && plugin ? ['place', plugin, cell] : undefined
-  }
-  if (element.startsWith(HOTKEY_KEY)) return HOTKEYS.find(item => item.key == element.slice(HOTKEY_KEY.length))?.words
-  return undefined
-}
-
-// 휠이면 `pointer` 가 가리키는 칸, 페이지 키면 활성 칸(tmux 의 활성 pane). 칸 밖이면 undefined.
-const cellAt = (tab: GridTab, measured: MeasureProps, pointer: { column: number; row: number } | undefined) => {
-  if (!pointer) return activeOf(tab)
-  const row = pointer.row - HEADER_ROWS
-  const rects = [...visibleRects(tab, gridRect(measured))]
-  const hit = rects.find(([, rect]) => pointer.column >= rect.x && pointer.column < rect.x + rect.width && row >= rect.y && row < rect.y + rect.height)
-  return hit?.[0]
 }

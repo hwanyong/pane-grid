@@ -249,7 +249,7 @@ on('state.set', { plugin: 'pane-grid', key: 'layout' }, async ($, e, next) => {
 
 결정 15 에 따라 넣었다. §4.1 7회차에서 규약 mod 가 pane-grid 보다 먼저 로드되면 칸이 비었다. 먼저 로드된 mod 의 hook 이 바깥에서 실행되어, pane-grid 가 칸을 모을 때 그 mod 의 `cell:` Box 가 아직 없기 때문이다.
 
-pane-grid 가 그리는 key 는 다섯 가지다(`hooks/register.tsx` 의 `SLOT_KEY` 등).
+pane-grid 가 그리는 key 는 다섯 가지다(`hooks/render-keys.ts` 의 `SLOT_KEY` 등).
 
 | key | 그리는 곳 | 누가 채우나 |
 |---|---|---|

@@ -123,3 +123,14 @@ export const parseLayoutFile = (text: string): Parsed => {
 }
 
 export const serializeLayoutFile = (tabs: GridTab[], project: string) => `${JSON.stringify({ version: FILE_VERSION, project, tabs }, null, 2)}\n`
+
+// 프로젝트 디렉터리 이름 `<주 작업 트리의 마지막 이름>-<경로 SHA-256 의 앞 16자리 hex>`.
+const HASH_HEX = 16
+// 프로젝트 디렉터리 이름: 사람이 알아볼 마지막 이름과, 경로가 달라도 이름이 같은 프로젝트를 가르는 SHA-256 앞부분.
+// 파일 안에도 원래 경로(`project`)를 적는다(serializeLayoutFile).
+export const dirName = async (project: string) => {
+  const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(project)))
+  const hex = Array.from(digest, byte => byte.toString(16).padStart(2, '0')).join('').slice(0, HASH_HEX)
+  const base = (project.split('/').at(-1) ?? '').replace(/[^A-Za-z0-9._-]+/g, '-')
+  return base ? `${base}-${hex}` : hex
+}
