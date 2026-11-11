@@ -1,16 +1,23 @@
 import type { GridCell, GridChild, GridNode, GridSplit, GridTab } from '../types/index.d.ts'
 
 // 배치 트리를 다루는 순수 함수. 입력 트리를 바꾸지 않고 새 트리를 반환한다.
-// 크기 규칙은 tmux 3.7c 실측(docs/grid-and-tabs.md §2.1)을 따른다.
+// 배치 규칙(split · kill · resize-pane · select-layout)은 tmux 3.7c(docs/grid-and-tabs.md §2.1)를 따른다. 칸 수는 비율을 반올림해
+// 나누므로 tmux 실측과 1칸 다를 수 있다(120x40 에서 even-horizontal 29/30/29/29열 · even-vertical 9/10/9/9행. tmux 는 30/29/29/29 · 10/9/9/9).
 
 export type Rect = { x: number; y: number; width: number; height: number }
 
 export const PRESETS = ['even-horizontal', 'even-vertical', 'main-vertical', 'main-horizontal', 'tiled'] as const
 export type Preset = typeof PRESETS[number]
 
-// tmux 120x40 실측: main-vertical 의 왼쪽 80열, main-horizontal 의 위 24행.
+// main 칸의 비율. 120x40 에서 main-vertical 은 왼쪽 80열(tmux 와 같다), main-horizontal 은 위 23행(tmux 는 24행)이다.
 const MAIN_VERTICAL_SHARE = 67
 const MAIN_HORIZONTAL_SHARE = 60
+
+// 한 노드의 size 합(types/index.d.ts GridChild). layout 파일 형식이다.
+const WHOLE = 100
+// resize 로 줄 수 있는 칸 비율의 범위(%). `/grid resize` 의 입력 검사와 usage 도 이 값을 쓴다.
+export const SHARE_MIN = 1
+export const SHARE_MAX = WHOLE - SHARE_MIN
 
 export const cellsOf = (node: GridNode): GridCell[] =>
   node.kind == 'cell' ? [node] : node.children.flatMap(child => cellsOf(child.node))
@@ -28,18 +35,19 @@ export const newCellId = (tabs: GridTab[]) => {
 
 // 나란히 놓은 자식 사이의 분할선 폭(열) 또는 높이(행).
 const DIVIDER = 1
-// 비율은 소수 둘째 자리까지 둔다. 분할선을 끌어 놓은 칸 수를 정수 비율로 내리면 1% 가 2칸 이상인 넓은 pane 에서 칸 단위로 놓이지 않는다.
+// 비율은 소수 둘째 자리까지 둔다(1 / PRECISION 단위). 분할선을 끌어 놓은 칸 수를 정수 비율로 내리면 1% 가 2칸 이상인 넓은 pane 에서
+// 칸 단위로 놓이지 않는다.
 const PRECISION = 100
 
 const sizeOf = (child: GridChild) => (child.size > 0 ? child.size : 1)
 const total = (children: GridChild[]) => children.reduce((sum, child) => sum + child.size, 0)
 const rounded = (value: number) => Math.round(value * PRECISION) / PRECISION
 
-// 합이 100 인 비율(소수 둘째 자리)로 맞춘다. 0 이하는 1 로 올리고, 나머지는 마지막 자식이 받는다.
+// 합이 WHOLE 인 비율(소수 둘째 자리)로 맞춘다. 0 이하는 1 로 올리고, 나머지는 마지막 자식이 받는다.
 export const normalize = (children: GridChild[]): GridChild[] => {
   const whole = children.reduce((sum, child) => sum + sizeOf(child), 0)
-  const scaled = children.map(child => ({ node: child.node, size: Math.max(1, Math.floor((sizeOf(child) * 100 * PRECISION) / whole) / PRECISION) }))
-  const rest = rounded(100 - total(scaled))
+  const scaled = children.map(child => ({ node: child.node, size: Math.max(1, Math.floor((sizeOf(child) * WHOLE * PRECISION) / whole) / PRECISION) }))
+  const rest = rounded(WHOLE - total(scaled))
   return scaled.map((child, index) => (index == scaled.length - 1 ? { node: child.node, size: rounded(child.size + rest) } : child))
 }
 
@@ -47,15 +55,14 @@ const evenly = (nodes: GridNode[]): GridChild[] => normalize(nodes.map(node => (
 
 const isCell = (node: GridNode, id: string) => node.kind == 'cell' && node.id == id
 
-const mapNode = (node: GridNode, change: (node: GridNode) => GridNode): GridNode => {
-  const next = node.kind == 'cell' ? node : { ...node, children: node.children.map(child => ({ ...child, node: mapNode(child.node, change) })) }
-  return change(next)
-}
+// 칸마다 `change` 를 불러 바꾼 트리. 나눈 노드의 모양과 비율은 그대로다.
+export const mapCells = (node: GridNode, change: (cell: GridCell) => GridCell): GridNode =>
+  node.kind == 'cell' ? change(node) : { ...node, children: node.children.map(child => ({ ...child, node: mapCells(child.node, change) })) }
 
 // 칸 `id` 를 `kind` 방향으로 반 나눠 그 뒤에 `added` 를 놓는다(tmux split-window -h · -v).
 // 부모가 같은 방향이면 형제로 넣고, 아니면 그 칸 자리에 새 노드를 만든다.
 export const split = (root: GridNode, id: string, kind: GridSplit['kind'], added: GridCell): GridNode => {
-  if (root.kind == 'cell') return root.id == id ? { kind, children: [{ node: root, size: 50 }, { node: added, size: 50 }] } : root
+  if (root.kind == 'cell') return root.id == id ? { kind, children: [{ node: root, size: WHOLE / 2 }, { node: added, size: WHOLE / 2 }] } : root
   if (root.kind == kind && root.children.some(child => isCell(child.node, id))) {
     const children = root.children.flatMap(child => (isCell(child.node, id)
       ? [{ node: child.node, size: child.size / 2 }, { node: added, size: child.size / 2 }]
@@ -83,28 +90,31 @@ const removeFromSplit = (node: GridSplit, id: string): GridNode => {
   return { ...node, children: normalize(left.map(child => (child === heir ? { ...child, size: child.size + removed.size } : child))) }
 }
 
+// 칸 `id` 를 지운 뒤 활성으로 할 칸: 칸 순서(cellsOf)에서 그 앞 칸, 첫 칸이면 다음 칸. 다른 칸이 없으면 undefined.
+// remove 가 공간을 주는 형제와 다를 수 있다(c1 | [c2, c3] 에서 c2 를 지우면 공간은 c3, 활성은 c1).
+export const heirOf = (root: GridNode, id: string): GridCell | undefined => {
+  const cells = cellsOf(root)
+  const index = cells.findIndex(cell => cell.id == id)
+  return cells[index > 0 ? index - 1 : index + 1]
+}
+
 // 두 칸의 자리를 바꾼다(tmux swap-pane). 칸 id 와 mod 가 함께 옮겨 간다.
 export const swap = (root: GridNode, first: string, second: string): GridNode => {
   const a = findCell(root, first)
   const b = findCell(root, second)
   if (!a || !b) return root
-  return mapNode(root, node => {
-    if (node.kind != 'cell') return node
-    if (node.id == first) return b
-    if (node.id == second) return a
-    return node
-  })
+  return mapCells(root, cell => (cell.id == first ? b : cell.id == second ? a : cell))
 }
 
-// 칸 `id` 가 부모 안에서 차지하는 비율을 `share`(1 ~ 99)로 바꾸고 나머지 형제는 비율대로 줄인다.
+// 칸 `id` 가 부모 안에서 차지하는 비율을 `share`(SHARE_MIN ~ SHARE_MAX)로 바꾸고 나머지 형제는 비율대로 줄인다.
 export const resize = (root: GridNode, id: string, share: number): GridNode => {
   if (root.kind == 'cell') return root
   const target = root.children.find(child => cellsOf(child.node).some(cell => cell.id == id))
   if (!target) return root
   if (target.node.kind != 'cell') return { ...root, children: root.children.map(child => (child === target ? { ...child, node: resize(child.node, id, share) } : child)) }
   const others = total(root.children) - target.size
-  const clamped = Math.min(Math.max(share, 1), 99)
-  const children = root.children.map(child => ({ node: child.node, size: child === target ? clamped : (child.size * (100 - clamped)) / others }))
+  const clamped = Math.min(Math.max(share, SHARE_MIN), SHARE_MAX)
+  const children = root.children.map(child => ({ node: child.node, size: child === target ? clamped : (child.size * (WHOLE - clamped)) / others }))
   return { ...root, children: normalize(children) }
 }
 
@@ -112,20 +122,33 @@ export const resize = (root: GridNode, id: string, share: number): GridNode => {
 const group = (kind: GridSplit['kind'], first: GridNode, others: GridNode[]): GridNode =>
   (others.length == 0 ? first : { kind, children: evenly([first, ...others]) })
 
-// 탭의 칸을 tmux select-layout 의 다섯 가지 배치로 다시 놓는다. 칸이 하나면 그대로 둔다.
-export const preset = (root: GridNode, name: Preset): GridNode => {
-  const cells = cellsOf(root)
-  const [main, second, ...others] = cells
-  if (!main || !second) return root
-  if (name == 'even-horizontal') return group('row', main, [second, ...others])
-  if (name == 'even-vertical') return group('column', main, [second, ...others])
-  if (name == 'main-vertical') return { kind: 'row', children: [{ node: main, size: MAIN_VERTICAL_SHARE }, { node: group('column', second, others), size: 100 - MAIN_VERTICAL_SHARE }] }
-  if (name == 'main-horizontal') return { kind: 'column', children: [{ node: main, size: MAIN_HORIZONTAL_SHARE }, { node: group('row', second, others), size: 100 - MAIN_HORIZONTAL_SHARE }] }
+// main 칸 하나와 나머지 칸을 `kind` 방향으로 나란히 놓는다. 나머지는 그 반대 방향으로 같은 비율로 쌓는다.
+const mainAnd = (kind: GridSplit['kind'], share: number) => (main: GridCell, second: GridCell, others: GridCell[]): GridNode =>
+  ({ kind, children: [{ node: main, size: share }, { node: group(kind == 'row' ? 'column' : 'row', second, others), size: WHOLE - share }] })
+
+// 칸을 √n 열의 줄로 나눠 위아래로 쌓는다(tmux tiled).
+const tiled = (main: GridCell, second: GridCell, others: GridCell[]): GridNode => {
+  const cells = [main, second, ...others]
   const columns = Math.ceil(Math.sqrt(cells.length))
   const lines = Array.from({ length: Math.ceil(cells.length / columns) }, (_, at) => cells.slice(at * columns, (at + 1) * columns))
-  const rows = lines.flatMap(([first, ...more]) => (first ? [group('row', first, more)] : []))
-  const [top, ...below] = rows
-  return top ? group('column', top, below) : root
+  const [top, ...below] = lines.flatMap(([first, ...more]) => (first ? [group('row', first, more)] : []))
+  return top ? group('column', top, below) : main
+}
+
+// 배치 이름마다 칸을 놓는 함수. Record 라서 PRESETS 에 이름을 더하고 여기를 고치지 않으면 tsc 가 실패한다.
+const LAYOUTS: Record<Preset, (main: GridCell, second: GridCell, others: GridCell[]) => GridNode> = {
+  'even-horizontal': (main, second, others) => group('row', main, [second, ...others]),
+  'even-vertical': (main, second, others) => group('column', main, [second, ...others]),
+  'main-vertical': mainAnd('row', MAIN_VERTICAL_SHARE),
+  'main-horizontal': mainAnd('column', MAIN_HORIZONTAL_SHARE),
+  tiled,
+}
+
+// 탭의 칸을 tmux select-layout 의 다섯 가지 배치로 다시 놓는다. 칸이 하나면 그대로 둔다.
+export const preset = (root: GridNode, name: Preset): GridNode => {
+  const [main, second, ...others] = cellsOf(root)
+  if (!main || !second) return root
+  return LAYOUTS[name](main, second, others)
 }
 
 // 나눈 노드의 자식 길이(칸 수). 분할선을 뺀 길이를 비율의 누적합으로 반올림해 나눈다. 누적합으로 나누므로 합이 늘 그 길이다.
@@ -133,9 +156,13 @@ const partLengths = (node: GridSplit, length: number): number[] => {
   const room = Math.max(length - DIVIDER * (node.children.length - 1), 0)
   const bounds = node.children.map((_, index) => (index == node.children.length - 1
     ? room
-    : Math.round((room * total(node.children.slice(0, index + 1))) / 100)))
+    : Math.round((room * total(node.children.slice(0, index + 1))) / WHOLE)))
   return bounds.map((bound, index) => Math.max(bound - (bounds[index - 1] ?? 0), 0))
 }
+
+// 자식마다 부모 시작에서 그 자식까지의 칸 수. 자식 사이마다 분할선 DIVIDER 칸이 있다.
+// splitRects 가 그린 분할선 자리(divider.start)와 moveDivider 가 받은 `at` 을 같은 식으로 재야 하므로 둘이 이 함수를 함께 쓴다.
+const partStarts = (lengths: number[]) => lengths.map((_, index) => lengths.slice(0, index).reduce((sum, length) => sum + length + DIVIDER, 0))
 
 // 자식 `index` 와 그 다음 자식 사이의 분할선. `start` 는 부모 사각형 시작에서 분할선까지의 칸 수다.
 export type Divider = { index: number; start: number; rect: Rect }
@@ -147,7 +174,7 @@ export const splitRects = (node: GridSplit, rect: Rect): { parts: { node: GridNo
     ? { x: rect.x + start, y: rect.y, width: length, height: rect.height }
     : { x: rect.x, y: rect.y + start, width: rect.width, height: length })
   const lengths = partLengths(node, isRow ? rect.width : rect.height)
-  const starts = lengths.map((_, index) => lengths.slice(0, index).reduce((sum, length) => sum + length + DIVIDER, 0))
+  const starts = partStarts(lengths)
   return {
     parts: node.children.map((child, index) => ({ node: child.node, rect: along(starts[index] ?? 0, lengths[index] ?? 0) })),
     dividers: lengths.slice(0, -1).map((length, index) => {
@@ -166,13 +193,13 @@ export const moveDivider = (node: GridSplit, length: number, index: number, at: 
   const before = lengths[index]
   const after = lengths[index + 1]
   if (before == undefined || after == undefined) return node
-  const start = lengths.slice(0, index).reduce((sum, part) => sum + part + DIVIDER, 0)
+  const start = partStarts(lengths)[index] ?? 0
   const moved = Math.min(Math.max(at - start, 1), before + after - 1)
   if (moved == before) return node
   const next = lengths.map((part, position) => (position == index ? moved : position == index + 1 ? before + after - moved : part))
   const room = next.reduce((sum, part) => sum + part, 0)
   if (room <= 0) return node
-  return { ...node, children: normalize(node.children.map((child, position) => ({ node: child.node, size: ((next[position] ?? 0) * 100) / room }))) }
+  return { ...node, children: normalize(node.children.map((child, position) => ({ node: child.node, size: ((next[position] ?? 0) * WHOLE) / room }))) }
 }
 
 // 나눈 노드를 경로로 찾는다. 경로는 루트에서 자식 번호를 점으로 이은 것이고 루트는 `r` 이다(`r.1.0`).
