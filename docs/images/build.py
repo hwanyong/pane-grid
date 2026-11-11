@@ -7,6 +7,7 @@
 import html
 import pathlib
 import subprocess
+import sys
 import tempfile
 
 OUT = pathlib.Path(__file__).resolve().parent
@@ -305,16 +306,27 @@ def lifecycle():
     return svg(width, height, "".join(parts)), width, height
 
 
+# SVG 와 PNG 를 임시 이름으로 만들고 Chrome 이 성공한 뒤에만 두 파일을 제 이름으로 옮긴다. Chrome 이 실패하면
+# 그 stderr 를 내고 종료 코드 1 로 끝나며, 이전 SVG · PNG 는 그대로 남아 둘이 어긋나지 않는다.
 def render(name, document, width, height):
     svg_path = OUT / f"{name}.svg"
     png_path = OUT / f"{name}.png"
-    svg_path.write_text(document, encoding="utf-8")
+    svg_draft = OUT / f"{name}.draft.svg"
+    png_draft = OUT / f"{name}.draft.png"
+    svg_draft.write_text(document, encoding="utf-8")
     with tempfile.TemporaryDirectory() as profile:
-        subprocess.run([
+        result = subprocess.run([
             CHROME, "--headless=new", f"--user-data-dir={profile}", "--hide-scrollbars",
             "--force-device-scale-factor=2", f"--window-size={width},{height}",
-            f"--screenshot={png_path}", svg_path.as_uri(),
-        ], check=True, capture_output=True)
+            f"--screenshot={png_draft}", svg_draft.as_uri(),
+        ], capture_output=True, text=True)
+    if result.returncode != 0:
+        svg_draft.unlink()
+        png_draft.unlink(missing_ok=True)
+        sys.stderr.write(result.stderr)
+        sys.exit(f"{CHROME} exited with {result.returncode} while rendering {svg_path.name}")
+    svg_draft.replace(svg_path)
+    png_draft.replace(png_path)
     print(png_path)
 
 
