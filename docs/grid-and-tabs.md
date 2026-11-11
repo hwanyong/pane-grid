@@ -45,6 +45,7 @@
     - 프로젝트 파일은 `<설정 디렉터리>/pane-grid/projects/<이름>/layout.json` 이다. 설정 디렉터리는 `CLAUDE_CONFIG_DIR`, 없으면 `$HOME/.claude` 다. 저장소 안에는 파일을 만들지 않는다.
     - 프로젝트 키는 주 작업 트리다. worktree 와 하위 디렉터리에서 시작한 세션이 같은 저장소의 배치를 쓴다. git 밖이면 `$.session.root()` 다.
     - 프로젝트 파일이 없으면 global 파일 `<설정 디렉터리>/pane-grid/layout.json` 을 읽고, 처음 배치를 바꿀 때 프로젝트 파일을 만들어 거기에 쓴다. global 파일에는 쓰지 않고 새 프로젝트의 초기값으로만 읽는다.
+    - 설정 디렉터리 아래 global 파일이 없고 `$HOME/.claude/pane-grid/layout.json` 이 있으면 그것을 초기값으로 읽는다(쓰지 않는다). 0.4.x 는 `CLAUDE_CONFIG_DIR` 과 무관하게 그 경로에 썼으므로, 이것이 없으면 `CLAUDE_CONFIG_DIR` 을 쓰는 사람의 배치가 0.5.0 에서 빈 칸 하나로 바뀐다. 2026-11-10 메인 세션의 검토(카드 k8 의 c6 코멘트)로 더했다.
     - 같은 프로젝트를 연 다른 세션이 파일을 바꿨으면 덮어쓰지 않는다. 저장 전에 파일의 `mtimeMs` 를 마지막으로 읽거나 쓴 값과 비교하고, 다르면 다시 읽고 알린다.
     - 결정의 원문은 키를 `(await $.session.repo())?.root ?? await $.session.root()` 로 적었다. `repo()` 가 shell `cd` 를 따라가는 것을 실행해 확인한 뒤(§4.1 11회차) 같은 날 메인 세션의 확인(카드 k8 의 c3 코멘트)으로 `$.session.root()` 에서 위로 `.git` 을 찾는 방식으로 바꿨다(§3.1).
 
@@ -463,6 +464,13 @@ tsc 로 고친 것(4회차 전):
 | 깬 사본(`persist` 의 `mtimeMs` 비교를 `false &&` 로 끈 사본), `proj-b` 의 두 세션: 앞 세션 `/grid split -h`(c7 생김) 뒤 다른 세션 `/grid resize 30` | 뒤 세션이 그대로 써서 파일의 칸이 c1 ~ c6 이 됐다. 앞 세션의 c7 이 사라졌다 | 같은 파일의 x1 · y1 |
 | 같은 순서를 작업판으로 | 뒤 세션이 거부했고 파일에 c7 이 남았다 | 같은 파일의 x2 · y2 |
 | grid-ready mod | `proj-a-wt` 세션에서 `/grid place filetree c7` 뒤 `/grid zoom` 으로 filetree 가 c7 에 파일 목록을 그렸다. pending-questions · uhd-kanban 도 각 칸에 그렸다 | `tmux capture-pane` 출력(파일로 남기지 않았다) |
+| `CLAUDE_CONFIG_DIR` 을 빈 디렉터리로 주고(그 아래 `pane-grid/layout.json` 없음) `proj-a` 에서 `claude -p "/grid list"` · `"/grid reload"` | `$HOME/.claude/pane-grid/layout.json` 의 칸 네 개를 냈고 reload 는 `loaded 1 tab(s) from ~/.claude/pane-grid/layout.json` 이었다 | `verification/logs/k8-config-dir.log` 의 cc1 · cc2 |
+| 같은 설정 디렉터리로 `claude -p "/grid split -h"` 뒤 `"/grid reload"` | `<설정 디렉터리>/pane-grid/projects/proj-a-0952985bc9094c16/layout.json` 이 생겼고(칸 c1 ~ c5) reload 가 그 파일을 읽었다. `$HOME/.claude/pane-grid/layout.json` 의 SHA-256 은 시험 전 값 그대로였다 | 같은 파일의 cc4 · cc5 |
+| 설정 디렉터리 아래 `pane-grid/layout.json`(칸 다섯 개)이 있을 때 `proj-b` 에서 `/grid reload` · `/grid list` | 그 파일을 읽었다(`$HOME/.claude` 의 것이 아니다) | 같은 파일의 cc6 · cc7 |
+| 깬 사본(언제나 설정 디렉터리 아래 파일을 고르는 사본)과 작업판, 빈 설정 디렉터리에서 `/grid list` | 깬 사본은 빈 칸 하나(`c1`)였다(0.5.0 커밋 581254b 의 동작). 작업판은 `$HOME/.claude` 의 칸 네 개였다 | 같은 파일의 cc8 · cc9 |
+| 대화형 세션에 `CLAUDE_CONFIG_DIR` 을 준 시험 | 빈 설정 디렉터리에는 로그인 정보가 없어 로그인 화면에서 멈췄다. 그래서 위 네 줄은 `claude -p` 세션으로 확인했다 | `tmux capture-pane` 출력(파일로 남기지 않았다) |
+| grid-ready mod 의 member 쪽: `verification/member-probe/`(member 읽기 모듈의 `readPlacement` 값을 1초마다 debug log 에 적는 시험 mod)와 함께 프로젝트 파일이 없는 `proj-b` 에서 `/grid split -h`, `/grid place usage-gauge c5`, `/exit` | usage-gauge 가 c5 에 그렸다. probe 의 마지막 줄은 usage-gauge `cell c5, column 38, row 5, columns 37, rows 7, isActive true`, filetree `cell c4, column 0, row 14, columns 75, rows 16` 이었다 | `verification/logs/k8-member.log` 의 m1 |
+| 같은 `proj-b` 에서 새 세션을 열고 아무것도 입력하지 않음(두 번) | usage-gauge 는 c5 에, filetree 는 c4 에 그렸다. probe 가 m1 의 마지막 줄과 같은 값을 냈다. 첫 줄은 탭 크기를 재기 전이라 `columns` · `rows` 가 0 이었다 | 같은 파일의 m2 · m4 |
 | 엔진 2.1.299 | `claude plugin validate .` 통과. `proj-a/sub` 에서 `claude -p "/grid list"` 가 같은 키(`proj-a`)와 같은 칸을 냈다 | `verification/logs/k8-project-key.log` 의 v299 |
 
 - `plain` 세션은 도중에 module 을 다시 불러(`pane-grid: 0.4.3` 줄) 그때의 global 파일을 읽었다. 그 사이 다른 세션이 global 파일을 바꿨으므로(`inbox` 칸, `"project"` 필드 없음) `plain` 의 칸 id 가 c1 ~ c7 이 됐다. 프로젝트 파일이 없는 프로젝트가 global 파일을 읽는 결정 20 대로의 동작이다. 이 세션의 코드가 쓰는 파일에는 언제나 `"project"` 필드가 있다.

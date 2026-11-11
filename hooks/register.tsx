@@ -22,6 +22,9 @@ const GLOBAL_FILE = `${OWN_DIR}/layout.json`
 const PROJECTS_DIR = `${OWN_DIR}/projects`
 const FILE_NAME = 'layout.json'
 const INVALID_NAME = 'layout.invalid.json'
+// 0.4.x 의 global 파일 자리. 0.4.x 는 CLAUDE_CONFIG_DIR 과 무관하게 $HOME 아래 이 경로에 썼다. 설정 디렉터리 아래 global 파일이 없을 때
+// 초기값으로 읽기만 한다(쓰지 않는다). CLAUDE_CONFIG_DIR 을 쓰는 사람의 0.4.x 배치가 0.5.0 에서 사라지지 않게 한다.
+const LEGACY_GLOBAL_FILE = `.claude/${GLOBAL_FILE}`
 // 프로젝트 디렉터리 이름 `<주 작업 트리의 마지막 이름>-<경로 SHA-256 의 앞 16자리 hex>`.
 const HASH_HEX = 16
 const COMMON_GIT_DIR = '/.git'
@@ -168,7 +171,13 @@ const publishPlacements = async ($: EngineInterface) => {
   await publish($, layout.tabs)
 }
 
-const globalFile = () => `${run.config}/${GLOBAL_FILE}`
+// 프로젝트 파일이 없을 때 읽을 global 파일: 설정 디렉터리 아래 것, 없으면 0.4.x 의 자리. 둘 다 없으면 설정 디렉터리 아래 경로를 낸다.
+const globalFile = async ($: EngineInterface) => {
+  const own = `${run.config}/${GLOBAL_FILE}`
+  const legacy = `${run.home}/${LEGACY_GLOBAL_FILE}`
+  if (own == legacy || (await $.fs.exists(own))) return own
+  return (await $.fs.exists(legacy)) ? legacy : own
+}
 const projectFile = () => `${run.dir}/${FILE_NAME}`
 
 // 사람이 읽는 경로: $HOME 아래면 `~` 로 줄인다.
@@ -256,7 +265,7 @@ const persist = async ($: EngineInterface, tabs: GridTab[]) => {
 const loadFile = async ($: EngineInterface): Promise<{ tabs: GridTab[]; path: string }> => {
   const own = await statOf($, projectFile())
   run.mtimeMs = own?.mtimeMs
-  const path = own ? projectFile() : globalFile()
+  const path = own ? projectFile() : await globalFile($)
   if (!own && !(await $.fs.exists(path))) return { tabs: defaultTabs(), path }
   const text = await $.fs.read(path)
   const parsed = parseLayoutFile(text)

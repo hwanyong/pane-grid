@@ -1,0 +1,34 @@
+# m1: pane-grid and k8member (verification/member-probe), proj-b without a project file, /grid split -h, /grid place usage-gauge c5, /exit
+2026-11-11T00:10:35.398Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-11T00:10:35.405Z [DEBUG] hooks module k8member@inline loaded (worker, environment 2, tier user); events: session.start
+2026-11-11T00:10:38.376Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b) -> /Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812
+2026-11-11T00:10:38.388Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json'
+2026-11-11T00:10:38.411Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-11T00:10:38.688Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-11T00:10:39.438Z [DEBUG] [k8member] $.ui.log (to debug): k8member: readPlacement {"usage-gauge":{"tab":"main","requestId":"grid-main","cell":"c1","column":0,"row":0,"columns":0,"rows":0,"isActive":false},"filetree":{"tab":"main","requestId":"grid-main","cell":"c4","column":0,"row":0,"columns":0,"rows":0,"isActive":false}}
+2026-11-11T00:10:40.464Z [DEBUG] [k8member] $.ui.log (to debug): k8member: readPlacement {"usage-gauge":{"tab":"main","requestId":"grid-main","cell":"c1","column":0,"row":38,"columns":75,"rows":0,"isActive":false},"filetree":{"tab":"main","requestId":"grid-main","cell":"c4","column":0,"row":14,"columns":75,"rows":16,"isActive":false}}
+2026-11-11T00:10:43.283Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json'
+2026-11-11T00:10:43.322Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=3 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-11T00:10:43.322Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action split -h: split c3 into c3 and c5
+2026-11-11T00:10:53.103Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=4 tabs=main placed=pending-questions,usage-gauge,filetree,uhd-kanban
+2026-11-11T00:10:53.103Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action place usage-gauge c5: placed usage-gauge in c5
+2026-11-11T00:10:53.729Z [DEBUG] [k8member] $.ui.log (to debug): k8member: readPlacement {"usage-gauge":{"tab":"main","requestId":"grid-main","cell":"c5","column":38,"row":5,"columns":37,"rows":7,"isActive":true},"filetree":{"tab":"main","requestId":"grid-main","cell":"c4","column":0,"row":14,"columns":75,"rows":16,"isActive":false}}
+# m2: new session in proj-b, nothing typed
+2026-11-11T00:11:44.943Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-11T00:11:44.951Z [DEBUG] hooks module k8member@inline loaded (worker, environment 2, tier user); events: session.start
+2026-11-11T00:11:47.134Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b) -> /Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812
+2026-11-11T00:11:47.540Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,usage-gauge,filetree,uhd-kanban
+2026-11-11T00:11:48.070Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,usage-gauge,filetree,uhd-kanban
+2026-11-11T00:11:48.572Z [DEBUG] [k8member] $.ui.log (to debug): k8member: readPlacement {"usage-gauge":{"tab":"main","requestId":"grid-main","cell":"c5","column":0,"row":0,"columns":0,"rows":0,"isActive":true},"filetree":{"tab":"main","requestId":"grid-main","cell":"c4","column":0,"row":0,"columns":0,"rows":0,"isActive":false}}
+2026-11-11T00:11:49.582Z [DEBUG] [k8member] $.ui.log (to debug): k8member: readPlacement {"usage-gauge":{"tab":"main","requestId":"grid-main","cell":"c5","column":38,"row":5,"columns":37,"rows":7,"isActive":true},"filetree":{"tab":"main","requestId":"grid-main","cell":"c4","column":0,"row":14,"columns":75,"rows":16,"isActive":false}}
+2026-11-11T00:12:28.680Z [DEBUG] [k8member] $.ui.log (to debug): k8member: readPlacement {"usage-gauge":null,"filetree":null}
+2026-11-11T00:12:28.680Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+2026-11-11T00:12:28.686Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,usage-gauge,filetree,uhd-kanban
+2026-11-11T00:12:29.681Z [DEBUG] [k8member] $.ui.log (to debug): k8member: readPlacement {"usage-gauge":{"tab":"main","requestId":"grid-main","cell":"c5","column":38,"row":5,"columns":37,"rows":7,"isActive":true},"filetree":{"tab":"main","requestId":"grid-main","cell":"c4","column":0,"row":14,"columns":75,"rows":16,"isActive":false}}
+# m4: new session in proj-b with k8member loaded from verification/member-probe, nothing typed
+2026-11-11T00:13:17.401Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-11T00:13:17.405Z [DEBUG] hooks module k8member@inline loaded (worker, environment 2, tier user); events: session.start
+2026-11-11T00:13:17.749Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b) -> /Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812
+2026-11-11T00:13:17.772Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,usage-gauge,filetree,uhd-kanban
+2026-11-11T00:13:17.923Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,usage-gauge,filetree,uhd-kanban
+2026-11-11T00:13:18.790Z [DEBUG] [k8member] $.ui.log (to debug): k8member: readPlacement {"usage-gauge":{"tab":"main","requestId":"grid-main","cell":"c5","column":38,"row":5,"columns":37,"rows":7,"isActive":true},"filetree":{"tab":"main","requestId":"grid-main","cell":"c4","column":0,"row":14,"columns":75,"rows":16,"isActive":false}}

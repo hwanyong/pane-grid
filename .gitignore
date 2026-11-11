@@ -3,3 +3,5 @@
 
 # engine floor probes: run.sh copies the reading module in before each run
 verification/engine-floor/*/hooks/pane-grid.ts
+# member probe (k8): copy skills/add-pane-grid-cell/pane-grid.ts in before a run
+verification/member-probe/hooks/pane-grid.ts

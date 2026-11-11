@@ -1,0 +1,51 @@
+# cc1: CLAUDE_CONFIG_DIR=cfg2 (empty, no pane-grid/layout.json), claude -p "/grid list" in proj-a; ~/.claude/pane-grid/layout.json exists
+2026-11-11T00:08:23.089Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-11T00:08:23.119Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a) -> /Users/uhd/.claude/jobs/39225c0f/tmp/cfg2/pane-grid/projects/proj-a-0952985bc9094c16
+2026-11-11T00:08:23.123Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/cfg2/pane-grid/projects/proj-a-0952985bc9094c16/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/cfg2/pane-grid/projects/proj-a-0952985bc9094c16/layout.json'
+2026-11-11T00:08:23.151Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-11T00:08:23.181Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action list: * main active=c3 [c3=pending-questions:25.74,c4=filetree:55.44,c2=uhd-kanban:14.85,c1=usage-gauge:3.97]
+# cc2: same, claude -p "/grid reload"
+2026-11-11T00:08:34.592Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-11T00:08:34.639Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a) -> /Users/uhd/.claude/jobs/39225c0f/tmp/cfg2/pane-grid/projects/proj-a-0952985bc9094c16
+2026-11-11T00:08:34.641Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/cfg2/pane-grid/projects/proj-a-0952985bc9094c16/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/cfg2/pane-grid/projects/proj-a-0952985bc9094c16/layout.json'
+2026-11-11T00:08:34.658Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-11T00:08:34.696Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/cfg2/pane-grid/projects/proj-a-0952985bc9094c16/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/cfg2/pane-grid/projects/proj-a-0952985bc9094c16/layout.json'
+2026-11-11T00:08:34.703Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+# cc4: same, claude -p "/grid split -h"
+2026-11-11T00:09:03.961Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-11T00:09:03.991Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a) -> /Users/uhd/.claude/jobs/39225c0f/tmp/cfg2/pane-grid/projects/proj-a-0952985bc9094c16
+2026-11-11T00:09:03.993Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/cfg2/pane-grid/projects/proj-a-0952985bc9094c16/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/cfg2/pane-grid/projects/proj-a-0952985bc9094c16/layout.json'
+2026-11-11T00:09:04.013Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-11T00:09:04.040Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/cfg2/pane-grid/projects/proj-a-0952985bc9094c16/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/cfg2/pane-grid/projects/proj-a-0952985bc9094c16/layout.json'
+2026-11-11T00:09:04.042Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-11T00:09:04.042Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action split -h: split c3 into c3 and c5
+# cc5: same, claude -p "/grid reload" after cc4
+2026-11-11T00:09:04.723Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-11T00:09:04.744Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a) -> /Users/uhd/.claude/jobs/39225c0f/tmp/cfg2/pane-grid/projects/proj-a-0952985bc9094c16
+2026-11-11T00:09:04.749Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-11T00:09:04.782Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+# cc6: CLAUDE_CONFIG_DIR=cfg3 with its own pane-grid/layout.json (5 cells), claude -p "/grid reload" in proj-b
+2026-11-11T00:09:13.738Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-11T00:09:13.761Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b) -> /Users/uhd/.claude/jobs/39225c0f/tmp/cfg3/pane-grid/projects/proj-b-e0a3b6d4609a5812
+2026-11-11T00:09:13.763Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/cfg3/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/cfg3/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json'
+2026-11-11T00:09:13.768Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-11T00:09:14.835Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/cfg3/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/cfg3/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json'
+2026-11-11T00:09:14.838Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+# cc7: same, claude -p "/grid list"
+2026-11-11T00:09:15.525Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-11T00:09:15.555Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b) -> /Users/uhd/.claude/jobs/39225c0f/tmp/cfg3/pane-grid/projects/proj-b-e0a3b6d4609a5812
+2026-11-11T00:09:15.558Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/cfg3/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/cfg3/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json'
+2026-11-11T00:09:15.562Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-11T00:09:15.632Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action list: * main active=c5 [{c3=pending-questions:50,c5:50}:25.74,c4=filetree:55.44,c2=uhd-kanban:14.85,c1=usage-gauge:3.97]
+# cc8: broken copy (always reads the config directory file), CLAUDE_CONFIG_DIR=cfg4 (empty), claude -p "/grid list" in proj-b
+2026-11-11T00:09:27.154Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-11T00:09:27.188Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b) -> /Users/uhd/.claude/jobs/39225c0f/tmp/cfg4/pane-grid/projects/proj-b-e0a3b6d4609a5812
+2026-11-11T00:09:27.191Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/cfg4/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/cfg4/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json'
+2026-11-11T00:09:27.197Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=
+2026-11-11T00:09:27.226Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action list: * main active=c1 c1
+# cc9: working copy, same conditions as cc8
+2026-11-11T00:09:30.896Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-11T00:09:30.925Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b) -> /Users/uhd/.claude/jobs/39225c0f/tmp/cfg4/pane-grid/projects/proj-b-e0a3b6d4609a5812
+2026-11-11T00:09:30.928Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/cfg4/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/cfg4/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json'
+2026-11-11T00:09:30.961Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-11T00:09:31.000Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action list: * main active=c3 [c3=pending-questions:25.74,c4=filetree:55.44,c2=uhd-kanban:14.85,c1=usage-gauge:3.97]
