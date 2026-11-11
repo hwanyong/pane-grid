@@ -32,6 +32,8 @@ const INVALID_NAME = 'layout.invalid.json'
 // 0.4.x 의 global 파일 자리. 0.4.x 는 CLAUDE_CONFIG_DIR 과 무관하게 $HOME 아래 이 경로에 썼다. 설정 디렉터리 아래 global 파일이 없을 때
 // 초기값으로 읽기만 한다(쓰지 않는다). CLAUDE_CONFIG_DIR 을 쓰는 사람의 0.4.x 배치가 0.5.0 에서 사라지지 않게 한다.
 const LEGACY_GLOBAL_FILE = `.claude/${GLOBAL_FILE}`
+// HOME 도 CLAUDE_CONFIG_DIR 도 없으면 설정 디렉터리를 정할 수 없어 파일을 읽지도 쓰지도 않는다(배치는 이 세션의 $.state 에만 있다).
+const NO_FILE = 'no file (neither HOME nor CLAUDE_CONFIG_DIR is set)'
 const COMMON_GIT_DIR = '/.git'
 const SHOWN_POLL_MS = 1000
 const ACTIVE_COLOR = 'green'
@@ -183,6 +185,7 @@ const resolveProject = async ($: EngineInterface) => {
 // 프로젝트 파일에 쓴다. global 파일에는 쓰지 않는다. 이 세션이 마지막으로 읽거나 쓴 뒤 파일의 mtimeMs 가 바뀌었으면
 // (다른 세션이 쓰거나 지웠으면) 쓰지 않고 false 를 돌려준다. 부른 쪽이 reloadChanged 로 다시 읽는다.
 const persist = async ($: EngineInterface, tabs: GridTab[]) => {
+  if (!run.config) return true
   const path = projectFile()
   const now = await statOf($, path)
   if (now?.mtimeMs != run.mtimeMs) {
@@ -205,6 +208,7 @@ const persist = async ($: EngineInterface, tabs: GridTab[]) => {
 const loadFile = async ($: EngineInterface): Promise<{ tabs: GridTab[]; path: string }> => {
   // 앞서 읽은 무효 원문은 이번에 읽는 파일이 유효하거나 없으면 남기지 않는다.
   run.invalidText = undefined
+  if (!run.config) return { tabs: defaultTabs(), path: NO_FILE }
   const own = await statOf($, projectFile())
   run.mtimeMs = own?.mtimeMs
   const path = own ? projectFile() : await globalFile($)
@@ -335,7 +339,10 @@ const watchShown = async ($: EngineInterface) => {
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     run.home = String((await $.env.get('HOME')) ?? '')
-    run.config = ((await $.env.get('CLAUDE_CONFIG_DIR')) || `${run.home}/.claude`).replace(/\/+$/, '')
+    const config = ((await $.env.get('CLAUDE_CONFIG_DIR')) || (run.home ? `${run.home}/.claude` : '')).replace(/\/+$/, '')
+    // 상대 경로 CLAUDE_CONFIG_DIR 은 시작한 디렉터리 기준으로 고정한다. $.fs 는 상대 경로를 지금 작업 디렉터리 기준으로 풀어 `/cd` 뒤에 다른 곳을 읽는다.
+    run.config = config && !config.startsWith('/') ? `${await $.session.cwd()}/${config}` : config
+    if (!run.config) log($, `${NO_FILE}; the layout is kept in this session only`)
     await resolveProject($)
     await $.command.register({ name: COMMAND, description: 'pane-grid: split panes into a grid of mods, tmux style', argumentHint: `<${VERBS.join('|')}>` })
     await reload($)
