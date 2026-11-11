@@ -117,8 +117,9 @@ export const offerChoice = (below: RenderElement, plugin: string, placement: Gri
   rewrite(below, element => {
     const key = keyOf(element)
     if (!key?.startsWith(CHOICES_KEY)) return undefined
-    const isActive = key.endsWith(ACTIVE_SUFFIX)
-    const cell = key.slice(CHOICES_KEY.length, isActive ? -ACTIVE_SUFFIX.length : undefined)
+    // A cell id holds no `:`, so the id ends at the first `:`; a cell named `active` is then not read as the suffix.
+    const [cell = ''] = key.slice(CHOICES_KEY.length).split(':')
+    const isActive = key.slice(CHOICES_KEY.length + cell.length) == ACTIVE_SUFFIX
     const choiceKey = `${PLACE_KEY}${cell}:${plugin}`
     const children = childrenOf(element).filter(child => !keyOf(child)?.startsWith(NONE_KEY))
     if (children.some(child => keyOf(child) == choiceKey)) return undefined
