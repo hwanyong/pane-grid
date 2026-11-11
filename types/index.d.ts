@@ -1,9 +1,9 @@
 // pane-grid 의 state 계약. 이 파일이 배치 형식의 원본이다(docs/grid-and-tabs.md 결정 9).
-// 규약 mod 는 이 파일을 복사하지 않고, 읽은 값의 `version` 이 GRID_VERSION 과 같은지 실행 중에 검사한다.
+// 규약 mod 는 이 파일을 복사하지 않고, 읽은 값의 `version` 이 skills/add-pane-grid-cell/pane-grid.ts 의 GRID_VERSION 과 같은지 실행 중에 검사한다.
 // pane-grid 의 hooks 는 이 파일을 `import type … from '../types/index.d.ts'` 로만 부른다. plugin directory 의 검증은 `declare` 가 든 파일을
 // mod 가 실행할 수 있는 파일로 읽고 차단하며(MOD_SOURCE_UNCERTAIN), 확장자 없는 '../types' 로 부른 0.4.0 판도 차단했다.
 
-// 배치 형식의 판. 형식을 바꾸면 올린다.
+// 배치 형식의 판. 형식을 바꾸면 올린다. hooks/register.tsx 는 GRID_VERSION 을 쓰므로 이것만 올리면 tsc 가 실패한다(pane-grid.ts 도 함께 올린다).
 export type GridVersion = 1
 
 // 칸 하나. `plugin` 이 없으면 빈 칸이다.

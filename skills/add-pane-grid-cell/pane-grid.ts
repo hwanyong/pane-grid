@@ -15,7 +15,9 @@ import type { EngineInterface, RenderElement, RenderNode, UiScrollInput } from '
 
 const GRID_LAYOUT = { plugin: 'pane-grid', key: 'layout' } as const
 const GRID_SHOWN = { plugin: 'pane-grid', key: 'shown' } as const
-const GRID_VERSION = 1
+// The layout format's version, as pane-grid's types/index.d.ts GridVersion names it. pane-grid writes it into the layout
+// value from this constant, so the two cannot drift. Your mod need not import it; placementIn uses it.
+export const GRID_VERSION = 1
 const SLOT_KEY = 'slot:'
 const CHOICES_KEY = 'choices:'
 const ACTIVE_SUFFIX = ':active'

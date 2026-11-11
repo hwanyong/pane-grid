@@ -10,7 +10,7 @@ import {
   ACTIVATE_KEY, ACTIVE_SUFFIX, CHOICES_KEY, DIVIDER_KEY, HOTKEY_KEY, HOTKEYS, MEASURE_KEY, NONE_KEY, PLACE_KEY, PRESS_KEY, SLOT_KEY,
   collectCells, dividerKey, gridReady, holdsKey, parseDividerKey, pressWords,
 } from './render-keys'
-import { isScrollIn, scrollsKey } from '../skills/add-pane-grid-cell/pane-grid'
+import { GRID_VERSION, isScrollIn, scrollsKey } from '../skills/add-pane-grid-cell/pane-grid'
 import { ROOT_PATH, allCells, cellsOf, childPath, findCell, moveDivider, rectAt, replaceAt, splitAt, splitRects } from './tree'
 import type { Rect } from './tree'
 
@@ -134,7 +134,7 @@ const dropStaleScroll = async ($: EngineInterface, before: GridTab[], after: Gri
 const publish = async ($: EngineInterface, tabs: GridTab[]) => {
   await dropStaleScroll($, (await readLayout($))?.tabs ?? [], tabs)
   const placed = placements(tabs, measuredOf)
-  const layout = await update($, LAYOUT, (current): GridLayout => ({ version: 1, revision: (current?.revision ?? 0) + 1, tabs, placed }))
+  const layout = await update($, LAYOUT, (current): GridLayout => ({ version: GRID_VERSION, revision: (current?.revision ?? 0) + 1, tabs, placed }))
   log($, `layout revision=${layout.revision} tabs=${tabs.map(tab => tab.name).join(',')} placed=${Object.keys(placed).join(',')}`)
   return layout
 }
