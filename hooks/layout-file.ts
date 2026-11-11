@@ -11,6 +11,11 @@ export const TAB_NAME = /^[a-z0-9][a-z0-9_-]{0,31}$/
 const CELL_ID = /^[a-z0-9][a-z0-9_-]{0,31}$/
 const PLUGIN_NAME = /^[a-z0-9][a-z0-9_.-]{0,127}$/
 
+// 이름 규칙. 맞지 않으면 이유(앞에 자리를 붙이지 않은 글). 파일을 읽을 때와 동작 뒤의 탭 목록을 검사할 때 함께 쓴다.
+const tabNameProblem = (value: unknown) => (typeof value == 'string' && TAB_NAME.test(value) ? undefined : `name must match ${TAB_NAME}`)
+const cellIdProblem = (value: unknown) => (typeof value == 'string' && CELL_ID.test(value) ? undefined : `cell id must match ${CELL_ID}`)
+const pluginProblem = (value: unknown) => (typeof value == 'string' && PLUGIN_NAME.test(value) ? undefined : `plugin must match ${PLUGIN_NAME}`)
+
 export type Parsed = { isValid: true; tabs: GridTab[] } | { isValid: false; reason: string }
 
 // 결정 14: 파일이 없으면 칸 하나짜리 빈 탭 `main`.
@@ -22,9 +27,11 @@ const isObject = (value: unknown): value is Record<string, unknown> => typeof va
 const parseNode = (value: unknown, where: string): GridNode | string => {
   if (!isObject(value)) return `${where}: not an object`
   if (value.kind == 'cell') {
-    if (typeof value.id != 'string' || !CELL_ID.test(value.id)) return `${where}: cell id must match ${CELL_ID}`
+    const idProblem = cellIdProblem(value.id)
+    if (idProblem || typeof value.id != 'string') return `${where}: ${idProblem}`
     if (value.plugin == undefined) return { kind: 'cell', id: value.id }
-    if (typeof value.plugin != 'string' || !PLUGIN_NAME.test(value.plugin)) return `${where}: plugin must match ${PLUGIN_NAME}`
+    const plugin = pluginProblem(value.plugin)
+    if (plugin || typeof value.plugin != 'string') return `${where}: ${plugin}`
     return { kind: 'cell', id: value.id, plugin: value.plugin }
   }
   const kind = value.kind == 'row' ? 'row' : value.kind == 'column' ? 'column' : undefined
@@ -44,7 +51,8 @@ const parseNode = (value: unknown, where: string): GridNode | string => {
 
 const parseTab = (value: unknown, where: string): GridTab | string => {
   if (!isObject(value)) return `${where}: not an object`
-  if (typeof value.name != 'string' || !TAB_NAME.test(value.name)) return `${where}: name must match ${TAB_NAME}`
+  const nameProblem = tabNameProblem(value.name)
+  if (nameProblem || typeof value.name != 'string') return `${where}: ${nameProblem}`
   const root = parseNode(value.root, `${where}.root`)
   if (typeof root == 'string') return root
   const ids = cellsOf(root).map(cell => cell.id)
