@@ -55,7 +55,7 @@ Claude Code mods draw panes beside the chat: a kanban board, the questions Claud
 | Scroll per cell | The mouse wheel scrolls the cell under the pointer; page keys scroll the active cell. A mod that scrolls its own rows under a fixed header keeps doing so in its cell ([Step 7 of the guide](docs/add-pane-grid-cell.md#step-7-scroll-your-own-rows-in-the-cell-optional)) | [Overview](#pane-grid-a-claude-code-mod-that-splits-a-claude-code-pane-into-a-tmux-style-grid) |
 | One place per mod | A placed mod stops drawing in its own pane or band, and returns there when its cell is emptied | [Own pane](#what-happens-to-a-mods-own-pane) |
 | Saved layout | Layouts are kept in `~/.claude/pane-grid/layout.json` and restored in every new Claude Code session | [Layout file](#where-is-the-layout-saved) |
-| Skill for mod authors | `/pane-grid:add-pane-grid-cell` makes another Claude Code mod grid-ready | [Make a mod grid-ready](#how-do-i-make-my-claude-code-mod-grid-ready) |
+| Skill for mod authors | `/pane-grid:add-pane-grid-cell` makes another Claude Code mod grid-ready. Claude also opens it without being asked when it creates a mod, or adds or changes a pane or a band above the prompt in one, and applies it to a mod that draws a pane or a band | [Make a mod grid-ready](#how-do-i-make-my-claude-code-mod-grid-ready) |
 
 ## How do I install it?
 
