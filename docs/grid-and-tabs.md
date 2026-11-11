@@ -19,7 +19,7 @@
 
 8. **uhd-kanban 은 board 읽기와 애니메이션을 나눈다**(§5.2). board 읽기는 보임과 상관없이 돌고, 애니메이션만 pane-grid 의 `shown` 을 `state.set` hook 으로 받아 멈춘다.
 9. **pane-grid 의 state 타입은 pane-grid 저장소 하나에만 둔다.** 세 mod 는 읽은 값의 `version` 필드를 실행 중에 검사한다.
-10. **hotkey 글자는 §2.3 의 표대로다.**
+10. **hotkey 글자는 §2.3 의 표대로다.** 2026-11-11 사용자 결정(카드 k11, k10 finding F61)으로 탭 이름 바꾸기의 `r` 을 뺐다. Button `hotkey` 로는 새 이름을 입력받을 수 없어 `/grid rename <name>` 으로만 한다(`hooks/register.tsx` 의 `TOOLBAR` 위 주석). 구현은 처음부터 `r` 이 없었고 이 표만 고치지 않았던 것을 맞췄다.
 11. **`verification/harness-probe/` 는 근거로 남긴다.**
 
 같은 날 구현 전에 정한 세 가지. 사용자가 다른 안을 고르지 않아 권하는 안으로 진행한다:
@@ -89,7 +89,7 @@ tmux 3.7c 를 `tmux -L pgux -f /dev/null`(사용자 설정을 읽지 않는 별�
 | `resize-pane -Z` | 활성 pane 이 창 전체를 쓰고(`window_zoomed_flag=1`) 나머지 pane 의 geometry 는 그대로 남는다 | 칸 하나만 그리고 트리는 그대로 둔다. 탭 title 에 zoom 표시 |
 | `swap-pane` | 두 pane 의 내용을 바꾼다 | 두 칸의 mod 를 바꾼다 |
 | `select-layout` | `even-horizontal` 30/29/29/29열 · `even-vertical` 10/9/9/9행 · `main-vertical` 왼쪽 80열 + 오른쪽 39열 세로 쌓기 · `main-horizontal` 위 24행 + 아래 나누기 · `tiled` 2 × 2 | 같은 다섯 가지를 트리 계산 함수로 둔다 |
-| 최소 크기 | 너비 10 · 4 · 2 · 1 로 줄여 가며 나누자 `no space for a new pane` 로 거부됐다 | 칸 최소 열 수 미만이면 나누기를 거부한다 |
+| 최소 크기 | 너비 10 · 4 · 2 · 1 로 줄여 가며 나누자 `no space for a new pane` 로 거부됐다 | 거부하지 않는다. 나누기는 칸 크기를 보지 않으므로 pane 이 좁으면 너비나 높이가 0 인 칸이 생기고, 그 칸은 제목도 내용도 보이지 않는다. 2026-11-11 사용자 결정(카드 k11, k10 finding F20)으로 거부를 구현하지 않고 이 칸을 지금 동작으로 고쳤다 |
 | 활성 표시 | 활성 pane 의 테두리가 기본 초록이다 | 활성 칸의 `borderColor` |
 
 ### 2.2 window(tmux 의 탭)
@@ -98,7 +98,7 @@ tmux 3.7c 를 `tmux -L pgux -f /dev/null`(사용자 설정을 읽지 않는 별�
 |---|---|---|
 | 상태 줄 | `[session] ` 다음 `#I:#W#{flags}`. `*` 가 지금 window, `-` 가 직전 window | 엔진의 pane 탭 막대. 지금 탭은 엔진이 반전으로 그린다 |
 | `new-window` | 새 window 를 연다 | 새 배치 = 새 id 로 `$.ui.open({ id: 'grid-<이름>', title })` |
-| `rename-window` | 이름을 바꾼다 | 같은 id 로 다시 `$.ui.open` 해 title 을 바꾼다 |
+| `rename-window` | 이름을 바꾼다 | pane id 가 `grid-<탭 이름>` 이므로 옛 id 의 pane 을 `$.ui.close` 하고 새 id `grid-<새 이름>` 으로 `$.ui.open` 한다. 규약 mod 가 받는 `requestId` 도 바뀐다. 2026-11-11 사용자 결정(카드 k11, k10 finding F21)으로 지금 동작을 유지하고 이 칸을 고쳤다 |
 | `kill-window` | 지우면 번호에 빈자리가 남고 `move-window -r` 이 다시 매긴다 | `$.ui.close({ id })`. 배치 id 는 이름이라 번호를 다시 매길 일이 없다 |
 | `next-window` · `select-window` | 번호 · 이름으로 고른다 | 사람이 탭을 클릭한다. 코드로 바꾸는 것은 prompt 가 키를 가질 때만 된다(§1 「탭 전환」) |
 | `break-pane` · `join-pane` | pane 을 새 window 로 옮기고 다시 합친다 | 칸을 새 배치로 옮기고, 다른 배치로 합친다 |
@@ -122,7 +122,7 @@ tmux 글자 중 `hotkey` 로 쓸 수 없는 것을 대신하는 글자(결정 10
 | `"` | 위아래 나누기 | `s` |
 | `{` `}` | 칸 교환 | `w` |
 | `!` | 칸을 새 탭으로 옮기기(break-pane) | `b` |
-| `,` | 탭 이름 바꾸기 | `r` |
+| `,` | 탭 이름 바꾸기 | `-`(`/grid rename <name>` 으로만 한다. 결정 10) |
 | `&` | 탭 지우기 | `k` |
 
 나머지(`o` · `z` · `x` · `c` · `q`)는 tmux 글자를 그대로 쓴다. 탭을 바꾸는 `n` · `p` · `0` ~ `9` 는 `hotkey` 로 두지 않는다. `hotkey` 는 grid pane 이 키를 가진 동안만 동작하고, 그때 `$.ui.open({ focus: true })` 는 거부되기 때문이다(§4 「코드로 탭 바꾸기」). 탭 전환은 클릭 · Tab + Enter 와 slash 명령으로 한다(R19 에서 실행해 확인했다).
@@ -176,7 +176,7 @@ tmux 글자 중 `hotkey` 로 쓸 수 없는 것을 대신하는 글자(결정 10
 
 - **`position="absolute"` · `top` 음수는 쓸 수 없다.** 칸의 `overflow="hidden"` 은 absolute 내용을 칸 안으로 잘랐다. 그런데 내용의 첫 줄이 pane 본문의 -1 행보다 위로 가지 않았다. pane 맨 위 칸은 offset 3 에서, 13행 아래 칸은 offset 15 에서 그 뒤 offset 을 올려도 화면이 바뀌지 않았다. 엔진 문서에 없는 동작이다.
 - **음수 `marginTop` 은 끝까지 밀렸다.** pane-grid 자신의 30줄과 member 가 그린 30줄 모두 offset 26 에서 27 ~ 30번째 줄이 보였고, 칸 바깥(테두리 · 옆 칸 · 아래 줄)에 내용이 나오지 않았다. 다만 `Space`(margin) 타입은 음수를 적지 않았으므로 엔진 판이 바뀔 때마다 이 시험(`verification/r20-scroll/`)을 다시 돌린다.
-- 칸 내용의 전체 행 수는 엔진이 알려 주지 않는다. `e.contentRows` 는 pane 트리 전체의 행 수였다(칸 높이 6 · 머리 줄 1 · 아래 줄 1 의 8). 칸의 `offset` 상한을 정하려면 규약 mod 가 자기 행 수를 자기 state 에 적는다.
+- 칸 내용의 전체 행 수는 엔진이 알려 주지 않는다. `e.contentRows` 는 pane 트리 전체의 행 수였다(칸 높이 6 · 머리 줄 1 · 아래 줄 1 의 8). 칸의 `offset` 상한을 정하려면 규약 mod 가 자기 행 수를 자기 state 에 적는다. 2026-11-11 사용자 결정(카드 k11 의 c8, k10 finding F57)으로 상한을 두지 않는다. 위(먼저 로드)에 있는 규약 mod 가 `offerChoice` 로 빈 칸에 더한 Button 수를 pane-grid 의 render 가 알 수 없어서, pane-grid 가 직접 그리는 빈 칸의 행 수도 정할 수 없다. 내용보다 많이 휠을 내리면 칸이 비고, 넘은 만큼 올리면 다시 보인다.
 - `{}` 반환이 pane 창을 붙잡는지는 시험하지 못했다. 시험 pane 의 `contentRows`(8)가 `bodyRows`(38)보다 작아 pane 창이 움직일 수 없었다. pane-grid 는 칸 높이 합을 `bodyRows` 와 같게 그리므로 같은 조건이다.
 
 #### 자기 행을 스스로 스크롤하는 규약 mod(0.4.0)

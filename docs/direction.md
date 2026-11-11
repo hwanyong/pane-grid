@@ -71,14 +71,14 @@ pane-grid 0.3.0 에서 이 절의 두 경우를 모두 구현했다(`docs/grid-a
 
 2026-11-06 사용자 결정: **배치 정보(어느 mod 를 어느 영역에 몇 % 너비로 둘지)는 설정 파일에 둔다.** slash command 로 정하지 않는다.
 
-정하지 않은 것은 다음과 같다. 기본값을 적어 두고 R10 결과를 보고 확정한다.
+정하지 않은 것은 다음과 같다. 기본값을 적어 두고 R10 결과를 보고 확정한다. 「다시 읽는 시점」은 2026-11-11 사용자 결정(카드 k11, k10 finding F62)으로 지금 동작을 확정했다.
 
 | 항목 | 기본값 | 다른 후보 · 이유 |
 |---|---|---|
 | 형식 | JSON 파일 하나 | manifest 의 `userConfig` 는 `settings.json` 의 `pluginConfigs` 에 저장되고, 바뀌면 엔진이 module 을 다시 불러온다. 다만 필드가 낱개 값이라 행 · 열 · 너비가 중첩된 배치를 담기 어렵다 |
 | 경로 | 프로젝트 파일 `${CLAUDE_CONFIG_DIR ?? $HOME/.claude}/pane-grid/projects/<이름>/layout.json`, 그것이 없을 때 읽는 global 파일 `${CLAUDE_CONFIG_DIR ?? $HOME/.claude}/pane-grid/layout.json`(그것도 없으면 0.4.x 의 자리 `$HOME/.claude/pane-grid/layout.json`) | `pending-questions` 가 런타임 데이터를 같은 위치(`.../pending-questions/`)에 둔다. 2026-11-10 사용자 결정으로 프로젝트마다 따로 두고, 저장소 안에는 두지 않는다(`docs/grid-and-tabs.md` 결정 20 · §3.1) |
 | 읽는 방법 | `$.fs.read`(절대 경로를 받고 4 MiB 까지 읽는다) | - |
-| 다시 읽는 시점 | `$.fs.stat` 의 `mtimeMs` 가 바뀌었을 때 | `$.fs` 에 파일 감시 API 가 없다(타입 정의 `fs` 에서 확인). 확인하는 시점은 R10 에서 정한다 |
+| 다시 읽는 시점 | 확정: 밖에서 고친 파일을 저절로 다시 읽지 않는다. `/grid reload` · `/clear` · 세션의 프로젝트가 바뀔 때 읽는다. `mtimeMs` 는 쓰기 전에만 비교하고, 다르면 쓰지 않고 다시 읽고 알린다 | `$.fs` 에 파일 감시 API 가 없다(타입 정의 `fs` 에서 확인). 처음 기본값은 「`mtimeMs` 가 바뀌었을 때」였다. 1초마다 SMB 위에서 stat 하지 않고, 사용자 문서(`README.md` 「Where is the layout saved?」의 「edit it and run `/grid reload`」)와 `docs/grid-and-tabs.md` 결정 20 의 쓰기 전 비교에 맞췄다 |
 
 ## 4. 검증 순서 (실제 세션)
 
