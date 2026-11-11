@@ -57,7 +57,8 @@ const unusedTabName = (tabs: GridTab[]) => {
 const listText = (tabs: GridTab[], current: string) =>
   tabs.map(tab => `${tab.name == current ? '*' : ' '} ${tab.name} active=${tab.active}${tab.zoomed ? ' zoomed' : ''} ${describe(tab.root)}`).join('\n')
 
-export const apply = (tabs: GridTab[], current: string, words: string[]): Outcome => {
+// 동작 하나. 탭 목록을 바꿨는지는 apply 가 결과로 다시 정한다.
+const applyVerb = (tabs: GridTab[], current: string, words: string[]): Outcome => {
   const [verb = 'help', ...rest] = words
   const tab = tabs.find(item => item.name == current) ?? tabs[0]
   if (!tab) return same(tabs, current, 'there is no tab')
@@ -164,6 +165,13 @@ export const apply = (tabs: GridTab[], current: string, words: string[]): Outcom
   }
 
   return same(tabs, tab.name, `unknown: ${verb}\n${USAGE}`)
+}
+
+// `isChanged` 는 탭 목록이 실제로 바뀌었는지다. 칸 하나짜리 탭의 next, 이미 활성인 칸의 select-cell 처럼 아무것도 바꾸지 않은
+// 동작은 false 라서 부르는 쪽이 파일을 다시 쓰지 않는다(다시 쓰면 mtimeMs 가 바뀌어 같은 프로젝트의 다른 세션의 다음 쓰기가 거부된다).
+export const apply = (tabs: GridTab[], current: string, words: string[]): Outcome => {
+  const outcome = applyVerb(tabs, current, words)
+  return outcome.isChanged && JSON.stringify(outcome.tabs) == JSON.stringify(tabs) ? { ...outcome, isChanged: false } : outcome
 }
 
 // 동작 뒤에도 파일 규칙(이름 · id · plugin 이름 · mod 한 칸)이 지켜지는지 본다. 어기면 그 이유.
