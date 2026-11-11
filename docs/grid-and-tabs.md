@@ -19,7 +19,7 @@
 
 8. **uhd-kanban 은 board 읽기와 애니메이션을 나눈다**(§5.2). board 읽기는 보임과 상관없이 돌고, 애니메이션만 pane-grid 의 `shown` 을 `state.set` hook 으로 받아 멈춘다.
 9. **pane-grid 의 state 타입은 pane-grid 저장소 하나에만 둔다.** 세 mod 는 읽은 값의 `version` 필드를 실행 중에 검사한다.
-10. **hotkey 글자는 §2.3 의 표대로다.** 2026-11-11 사용자 결정(카드 k11, k10 finding F61)으로 탭 이름 바꾸기의 `r` 을 뺐다. Button `hotkey` 로는 새 이름을 입력받을 수 없어 `/grid rename <name>` 으로만 한다(`hooks/register.tsx` 의 `TOOLBAR` 위 주석). 구현은 처음부터 `r` 이 없었고 이 표만 고치지 않았던 것을 맞췄다.
+10. **hotkey 글자는 §2.3 의 표대로다.** 2026-11-11 사용자 결정(카드 k11, k10 finding F61)으로 탭 이름 바꾸기의 `r` 을 뺐다. Button `hotkey` 로는 새 이름을 입력받을 수 없어 `/grid rename <name>` 으로만 한다(`hooks/render-keys.ts` 의 `TOOLBAR` 위 주석). 구현은 처음부터 `r` 이 없었고 이 표만 고치지 않았던 것을 맞췄다.
 11. **`verification/harness-probe/` 는 근거로 남긴다.**
 
 같은 날 구현 전에 정한 세 가지. 사용자가 다른 안을 고르지 않아 권하는 안으로 진행한다:
