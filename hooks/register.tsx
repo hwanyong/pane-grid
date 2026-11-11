@@ -343,10 +343,15 @@ export const register: Register = on => {
     // 상대 경로 CLAUDE_CONFIG_DIR 은 시작한 디렉터리 기준으로 고정한다. $.fs 는 상대 경로를 지금 작업 디렉터리 기준으로 풀어 `/cd` 뒤에 다른 곳을 읽는다.
     run.config = config && !config.startsWith('/') ? `${await $.session.cwd()}/${config}` : config
     if (!run.config) log($, `${NO_FILE}; the layout is kept in this session only`)
-    await resolveProject($)
+    // 파일 읽기에 기대지 않는 등록을 먼저 한다. 파일을 읽지 못해 reload 가 거부돼도 /grid 와 주기(watchShown)는 남고,
+    // 주기의 ensureLayout 이 다시 읽는다. 주기는 resolveProject 뒤에 건다(run.root 가 비어 있으면 첫 주기가 「moved」로 여긴다).
     await $.command.register({ name: COMMAND, description: 'pane-grid: split panes into a grid of mods, tmux style', argumentHint: `<${VERBS.join('|')}>` })
-    await reload($)
+    await resolveProject($)
     $.clock.every(SHOWN_POLL_MS, () => void watchShown($))
+    await reload($)
+    return next(e)
+  }).catch(($, e, next) => {
+    log($, `start failed: ${JSON.stringify(next.error)}`)
     return next(e)
   })
 
