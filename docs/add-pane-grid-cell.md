@@ -67,6 +67,8 @@ Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pan
 
 `readPlacement` and `readShownTab` are `function` declarations on purpose. From Claude Code 2.1.299, `claude plugin validate` follows `$` across an import only through function declarations.
 
+pane-grid 0.5.1 added seven exports to this file: `GRID_VERSION`, `SLOT_KEY`, `CHOICES_KEY`, `ACTIVE_SUFFIX`, `NONE_KEY`, `PLACE_KEY` and `CHOICE_HOTKEYS`. The earlier file had the same constants with the same values without exporting them, so the render keys and the layout version did not change. No export was removed or renamed, and the eight earlier exports kept their names and parameters. A copy taken before 0.5.1 keeps working. Copy the 0.5.1 file again to get one fix: `offerChoice` now reads the choices of a cell whose id is `active` as that cell's, not as the active cell's.
+
 ### Engine floor: Claude Code 2.1.299
 
 A hooks module that passes `$` to `readPlacement` or `readShownTab` loads in Claude Code 2.1.299 or later. Claude Code 2.1.296 and older refuse the whole module, and `claude plugin validate` fails with:
@@ -245,6 +247,8 @@ on('state.set', { plugin: 'pane-grid' as never, key: 'shown' as never }, async (
 ```
 
 `readShownTab($)` gives the same value outside a `state.set` hook, for example inside the timer callback.
+
+Do not rely on the first value after a session starts. pane-grid 0.5.1 starts its once-a-second `shown` check before it reads the layout file at session start (0.5.0 started it after), so the first `readShownTab` can already return the tab name where 0.5.0 returned `null` first. The order between pane-grid's first write and your mod's first read is not fixed. Treat every value other than your tab, `null` included, as hidden, and start the timer when the value becomes your tab.
 
 ## Step 7: scroll your own rows in the cell (optional)
 
