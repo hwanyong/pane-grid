@@ -1,5 +1,5 @@
 import { update } from 'claude-code'
-import type { EngineInterface, Register, RenderElement, RenderNode } from 'claude-code'
+import type { EngineInterface, Register, RenderElement, RenderNode, RenderSurface } from 'claude-code'
 import type { GridLayout, GridNode, GridPlacement, GridScroll, GridShown, GridTab } from '../types/index.d.ts'
 import { VERBS, apply, checkOutcome } from './actions'
 import type { ActivatePost, DividerPost, DividerProps, MeasurePost, MeasureProps } from './client-messages'
@@ -58,6 +58,7 @@ const run = {
   invalidText: undefined as string | undefined,
   // slash 명령이 다룰 탭. 보이는 grid 탭이 있으면 그것, 없으면 마지막으로 보였던 탭.
   current: '',
+  // 탭을 그린 surface 마다 잰 크기. 키는 measuredKey(surface, 탭 이름).
   measured: new Map<string, MeasureProps>(),
   // 칸 안의 `scrolls:<plugin>` Box 로 자기 행을 스스로 스크롤한다고 알린 아래 규약 mod. render 마다 다시 모은다.
   scrolling: new Set<string>(),
@@ -90,13 +91,20 @@ const paneId = (tab: string) => `${PANE_PREFIX}${tab}`
 const tabOf = (requestId: string) => requestId.slice(PANE_PREFIX.length)
 const titleOf = (tab: GridTab) => (tab.zoomed ? `${tab.name} [Z]` : tab.name)
 
+// placed 는 plugin 마다 값이 하나이므로 한 surface 의 크기만 낸다. terminal 에 그렸으면 terminal, 아니면 먼저 잰 surface.
+// 크기가 다른 두 surface 가 같은 탭을 그려도 placed 가 render 차례에 따라 바뀌지 않는다.
+const PLACED_SURFACE: RenderSurface = 'terminal'
+const measuredKey = (surface: RenderSurface, tab: string) => `${surface}\t${tab}`
+const measuredOf = (tab: string): MeasureProps | undefined =>
+  run.measured.get(measuredKey(PLACED_SURFACE, tab)) ?? [...run.measured].find(([key]) => key.endsWith(`\t${tab}`))?.[1]
+
 const readLayout = async ($: EngineInterface): Promise<GridLayout | undefined> => (await $.state.get(LAYOUT)).value
 
 // 칸 내용 자리와 크기. 탭을 아직 그리지 않았거나 다른 칸을 zoom 해 가려졌으면 0 이다. zoom 한 칸은 grid 전체에 그린다.
-const placements = (tabs: GridTab[], measuredOf: ReadonlyMap<string, MeasureProps>): Record<string, GridPlacement> => {
+const placements = (tabs: GridTab[], sizeOf: (tab: string) => MeasureProps | undefined): Record<string, GridPlacement> => {
   const placed: Record<string, GridPlacement> = {}
   for (const tab of tabs) {
-    const measured = measuredOf.get(tab.name)
+    const measured = sizeOf(tab.name)
     const rects = measured ? visibleRects(tab, gridRect(measured)) : new Map<string, Rect>()
     for (const cell of cellsOf(tab.root)) {
       if (!cell.plugin) continue
@@ -125,7 +133,7 @@ const dropStaleScroll = async ($: EngineInterface, before: GridTab[], after: Gri
 
 const publish = async ($: EngineInterface, tabs: GridTab[]) => {
   await dropStaleScroll($, (await readLayout($))?.tabs ?? [], tabs)
-  const placed = placements(tabs, run.measured)
+  const placed = placements(tabs, measuredOf)
   const layout = await update($, LAYOUT, (current): GridLayout => ({ version: 1, revision: (current?.revision ?? 0) + 1, tabs, placed }))
   log($, `layout revision=${layout.revision} tabs=${tabs.map(tab => tab.name).join(',')} placed=${Object.keys(placed).join(',')}`)
   return layout
@@ -135,7 +143,7 @@ const publish = async ($: EngineInterface, tabs: GridTab[]) => {
 const publishPlacements = async ($: EngineInterface) => {
   const layout = await readLayout($)
   if (!layout) return
-  const placed = placements(layout.tabs, run.measured)
+  const placed = placements(layout.tabs, measuredOf)
   if (JSON.stringify(placed) == JSON.stringify(layout.placed)) return
   await publish($, layout.tabs)
 }
@@ -304,13 +312,14 @@ const activateCell = async ($: EngineInterface, tabName: string, id: string) => 
 }
 
 // 분할선을 끄는 동안은 state 만 바꾸고, 놓았을 때(isFinal) 파일에 쓴다.
-const dragDivider = ($: EngineInterface, tabName: string, path: string, index: number, at: number, isFinal: boolean) =>
-  serial(() => moveDividerTo($, tabName, path, index, at, isFinal))
+// 분할선 위치는 끌기가 온 surface 의 크기로 정한다.
+const dragDivider = ($: EngineInterface, surface: RenderSurface, tabName: string, path: string, index: number, at: number, isFinal: boolean) =>
+  serial(() => moveDividerTo($, surface, tabName, path, index, at, isFinal))
 
-const moveDividerTo = async ($: EngineInterface, tabName: string, path: string, index: number, at: number, isFinal: boolean) => {
+const moveDividerTo = async ($: EngineInterface, surface: RenderSurface, tabName: string, path: string, index: number, at: number, isFinal: boolean) => {
   const layout = await readLayout($)
   const tab = layout?.tabs.find(item => item.name == tabName)
-  const measured = run.measured.get(tabName)
+  const measured = run.measured.get(measuredKey(surface, tabName))
   if (!layout || !tab || !measured || tab.zoomed) return
   const node = splitAt(tab.root, path)
   const rect = rectAt(tab.root, path, gridRect(measured))
@@ -413,12 +422,13 @@ export const register: Register = on => {
   })
 
   on('ui.scroll', { component: 'Pane', requestId: /^grid-/ }, async ($, e, next) => {
-    // 크기가 바뀐 render 뒤 measure 보고가 오기 전의 휠이면 placed 를 먼저 run.measured 에 맞춘다. cellAt(run.measured)과
+    // 크기가 바뀐 render 뒤 measure 보고가 오기 전의 휠이면 placed 를 먼저 잰 크기에 맞춘다. cellAt(measuredOf)과
     // isScrollIn(placed), 그리고 next(e) 뒤 readPlacement 하는 아래 규약 mod 가 같은 칸 크기를 본다. 크기가 그대로면 쓰지 않는다.
     await publishPlacements($)
     const layout = await readLayout($)
     const tab = layout?.tabs.find(item => item.name == tabOf(e.requestId))
-    const measured = run.measured.get(tabOf(e.requestId))
+    // ui.scroll 인자에는 surface 가 없어 placed 와 같은 surface 의 크기로 칸을 고른다.
+    const measured = measuredOf(tabOf(e.requestId))
     if (!tab || !measured) return {}
     const id = cellAt(tab, measured, e.pointer)
     if (!id) return {}
@@ -458,7 +468,7 @@ export const register: Register = on => {
     if (e.element.startsWith(MEASURE_KEY) && Number.isInteger(data.columns) && Number.isInteger(data.rows)) await publishPlacements($)
     if (e.element.startsWith(ACTIVATE_KEY) && data.activate == true) await activateCell($, tabName, e.element.slice(ACTIVATE_KEY.length))
     const divider = e.element.startsWith(DIVIDER_KEY) ? parseDividerKey(e.element) : undefined
-    if (divider && typeof data.at == 'number' && Number.isInteger(data.at)) await dragDivider($, tabName, divider.path, divider.index, data.at, data.isFinal == true)
+    if (divider && typeof data.at == 'number' && Number.isInteger(data.at)) await dragDivider($, e.surface, tabName, divider.path, divider.index, data.at, data.isFinal == true)
     return next(e)
   }).catch(($, e, next) => {
     log($, `message failed: ${JSON.stringify(next.error)}`)
@@ -480,9 +490,9 @@ export const register: Register = on => {
     }
     const ready = gridReady(next.trace)
     const measured = { columns: e.props.bodyColumns, rows: e.props.scroll.bodyRows }
-    const before = run.measured.get(tab.name)
+    const before = run.measured.get(measuredKey(e.surface, tab.name))
     const isResized = !before || before.columns != measured.columns || before.rows != measured.rows
-    run.measured.set(tab.name, measured)
+    run.measured.set(measuredKey(e.surface, tab.name), measured)
     const { Box, Text, Button } = $.ui.resolve(e)
     // Client(surface module)는 terminal · desktop 의 표에만 있다. 다른 surface 에서는 분할선을 글자로 그리고, 칸 누름은 덮지 않는다.
     // Client 는 `h('Client', { module: './<name>.tsx', … })` 로 적는다. plugin directory 의 검증은 Client 요소를 이 꼴(또는 `<Client module=… />`)로만 읽고,
