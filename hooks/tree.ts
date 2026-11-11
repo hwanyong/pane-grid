@@ -22,12 +22,15 @@ export const SHARE_MAX = WHOLE - SHARE_MIN
 export const cellsOf = (node: GridNode): GridCell[] =>
   node.kind == 'cell' ? [node] : node.children.flatMap(child => cellsOf(child.node))
 
+// 모든 탭의 칸. 칸 id 는 탭을 통틀어 하나뿐이다.
+export const allCells = (tabs: GridTab[]): GridCell[] => tabs.flatMap(tab => cellsOf(tab.root))
+
 export const findCell = (node: GridNode, id: string): GridCell | undefined =>
   cellsOf(node).find(cell => cell.id == id)
 
 // 모든 탭에서 쓰지 않은 가장 작은 `c<n>`.
 export const newCellId = (tabs: GridTab[]) => {
-  const used = new Set(tabs.flatMap(tab => cellsOf(tab.root).map(cell => cell.id)))
+  const used = new Set(allCells(tabs).map(cell => cell.id))
   let index = 1
   while (used.has(`c${index}`)) index += 1
   return `c${index}`

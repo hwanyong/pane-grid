@@ -6,7 +6,7 @@ import type { ActivatePost, DividerPost, DividerProps, MeasurePost, MeasureProps
 import { HORIZONTAL, VERTICAL } from './glyphs'
 import { defaultTabs, parseLayoutFile, serializeLayoutFile } from './layout-file'
 import { isScrollIn, scrollsKey, TOOLBAR_KEYS } from '../skills/add-pane-grid-cell/pane-grid'
-import { ROOT_PATH, cellsOf, childPath, findCell, geometry, moveDivider, rectAt, replaceAt, splitAt, splitRects } from './tree'
+import { ROOT_PATH, allCells, cellsOf, childPath, findCell, geometry, moveDivider, rectAt, replaceAt, splitAt, splitRects } from './tree'
 import type { Rect } from './tree'
 
 // pane-grid: 탭(엔진 pane `grid-<이름>`)마다 배치 트리를 그리고, 칸에 규약 mod 가 그린 `cell:<plugin>` Box 를 놓는다.
@@ -112,17 +112,19 @@ const activeOf = (tab: GridTab) => tab.zoomed ?? tab.active
 
 const readLayout = async ($: EngineInterface): Promise<GridLayout | undefined> => (await $.state.get(LAYOUT)).value
 
+// 보이는 칸과 그 사각형. zoom 한 탭은 그 칸 하나가 grid 전체이고 나머지 칸은 없다. placements · cellAt 이 함께 쓴다.
+const visibleRects = (tab: GridTab, area: Rect): Map<string, Rect> => (tab.zoomed ? new Map([[tab.zoomed, area]]) : geometry(tab.root, area))
+
 // 칸 내용 자리와 크기. 탭을 아직 그리지 않았거나 다른 칸을 zoom 해 가려졌으면 0 이다. zoom 한 칸은 grid 전체에 그린다.
 const placements = (tabs: GridTab[]): Record<string, GridPlacement> => {
   const placed: Record<string, GridPlacement> = {}
   for (const tab of tabs) {
     const measured = run.measured.get(tab.name)
-    const rects = measured ? geometry(tab.root, gridRect(measured)) : new Map<string, Rect>()
+    const rects = measured ? visibleRects(tab, gridRect(measured)) : new Map<string, Rect>()
     for (const cell of cellsOf(tab.root)) {
       if (!cell.plugin) continue
-      const rect = measured && tab.zoomed == cell.id ? gridRect(measured) : rects.get(cell.id)
-      const isShown = !tab.zoomed || tab.zoomed == cell.id
-      const area = rect && isShown ? contentArea(rect) : { column: 0, row: 0, columns: 0, rows: 0 }
+      const rect = rects.get(cell.id)
+      const area = rect ? contentArea(rect) : { column: 0, row: 0, columns: 0, rows: 0 }
       placed[cell.plugin] = { tab: tab.name, requestId: paneId(tab.name), cell: cell.id, ...area, isActive: activeOf(tab) == cell.id }
     }
   }
@@ -140,7 +142,7 @@ const contentSize = (rect: Rect) => ({
 const contentArea = (rect: Rect) => ({ column: rect.x, row: HEADER_ROWS + rect.y + CELL_CHROME_ROWS, ...contentSize(rect) })
 
 // 칸 id 마다 놓인 mod. 탭을 모두 본다(칸 id 는 탭을 통틀어 하나뿐이다).
-const occupants = (tabs: GridTab[]) => new Map(tabs.flatMap(tab => cellsOf(tab.root)).map(cell => [cell.id, cell.plugin ?? ''] as const))
+const occupants = (tabs: GridTab[]) => new Map(allCells(tabs).map(cell => [cell.id, cell.plugin ?? ''] as const))
 
 // 놓인 mod 가 바뀌었거나 없어진 칸의 스크롤 행 수를 지운다. 새 mod 는 맨 위부터 그려지고, 자기 행을 스스로 스크롤하는 mod 의
 // 칸은 pane-grid 의 marginTop 이 0 으로 남는다.
@@ -496,7 +498,6 @@ export const register: Register = on => {
       else run.scrolling.delete(plugin)
     }
     const ready = gridReady(next.trace)
-    const placedIn = new Map((layout?.tabs ?? []).flatMap(item => cellsOf(item.root)).flatMap(cell => (cell.plugin ? [[cell.plugin, cell.id] as const] : [])))
     const measured = { columns: e.props.bodyColumns, rows: e.props.scroll.bodyRows }
     const before = run.measured.get(tab.name)
     const isResized = !before || before.columns != measured.columns || before.rows != measured.rows
@@ -515,7 +516,7 @@ export const register: Register = on => {
       <Box key={`${CHOICES_KEY}${id}${isActive ? ACTIVE_SUFFIX : ''}`} flexDirection="column">
         <Text dimColor>empty. place a mod here:</Text>
         {ready.map((plugin, index) => {
-          const from = placedIn.get(plugin)
+          const from = layout?.placed[plugin]?.cell
           const label = from ? `${plugin} (move from ${from})` : plugin
           const hotkey = isActive && index < CHOICE_HOTKEYS ? String(index + 1) : undefined
           return <Button key={`${PLACE_KEY}${id}:${plugin}`} plain label={label} hotkey={hotkey} onPress={noop} />
@@ -609,9 +610,8 @@ const pressWords = (element: string): string[] | undefined => {
 // 휠이면 `pointer` 가 가리키는 칸, 페이지 키면 활성 칸(tmux 의 활성 pane). 칸 밖이면 undefined.
 const cellAt = (tab: GridTab, measured: MeasureProps, pointer: { column: number; row: number } | undefined) => {
   if (!pointer) return activeOf(tab)
-  const area = gridRect(measured)
   const row = pointer.row - HEADER_ROWS
-  const rects: [string, Rect][] = tab.zoomed ? [[tab.zoomed, area]] : [...geometry(tab.root, area)]
+  const rects = [...visibleRects(tab, gridRect(measured))]
   const hit = rects.find(([, rect]) => pointer.column >= rect.x && pointer.column < rect.x + rect.width && row >= rect.y && row < rect.y + rect.height)
   return hit?.[0]
 }

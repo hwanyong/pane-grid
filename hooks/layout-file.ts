@@ -1,5 +1,5 @@
 import type { GridChild, GridNode, GridTab } from '../types/index.d.ts'
-import { cellsOf, normalize } from './tree'
+import { allCells, cellsOf, normalize } from './tree'
 
 // layout 파일(프로젝트 파일 `<설정 디렉터리>/pane-grid/projects/<이름>/layout.json` 과 global 파일 `<설정 디렉터리>/pane-grid/layout.json`)의
 // 형식과 검사. 프로젝트 파일이 배치의 원본이다(docs/grid-and-tabs.md §3.1, 결정 20).
@@ -66,7 +66,7 @@ const parseTab = (value: unknown, where: string): GridTab | string => {
 // 탭 이름 · 칸 id 는 파일 전체에서 하나씩, mod 는 한 칸에만 놓인다.
 const checkUnique = (tabs: GridTab[]): string | undefined => {
   const names = tabs.map(tab => tab.name)
-  const cells = tabs.flatMap(tab => cellsOf(tab.root))
+  const cells = allCells(tabs)
   const ids = cells.map(cell => cell.id)
   const plugins = cells.flatMap(cell => (cell.plugin ? [cell.plugin] : []))
   const twice = (list: string[]) => list.find((item, index) => list.indexOf(item) != index)
