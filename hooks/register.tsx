@@ -173,8 +173,9 @@ const projectOf = async ($: EngineInterface, root: string) => {
 const resolveProject = async ($: EngineInterface) => {
   const root = await $.session.root()
   if (root == run.root) return false
-  run.root = root
+  // run.root 는 projectOf 가 끝난 뒤에 바꾼다. projectOf 가 거부되면(`.git` 을 읽지 못하는 등) 다음 주기에 다시 정한다.
   const project = await projectOf($, root)
+  run.root = root
   if (project == run.project) return false
   run.project = project
   run.dir = `${run.config}/${PROJECTS_DIR}/${await dirName(project)}`
@@ -336,7 +337,12 @@ const ensureLayout = async ($: EngineInterface): Promise<GridLayout> => {
 
 const watchShown = async ($: EngineInterface) => {
   // `/cd` · worktree 이동은 mod 에 알리지 않으므로(classic.CwdChanged 도 오지 않는다) root 를 여기서 읽어 비교한다.
-  if (await resolveProject($)) $.ui.toast(`pane-grid: the session moved to ${shownPath(run.project)}; ${await reload($)}`)
+  // 거부된 주기는 run.root 를 그대로 두므로 다음 주기에 다시 정한다. 거부는 debug log 에 남긴다.
+  const isMoved = await resolveProject($).catch((error: unknown) => {
+    log($, `project not resolved: ${String(error)}`)
+    return false
+  })
+  if (isMoved) $.ui.toast(`pane-grid: the session moved to ${shownPath(run.project)}; ${await reload($)}`)
   // grid 탭이 가려져 있으면 render hook 이 불리지 않는다. 규약 mod 는 layout 이 비면 자기 pane 으로 돌아가므로 여기서도 되살린다.
   await ensureLayout($)
   const pane = (await $.ui.panes()).find(item => item.isShown && item.id.startsWith(PANE_PREFIX))
