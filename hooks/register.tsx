@@ -375,6 +375,9 @@ export const register: Register = on => {
   })
 
   on('ui.scroll', { component: 'Pane', requestId: /^grid-/ }, async ($, e, next) => {
+    // 크기가 바뀐 render 뒤 measure 보고가 오기 전의 휠이면 placed 를 먼저 run.measured 에 맞춘다. cellAt(run.measured)과
+    // isScrollIn(placed), 그리고 next(e) 뒤 readPlacement 하는 아래 규약 mod 가 같은 칸 크기를 본다. 크기가 그대로면 쓰지 않는다.
+    await publishPlacements($)
     const layout = await readLayout($)
     const tab = layout?.tabs.find(item => item.name == tabOf(e.requestId))
     const measured = run.measured.get(tabOf(e.requestId))
