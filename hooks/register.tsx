@@ -215,7 +215,7 @@ const resolveProject = async ($: EngineInterface) => {
   run.dir = dir
   run.mtimeMs = undefined
   run.invalidText = undefined
-  log($, `project ${project} (root ${root}) -> ${run.dir}`)
+  log($, `project ${project} (root ${root}) -> ${run.config == undefined ? NO_FILE : run.dir}`)
   return true
 }
 
