@@ -64,7 +64,7 @@ const parseTab = (value: unknown, where: string): GridTab | string => {
 }
 
 // 탭 이름 · 칸 id 는 파일 전체에서 하나씩, mod 는 한 칸에만 놓인다.
-export const checkUnique = (tabs: GridTab[]): string | undefined => {
+const checkUnique = (tabs: GridTab[]): string | undefined => {
   const names = tabs.map(tab => tab.name)
   const cells = tabs.flatMap(tab => cellsOf(tab.root))
   const ids = cells.map(cell => cell.id)
@@ -77,6 +77,28 @@ export const checkUnique = (tabs: GridTab[]): string | undefined => {
   const plugin = twice(plugins)
   if (plugin) return `plugin ${plugin} is placed in two cells`
   return undefined
+}
+
+// 노드 아래 칸의 이름 규칙. 자리는 parseNode 와 같은 꼴로 적는다.
+const checkNames = (node: GridNode, where: string): string | undefined => {
+  if (node.kind == 'cell') {
+    const problem = cellIdProblem(node.id) ?? (node.plugin == undefined ? undefined : pluginProblem(node.plugin))
+    return problem ? `${where}: ${problem}` : undefined
+  }
+  return node.children.reduce<string | undefined>((found, child, index) => found ?? checkNames(child.node, `${where}.children[${index}].node`), undefined)
+}
+
+// 탭 목록이 파일 규칙(이름 · id · plugin 이름 · mod 한 칸)을 지키는지 본다. 어기면 그 이유. 파일을 읽을 때와 동작 뒤에 함께 쓴다.
+// 동작 뒤에도 보아야 한다: `/grid place Foo` 처럼 규칙에 맞지 않는 이름을 쓴 파일은 다음에 읽을 때 통째로 거부된다.
+export const checkTabs = (tabs: GridTab[]): string | undefined => {
+  for (const [index, tab] of tabs.entries()) {
+    const where = `tabs[${index}]`
+    const nameProblem = tabNameProblem(tab.name)
+    if (nameProblem) return `${where}: ${nameProblem}`
+    const names = checkNames(tab.root, `${where}.root`)
+    if (names) return names
+  }
+  return checkUnique(tabs)
 }
 
 export const parseLayoutFile = (text: string): Parsed => {
@@ -95,8 +117,8 @@ export const parseLayoutFile = (text: string): Parsed => {
     if (typeof parsed == 'string') return { isValid: false, reason: parsed }
     tabs.push(parsed)
   }
-  const duplicate = checkUnique(tabs)
-  if (duplicate) return { isValid: false, reason: duplicate }
+  const broken = checkTabs(tabs)
+  if (broken) return { isValid: false, reason: broken }
   return { isValid: true, tabs }
 }
 

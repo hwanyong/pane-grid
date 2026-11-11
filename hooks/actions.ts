@@ -1,5 +1,5 @@
 import type { GridCell, GridNode, GridTab } from '../types/index.d.ts'
-import { TAB_NAME, checkUnique } from './layout-file'
+import { TAB_NAME, checkTabs } from './layout-file'
 import { PRESETS, cellsOf, describe, findCell, newCellId, preset, remove, resize, split, swap } from './tree'
 import type { Preset } from './tree'
 
@@ -167,5 +167,5 @@ export const apply = (tabs: GridTab[], current: string, words: string[]): Outcom
   return same(tabs, tab.name, `unknown: ${verb}\n${USAGE}`)
 }
 
-// 동작 뒤에도 파일 규칙(이름 · id · mod 한 칸)이 지켜지는지 본다. 어기면 그 이유.
-export const checkOutcome = (outcome: Outcome) => checkUnique(outcome.tabs)
+// 동작 뒤에도 파일 규칙(이름 · id · plugin 이름 · mod 한 칸)이 지켜지는지 본다. 어기면 그 이유.
+export const checkOutcome = (outcome: Outcome) => checkTabs(outcome.tabs)
