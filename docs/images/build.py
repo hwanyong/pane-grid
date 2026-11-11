@@ -306,8 +306,8 @@ def lifecycle():
     return svg(width, height, "".join(parts)), width, height
 
 
-# SVG 와 PNG 를 임시 이름으로 만들고 Chrome 이 성공한 뒤에만 두 파일을 제 이름으로 옮긴다. Chrome 이 실패하면
-# 그 stderr 를 내고 종료 코드 1 로 끝나며, 이전 SVG · PNG 는 그대로 남아 둘이 어긋나지 않는다.
+# SVG 와 PNG 를 초안 이름으로 만들고, Chrome 이 종료 코드 0 으로 끝나고 PNG 초안이 생긴 뒤에만 두 파일을 제 이름으로 옮긴다.
+# 0 이 아닌 종료 코드이거나 PNG 가 없으면 그 stderr 를 내고 종료 코드 1 로 끝나며, 이전 SVG · PNG 는 그대로 남아 둘이 어긋나지 않는다.
 def render(name, document, width, height):
     svg_path = OUT / f"{name}.svg"
     png_path = OUT / f"{name}.png"
@@ -325,6 +325,10 @@ def render(name, document, width, height):
         png_draft.unlink(missing_ok=True)
         sys.stderr.write(result.stderr)
         sys.exit(f"{CHROME} exited with {result.returncode} while rendering {svg_path.name}")
+    if not png_draft.exists():
+        svg_draft.unlink()
+        sys.stderr.write(result.stderr)
+        sys.exit(f"{CHROME} exited with 0 but wrote no {png_draft.name} while rendering {svg_path.name}")
     svg_draft.replace(svg_path)
     png_draft.replace(png_path)
     print(png_path)
