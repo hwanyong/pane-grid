@@ -404,6 +404,8 @@ export const register: Register = on => {
     return pressed
   }).catch(($, e, next) => {
     log($, `press failed: ${JSON.stringify(next.error)}`)
+    // slash 명령은 실패를 출력으로 알린다(command.run 의 catch). 누름에는 출력이 없으므로 toast 로 알린다.
+    $.ui.toast('pane-grid: the press failed; see the debug log')
     return next.called ? next(e) : { element: e.element }
   })
 
