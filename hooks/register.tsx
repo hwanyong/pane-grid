@@ -61,6 +61,8 @@ const run = {
   measured: new Map<string, MeasureProps>(),
   // 칸 안의 `scrolls:<plugin>` Box 로 자기 행을 스스로 스크롤한다고 알린 아래 규약 mod. render 마다 다시 모은다.
   scrolling: new Set<string>(),
+  // ensureLayout 이 진행 중인 다시 읽기. render 뒤 콜백 · watchShown · runAction 이 다른 dispatch 에서 함께 불러도 파일을 한 번만 읽는다.
+  restoring: undefined as Promise<GridLayout> | undefined,
 }
 
 const noop = () => {}
@@ -314,14 +316,22 @@ const reloadChanged = async ($: EngineInterface) => {
   return `refused: another session changed this project's layout; loaded ${shownPath(path)} again, do it once more`
 }
 
+const layoutFromFile = async ($: EngineInterface) => (await loadLayout($)).layout
+
 // $.state 는 세션 id 마다 따로 있다. /clear 는 같은 프로세스를 새 세션 id 로 이어 가고 session.start 를 다시 부르지 않으므로
 // (SessionEndInput.reason), 그 뒤에는 layout 사본이 비어 있다. 비어 있으면 원본 파일에서 다시 만든다. render 중에는 쓸 수 없으므로
 // render hook 은 이것을 render 가 끝난 뒤 부른다.
 const ensureLayout = async ($: EngineInterface): Promise<GridLayout> => {
   const layout = await readLayout($)
   if (layout) return layout
+  if (run.restoring) return run.restoring
   log($, 'layout state is empty (a /clear starts a new session state); loading the layout file again')
-  return (await loadLayout($)).layout
+  run.restoring = layoutFromFile($)
+  try {
+    return await run.restoring
+  } finally {
+    run.restoring = undefined
+  }
 }
 
 const watchShown = async ($: EngineInterface) => {
