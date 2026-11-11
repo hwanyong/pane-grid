@@ -1,0 +1,4 @@
+-- CLAUDE_CONFIG_DIR=rel-cfg split -h
+pane-grid: split c1 into c1 and c2
+pane-grid: project $H/proj (root $H/proj) -> $H/proj/rel-cfg/pane-grid/projects/proj-bb3a7976d66e81fa
+-- written: rel-cfg/pane-grid/projects/proj-HEX/layout.json

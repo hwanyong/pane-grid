@@ -1,0 +1,11 @@
+$ g split -h
+pane-grid: split c1 into c1 and c3
+[exit-ish done]
+$ g list
+pane-grid: * main active=c1 c1
+[exit-ish done]
+--- pl
+{"version":1,"tabs":[{"name":"main","root":{"kind":"cell","id":"c1"},"active":"c1"}]}
+
+--- log refused|kept|command failed
+--- failed=0

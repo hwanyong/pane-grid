@@ -1,0 +1,42 @@
+$ g select-cell c1
+pane-grid: active cell c1
+[exit-ish done]
+$ g place - c2
+pane-grid: emptied c2
+[exit-ish done]
+$ g list
+pane-grid: * main active=c2 {c1:50,c2:50}
+[exit-ish done]
+--- pl
+{
+  "version": 1,
+  "project": "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1"
+            },
+            "size": 50
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2"
+            },
+            "size": 50
+          }
+        ]
+      },
+      "active": "c2"
+    }
+  ]
+}
+
+--- log refused|kept|command failed
+--- failed=0

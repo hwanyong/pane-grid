@@ -1,0 +1,45 @@
+--- ls before
+ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+$ g place Foo
+pane-grid: placed Foo in c1
+[exit-ish done]
+$ g list
+pane-grid: * main active=c1 c1
+[exit-ish done]
+--- ls after
+layout.json
+--- pl
+{
+  "version": 1,
+  "project": "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1",
+              "plugin": "Foo"
+            },
+            "size": 50
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2"
+            },
+            "size": 50
+          }
+        ]
+      },
+      "active": "c1"
+    }
+  ]
+}
+
+--- log refused|kept|command failed
+[p2] [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout file /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a/layout.json refused: tabs[0].root.children[0].node: plugin must match /^[a-z0-9][a-z0-9_.-]{0,127}$/
+--- failed=0

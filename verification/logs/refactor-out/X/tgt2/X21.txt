@@ -1,0 +1,7 @@
+--actions
+pane-grid: action split -h: split c1 into c1 and c3
+pane-grid: action split -h: split c3 into c3 and c4
+pane-grid: action split -h: split c4 into c4 and c5
+pane-grid: action split -h: split c5 into c5 and c6
+pane-grid: * main active=c6 {c1:25,c3:12.5,c4:6.25,c5:3.12,c6:3.12,c2:50.01}
+failed hooks: 0

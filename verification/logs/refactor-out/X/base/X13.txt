@@ -1,0 +1,7 @@
+start failed lines: 0
+hook skipped lines: 1
+session.start hook skipped: threw pane-grid: $.fs.read(/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/.cl
+c1 title rows after chmod 644: 0
+layout state is empty lines >0: 0
+--grid
+

@@ -1,0 +1,82 @@
+-- last out: pane-grid: split c1 into c1 and c3
+-- toasts
+$.ui.toast (pane-grid): pane-grid: the session moved to ~/proj-b; loaded 1 tab(s) from ~/.claude/pane-grid/layout.json
+-- new log (project · action · changed)
+pane-grid: project $H/proj-b (root $H/proj-b) -> $H/.claude/pane-grid/projects/proj-b-c2469045fda6f1cb
+pane-grid: the session moved to ~/proj-b; loaded 1 tab(s) from ~/.claude/pane-grid/layout.json
+pane-grid: action split -h: split c1 into c1 and c3
+-- proj-b file
+{
+  "version": 1,
+  "project": "$H/proj-b",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1"
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c3"
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2"
+            },
+            "size": 50
+          }
+        ]
+      },
+      "active": "c3"
+    }
+  ]
+}
+-- proj file
+{
+  "version": 1,
+  "project": "$H/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1"
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c3"
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2"
+            },
+            "size": 50
+          }
+        ]
+      },
+      "active": "c3"
+    }
+  ]
+}
+failed hooks: 0

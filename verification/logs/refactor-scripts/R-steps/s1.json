@@ -1,0 +1,7 @@
+[{"req":{"subtype":"initialize"}},
+ {"sleep":3},
+ {"req":{"subtype":"ui_attach","surface":"mobile","client_id":"m1","viewport":{"columns":60,"rows":30}}},
+ {"req":{"subtype":"ui_panes"}},
+ {"req":{"subtype":"ui_render","surface":"mobile","client_id":"m1","component":"Pane","instance_id":"grid-main","props":{"title":"main","isFocused":false,"bodyColumns":60,"placement":"dock","scroll":{"offset":0,"bodyRows":30},"view":{}}}},
+ {"sleep":2}
+]

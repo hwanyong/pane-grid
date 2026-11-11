@@ -1,0 +1,7 @@
+-- no HOME split -h: pane-grid: pane-grid: the command failed; see the debug log
+pane-grid: project $H/proj (root $H/proj) -> /.claude/pane-grid/projects/proj-bb3a7976d66e81fa
+pane-grid: command failed: {"kind":"throw","message":"pane-grid: $.fs.write(/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json) failed: EROFS","budget":1000}
+-- no HOME reload: pane-grid: loaded 1 tab(s) from /.claude/pane-grid/layout.json
+pane-grid: project $H/proj (root $H/proj) -> /.claude/pane-grid/projects/proj-bb3a7976d66e81fa
+-- /.claude exists: no
+-- real same: yes

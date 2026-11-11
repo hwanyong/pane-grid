@@ -1,0 +1,15 @@
+-- select-cell c1: ⎿  pane-grid: active cell c1
+-- break: ⎿  pane-grid: moved c1 to tab w2
+-- readPlacement 줄(break 뒤 전부)
+k8member: readPlacement {"usage-gauge":{"tab":"w2","requestId":"grid-w2","cell":"c1","column":0,"row":5,"columns":75,"rows":34,"isActive":true},"filetree":null}
+-- pane
+ main   w2                                                               ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 usage-gauge
+Weekly N-day window                                              NN% / NNN%
+░░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+Resets in Nd NNh · target N%
+failed hooks: 0

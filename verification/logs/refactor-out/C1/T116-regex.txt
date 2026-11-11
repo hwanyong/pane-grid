@@ -1,0 +1,12 @@
+tgt PRESS_KEY source="^(place:|hotkey:)" flags="" instanceof RegExp=true
+base literal source="^(place|hotkey):" flags=""
+place:c1:usage-gauge   tgt=true base=true
+hotkey:v               tgt=true base=true
+hotkey:q               tgt=true base=true
+activate:c1            tgt=false base=false
+divider:0:0            tgt=false base=false
+measure:main           tgt=false base=false
+mode                   tgt=false base=false
+q1                     tgt=false base=false
+choices:c1             tgt=false base=false
+xplace:c1              tgt=false base=false

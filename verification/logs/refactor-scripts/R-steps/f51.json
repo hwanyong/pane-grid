@@ -1,0 +1,116 @@
+[
+{
+"req": {
+"subtype": "initialize"
+}
+},
+{
+"sleep": 3
+},
+{
+"req": {
+"subtype": "ui_attach",
+"surface": "desktop",
+"client_id": "d1",
+"viewport": {
+"columns": 100,
+"rows": 40
+}
+}
+},
+{
+"mark": "panes at start"
+},
+{
+"req": {
+"subtype": "ui_panes"
+}
+},
+{
+"mark": "render grid-t2 on desktop + measure"
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "desktop",
+"client_id": "d1",
+"component": "Pane",
+"instance_id": "grid-t2",
+"props": {
+"title": "t2",
+"isFocused": false,
+"bodyColumns": 100,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 40
+},
+"view": {}
+}
+}
+},
+{
+"req": {
+"subtype": "ui_message",
+"plugin": "pane-grid",
+"component": "Pane",
+"instance_id": "grid-t2",
+"client": "measure:t2",
+"module": "hooks/measure.tsx",
+"data": {
+"columns": 100,
+"rows": 40
+}
+}
+},
+{
+"sleep": 1.5
+},
+{
+"mark": "another session renames t2 to t3 in the project file"
+},
+{
+"shell": "python3 -I -c 'import json,glob,os; p=glob.glob(os.environ[\"H\"]+\"/.claude/pane-grid/projects/*/layout.json\")[0]; d=json.load(open(p)); d[\"tabs\"][1][\"name\"]=\"t3\"; open(p,\"w\").write(json.dumps(d))'"
+},
+{
+"sleep": 1.5
+},
+{
+"mark": "activate c3 in grid-t2"
+},
+{
+"req": {
+"subtype": "ui_message",
+"plugin": "pane-grid",
+"component": "Pane",
+"instance_id": "grid-t2",
+"client": "activate:c3",
+"module": "hooks/activate.tsx",
+"data": {
+"activate": true
+}
+}
+},
+{
+"sleep": 0.5
+},
+{
+"mark": "panes right after"
+},
+{
+"req": {
+"subtype": "ui_panes"
+}
+},
+{
+"sleep": 3
+},
+{
+"mark": "panes 3 s later"
+},
+{
+"req": {
+"subtype": "ui_panes"
+}
+}
+]

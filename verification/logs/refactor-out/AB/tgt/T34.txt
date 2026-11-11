@@ -1,0 +1,23 @@
+$ g help
+pane-grid: split -h|-v [plugin]     split the active cell left-right (-h) or top-bottom (-v)
+kill                     remove the active cell
+next                     make the next cell active
+select-cell <id>         make that cell active
+place <plugin>|- [<id>]  put a plugin in the active cell (or that cell), or empty it
+swap [<id>]              swap the active cell with that cell (default: the next one)
+zoom                     draw the active cell alone, or undo it
+resize <1-99>            set the active cell's share of its parent in percent
+layout <preset>          even-horizontal | even-vertical | main-vertical | main-horizontal | tiled
+new [<name>]             open a new tab
+select <name>            show that tab
+rename <name>            rename the current tab
+close                    close the current tab
+break                    move the active cell to a new tab
+list                     print the tabs and their cells
+reload                   read this project's layout file again
+[exit-ish done]
+--- pl
+NOFILE
+
+--- log refused|kept|command failed
+--- failed=0

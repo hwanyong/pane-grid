@@ -1,0 +1,11 @@
+exit=1
+--stdout
+--stderr(last 3)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1385, in replace
+    self._accessor.replace(self, target)
+FileNotFoundError: [Errno 2] No such file or directory: '<W>/pane-structure.draft.png' -> '<W>/pane-structure.png'
+--files
+pane-lifecycle.svg old
+pane-structure.svg new
+pane-lifecycle.png old
+pane-structure.png old

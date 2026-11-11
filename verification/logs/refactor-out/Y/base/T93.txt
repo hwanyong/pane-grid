@@ -1,0 +1,56 @@
+# T93: mobile surface 의 grid-main render(Client 유무 · 분할선 글자 · placement 게시)
+[0] initialize success
+## after initialize
+[4] ui_attach {"response": {"surfaces": ["mobile"]}, "subtype": "success"}
+## A mobile render 60x30
+[7] ui_render ok
+    cellbox:c1 w=30
+    textdivider[divider:r:0 │x26]
+    cellbox:c2 w=29
+    textdivider[divider:r.1:0 ─x29]
+    cellbox:c3 w=29
+    choices:c3
+## B mobile render 60x30 again
+[11] ui_render ok
+    cellbox:c1 w=30
+    textdivider[divider:r:0 │x26]
+    cellbox:c2 w=29
+    textdivider[divider:r.1:0 ─x29]
+    cellbox:c3 w=29
+    choices:c3
+## C mobile render 50x24
+[15] ui_render ok
+    cellbox:c1 w=25
+    textdivider[divider:r:0 │x20]
+    cellbox:c2 w=24
+    textdivider[divider:r.1:0 ─x24]
+    cellbox:c3 w=24
+    choices:c3
+## D control desktop render 80x30 without measure message
+[19] ui_attach {"response": {"surfaces": ["mobile", "desktop"]}, "subtype": "success"}
+[20] ui_render ok
+    cellbox:c1 w=40
+    Client[divider:r:0 hooks/divider.tsx]
+    cellbox:c2 w=39
+    Client[activate:c2 hooks/activate.tsx]
+    Client[divider:r.1:0 hooks/divider.tsx]
+    cellbox:c3 w=39
+    choices:c3
+    Client[activate:c3 hooks/activate.tsx]
+    Client[measure:main hooks/measure.tsx]
+## end
+## log (Ymark 는 단계 경계)
+pane-grid: layout revision=1 tabs=main placed=usage-gauge,filetree
+ui.open pane-grid grid-main (unasked, unmeasured columns): placed
+k8member: readPlacement {"usage-gauge":{"cell":"c1",0,0,0,0,"isActive":true},"filetree":{"cell":"c2",0,0,0,0,"isActive":false}}
+Ymark: after initialize
+Ymark: A mobile render 60x30
+pane-grid: layout revision=2 tabs=main placed=usage-gauge,filetree
+k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,30,25,"isActive":true},"filetree":{"cell":"c2",31,5,29,12,"isActive":false}}
+Ymark: B mobile render 60x30 again
+Ymark: C mobile render 50x24
+pane-grid: layout revision=3 tabs=main placed=usage-gauge,filetree
+k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,25,19,"isActive":true},"filetree":{"cell":"c2",26,5,24,9,"isActive":false}}
+Ymark: D control desktop render 80x30 without measure message
+Ymark: end
+failed hooks: 0

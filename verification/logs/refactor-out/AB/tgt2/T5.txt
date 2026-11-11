@@ -1,0 +1,24 @@
+$ g kill
+pane-grid: removed c1
+[exit-ish done]
+$ g list
+pane-grid: * main active=c2 c2
+[exit-ish done]
+--- pl
+{
+  "version": 1,
+  "project": "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "cell",
+        "id": "c2"
+      },
+      "active": "c2"
+    }
+  ]
+}
+
+--- log refused|kept|command failed
+--- failed=0

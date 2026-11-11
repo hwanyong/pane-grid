@@ -1,0 +1,35 @@
+T81 SAME
+T82 SAME
+T83 SAME
+T84 SAME
+T85 SAME
+T86 SAME
+T87 SAME
+T88 SAME
+T89 SAME
+T90 SAME
+T91 SAME
+T92 SAME
+T93 SAME
+T106 DIFF
+    --- base/T106
+    +++ tgt/T106
+    @@ -6,7 +6,6 @@
+     -- select main: ⎿  pane-grid: showing main
+     k12shown: readShownTab "main"
+     -- 전부
+    -k12shown: readShownTab null
+     k12shown: readShownTab "main"
+     k12shown: readShownTab "w2"
+     k12shown: readShownTab "main"
+T118 SAME
+T119 SAME
+T120 SAME
+T121 SAME
+T122 SAME
+T123 SAME
+T124 SAME
+T125 SAME
+T126 SAME
+T127 SAME
+summary: same=23 diff=1 missing=0

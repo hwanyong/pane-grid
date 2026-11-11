@@ -1,0 +1,5 @@
+-- shown pane before: ui.open pending-questions pending-questions
+-- log after /clear
+pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+pane-grid: layout revision=1 tabs=main placed=
+failed hooks: 0

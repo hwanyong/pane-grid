@@ -1,0 +1,115 @@
+R-F47 DIFF
+    --- base/R-F47
+    +++ tgt/R-F47
+    @@ -15,32 +15,17 @@
+     pane-grid: layout revision=1 tabs=main placed=
+     ui.open pane-grid grid-main (unasked, unmeasured columns): placed
+     pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+    -pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+    -pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+    -pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+     pane-grid: layout file <JOB>/home/.claude/pane-grid/layout.json refused: tabs must be a list of one tab or more
+     $.ui.toast (pane-grid): pane-grid: ~/.claude/pane-grid/layout.json is not a valid layout (tabs must be a list of one tab or more); using one empty tab
+     pane-grid: layout revision=1 tabs=main placed=
+     ui.open pane-grid grid-main (unasked, unmeasured columns): placed
+    -pane-grid: layout file <JOB>/home/.claude/pane-grid/layout.json refused: tabs must be a list of one tab or more
+    -$.ui.toast (pane-grid): pane-grid: ~/.claude/pane-grid/layout.json is not a valid layout (tabs must be a list of one tab or more); using one empty tab
+    -pane-grid: layout revision=2 tabs=main placed=
+    -ui.open pane-grid grid-main (unasked, unmeasured columns): placed
+    -pane-grid: layout file <JOB>/home/.claude/pane-grid/layout.json refused: tabs must be a list of one tab or more
+    -$.ui.toast (pane-grid): pane-grid: ~/.claude/pane-grid/layout.json is not a valid layout (tabs must be a list of one tab or more); using one empty tab
+    -pane-grid: layout revision=3 tabs=main placed=
+    -ui.open pane-grid grid-main (unasked, unmeasured columns): placed
+    -pane-grid: layout file <JOB>/home/.claude/pane-grid/layout.json refused: tabs must be a list of one tab or more
+    -$.ui.toast (pane-grid): pane-grid: ~/.claude/pane-grid/layout.json is not a valid layout (tabs must be a list of one tab or more); using one empty tab
+    -pane-grid: layout revision=4 tabs=main placed=
+    -ui.open pane-grid grid-main (unasked, unmeasured columns): placed
+     ## project file
+     NOFILE
+     ## counts after /clear
+    -state-empty: 4
+    -refused file: 4
+    -toast: 4
+    -publish: 4
+    +state-empty: 1
+    +refused file: 1
+    +toast: 1
+    +publish: 1
+     
+     # R-F47 (지연 없는 원래 트리, 같은 steps)
+     ## counts after /clear
+R-F51 SAME
+R-F54 DIFF
+    --- base/R-F54
+    +++ tgt/R-F54
+    @@ -20,14 +20,14 @@
+     ## wheel from mobile at col30 row8 (last render: mobile)
+     [26] ui_scroll {"response": {"moved": true, "offset": 0}, "subtype": "success"}
+     ## render mobile then desktop to read scroll rows
+    -[29] ui_render ok cellbox:c1 w=25 cellbox:c2 w=24 c2.marginTop=-1
+    -[30] ui_render ok cellbox:c1 w=50 Client divider:r:0 cellbox:c2 w=49 c2.marginTop=-1
+    +[29] ui_render ok cellbox:c1 w=25 c1.marginTop=-1 cellbox:c2 w=24
+    +[30] ui_render ok cellbox:c1 w=50 c1.marginTop=-1 Client divider:r:0 cellbox:c2 w=49
+     [31] ui_message {"response": {"handled": true}, "subtype": "success"}
+     ## mobile render, then divider drag from desktop to at=70 (isFinal)
+    -[34] ui_render ok cellbox:c1 w=25 cellbox:c2 w=24 c2.marginTop=-1
+    +[34] ui_render ok cellbox:c1 w=25 c1.marginTop=-1 cellbox:c2 w=24
+     [36] ui_message {"response": {"handled": true}, "subtype": "success"}
+     ## render desktop after drag
+    -[39] ui_render ok cellbox:c1 w=97 Client divider:r:0 cellbox:c2 w=2 c2.marginTop=-1
+    +[39] ui_render ok cellbox:c1 w=70 c1.marginTop=-1 Client divider:r:0 cellbox:c2 w=29
+     ## log
+     pane-grid: layout revision=1 tabs=main placed=usage-gauge,filetree
+     ui.open pane-grid grid-main (unasked, unmeasured columns): placed
+    @@ -35,21 +35,7 @@
+     pane-grid: layout revision=2 tabs=main placed=usage-gauge,filetree
+     k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,50,35},"filetree":{"cell":"c2",51,5,49,35}}
+     pane-grid: layout revision=3 tabs=main placed=usage-gauge,filetree
+    -k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,25,25},"filetree":{"cell":"c2",26,5,24,25}}
+    -pane-grid: layout revision=4 tabs=main placed=usage-gauge,filetree
+    -k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,50,35},"filetree":{"cell":"c2",51,5,49,35}}
+    -pane-grid: layout revision=5 tabs=main placed=usage-gauge,filetree
+    -k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,25,25},"filetree":{"cell":"c2",26,5,24,25}}
+    -pane-grid: layout revision=6 tabs=main placed=usage-gauge,filetree
+    -k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,50,35},"filetree":{"cell":"c2",51,5,49,35}}
+    -pane-grid: layout revision=7 tabs=main placed=usage-gauge,filetree
+    -k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,25,25},"filetree":{"cell":"c2",26,5,24,25}}
+    -pane-grid: layout revision=8 tabs=main placed=usage-gauge,filetree
+    -k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,50,35},"filetree":{"cell":"c2",51,5,49,35}}
+    -pane-grid: layout revision=9 tabs=main placed=usage-gauge,filetree
+    -k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,25,25},"filetree":{"cell":"c2",26,5,24,25}}
+    -pane-grid: layout revision=10 tabs=main placed=usage-gauge,filetree
+    -k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,48,25},"filetree":{"cell":"c2",49,5,1,25}}
+    +k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,70,35},"filetree":{"cell":"c2",71,5,29,35}}
+     ## project file
+     {
+       "version": 1,
+    @@ -66,7 +52,7 @@
+                   "id": "c1",
+                   "plugin": "usage-gauge"
+                 },
+    -            "size": 97.95
+    +            "size": 70.7
+               },
+               {
+                 "node": {
+    @@ -74,7 +60,7 @@
+                   "id": "c2",
+                   "plugin": "filetree"
+                 },
+    -            "size": 2.05
+    +            "size": 29.3
+               }
+             ]
+           },
+R-F63 DIFF
+    --- base/R-F63
+    +++ tgt/R-F63
+    @@ -22,5 +22,6 @@
+     rscroller: scroll by=1 pointer={75,10} placement={51,49}
+     pane-grid: layout revision=3 tabs=main placed=r-scroller
+     rscroller: scroll by=1 pointer={40,10} placement={31,29}
+    +rscroller: scroll by=1 pointer={40,10} placement={31,29}
+     ## project file
+     NOFILE
+summary: same=1 diff=3 missing=0

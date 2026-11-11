@@ -1,0 +1,8 @@
+built for usage-gauge,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+grid pane lines: 0
+-- prompt 위 4줄(숫자 N)
+
+Weekly N-day window                                                                                                                                        NN% / NNN% [-]
+░░░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+Resets in Nd NNh · target N%
+failed hooks: 0

@@ -1,0 +1,15 @@
+-- git log -S'session.cwd' main..k11-refactor -- hooks/register.tsx
+ee6c176 HOME 과 CLAUDE_CONFIG_DIR 이 없으면 파일 없이, 상대 CLAUDE_CONFIG_DIR 은 시작 디렉터리 기준으로
+-- diff.patch lines
+1273:+    run.config = config && !config.startsWith('/') ? `${await $.session.cwd()}/${config}` : config
+-- base · tgt 의 호출 수
+base 0 tgt 1
+-- F49 · F50 커밋의 run.root · serial 관련
+10ad989 resolveProject: projectOf 가 거부되면 다음 주기에 다시 정함
+
+ hooks/register.tsx | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+3ba5537 register.tsx: 프로젝트 전환과 layout 을 쓰는 동작을 차례대로 실행
+
+ hooks/register.tsx | 48 ++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 40 insertions(+), 8 deletions(-)

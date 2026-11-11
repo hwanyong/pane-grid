@@ -1,0 +1,9 @@
+pane-grid: zoomed c1
+pane-grid: placed usage-gauge in c2
+pane-grid: * main active=c2 zoomed {c1:50,c2=usage-gauge:50}
+--file after place
+active=c2 zoomed=c1
+pane-grid: emptied c1
+--file after place -
+active=c1 zoomed=c1
+failed hooks: 0

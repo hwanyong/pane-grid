@@ -1,0 +1,119 @@
+T81 DIFF
+    --- tgt/T81
+    +++ tgt2/T81
+    @@ -8,7 +8,7 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge                       │c2 -
+     Weekly N-day window        NN% / NNN%│empty. place a mod here:
+    -│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+    +░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+     Resets in Nd NNh · target N%         │2: usage-gauge (move from c1)
+                                          │
+                                          │
+T82 DIFF
+    --- tgt/T82
+    +++ tgt2/T82
+    @@ -7,7 +7,7 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge                       │c2 pending-questions
+     Weekly N-day window        NN% / NNN%│Mode: manual [ Switch to auto ]
+    -│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│[ Rescan last response ]
+    +░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│[ Rescan last response ]
+     Resets in Nd NNh · target N%         │
+                                          │No pending questions.
+                                          │
+    @@ -55,7 +55,7 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge                       │c2 -
+     Weekly N-day window        NN% / NNN%│empty. place a mod here:
+    -│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+    +░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+     Resets in Nd NNh · target N%         │2: usage-gauge (move from c1)
+                                          │
+                                          │
+T83 DIFF
+    --- tgt/T83
+    +++ tgt2/T83
+    @@ -7,7 +7,7 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge                       │c2 -
+     Weekly N-day window        NN% / NNN%│empty. place a mod here:
+    -│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+    +░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+     Resets in Nd NNh · target N%         │2: usage-gauge (move from c1)
+                                          │
+                                          │
+T84 DIFF
+    --- tgt/T84
+    +++ tgt2/T84
+    @@ -8,7 +8,7 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge                       │c2 pending-questions
+     Weekly N-day window        NN% / NNN%│Mode: manual [ Switch to auto ]
+    -│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│[ Rescan last response ]
+    +░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│[ Rescan last response ]
+     Resets in Nd NNh · target N%         │
+                                          │No pending questions.
+                                          │
+T85 DIFF
+    --- tgt/T85
+    +++ tgt2/T85
+    @@ -7,7 +7,7 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge                       │c2 -
+     Weekly N-day window        NN% / NNN%│empty. place a mod here:
+    -│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+    +░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+     Resets in Nd NNh · target N%         │2: usage-gauge (move from c1)
+                                          │
+                                          │
+T86 SAME
+T87 SAME
+T88 SAME
+T89 SAME
+T90 DIFF
+    --- tgt/T90
+    +++ tgt2/T90
+    @@ -14,6 +14,6 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge
+     Weekly N-day window                                              NN% / NNN%
+    -░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    +░░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     Resets in Nd NNh · target N%
+     failed hooks: 0
+T91 DIFF
+    --- tgt/T91
+    +++ tgt2/T91
+    @@ -10,6 +10,6 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge
+     Weekly N-day window                                              NN% / NNN%
+    -░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    +░░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     Resets in Nd NNh · target N%
+     failed hooks: 0
+T92 DIFF
+    --- tgt/T92
+    +++ tgt2/T92
+    @@ -3,6 +3,6 @@
+     -- prompt 위 4줄(숫자 N)
+     
+     Weekly N-day window                                                                                                                                        NN% / NNN% [-]
+    -░░░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    +░░░░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     Resets in Nd NNh · target N%
+     failed hooks: 0
+T93 SAME
+T106 SAME
+T118 SAME
+T119 SAME
+T120 SAME
+T121 SAME
+T122 SAME
+T123 SAME
+T124 SAME
+T125 SAME
+T126 SAME
+T127 SAME
+summary: same=16 diff=8 missing=0

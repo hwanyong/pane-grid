@@ -1,0 +1,1 @@
+X20 실행하지 못함: run.measured 의 키 변경(2f02c54)은 크기가 다른 surface 두 개를 함께 그려야 차이가 난다. tmux 로는 terminal surface 하나만 띄울 수 있다.

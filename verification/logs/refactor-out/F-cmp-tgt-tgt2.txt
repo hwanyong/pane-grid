@@ -1,0 +1,18 @@
+F71 SAME
+F71f SAME
+F71m DIFF
+    --- tgt/F71m
+    +++ tgt2/F71m
+    @@ -12,4 +12,3 @@
+     FileNotFoundError: [Errno 2] No such file or directory: '/nonexistent/chrome'
+     exit 1
+     # git status --short docs/images
+    -?? docs/images/pane-structure.draft.svg
+F71s SAME
+T107 SAME
+T108 SAME
+T108p SAME
+T109 SAME
+T110 SAME
+T111 SAME
+summary: same=9 diff=1 missing=0

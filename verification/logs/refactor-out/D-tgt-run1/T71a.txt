@@ -1,0 +1,65 @@
+-- a split -v: pane-grid: split c3 into c3 and c4
+-- b split -v: pane-grid: refused: another session changed this project's layout; loaded ~/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json again, do it once more
+-- b log changed
+$H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json changed by another session (mtimeMs N -> N); not written
+-- b list: pane-grid: * main active=c4 {c1:25,[c3:50,c4:50]:25,c2:50}
+-- b split -v again: pane-grid: split c4 into c4 and c5
+-- file
+{
+  "version": 1,
+  "project": "$H/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1"
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "column",
+              "children": [
+                {
+                  "node": {
+                    "kind": "cell",
+                    "id": "c3"
+                  },
+                  "size": 50
+                },
+                {
+                  "node": {
+                    "kind": "cell",
+                    "id": "c4"
+                  },
+                  "size": 25
+                },
+                {
+                  "node": {
+                    "kind": "cell",
+                    "id": "c5"
+                  },
+                  "size": 25
+                }
+              ]
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2"
+            },
+            "size": 50
+          }
+        ]
+      },
+      "active": "c5"
+    }
+  ]
+}

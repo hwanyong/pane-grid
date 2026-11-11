@@ -1,0 +1,6 @@
+<ROOT>/hooks/actions.ts:1:import type { GridCell, GridTab } from '../types/index.d.ts'
+<ROOT>/hooks/layout-file.ts:1:import type { GridChild, GridNode, GridTab } from '../types/index.d.ts'
+<ROOT>/hooks/pane-area.ts:1:import type { GridTab } from '../types/index.d.ts'
+<ROOT>/hooks/tree.ts:1:import type { GridCell, GridChild, GridNode, GridSplit, GridTab } from '../types/index.d.ts'
+<ROOT>/hooks/register.probe.tsx:3:import type { GridLayout, GridNode, GridPlacement, GridScroll, GridShown, GridTab } from '../types/index.d.ts'
+<ROOT>/hooks/register.tsx:3:import type { GridLayout, GridNode, GridPlacement, GridScroll, GridShown, GridTab } from '../types/index.d.ts'

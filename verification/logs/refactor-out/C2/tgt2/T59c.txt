@@ -1,0 +1,4 @@
+tabs before: main   Pending questions
+built: built for pane-grid,pending-questions,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+list: ⎿  pane-grid: * main active=c1 {c1:50,c2:50}
+failed=0

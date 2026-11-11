@@ -1,0 +1,34 @@
+Validating marketplace manifest: <ROOT>/.claude-plugin/marketplace.json
+
+Validating plugin: <ROOT>/.claude-plugin/plugin.json
+
+  ❯ types ./types/index.d.ts declares on $: nothing (no EngineInterface member)
+  ❯ types ./types/index.d.ts declares state: pane-grid.layout, pane-grid.scroll, pane-grid.shown
+
+Validating hooks: <ROOT>/hooks/hooks.json
+
+  ❯ ./register.tsx hooks: session.start, command.run{command=grid}, ui.scroll{component=Pane, requestId=/"^grid-"/}, ui.press{component=Pane, requestId=/"^grid-"/, element=?}, ui.message{component=Pane, requestId=/"^grid-"/}, ui.render{component=Pane, requestId=/"^grid-"/}
+  ❯ ./register.tsx gating hook with .catch: command.run{command=grid}
+  ❯ ./register.tsx gating hook with .catch: ui.scroll{component=Pane, requestId=/"^grid-"/}
+  ❯ ./register.tsx calls: $.clock.after, $.clock.every, $.command.register, $.env.get, $.fs.exists (via globalFile, loadFile, mainTreeOf), $.fs.read (via loadFile, mainTreeOf), $.fs.stat (via persist, statOf), $.fs.write (via persist), $.session.cwd, $.session.root (via resolveProject), $.state.get, $.state.set (via watchShown), $.ui.close (via syncPanes), $.ui.log (via log), $.ui.open (via activateCell, showTab, syncPanes), $.ui.panes (via showTab, syncPanes, watchShown), $.ui.resolve, $.ui.toast
+  ❯ ./register.tsx env writes: nothing
+  ❯ ./register.tsx env reads: CLAUDE_CONFIG_DIR, HOME
+  ❯ ./register.tsx state writes: pane-grid.layout, pane-grid.scroll, pane-grid.shown
+  ❯ ./register.tsx state reads: pane-grid.layout, pane-grid.scroll, pane-grid.shown
+  ❯ ./register.tsx surface modules: hooks/activate.tsx, hooks/divider.tsx, hooks/measure.tsx
+
+Plugin directory checks for <ROOT>. The plugin directory is the catalog that plugins are submitted to; this is a subset of what it runs.
+
+About these checks:
+
+  ❯ This folder also holds a marketplace manifest. The plugin directory treats such a folder as a plugin, so these checks cover only the plugin in this folder. To check another plugin that the marketplace lists, run validate on that plugin's folder.
+  ❯ hooks/hooks.json names a hooks module (a code file listed under `modules`). The plugin directory has rules of its own for such code, and these checks apply none of them, so passing here does not mean the directory accepts the plugin. The developer portal's own validation applies those rules.
+
+These checks found nothing to report in what they looked at. The notes above say what they did not look at or apply.
+
+The directory also runs a safety scan and a policy review that this command does not.
+
+No digest: it names surface modules
+
+✔ Validation passed
+exit 0

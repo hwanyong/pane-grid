@@ -1,0 +1,2 @@
+sha before: 1dca3aebdfa19b977e8a6b4ed3812e0d312357071abc32de70170837427918c5  /Users/uhd/.claude/pane-grid/layout.json
+sha after:  1dca3aebdfa19b977e8a6b4ed3812e0d312357071abc32de70170837427918c5  /Users/uhd/.claude/pane-grid/layout.json

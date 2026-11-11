@@ -1,0 +1,46 @@
+resp: ⎿  pane-grid: placed filetree in c2
+built: built for pane-grid,filetree,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+───────────────────────────────────────────────────────────────────────────
+c1 -                                 │c2 filetree
+empty. place a mod here:             │■ proj      ↑  ⌂  ⊙  ◫  ⊟  ◷  ⊡  ↻
+filetree (move from c2)              │⑂ main                          ?:40
+                                     │
+                                     │⌕ search                    Aa .* ≡
+                                     │    Name                        Git
+                                     │▸ ■ .git                            ┃
+                                     │  ∙ f01.txt                        ?┃
+                                     │  ∙ f02.txt                        ?┃
+                                     │  ∙ f03.txt                        ?┃
+                                     │  ∙ f04.txt                        ?┃
+--- wheel down x3 on filetree list row
+engine: by 1 by 1 by 1 
+───────────────────────────────────────────────────────────────────────────
+c1 -                                 │c2 filetree
+empty. place a mod here:             │■ proj      ↑  ⌂  ⊙  ◫  ⊟  ◷  ⊡  ↻
+filetree (move from c2)              │⑂ main                          ?:40
+                                     │
+                                     │⌕ search                    Aa .* ≡
+                                     │    Name                        Git
+                                     │  ∙ f09.txt                        ?│
+                                     │  ∙ f10.txt                        ?│
+                                     │  ∙ f11.txt                        ?│
+                                     │  ∙ f12.txt                        ?│
+                                     │  ∙ f13.txt                        ?│
+pane-grid scroll lines: 
+--- wheel down x3 on c2 title row
+engine: by 1 by 1 by 1 
+───────────────────────────────────────────────────────────────────────────
+c1 -                                 │c2 filetree
+empty. place a mod here:             │■ proj      ↑  ⌂  ⊙  ◫  ⊟  ◷  ⊡  ↻
+filetree (move from c2)              │⑂ main                          ?:40
+                                     │
+                                     │⌕ search                    Aa .* ≡
+                                     │    Name                        Git
+                                     │  ∙ f09.txt                        ?│
+                                     │  ∙ f10.txt                        ?│
+                                     │  ∙ f11.txt                        ?│
+                                     │  ∙ f12.txt                        ?│
+                                     │  ∙ f13.txt                        ?│
+pane-grid scroll lines: 
+scroll failed: 0
+failed=0

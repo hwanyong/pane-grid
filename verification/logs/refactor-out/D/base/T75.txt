@@ -1,0 +1,1 @@
+pane-grid: * main active=c1 c1

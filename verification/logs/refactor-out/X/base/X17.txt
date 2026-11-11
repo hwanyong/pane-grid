@@ -1,0 +1,44 @@
+--toasts
+press failed lines: 1
+pane-grid: press failed: {"kind":"throw","message":"pane-grid: $.fs.write(/Users/uhd/.claude/jobs/2d2d4
+--grid
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -              │c3 -               │c2 -
+empty. place a mod│empty. place a mod │empty. place a mod here:
+here:             │here:              │no grid-ready mod is loaded
+no grid-ready mod │no grid-ready mod  │
+is loaded         │is loaded          │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │

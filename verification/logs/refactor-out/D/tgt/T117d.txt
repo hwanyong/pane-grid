@@ -1,0 +1,9 @@
+-- toasts at start
+$.ui.toast (pane-grid): pane-grid: ~/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json is not a valid layout (not JSON: JSON Parse error: Unexpected identifier "not"); using one empty tab
+-- split -h #1: pane-grid: refused: another session changed this project's layout; loaded ~/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json again, do it once more
+-- split -h #2: pane-grid: split c1 into c1 and c3
+-- invalid file: NOFILE
+-- log
+pane-grid: layout file $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json refused: not JSON: JSON Parse error: Unexpected identifier "not"
+pane-grid: $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json changed by another session (mtimeMs N -> N); not written
+failed hooks: 0

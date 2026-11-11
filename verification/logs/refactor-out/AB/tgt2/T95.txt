@@ -1,0 +1,44 @@
+$ g place usage-gauge
+pane-grid: placed usage-gauge in c1
+[exit-ish done]
+$ g break
+pane-grid: moved c1 to tab w2
+[exit-ish done]
+--- ls before
+layout.json
+$ g place usage-gauge
+pane-grid: placed usage-gauge in c2
+[exit-ish done]
+$ g list
+pane-grid: * main active=c2 c2=usage-gauge
+  w2 active=c1 c1
+[exit-ish done]
+--- ls after
+layout.json
+--- pl
+{
+  "version": 1,
+  "project": "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "cell",
+        "id": "c2",
+        "plugin": "usage-gauge"
+      },
+      "active": "c2"
+    },
+    {
+      "name": "w2",
+      "root": {
+        "kind": "cell",
+        "id": "c1"
+      },
+      "active": "c1"
+    }
+  ]
+}
+
+--- log refused|kept|command failed
+--- failed=0

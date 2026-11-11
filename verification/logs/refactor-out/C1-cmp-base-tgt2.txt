@@ -1,0 +1,41 @@
+T35 DIFF
+    --- base/T35
+    +++ tgt2/T35
+    @@ -3,6 +3,6 @@
+         /pane-grid:add-pane-grid-cell   (pane-grid) Make a Claude Code mod (a plugin with a hooks module) grid-ready, so it draws inside a pane-grid cell. Use when the
+     ❯ /grid
+     -- /grid + space
+    -❯ /grid  <split|kill|next|place|swap|zoom|resize|layout|new|select|rename|close|break|list|reload|help>
+    +❯ /grid  <split|kill|next|select-cell|place|swap|zoom|resize|layout|new|select|rename|close|break|list|reload|help>
+     -- log
+     $.command.register (pane-grid): /grid listed
+T57a SAME
+T57b SAME
+T57c SAME
+T57d SAME
+T57e SAME
+T57f SAME
+T57g SAME
+T57h SAME
+T57i SAME
+T57j SAME
+T57k DIFF
+    --- base/T57k
+    +++ tgt2/T57k
+    @@ -1,7 +1,7 @@
+     pane before:  main   w2   w3                                                          ✕
+     first cell row: ───────────────────────────────────────────────────────────────────────────
+    -$.ui.toast (pane-grid): pane-grid: closed main
+    -pane-grid: action close: closed main
+    +$.ui.toast (pane-grid): pane-grid: closed main; it is behind w3, click its tab to show it
+    +pane-grid: action close: closed main; it is behind w3, click its tab to show it
+     -- tab row
+      w2   w3                                                                 ✕
+     press failed lines: 0
+T58 SAME
+T100 SAME
+T114 SAME
+T116 SAME
+T116i MISSING-tgt2
+failed-t SAME
+summary: same=15 diff=2 missing=1

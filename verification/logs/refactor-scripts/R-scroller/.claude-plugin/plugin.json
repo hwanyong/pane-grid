@@ -1,0 +1,1 @@
+{ "name": "r-scroller", "version": "0.0.1", "description": "k12 R group test mod. Draws a grid cell that scrolls its own rows and logs each ui.scroll it takes." }

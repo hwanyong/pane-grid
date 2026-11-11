@@ -1,0 +1,51 @@
+-- before: pane-grid: * main active=c3 zoomed {c1:23.33,c3=usage-gauge:30,c2:46.67} notes active=c4 c4
+-- after:  pane-grid:   main active=c3 zoomed {c1:23.33,c3=usage-gauge:30,c2:46.67} - notes active=c4 c4
+-- same: no
+-- file
+{
+  "version": 1,
+  "project": "$H/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1"
+            },
+            "size": 23.33
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c3",
+              "plugin": "usage-gauge"
+            },
+            "size": 30
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2"
+            },
+            "size": 46.67
+          }
+        ]
+      },
+      "active": "c3",
+      "zoomed": "c3"
+    },
+    {
+      "name": "notes",
+      "root": {
+        "kind": "cell",
+        "id": "c4"
+      },
+      "active": "c4"
+    }
+  ]
+}
+failed hooks: 0

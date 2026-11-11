@@ -1,0 +1,168 @@
+== structure: committed == generated: True; png sha256 eb8814c859065d1f19a3fe05b3df21ff6d17a15cfa8fa36c05cfa7f1b05963fa
+arrow-fail marker defs: 0 refs: 0
+<svg xmlns="http://www.w3.org/2000/svg" width="1420" height="830" viewBox="0 0 1420 830">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+</marker>
+</defs>
+<text x="40" y="44" font-family="Apple SD Gothic Neo, sans-serif" font-size="22" font-weight="bold" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">구조: Claude Code 엔진과 mod 마다 따로 도는 worker</text>
+<rect x="40" y="70" width="640" height="719" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+<text x="60" y="102" font-family="Apple SD Gothic Neo, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">Claude Code 엔진 (호스트 프로세스)</text>
+<rect x="64" y="125" width="592" height="198" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="80" y="151" font-family="Apple SD Gothic Neo, sans-serif" font-size="16" font-weight="bold" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">① ui.render 연쇄</text>
+<text x="80" y="175" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">그리기 요청 1개 = pane 1개 (requestId)</text>
+<text x="80" y="196" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">envelope(surface · component · requestId · viewport)는</text>
+<text x="80" y="217" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">엔진이 정하고 hook 이 바꾸면 거부된다</text>
+<text x="80" y="238" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">순서: @inline(--plugin-dir · CLAUDE_CODE_PLUGIN_DIRS)</text>
+<text x="80" y="259" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">→ 설치본 → builtin → core</text>
+<text x="80" y="280" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">설치본 순서: enabledPlugins 키 순서 (grid-and-tabs.md 7회차)</text>
+<text x="80" y="301" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">next 를 부르지 않고 답하면 그보다 index 가 큰 hook 은 실행되지 않는다</text>
+<rect x="64" y="339" width="592" height="110" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="80" y="365" font-family="Apple SD Gothic Neo, sans-serif" font-size="16" font-weight="bold" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">② 반환 트리 검사</text>
+<text x="80" y="389" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">상호작용 요소(Button · Input · Select)는</text>
+<text x="80" y="410" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">그 요청 안에서 직접 그린 것과 next(e) 로 받은 것만 허용</text>
+<text x="80" y="431" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">어기면 hook 실패 → 엔진이 대신 그린다</text>
+<rect x="64" y="465" width="592" height="110" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="80" y="491" font-family="Apple SD Gothic Neo, sans-serif" font-size="16" font-weight="bold" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">③ ui.press 처리</text>
+<text x="80" y="515" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">트리의 Button 은 press: { plugin, handle } 만 갖는다</text>
+<text x="80" y="536" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">core 가 handle 로 그린 mod 의 worker 에서 onPress 실행</text>
+<text x="80" y="557" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">next() 에 다른 plugin · element 를 넣으면 거부</text>
+<rect x="64" y="591" width="592" height="88" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="80" y="617" font-family="Apple SD Gothic Neo, sans-serif" font-size="16" font-weight="bold" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">④ 그리기 요청 생성</text>
+<text x="80" y="641" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">보이는 pane 1개에만 ui.render 요청을 만든다</text>
+<text x="80" y="662" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">보이지 않는 pane(isShown false): 요청 없음 ($.ui.invalidate 를 불러도)</text>
+<rect x="64" y="695" width="592" height="74" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="80" y="721" font-family="Apple SD Gothic Neo, sans-serif" font-size="16" font-weight="bold" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">terminal 표면</text>
+<text x="80" y="747" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">보이는 pane 1개 + 나머지는 탭 (분할 API 없음)</text>
+<line x1="722" y1="155.0" x2="768" y2="155.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="770" y="110" width="610" height="90" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+<text x="788" y="137" font-family="Apple SD Gothic Neo, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">worker · 연쇄 index 0 · pane-grid@inline</text>
+<text x="788" y="161" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">ui.render hook: 모든 Pane 요청을 받는다</text>
+<text x="788" y="182" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">자기 onPress 함수는 이 worker 안에만 있다</text>
+<line x1="722" y1="256.0" x2="768" y2="256.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="770" y="222" width="610" height="68" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="788" y="249" font-family="Apple SD Gothic Neo, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">worker · 연쇄 index 1 · usage-gauge</text>
+<text x="788" y="273" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">next(e) 로 넘긴다</text>
+<line x1="722" y1="346.0" x2="768" y2="346.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="770" y="312" width="610" height="68" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="788" y="339" font-family="Apple SD Gothic Neo, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">worker · 연쇄 index 2 · uhd-kanban</text>
+<text x="788" y="363" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">next(e) 로 넘긴다</text>
+<line x1="722" y1="436.0" x2="768" y2="436.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="770" y="402" width="610" height="68" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="788" y="429" font-family="Apple SD Gothic Neo, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">worker · 연쇄 index 3 · pending-questions</text>
+<text x="788" y="453" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">requestId 'pending-questions' 는 직접 답한다</text>
+<line x1="722" y1="537.0" x2="768" y2="537.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="770" y="492" width="610" height="90" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="788" y="519" font-family="Apple SD Gothic Neo, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">worker · 연쇄 index 4 · filetree (수정 불가 mod)</text>
+<text x="788" y="543" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">requestId 'filetree' 는 next 를 부르지 않고 직접 답한다</text>
+<text x="788" y="564" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">onPress 함수는 이 worker 안에만 있다</text>
+<line x1="720" y1="110" x2="720" y2="537.0" stroke="#4b5563" stroke-width="2"/>
+<text x="770" y="614" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#4b5563" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">$ 호출 · 이벤트: worker 마다 MessagePort 1개.</text>
+<text x="770" y="635" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#4b5563" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">오가는 것은 순수 데이터뿐이고 함수는 넘어가지 않는다.</text>
+<text x="770" y="656" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#4b5563" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">worker 끼리는 직접 호출 · import · 메모리 공유가 없다.</text>
+<text x="770" y="677" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#4b5563" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">순서와 index 는 R1c 실행의 next.trace 와 debug log 에서 읽었다.</text>
+</svg>
+== lifecycle: committed == generated: True; png sha256 a1a1c8a6bebf1dd706264525f313039f57706eb76d0b0484de81dd1623ab2c80
+arrow-fail marker defs: 0 refs: 0
+<svg xmlns="http://www.w3.org/2000/svg" width="1960" height="1520" viewBox="0 0 1960 1520">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+</marker>
+</defs>
+<text x="40" y="44" font-family="Apple SD Gothic Neo, sans-serif" font-size="22" font-weight="bold" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">pane 이벤트 순서와 실패 지점 (filetree 의 pane 을 pane-grid 가 다룰 때)</text>
+<rect x="30" y="66" width="220" height="40" rx="8" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<text x="140" y="92" font-family="Apple SD Gothic Neo, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">표면 (terminal)</text>
+<line x1="140" y1="106" x2="140" y2="1440" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
+<rect x="360" y="66" width="220" height="40" rx="8" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<text x="470" y="92" font-family="Apple SD Gothic Neo, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">엔진</text>
+<line x1="470" y1="106" x2="470" y2="1440" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
+<rect x="690" y="66" width="220" height="40" rx="8" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<text x="800" y="92" font-family="Apple SD Gothic Neo, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">pane-grid (index 0)</text>
+<line x1="800" y1="106" x2="800" y2="1440" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
+<rect x="950" y="66" width="220" height="40" rx="8" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<text x="1060" y="92" font-family="Apple SD Gothic Neo, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">중간 mod (index 1 ~ 3)</text>
+<line x1="1060" y1="106" x2="1060" y2="1440" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
+<rect x="1210" y="66" width="220" height="40" rx="8" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<text x="1320" y="92" font-family="Apple SD Gothic Neo, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">filetree (index 4)</text>
+<line x1="1320" y1="106" x2="1320" y2="1440" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="1440" y1="66" x2="1440" y2="1440" stroke="#e5e7eb" stroke-width="1"/>
+<text x="1460" y="92" font-family="Apple SD Gothic Neo, sans-serif" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">실패 지점 (빨간 번호)</text>
+<line x1="1320" y1="150" x2="476" y2="150" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="482" y="141" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">① $.ui.open({ id: 'filetree' })</text>
+<rect x="480" y="162" width="380" height="35" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="492" y="184" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">ui.open 연쇄: index 가 작은 hook 이 제목 변경 · deny 가능</text>
+<line x1="470" y1="240" x2="146" y2="240" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="152" y="231" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">② 배치: dock · 보이는 pane 1개, 나머지 탭</text>
+<rect x="320" y="290" width="320" height="35" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+<text x="332" y="312" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">③ 보이는 pane 에만 ui.render 요청을 만든다</text>
+<line x1="673" y1="307" x2="1460" y2="307" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="660" cy="307" r="13" fill="#dc2626"/>
+<text x="660" y="312" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+<rect x="1460" y="291" width="470" height="79" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="1472" y="312" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">✕5  보이지 않는 pane 에는 요청이 없다 (R2)</text>
+<text x="1472" y="333" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">invalidate · 파일 변경에도 render 0회.</text>
+<text x="1472" y="354" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">보이지 않는 남의 mod 의 새 트리를 받을 수 없다</text>
+<line x1="470" y1="400" x2="794" y2="400" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="482" y="391" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">④ ui.render { component: 'Pane', requestId: 'filetree' }</text>
+<line x1="813" y1="440" x2="1460" y2="440" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="800" cy="440" r="13" fill="#dc2626"/>
+<text x="800" y="445" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+<rect x="1460" y="424" width="470" height="79" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="1472" y="445" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">✕1  requestId 를 바꾼 next() 는 거부</text>
+<text x="1472" y="466" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">next({ ...e, requestId: 'grid' }) →</text>
+<text x="1472" y="487" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">changed requestId (the envelope is the engine's)</text>
+<line x1="800" y1="530" x2="1054" y2="530" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="812" y="521" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">⑤ next(e)</text>
+<line x1="1060" y1="560" x2="1314" y2="560" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="1072" y="551" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">next(e)</text>
+<rect x="1160" y="590" width="290" height="35" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="1172" y="612" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">⑥ 직접 답한다 (next 를 부르지 않는다)</text>
+<line x1="1333" y1="650" x2="1460" y2="650" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="1320" cy="650" r="13" fill="#dc2626"/>
+<text x="1320" y="655" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+<rect x="1460" y="634" width="470" height="79" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="1472" y="655" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">✕4  pane-grid 의 index 가 filetree 보다 크면 호출되지 않는다 (R1b)</text>
+<text x="1472" y="676" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">설치본을 나중에 설치하면 index 가 filetree 보다 커진다.</text>
+<text x="1472" y="697" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">연쇄가 ⑥ 에서 끝나 pane-grid 의 로그 0줄</text>
+<line x1="1320" y1="700" x2="1066" y2="700" stroke="#4b5563" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="1072" y="691" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">⑦ 트리 반환</text>
+<line x1="1060" y1="730" x2="806" y2="730" stroke="#4b5563" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="812" y="721" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">Button: press { plugin: 'filetree', handle }</text>
+<rect x="650" y="760" width="330" height="56" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+<text x="662" y="782" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">⑧ 이 요청의 next(e) 결과는 그대로 쓸 수 있다</text>
+<text x="662" y="803" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">→ 저장해 둔 다른 mod 트리와 나란히 그리기 가능</text>
+<line x1="1003" y1="840" x2="1460" y2="840" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="990" cy="840" r="13" fill="#dc2626"/>
+<text x="990" y="845" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+<rect x="1460" y="824" width="470" height="79" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="1472" y="845" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">✕2  다른 요청에서 저장한 남의 Button 은 hook 실패</text>
+<text x="1472" y="866" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">returned a Button it did not draw (child-a#1);</text>
+<text x="1472" y="887" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">a render hook may keep the ones next(e) returned</text>
+<line x1="800" y1="920" x2="476" y2="920" stroke="#4b5563" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="482" y="911" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">⑨ 트리 반환 → ② 검사</text>
+<line x1="470" y1="970" x2="146" y2="970" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="152" y="961" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">⑩ 그린다</text>
+<line x1="140" y1="1050" x2="464" y2="1050" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="152" y="1041" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">⑪ Button 누름 → ui.press { plugin, element, requestId }</text>
+<line x1="470" y1="1120" x2="794" y2="1120" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="482" y="1111" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">⑫ ui.press 연쇄</text>
+<line x1="813" y1="1150" x2="1460" y2="1150" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="800" cy="1150" r="13" fill="#dc2626"/>
+<text x="800" y="1155" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+<rect x="1460" y="1134" width="470" height="79" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="1472" y="1155" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">✕3  plugin 을 바꾼 next() 는 거부</text>
+<text x="1472" y="1176" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">next() passed an argument with a plugin</text>
+<text x="1472" y="1197" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">other than the one that drew the element</text>
+<line x1="470" y1="1230" x2="1314" y2="1230" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="482" y="1221" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">⑬ core 가 handle 로 filetree worker 의 onPress 를 실행</text>
+<line x1="800" y1="1310" x2="476" y2="1310" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="482" y="1301" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">⑭ $.ui.invalidate('ui.render')</text>
+<rect x="320" y="1330" width="420" height="56" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+<text x="332" y="1352" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">⑮ ③ 으로 돌아간다: 보이는 pane 만 다시 render (R3)</text>
+<text x="332" y="1373" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">보이지 않는 pane 은 다시 ✕5</text>
+<text x="40" y="1470" font-family="Apple SD Gothic Neo, sans-serif" font-size="14" font-weight="normal" fill="#4b5563" text-anchor="start" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">실선 화살표: 호출 · 이벤트. 점선 화살표: 반환. 빨간 번호의 근거와 시험 폴더는 docs/pane-lifecycle.md 의 표에 있다.</text>
+</svg>

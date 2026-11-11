@@ -1,0 +1,17 @@
+built for pane-grid,k12shown,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+-- start
+k12shown: readShownTab "main"
+-- new w2: ⎿  pane-grid: opened tab w2
+k12shown: readShownTab "w2"
+-- select main: ⎿  pane-grid: showing main
+k12shown: readShownTab "main"
+-- 전부
+k12shown: readShownTab null
+k12shown: readShownTab "main"
+k12shown: readShownTab "w2"
+k12shown: readShownTab "main"
+failed hooks: 0
+-- pane-grid 없이
+built for k12shown,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+k12shown: readShownTab null
+failed hooks: 0

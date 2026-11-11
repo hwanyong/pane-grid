@@ -1,0 +1,26 @@
+# R-F63: 크기 변경 render 뒤 measure 보고 전의 휠(c2 에 스스로 스크롤하는 시험 member r-scroller)
+[0] initialize success
+[2] ui_attach {"response": {"surfaces": ["desktop"]}, "subtype": "success"}
+## render-100
+[4] ui_render ok cellbox:c1 w=50 Client divider:r:0 cellbox:c2 w=49 cell:r-scroller
+[5] ui_message {"response": {"handled": true}, "subtype": "success"}
+[7] ui_render ok cellbox:c1 w=50 Client divider:r:0 cellbox:c2 w=49 cell:r-scroller
+## wheel-no-resize col75
+[9] ui_scroll {"response": {"moved": true, "offset": 0}, "subtype": "success"}
+## render-60 (no measure message)
+[12] ui_render ok cellbox:c1 w=30 Client divider:r:0 cellbox:c2 w=29 cell:r-scroller
+## wheel-in-window col40
+[15] ui_scroll {"response": {"moved": true, "offset": 0}, "subtype": "success"}
+## measure 60
+[18] ui_message {"response": {"handled": true}, "subtype": "success"}
+## wheel-after-measure col40
+[21] ui_scroll {"response": {"moved": true, "offset": 0}, "subtype": "success"}
+## log
+pane-grid: layout revision=1 tabs=main placed=r-scroller
+ui.open pane-grid grid-main (unasked, unmeasured columns): placed
+pane-grid: layout revision=2 tabs=main placed=r-scroller
+rscroller: scroll by=1 pointer={75,10} placement={51,49}
+pane-grid: layout revision=3 tabs=main placed=r-scroller
+rscroller: scroll by=1 pointer={40,10} placement={31,29}
+## project file
+NOFILE

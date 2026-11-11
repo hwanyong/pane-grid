@@ -1,0 +1,91 @@
+F71 SAME
+F71f DIFF
+    --- base/F71f
+    +++ tgt2/F71f
+    @@ -1,10 +1,4 @@
+    -Traceback (most recent call last):
+    -  File "<ROOT>/docs/images/build.py", line <N>, in <module>
+    -    render("pane-structure", structure(), 1420, 830)
+    -  File "<ROOT>/docs/images/build.py", line <N>, in render
+    -    subprocess.run([
+    -  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line <N>, in run
+    -    raise CalledProcessError(retcode, process.args,
+    -subprocess.CalledProcessError: Command '['<FAKE>', '--headless=new', '--user-data-dir=<TMP> '--hide-scrollbars', '--force-device-scale-factor=2', '--window-size=1420,830', '--screenshot=<ROOT>/docs/images/pane-structure.png', 'file://<ROOT>/docs/images/pane-structure.svg']' returned non-zero exit status 21.
+    +FAKE-CHROME-STDERR: --headless=new --user-data-dir=<P>/<TMPDIR> --hide-scrollbars --force-device-scale-factor=2 --window-size=1420,830 --screenshot=<P>/pane-structure.draft.png file:<P>/pane-structure.draft.svg
+    +<FAKE> exited with 21 while rendering pane-structure.svg
+     exit 1
+     # git status --short docs/images
+F71m DIFF
+    --- base/F71m
+    +++ tgt2/F71m
+    @@ -1,8 +1,8 @@
+     Traceback (most recent call last):
+       File "<ROOT>/docs/images/build.py", line <N>, in <module>
+    -    render("pane-structure", structure(), 1420, 830)
+    +    render("pane-structure", *structure())
+       File "<ROOT>/docs/images/build.py", line <N>, in render
+    -    subprocess.run([
+    +    result = subprocess.run([
+       File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line <N>, in run
+         with Popen(*popenargs, **kwargs) as process:
+       File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line <N>, in __init__
+F71s DIFF
+    --- base/F71s
+    +++ tgt2/F71s
+    @@ -1,4 +1,4 @@
+    -16e120665309b2d18ca44232c0db8bb04d51892050247b7a27bf714777038440  pane-structure.svg
+    -2a6a00c852d7b5cb938e6a442408bc2342861b864ac4a83f4438681a1c752936  pane-lifecycle.svg
+    +51d96c8e862ac91542370f01d3109665fe01243956280ee48cfad397f973c669  pane-structure.svg
+    +7cd7ecb47a567807f5fedac0ac99002b65e0a3cad354a26399cb74a2f346fbc4  pane-lifecycle.svg
+     eb8814c859065d1f19a3fe05b3df21ff6d17a15cfa8fa36c05cfa7f1b05963fa  pane-structure.png
+     a1a1c8a6bebf1dd706264525f313039f57706eb76d0b0484de81dd1623ab2c80  pane-lifecycle.png
+T107 SAME
+T108 DIFF
+    --- base/T108
+    +++ tgt2/T108
+    @@ -7,10 +7,10 @@
+     
+     Validating hooks: <ROOT>/hooks/hooks.json
+     
+    -  ❯ ./register.tsx hooks: session.start, command.run{command=grid}, ui.scroll{component=Pane, requestId=/"^grid-"/}, ui.press{component=Pane, requestId=/"^grid-"/, element=/"^(place|hotkey):"/}, ui.message{component=Pane, requestId=/"^grid-"/}, ui.render{component=Pane, requestId=/"^grid-"/}
+    +  ❯ ./register.tsx hooks: session.start, command.run{command=grid}, ui.scroll{component=Pane, requestId=/"^grid-"/}, ui.press{component=Pane, requestId=/"^grid-"/, element=?}, ui.message{component=Pane, requestId=/"^grid-"/}, ui.render{component=Pane, requestId=/"^grid-"/}
+       ❯ ./register.tsx gating hook with .catch: command.run{command=grid}
+       ❯ ./register.tsx gating hook with .catch: ui.scroll{component=Pane, requestId=/"^grid-"/}
+    -  ❯ ./register.tsx calls: $.clock.after, $.clock.every, $.command.register, $.env.get, $.fs.exists (via globalFile, loadFile, mainTreeOf), $.fs.read (via loadFile, mainTreeOf), $.fs.stat (via persist, statOf), $.fs.write (via persist), $.session.root (via resolveProject), $.state.get, $.state.set (via watchShown), $.ui.close (via syncPanes), $.ui.log (via log), $.ui.open (via activateCell, showTab, syncPanes), $.ui.panes (via showTab, syncPanes, watchShown), $.ui.resolve, $.ui.toast
+    +  ❯ ./register.tsx calls: $.clock.after, $.clock.every, $.command.register, $.env.get, $.fs.exists (via globalFile, loadFile, mainTreeOf), $.fs.read (via loadFile, mainTreeOf), $.fs.stat (via persist, statOf), $.fs.write (via persist), $.session.cwd, $.session.root (via resolveProject), $.state.get, $.state.set (via watchShown), $.ui.close (via syncPanes), $.ui.log (via log), $.ui.open (via activateCell, showTab, syncPanes), $.ui.panes (via showTab, syncPanes, watchShown), $.ui.resolve, $.ui.toast
+       ❯ ./register.tsx env writes: nothing
+       ❯ ./register.tsx env reads: CLAUDE_CONFIG_DIR, HOME
+       ❯ ./register.tsx state writes: pane-grid.layout, pane-grid.scroll, pane-grid.shown
+T108p SAME
+T109 DIFF
+    --- base/T109
+    +++ tgt2/T109
+    @@ -1,4 +1,11 @@
+     # declaration lines (grep ^export)
+    +export const GRID_VERSION = 1
+    +export const SLOT_KEY = 'slot:'
+    +export const CHOICES_KEY = 'choices:'
+    +export const ACTIVE_SUFFIX = ':active'
+    +export const NONE_KEY = 'none:'
+    +export const PLACE_KEY = 'place:'
+    +export const CHOICE_HOTKEYS = 9
+     export const TOOLBAR_KEYS = ['v', 's', 'o', 'z', 'x', 'w', 'b', 'c', 'k', 'q'] as const
+     export const placementIn = (layout: unknown, plugin: string): GridPlacement | undefined => {
+     export async function readPlacement($: EngineInterface, plugin: string): Promise<GridPlacement | undefined> {
+    @@ -8,6 +15,13 @@
+     export const scrollsKey = (plugin: string) => `${SCROLLS_KEY}${plugin}`
+     export const isScrollIn = (placement: GridPlacement | undefined, e: UiScrollInput): boolean => {
+     # runtime exports (tsx)
+    +ACTIVE_SUFFIX: string ":active"
+    +CHOICES_KEY: string "choices:"
+    +CHOICE_HOTKEYS: number 9
+    +GRID_VERSION: number 1
+    +NONE_KEY: string "none:"
+    +PLACE_KEY: string "place:"
+    +SLOT_KEY: string "slot:"
+     TOOLBAR_KEYS: object ["v","s","o","z","x","w","b","c","k","q"]
+     fillSlot: Function length=3
+     isScrollIn: Function length=2
+T110 SAME
+T111 SAME
+summary: same=5 diff=5 missing=0

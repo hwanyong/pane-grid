@@ -1,0 +1,25 @@
+F71 SAME
+F71f DIFF
+    --- tgt2/F71f
+    +++ broke2/F71f
+    @@ -2,3 +2,4 @@
+     <FAKE> exited with 21 while rendering pane-structure.svg
+     exit 1
+     # git status --short docs/images
+    +?? docs/images/pane-structure.draft.svg
+F71m DIFF
+    --- tgt2/F71m
+    +++ broke2/F71m
+    @@ -12,3 +12,4 @@
+     FileNotFoundError: [Errno 2] No such file or directory: '/nonexistent/chrome'
+     exit 1
+     # git status --short docs/images
+    +?? docs/images/pane-structure.draft.svg
+F71s SAME
+T107 SAME
+T108 SAME
+T108p SAME
+T109 SAME
+T110 SAME
+T111 SAME
+summary: same=8 diff=2 missing=0

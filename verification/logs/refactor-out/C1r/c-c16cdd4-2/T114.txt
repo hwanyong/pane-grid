@@ -1,0 +1,15 @@
+g new: pane-grid: opened tab w2
+g new: pane-grid: opened tab w3
+-- g list
+pane-grid: * main active=c1 {c1:50,c2:50}
+  w2 active=c3 c3
+  w3 active=c4 c4
+select: ⎿  pane-grid: showing w2
+tab row before close:  main   w2   w3                                                          ✕
+close: ⎿  pane-grid: closed w2
+visible cells after close: c1 - │c2 -
+-- list
+  ⎿  pane-grid: * main active=c1 {c1:50,c2:50}
+       w3 active=c4 c4
+tab row after:  main   w3                                                               ✕
+failed: 0

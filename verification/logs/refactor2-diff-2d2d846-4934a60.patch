@@ -1,0 +1,283 @@
+diff --git a/docs/add-pane-grid-cell.md b/docs/add-pane-grid-cell.md
+index eb98546..d8ea461 100644
+--- a/docs/add-pane-grid-cell.md
++++ b/docs/add-pane-grid-cell.md
+@@ -67,6 +67,8 @@ Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pan
+ 
+ `readPlacement` and `readShownTab` are `function` declarations on purpose. From Claude Code 2.1.299, `claude plugin validate` follows `$` across an import only through function declarations.
+ 
++pane-grid 0.5.1 added seven exports to this file: `GRID_VERSION`, `SLOT_KEY`, `CHOICES_KEY`, `ACTIVE_SUFFIX`, `NONE_KEY`, `PLACE_KEY` and `CHOICE_HOTKEYS`. The earlier file had the same constants with the same values without exporting them, so the render keys and the layout version did not change. No export was removed or renamed, and the eight earlier exports kept their names and parameters. A copy taken before 0.5.1 keeps working. Copy the 0.5.1 file again to get one fix: `offerChoice` now reads the choices of a cell whose id is `active` as that cell's, not as the active cell's.
++
+ ### Engine floor: Claude Code 2.1.299
+ 
+ A hooks module that passes `$` to `readPlacement` or `readShownTab` loads in Claude Code 2.1.299 or later. Claude Code 2.1.296 and older refuse the whole module, and `claude plugin validate` fails with:
+@@ -246,6 +248,8 @@ on('state.set', { plugin: 'pane-grid' as never, key: 'shown' as never }, async (
+ 
+ `readShownTab($)` gives the same value outside a `state.set` hook, for example inside the timer callback.
+ 
++Do not rely on the first value after a session starts. pane-grid 0.5.1 starts its once-a-second `shown` check before it reads the layout file at session start (0.5.0 started it after), so the first `readShownTab` can already return the tab name where 0.5.0 returned `null` first. The order between pane-grid's first write and your mod's first read is not fixed. Treat every value other than your tab, `null` included, as hidden, and start the timer when the value becomes your tab.
++
+ ## Step 7: scroll your own rows in the cell (optional)
+ 
+ Skip this step if your mod lets the engine scroll its pane. pane-grid then scrolls your cell for you: the wheel over the cell moves the whole `cell:` Box up, header rows included.
+diff --git a/docs/grid-and-tabs.md b/docs/grid-and-tabs.md
+index 5e32d06..960dd0c 100644
+--- a/docs/grid-and-tabs.md
++++ b/docs/grid-and-tabs.md
+@@ -19,7 +19,7 @@
+ 
+ 8. **uhd-kanban 은 board 읽기와 애니메이션을 나눈다**(§5.2). board 읽기는 보임과 상관없이 돌고, 애니메이션만 pane-grid 의 `shown` 을 `state.set` hook 으로 받아 멈춘다.
+ 9. **pane-grid 의 state 타입은 pane-grid 저장소 하나에만 둔다.** 세 mod 는 읽은 값의 `version` 필드를 실행 중에 검사한다.
+-10. **hotkey 글자는 §2.3 의 표대로다.** 2026-11-11 사용자 결정(카드 k11, k10 finding F61)으로 탭 이름 바꾸기의 `r` 을 뺐다. Button `hotkey` 로는 새 이름을 입력받을 수 없어 `/grid rename <name>` 으로만 한다(`hooks/register.tsx` 의 `TOOLBAR` 위 주석). 구현은 처음부터 `r` 이 없었고 이 표만 고치지 않았던 것을 맞췄다.
++10. **hotkey 글자는 §2.3 의 표대로다.** 2026-11-11 사용자 결정(카드 k11, k10 finding F61)으로 탭 이름 바꾸기의 `r` 을 뺐다. Button `hotkey` 로는 새 이름을 입력받을 수 없어 `/grid rename <name>` 으로만 한다(`hooks/render-keys.ts` 의 `TOOLBAR` 위 주석). 구현은 처음부터 `r` 이 없었고 이 표만 고치지 않았던 것을 맞췄다.
+ 11. **`verification/harness-probe/` 는 근거로 남긴다.**
+ 
+ 같은 날 구현 전에 정한 세 가지. 사용자가 다른 안을 고르지 않아 권하는 안으로 진행한다:
+diff --git a/docs/images/build.py b/docs/images/build.py
+index 1b17fbe..6accff1 100644
+--- a/docs/images/build.py
++++ b/docs/images/build.py
+@@ -306,27 +306,33 @@ def lifecycle():
+     return svg(width, height, "".join(parts)), width, height
+ 
+ 
+-# SVG 와 PNG 를 임시 이름으로 만들고 Chrome 이 성공한 뒤에만 두 파일을 제 이름으로 옮긴다. Chrome 이 실패하면
+-# 그 stderr 를 내고 종료 코드 1 로 끝나며, 이전 SVG · PNG 는 그대로 남아 둘이 어긋나지 않는다.
++# SVG 와 PNG 를 초안 이름으로 만들고, Chrome 이 종료 코드 0 으로 끝나고 PNG 초안이 생긴 뒤에만 두 파일을 제 이름으로 옮긴다.
++# 그 밖(Chrome 실행 파일이 없음 · 0 이 아닌 종료 코드 · PNG 없음)은 종료 코드 1 로 끝나며, 이전 SVG · PNG 는 그대로 남아 둘이 어긋나지 않는다.
++# 초안은 어느 분기로 끝나든(예외 포함) finally 에서 지운다.
+ def render(name, document, width, height):
+     svg_path = OUT / f"{name}.svg"
+     png_path = OUT / f"{name}.png"
+     svg_draft = OUT / f"{name}.draft.svg"
+     png_draft = OUT / f"{name}.draft.png"
+-    svg_draft.write_text(document, encoding="utf-8")
+-    with tempfile.TemporaryDirectory() as profile:
+-        result = subprocess.run([
+-            CHROME, "--headless=new", f"--user-data-dir={profile}", "--hide-scrollbars",
+-            "--force-device-scale-factor=2", f"--window-size={width},{height}",
+-            f"--screenshot={png_draft}", svg_draft.as_uri(),
+-        ], capture_output=True, text=True)
+-    if result.returncode != 0:
+-        svg_draft.unlink()
++    try:
++        svg_draft.write_text(document, encoding="utf-8")
++        with tempfile.TemporaryDirectory() as profile:
++            result = subprocess.run([
++                CHROME, "--headless=new", f"--user-data-dir={profile}", "--hide-scrollbars",
++                "--force-device-scale-factor=2", f"--window-size={width},{height}",
++                f"--screenshot={png_draft}", svg_draft.as_uri(),
++            ], capture_output=True, text=True)
++        if result.returncode != 0:
++            sys.stderr.write(result.stderr)
++            sys.exit(f"{CHROME} exited with {result.returncode} while rendering {svg_path.name}")
++        if not png_draft.exists():
++            sys.stderr.write(result.stderr)
++            sys.exit(f"{CHROME} exited with 0 but wrote no {png_draft.name} while rendering {svg_path.name}")
++        svg_draft.replace(svg_path)
++        png_draft.replace(png_path)
++    finally:
++        svg_draft.unlink(missing_ok=True)
+         png_draft.unlink(missing_ok=True)
+-        sys.stderr.write(result.stderr)
+-        sys.exit(f"{CHROME} exited with {result.returncode} while rendering {svg_path.name}")
+-    svg_draft.replace(svg_path)
+-    png_draft.replace(png_path)
+     print(png_path)
+ 
+ 
+diff --git a/hooks/register.tsx b/hooks/register.tsx
+index b6580c3..38dea93 100644
+--- a/hooks/register.tsx
++++ b/hooks/register.tsx
+@@ -36,6 +36,8 @@ const INVALID_NAME = 'layout.invalid.json'
+ const LEGACY_GLOBAL_FILE = `.claude/${GLOBAL_FILE}`
+ // HOME 도 CLAUDE_CONFIG_DIR 도 없으면 설정 디렉터리를 정할 수 없어 파일을 읽지도 쓰지도 않는다(배치는 이 세션의 $.state 에만 있다).
+ const NO_FILE = 'no file (neither HOME nor CLAUDE_CONFIG_DIR is set)'
++// 프로젝트를 아직 정하지 못해(시작 때 resolveProject 가 거부됐다) 프로젝트 파일의 자리가 없을 때 바꾸는 동작을 거부하는 이유.
++const UNRESOLVED = "this session's project is not resolved yet, so the layout cannot be saved; see the debug log"
+ const COMMON_GIT_DIR = '/.git'
+ const SHOWN_POLL_MS = 1000
+ const ACTIVE_COLOR = 'green'
+@@ -45,10 +47,12 @@ const UNFILLED_HINT = 'not loaded, or its hooks/pane-grid.ts is older than pane-
+ // 모듈 변수는 다시 불러오면 처음 값으로 돌아간다. 그려진 것은 모두 $.state 에서 읽고, 여기에는 다시 계산할 수 있는 것만 둔다.
+ const run = {
+   home: '',
+-  config: '',
++  // 설정 디렉터리(CLAUDE_CONFIG_DIR, 없으면 $HOME/.claude). 끝 `/` 를 뺀 값이라 루트 `/` 는 빈 문자열이다.
++  // undefined 면 둘 다 없어 파일을 쓰지 않는다(NO_FILE).
++  config: undefined as string | undefined,
+   // 마지막으로 읽은 $.session.root(). 이것이 바뀔 때만(`/cd` · worktree 이동) 프로젝트를 다시 정한다.
+   root: '',
+-  // 프로젝트 키(projectOf)와 그 프로젝트 파일이 있는 디렉터리.
++  // 프로젝트 키(projectOf)와 그 프로젝트 파일이 있는 디렉터리. 프로젝트를 한 번도 정하지 못했으면 둘 다 빈 문자열이다.
+   project: '',
+   dir: '',
+   // 이 세션이 프로젝트 파일을 마지막으로 읽거나 쓴 때의 mtimeMs. 그때 파일이 없었으면 undefined.
+@@ -155,7 +159,9 @@ const globalFile = async ($: EngineInterface) => {
+   if (own == legacy || (await $.fs.exists(own))) return own
+   return (await $.fs.exists(legacy)) ? legacy : own
+ }
+-const projectFile = () => `${run.dir}/${FILE_NAME}`
++// 프로젝트 파일의 경로. 프로젝트를 정하지 못했으면(run.dir 이 빈 문자열) undefined 다. 빈 run.dir 로 `/layout.json` 을 만들지 않는다.
++const projectFile = () => (run.dir ? `${run.dir}/${FILE_NAME}` : undefined)
++const isUnresolved = () => run.config != undefined && !run.dir
+ 
+ // 사람이 읽는 경로: $HOME 아래면 `~` 로 줄인다.
+ const shownPath = (path: string) => (run.home && path.startsWith(`${run.home}/`) ? `~${path.slice(run.home.length)}` : path)
+@@ -195,6 +201,7 @@ const projectOf = async ($: EngineInterface, root: string) => {
+ }
+ 
+ // $.session.root() 를 읽어 프로젝트를 정한다. root 가 그대로면 아무것도 하지 않는다. 프로젝트가 바뀌었으면 true.
++// 거부되면 run 을 바꾸지 않는다. 부르는 쪽은 tryResolveProject 를 쓴다.
+ const resolveProject = async ($: EngineInterface) => {
+   const root = await $.session.root()
+   if (root == run.root) return false
+@@ -202,8 +209,8 @@ const resolveProject = async ($: EngineInterface) => {
+   const project = await projectOf($, root)
+   run.root = root
+   if (project == run.project) return false
+-  // 프로젝트와 그 파일 자리는 await 없이 함께 바꾼다.
+-  const dir = `${run.config}/${PROJECTS_DIR}/${await dirName(project)}`
++  // 프로젝트와 그 파일 자리는 await 없이 함께 바꾼다. 설정 디렉터리가 없으면 파일 자리도 없다(persist 가 쓰지 않는다).
++  const dir = run.config == undefined ? '' : `${run.config}/${PROJECTS_DIR}/${await dirName(project)}`
+   run.project = project
+   run.dir = dir
+   run.mtimeMs = undefined
+@@ -212,15 +219,28 @@ const resolveProject = async ($: EngineInterface) => {
+   return true
+ }
+ 
++// resolveProject 의 거부를 debug log 에 남기고 false 로 바꾼다. 시작과 주기(moveProject)가 같은 처리를 한다.
++// 거부되면 run.root 가 그대로이므로 다음 주기에 다시 정한다. 시작 때 거부되면 그때까지 run.dir 이 빈 문자열이다(isUnresolved).
++const tryResolveProject = ($: EngineInterface) =>
++  resolveProject($).catch((error: unknown) => {
++    log($, `project not resolved: ${String(error)}`)
++    return false
++  })
++
++// persist 의 결과. written: 썼다(설정 디렉터리가 없어 이 세션에만 둔 것도 포함). changed: 다른 세션이 파일을 바꿔 쓰지 않았다.
++// unresolved: 프로젝트를 정하지 못해 쓸 자리가 없다.
++type Saved = 'written' | 'changed' | 'unresolved'
++
+ // 프로젝트 파일에 쓴다. global 파일에는 쓰지 않는다. 이 세션이 마지막으로 읽거나 쓴 뒤 파일의 mtimeMs 가 바뀌었으면
+-// (다른 세션이 쓰거나 지웠으면) 쓰지 않고 false 를 돌려준다. 부른 쪽이 reloadChanged 로 다시 읽는다.
+-const persist = async ($: EngineInterface, tabs: GridTab[]) => {
+-  if (!run.config) return true
++// (다른 세션이 쓰거나 지웠으면) 쓰지 않고 changed 를 돌려준다. 부른 쪽이 reloadChanged 로 다시 읽는다.
++const persist = async ($: EngineInterface, tabs: GridTab[]): Promise<Saved> => {
++  if (run.config == undefined) return 'written'
+   const path = projectFile()
++  if (!path) return 'unresolved'
+   const now = await statOf($, path)
+   if (now?.mtimeMs != run.mtimeMs) {
+     log($, `${path} changed by another session (mtimeMs ${run.mtimeMs} -> ${now?.mtimeMs}); not written`)
+-    return false
++    return 'changed'
+   }
+   if (run.invalidText != undefined) {
+     await $.fs.write(`${run.dir}/${INVALID_NAME}`, run.invalidText)
+@@ -229,7 +249,7 @@ const persist = async ($: EngineInterface, tabs: GridTab[]) => {
+   }
+   await $.fs.write(path, serializeLayoutFile(tabs, run.project))
+   run.mtimeMs = (await $.fs.stat(path)).mtimeMs
+-  return true
++  return 'written'
+ }
+ 
+ // 프로젝트 파일이 있으면 그것을, 없으면 global 파일을 읽는다. 읽은 파일의 경로를 함께 돌려준다.
+@@ -238,10 +258,11 @@ const persist = async ($: EngineInterface, tabs: GridTab[]) => {
+ const loadFile = async ($: EngineInterface): Promise<{ tabs: GridTab[]; path: string }> => {
+   // 앞서 읽은 무효 원문은 이번에 읽는 파일이 유효하거나 없으면 남기지 않는다.
+   run.invalidText = undefined
+-  if (!run.config) return { tabs: defaultTabs(), path: NO_FILE }
+-  const own = await statOf($, projectFile())
++  if (run.config == undefined) return { tabs: defaultTabs(), path: NO_FILE }
++  const file = projectFile()
++  const own = file ? await statOf($, file) : undefined
+   run.mtimeMs = own?.mtimeMs
+-  const path = own ? projectFile() : await globalFile($)
++  const path = file && own ? file : await globalFile($)
+   if (!own && !(await $.fs.exists(path))) return { tabs: defaultTabs(), path }
+   const text = await $.fs.read(path)
+   const parsed = parseLayoutFile(text)
+@@ -283,7 +304,9 @@ const act = async ($: EngineInterface, words: string[], tabName?: string): Promi
+   if (broken) return { text: `refused: ${broken}`, tabs: layout.tabs }
+   run.current = outcome.current
+   if (outcome.isChanged) {
+-    if (!(await persist($, outcome.tabs))) return reloadChanged($)
++    const saved = await persist($, outcome.tabs)
++    if (saved == 'changed') return reloadChanged($)
++    if (saved == 'unresolved') return { text: `refused: ${UNRESOLVED}`, tabs: layout.tabs }
+     await publish($, outcome.tabs)
+     // 활성 칸 · 칸 나누기 · 크기처럼 탭 목록과 title 이 그대로인 동작에서는 pane 을 다시 열지 않는다.
+     if (paneSpec(outcome.tabs) != paneSpec(layout.tabs)) await syncPanes($, outcome.tabs)
+@@ -312,7 +335,7 @@ const activateCell = async ($: EngineInterface, tabName: string, id: string) =>
+ }
+ 
+ // 분할선을 끄는 동안은 state 만 바꾸고, 놓았을 때(isFinal) 파일에 쓴다.
+-// 분할선 위치는 끌기가 온 surface 의 크기로 정한다.
++// 분할선 위치는 끌기가 온 surface 의 크기로 정한다. 프로젝트를 정하지 못했으면 옮기지 않고, 놓았을 때 그 이유를 알린다.
+ const dragDivider = ($: EngineInterface, surface: RenderSurface, tabName: string, path: string, index: number, at: number, isFinal: boolean) =>
+   serial(() => moveDividerTo($, surface, tabName, path, index, at, isFinal))
+ 
+@@ -321,13 +344,17 @@ const moveDividerTo = async ($: EngineInterface, surface: RenderSurface, tabName
+   const tab = layout?.tabs.find(item => item.name == tabName)
+   const measured = run.measured.get(measuredKey(surface, tabName))
+   if (!layout || !tab || !measured || tab.zoomed) return
++  if (isUnresolved()) {
++    if (isFinal) $.ui.toast(`pane-grid: refused: ${UNRESOLVED}`)
++    return
++  }
+   const node = splitAt(tab.root, path)
+   const rect = rectAt(tab.root, path, gridRect(measured))
+   if (!node || !rect) return
+   const moved = moveDivider(node, node.kind == 'row' ? rect.width : rect.height, index, at)
+   const tabs = moved === node ? layout.tabs : layout.tabs.map(item => (item.name == tabName ? { ...item, root: replaceAt(item.root, path, moved) } : item))
+   if (moved !== node) await publish($, tabs)
+-  if (isFinal && !(await persist($, tabs))) $.ui.toast(`pane-grid: ${(await reloadChanged($)).text}`)
++  if (isFinal && (await persist($, tabs)) == 'changed') $.ui.toast(`pane-grid: ${(await reloadChanged($)).text}`)
+ }
+ 
+ // 원본 파일을 읽어 state 사본과 엔진 pane 을 다시 만든다. 쓴 값과 읽은 파일을 돌려준다: 한 dispatch 의 $.state.get 은 모두 같은
+@@ -370,15 +397,8 @@ const ensureLayout = async ($: EngineInterface): Promise<GridLayout> => {
+   }
+ }
+ 
+-// 프로젝트가 바뀌었으면 새 프로젝트 파일을 읽고 그 알림 글을 돌려준다. 그대로면 undefined.
+-// 거부된 주기는 run.root 를 그대로 두므로 다음 주기에 다시 정한다. 거부는 debug log 에 남긴다.
+-const moveProject = async ($: EngineInterface) => {
+-  const isMoved = await resolveProject($).catch((error: unknown) => {
+-    log($, `project not resolved: ${String(error)}`)
+-    return false
+-  })
+-  return isMoved ? loadText($) : undefined
+-}
++// 프로젝트가 바뀌었으면 새 프로젝트 파일을 읽고 그 알림 글을 돌려준다. 그대로이거나 거부됐으면 undefined.
++const moveProject = async ($: EngineInterface) => ((await tryResolveProject($)) ? loadText($) : undefined)
+ 
+ const watchShown = async ($: EngineInterface) => {
+   // `/cd` · worktree 이동은 mod 에 알리지 않으므로(classic.CwdChanged 도 오지 않는다) root 를 여기서 읽어 비교한다.
+@@ -396,14 +416,17 @@ const watchShown = async ($: EngineInterface) => {
+ export const register: Register = on => {
+   on('session.start', async ($, e, next) => {
+     run.home = String((await $.env.get('HOME')) ?? '')
+-    const config = ((await $.env.get('CLAUDE_CONFIG_DIR')) || (run.home ? `${run.home}/.claude` : '')).replace(/\/+$/, '')
++    const given = (await $.env.get('CLAUDE_CONFIG_DIR')) || (run.home ? `${run.home}/.claude` : '')
++    // 끝 `/` 를 빼고 경로를 이을 때 `/` 를 붙인다. `CLAUDE_CONFIG_DIR=/` 은 빈 문자열이 되어 `/pane-grid/...` 를 가리킨다.
++    const config = given.replace(/\/+$/, '')
+     // 상대 경로 CLAUDE_CONFIG_DIR 은 시작한 디렉터리 기준으로 고정한다. $.fs 는 상대 경로를 지금 작업 디렉터리 기준으로 풀어 `/cd` 뒤에 다른 곳을 읽는다.
+-    run.config = config && !config.startsWith('/') ? `${await $.session.cwd()}/${config}` : config
+-    if (!run.config) log($, `${NO_FILE}; the layout is kept in this session only`)
++    run.config = !given ? undefined : given.startsWith('/') ? config : `${await $.session.cwd()}/${config}`
++    if (run.config == undefined) log($, `${NO_FILE}; the layout is kept in this session only`)
+     // 파일 읽기에 기대지 않는 등록을 먼저 한다. 파일을 읽지 못해 reload 가 거부돼도 /grid 와 주기(watchShown)는 남고,
+-    // 주기의 ensureLayout 이 다시 읽는다. 주기는 resolveProject 뒤에 건다(run.root 가 비어 있으면 첫 주기가 「moved」로 여긴다).
++    // 주기의 ensureLayout 이 다시 읽는다. 주기는 프로젝트를 정한 뒤에 건다(run.root 가 비어 있으면 첫 주기가 「moved」로 여긴다).
++    // 프로젝트를 정하지 못하면 주기와 같이 debug log 에 남기고 이어 간다. 그동안 바꾸는 동작은 UNRESOLVED 로 거부하고 주기가 다시 정한다.
+     await $.command.register({ name: COMMAND, description: 'pane-grid: split panes into a grid of mods, tmux style', argumentHint: `<${VERBS.join('|')}>` })
+-    await resolveProject($)
++    await tryResolveProject($)
+     $.clock.every(SHOWN_POLL_MS, () => void watchShown($))
+     await reload($)
+     return next(e)

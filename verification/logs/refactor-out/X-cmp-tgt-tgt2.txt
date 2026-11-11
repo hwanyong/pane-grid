@@ -1,0 +1,88 @@
+X1 SAME
+X2 SAME
+X3 SAME
+X4a SAME
+X4b SAME
+X4c SAME
+X5 SAME
+X6 SAME
+X7 SAME
+X8 SAME
+X9 SAME
+X10 SAME
+X11 SAME
+X12 DIFF
+    --- tgt/X12
+    +++ tgt2/X12
+    @@ -1,7 +1,5 @@
+    -pane-grid: loaded 1 tab(s) from no file (neither HOME nor CLAUDE_CONFIG_DIR is set)
+    +pane-grid: loaded 1 tab(s) from ~/.claude/pane-grid/layout.json
+     failed hooks: 0
+    -no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+    -pane-grid: split c1 into c1 and c2
+    -failed hooks: 0
+    -no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+    -no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+    +pane-grid: pane-grid: the command failed; see the debug log
+    +failed hooks: 1
+    +$.fs.write(/pane-grid/projects/proj-<hash>/layout.json) failed: EROFS","budget":1000}
+X13 SAME
+X14 DIFF
+    --- tgt/X14
+    +++ tgt2/X14
+    @@ -1,7 +1,5 @@
+    -pane-grid: start failed: {"kind":"throw","message":"pane-grid: $.fs.read(/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/sm/.git) failed: EACCES"
+     --after list
+     pane-grid: * main active=c1 {c1:50,c2:50}                                                │                                     │
+     --after split
+     pane-grid: * main active=c1 {c1:50,c2:50}                                                │                                     │
+    -pane-grid: pane-grid: the command failed; see the debug log                              │                                     │
+    -pane-grid: command failed: {"kind":"throw","message":"pane-grid: $.fs.write(/layout.json) failed: EROFS","budget":1000}
+    +pane-grid: refused: this session's project is not resolved yet, so the layout cannot be  │                                     │
+X15 SAME
+X16 SAME
+X17 SAME
+X18 SAME
+X19 SAME
+X21 SAME
+X22 SAME
+X23 DIFF
+    --- tgt/X23
+    +++ tgt2/X23
+    @@ -1,11 +1,9 @@
+     exit=1
+     --stdout
+     --stderr(last 3)
+    -  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1385, in replace
+    -    self._accessor.replace(self, target)
+    -FileNotFoundError: [Errno 2] No such file or directory: '<W>/pane-structure.draft.png' -> '<W>/pane-structure.png'
+    +<W>/chrome exited with 0 but wrote no pane-structure.draft.png while rendering pane-structure.svg
+     --files
+     pane-lifecycle.svg old
+    -pane-structure.svg new
+    +pane-structure.svg old
+     pane-lifecycle.png old
+     pane-structure.png old
+X24 DIFF
+    --- tgt/X24
+    +++ tgt2/X24
+    @@ -6,7 +6,6 @@
+     FileNotFoundError: [Errno 2] No such file or directory: '<W>/chrome'
+     --files
+     pane-lifecycle.svg old
+    -pane-structure.draft.svg new
+     pane-structure.svg old
+     pane-lifecycle.png old
+     pane-structure.png old
+X25 SAME
+X26 DIFF
+    --- tgt/X26
+    +++ tgt2/X26
+    @@ -1,2 +0,0 @@
+    -  grid-and-tabs.md:22 hooks/register.tsx lacks TOOLBAR
+    -  grid-and-tabs.md:392 hooks/register.tsx lacks placedNote
+X27 SAME
+X28 SAME
+X29 SAME
+X30 SAME
+summary: same=26 diff=5 missing=0

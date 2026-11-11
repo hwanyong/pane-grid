@@ -1,0 +1,19 @@
+-- zoom(c2): ⎿  pane-grid: zoomed c2
+k8member: readPlacement {"usage-gauge":{"tab":"main","requestId":"grid-main","cell":"c1","column":0,"row":0,"columns":0,"rows":0,"isActive":false},"filetree":null}
+-- zoom again: ⎿  pane-grid: unzoomed
+k8member: readPlacement {"usage-gauge":{"tab":"main","requestId":"grid-main","cell":"c1","column":0,"row":5,"columns":37,"rows":34,"isActive":false},"filetree":null}
+-- select-cell c1: ⎿  pane-grid: active cell c1
+k8member: readPlacement {"usage-gauge":{"tab":"main","requestId":"grid-main","cell":"c1","column":0,"row":5,"columns":37,"rows":34,"isActive":true},"filetree":null}
+-- zoom(c1): ⎿  pane-grid: zoomed c1
+k8member: readPlacement {"usage-gauge":{"tab":"main","requestId":"grid-main","cell":"c1","column":0,"row":5,"columns":75,"rows":34,"isActive":true},"filetree":null}
+-- pane
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 usage-gauge
+Weekly N-day window                                              NN% / NNN%
+░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+Resets in Nd NNh · target N%
+failed hooks: 0

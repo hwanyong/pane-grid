@@ -1,0 +1,9 @@
+c2 rows: c2 pending-questions|Mode: manual [ Switch to auto ]|[ Rescan last response ]|
+-- (1) Button "Switch to" in grid cell c2 (element mode)
+[DEBUG] ui.press pending-questions/mode in Pane from terminal: settled
+hook-called lines: 0
+-- (2) hotkey q (element hotkey:q)
+[DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: T116 press hook called: hotkey:q
+[DEBUG] ui.press pane-grid/hotkey:q in Pane from terminal: settled
+hook-called lines: 1
+failed: 0

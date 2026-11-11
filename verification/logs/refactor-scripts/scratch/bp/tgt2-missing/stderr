@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/uhd/.claude/jobs/2d2d4469/tmp/scratch/bp/tgt2-missing/build.py", line 339, in <module>
+    render("pane-structure", *structure())
+  File "/Users/uhd/.claude/jobs/2d2d4469/tmp/scratch/bp/tgt2-missing/build.py", line 320, in render
+    result = subprocess.run([
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 505, in run
+    with Popen(*popenargs, **kwargs) as process:
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 951, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 1821, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/uhd/.claude/jobs/2d2d4469/tmp/scratch/bp/tgt2-missing/chrome'

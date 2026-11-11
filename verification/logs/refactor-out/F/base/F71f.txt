@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "<ROOT>/docs/images/build.py", line <N>, in <module>
+    render("pane-structure", structure(), 1420, 830)
+  File "<ROOT>/docs/images/build.py", line <N>, in render
+    subprocess.run([
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line <N>, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['<FAKE>', '--headless=new', '--user-data-dir=<TMP> '--hide-scrollbars', '--force-device-scale-factor=2', '--window-size=1420,830', '--screenshot=<ROOT>/docs/images/pane-structure.png', 'file://<ROOT>/docs/images/pane-structure.svg']' returned non-zero exit status 21.
+exit 1
+# git status --short docs/images

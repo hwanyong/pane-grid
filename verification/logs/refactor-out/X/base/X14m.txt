@@ -1,0 +1,19 @@
+--start lines
+--split before
+pane-grid: session.start hook skipped: threw pane-grid: $.fs.read($H/sm/.git) failed: EACCES
+Unknown command: /grid
+--projects dir before
+ls: $H/.claude/pane-grid/projects: No such file or directory
+--toasts after chmod 644
+--project lines
+--split after
+pane-grid: session.start hook skipped: threw pane-grid: $.fs.read($H/sm/.git) failed: EACCES
+--projects dir after
+ls: $H/.claude/pane-grid/projects: No such file or directory
+--saved file
+NOFILE
+--pwd
+$H/sm
+$H/sm/.git)
+$H/sm입니다.
+failed hooks: 1

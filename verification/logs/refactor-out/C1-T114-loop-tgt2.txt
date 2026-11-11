@@ -1,0 +1,12 @@
+tgt2-1 close: ⎿  pane-grid: closed w2
+tgt2-1 visible cells after close: c1 - │c2 -
+tgt2-2 close: ⎿  pane-grid: closed w2
+tgt2-2 visible cells after close: c1 - │c2 -
+tgt2-3 close: ⎿  pane-grid: closed w2
+tgt2-3 visible cells after close: c1 - │c2 -
+tgt2-4 close: ⎿  pane-grid: closed w2
+tgt2-4 visible cells after close: c1 - │c2 -
+tgt2-5 close: ⎿  pane-grid: closed w2
+tgt2-5 visible cells after close: c1 - │c2 -
+tgt2-6 close: ⎿  pane-grid: closed w2; it is behind w3, click its tab to show it
+tgt2-6 visible cells after close: c1 - │c2 -

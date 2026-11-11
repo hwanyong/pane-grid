@@ -1,0 +1,16 @@
+--- ls before
+ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+$ g split -h
+pane-grid: pane-grid: the command failed; see the debug log
+[exit-ish done]
+--- ls after
+ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+$ g list
+pane-grid: * main active=c1 {c1:50,c2:50}
+[exit-ish done]
+--- pl
+NOFILE
+
+--- log refused|kept|command failed
+[p1] [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: command failed: {"kind":"throw","message":"pane-grid: $.fs.write(/Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a/layout.json) failed: EACCES","budget":1000}
+--- failed=1

@@ -1,0 +1,8 @@
+session.start hook skipped: threw pane-grid: $.fs.read(/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/sm/.git) failed: EACCES
+--after list
+pane-grid: session.start hook skipped: threw pane-grid: $.fs.read(/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/sm/.git) failed: EACCES
+Unknown command: /grid
+--after split
+pane-grid: session.start hook skipped: threw pane-grid: $.fs.read(/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/sm/.git) failed: EACCES
+Unknown command: /grid
+Unknown command: /grid

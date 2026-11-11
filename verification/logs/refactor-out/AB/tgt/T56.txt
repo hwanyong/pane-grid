@@ -1,0 +1,18 @@
+--- ls before
+ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+$ g resize 50
+pane-grid: resized c1 to 50%
+[exit-ish done]
+$ g layout tiled
+pane-grid: layout tiled
+[exit-ish done]
+$ g list
+pane-grid: * main active=c1 c1
+[exit-ish done]
+--- ls after
+ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+--- pl
+NOFILE
+
+--- log refused|kept|command failed
+--- failed=0

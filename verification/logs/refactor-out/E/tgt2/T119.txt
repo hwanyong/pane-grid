@@ -1,0 +1,51 @@
+mod filetree order B
+built for filetree,pane-grid,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+-- tab bar before select:                                                                          ✕
+-- out: ⎿  pane-grid: showing main
+-- pane
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 filetree                          │c2 -
+■ proj      ↑  ⌂  ⊙  ◫  ⊟  ◷  ⊡  ↻   │empty. place a mod here:
+⑂ main                  ± no changes │filetree (move from c1)
+                                     │
+⌕ search                    Aa .* ≡  │
+    Name                   Modified  │
+▸ ■ .git           NNNN-NN-NN NN:NN  │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+?: shortcuts                         │
+failed hooks: 0
+-- filetree log 줄(sort -u)
+-- pane-grid log 줄(sort -u)
+pane-grid: action select main: showing main
+pane-grid: layout revision=N tabs=main placed=filetree
+pane-grid: project /Users/uhd/.claude/jobs/2d2d4469/tmp/run/E/home/proj (root /Users/uhd/.claude/jobs/2d2d4469/tmp/run/E/home/proj) -> /Users/uhd/.claude/jobs/2d2d4469/tmp/run/E/home/.claude/pane-grid/projects/proj-3f623eb1aa936c36

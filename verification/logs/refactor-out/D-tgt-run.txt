@@ -1,0 +1,2 @@
+done tgt
+zsh scripts/D.zsh tgt  31.67s user 11.23s system 11% cpu 6:19.18 total

@@ -1,0 +1,5 @@
+tab row before:  main   w2                                                               ✕
+$.ui.toast (pane-grid): pane-grid: opened tab w3; it is behind main, click its tab to show it
+pane-grid: action new: opened tab w3; it is behind main, click its tab to show it
+-- tab row
+ main   w2   w3                                                          ✕

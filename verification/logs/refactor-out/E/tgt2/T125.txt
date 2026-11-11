@@ -1,0 +1,51 @@
+mod md-preview order B
+built for md-preview,pane-grid,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+-- tab bar before select:                                                                          ✕
+-- out: ⎿  pane-grid: showing main
+-- pane
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 md-preview                        │c2 -
+[ Prev ] [ Next ] [ Before ]         │empty. place a mod here:
+[ Render ] [ Text ] [ Browser ]      │md-preview (move from c1)
+No Markdown edits yet. /md <path>    │
+opens a file.                        │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+failed hooks: 0
+-- md-preview log 줄(sort -u)
+-- pane-grid log 줄(sort -u)
+pane-grid: action select main: showing main
+pane-grid: layout revision=N tabs=main placed=md-preview
+pane-grid: project /Users/uhd/.claude/jobs/2d2d4469/tmp/run/E/home/proj (root /Users/uhd/.claude/jobs/2d2d4469/tmp/run/E/home/proj) -> /Users/uhd/.claude/jobs/2d2d4469/tmp/run/E/home/.claude/pane-grid/projects/proj-3f623eb1aa936c36

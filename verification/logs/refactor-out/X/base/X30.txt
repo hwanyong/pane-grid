@@ -1,0 +1,7 @@
+--list 1
+pane-grid: * main active=c3 {[c1:50,c3:50]:50,c2:50}
+--reload
+pane-grid: loaded 1 tab(s) from
+--list 2
+pane-grid: * main active=c1 c1
+failed hooks: 0

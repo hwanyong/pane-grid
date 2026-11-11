@@ -1,0 +1,77 @@
+-- toasts
+$.ui.toast (pane-grid): pane-grid: placed pending-questions in c2
+-- pane
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 usage-gauge                       │c2 pending-questions
+Weekly N-day window        NN% / NNN%│Mode: manual [ Switch to auto ]
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│[ Rescan last response ]
+Resets in Nd NNh · target N%         │
+                                     │No pending questions.
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+-- file
+{
+  "version": 1,
+  "project": "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/E/home/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1",
+              "plugin": "usage-gauge"
+            },
+            "size": 50
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2",
+              "plugin": "pending-questions"
+            },
+            "size": 50
+          }
+        ]
+      },
+      "active": "c2"
+    }
+  ]
+}
+
+failed hooks: 0

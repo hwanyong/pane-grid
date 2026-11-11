@@ -1,0 +1,390 @@
+2026-11-11T17:39:48.588Z [DEBUG] MDM settings load completed in 0ms
+2026-11-11T17:39:48.593Z [DEBUG] Broken symlink or missing file encountered for settings.json at path: /Library/Application Support/ClaudeCode/managed-settings.json
+2026-11-11T17:39:48.595Z [DEBUG] Broken symlink or missing file encountered for settings.json at path: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/proj/.claude/settings.json
+2026-11-11T17:39:48.596Z [DEBUG] CA certs: Config fallback - globalEnv keys: , settingsEnv keys: none
+2026-11-11T17:39:48.599Z [DEBUG] [init] configureGlobalMTLS starting
+2026-11-11T17:39:48.599Z [DEBUG] [init] configureGlobalMTLS complete
+2026-11-11T17:39:48.599Z [DEBUG] [init] configureGlobalAgents starting
+2026-11-11T17:39:48.600Z [DEBUG] CA certs: stores=bundled,system, extraCertsPath=undefined
+2026-11-11T17:39:48.600Z [DEBUG] CA certs: Loaded 118 bundled root certificates
+2026-11-11T17:39:48.625Z [DEBUG] CA certs: Loaded 6 system CA certificates
+2026-11-11T17:39:48.626Z [DEBUG] CA certs: Dropped blocked certificate 40f6af0346a99aa1cd1d555a4e9cce62c7f9634603ee406615833dc8c8d00367 from bundled
+2026-11-11T17:39:48.631Z [DEBUG] CA certs: Dropped 1 certificate(s) that do not chain to a root in the CA list
+2026-11-11T17:39:48.631Z [DEBUG] mTLS: Creating HTTPS agent with custom certificates
+2026-11-11T17:39:48.632Z [DEBUG] [init] configureGlobalAgents complete
+2026-11-11T17:39:48.637Z [DEBUG] Error log sink initialized
+2026-11-11T17:39:48.638Z [DEBUG] clearPluginCache: invalidating loadAllPlugins cache (preAction: --plugin-dir inline plugins)
+2026-11-11T17:39:48.655Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-11-11T17:39:48.656Z [DEBUG] --plugin-dir /Users/uhd/.claude/jobs/2d2d4469/tmp/base is one plugin: .claude-plugin at its top marks it
+2026-11-11T17:39:48.659Z [DEBUG] Broken symlink or missing file encountered for settings.json at path: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude/settings.json
+2026-11-11T17:39:48.663Z [DEBUG] [ToolSearch:optimistic] mode=tst, ENABLE_TOOL_SEARCH=undefined, result=true
+2026-11-11T17:39:48.678Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-11-11T17:39:48.678Z [DEBUG] [STARTUP] Running setup()...
+2026-11-11T17:39:48.685Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude/skills, project=[]
+2026-11-11T17:39:48.686Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/agents: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/agents'
+2026-11-11T17:39:48.690Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/commands: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/commands'
+2026-11-11T17:39:48.691Z [DEBUG] Loaded 0 unique skills (0 unconditional, 0 conditional, managed: 0, user: 0, project: 0, additional: 0, legacy commands: 0)
+2026-11-11T17:39:48.692Z [DEBUG] [Claude in Chrome] Extension not found in any browser
+2026-11-11T17:39:48.694Z [DEBUG] Read hooks.json for plugin pane-grid (enabled=true): /Users/uhd/.claude/jobs/2d2d4469/tmp/base/hooks/hooks.json
+2026-11-11T17:39:48.696Z [DEBUG] Loaded inline plugin from path: pane-grid
+2026-11-11T17:39:48.697Z [DEBUG] Loaded 1 directory-loaded plugins
+2026-11-11T17:39:48.698Z [DEBUG] Found 6 plugins (5 enabled, 1 disabled)
+2026-11-11T17:39:48.699Z [DEBUG] getPluginSkills: Processing 5 enabled plugins
+2026-11-11T17:39:48.699Z [DEBUG] Checking plugin pane-grid: skillsPath=exists, skillsPaths=0 paths
+2026-11-11T17:39:48.699Z [DEBUG] Attempting to load skills from plugin pane-grid default skillsPath: /Users/uhd/.claude/jobs/2d2d4469/tmp/base/skills
+2026-11-11T17:39:48.699Z [DEBUG] Checking plugin cc-plugin-agents-md: skillsPath=none, skillsPaths=0 paths
+2026-11-11T17:39:48.699Z [DEBUG] Checking plugin cc-plugin-telemetry: skillsPath=none, skillsPaths=0 paths
+2026-11-11T17:39:48.699Z [DEBUG] Checking plugin cc-plugin-privacy: skillsPath=none, skillsPaths=0 paths
+2026-11-11T17:39:48.699Z [DEBUG] Checking plugin cc-plugin-plugin-authoring: skillsPath=none, skillsPaths=0 paths
+2026-11-11T17:39:48.699Z [DEBUG] Total plugin workflows loaded: 0
+2026-11-11T17:39:48.699Z [DEBUG] Total plugin commands loaded: 0
+2026-11-11T17:39:48.699Z [DEBUG] Total plugin agents loaded: 0
+2026-11-11T17:39:48.701Z [DEBUG] Git remote URL: null
+2026-11-11T17:39:48.701Z [DEBUG] No git remote URL found
+2026-11-11T17:39:48.702Z [DEBUG] Loaded 1 skills from plugin pane-grid default directory
+2026-11-11T17:39:48.702Z [DEBUG] Total plugin skills loaded: 1 (0 duplicate/user-owned entries skipped)
+2026-11-11T17:39:48.702Z [INFO] [uds-messaging] Listening: /tmp/cc-socks/31316.sock
+2026-11-11T17:39:48.706Z [DEBUG] [uds-messaging] Inject messages (auth line optional here): { echo '{"type":"auth","token":"[REDACTED]"$CLAUDE_CODE_MESSAGING_TOKEN"'"}'; echo '{"type":"user","message":{"role":"user","content":"hello"}}'; } | socat - UNIX-CONNECT:/tmp/cc-socks/31316.sock
+2026-11-11T17:39:48.710Z [DEBUG] [uds-messaging] Connect when the data is ready (e.g. out=$(cmd); printf '%s\n' "$out" | nc -U "$CLAUDE_CODE_MESSAGING_SOCKET" — or the socat form above): a connection that sends no complete line within 30000 ms is closed
+2026-11-11T17:39:48.711Z [DEBUG] [TeammateModeSnapshot] Captured from config: in-process
+2026-11-11T17:39:48.711Z [DEBUG] Error log sink initialized
+2026-11-11T17:39:48.717Z [DEBUG] cc-plugin-sec-default@builtin not seated: no managed settings and not a Team or Enterprise organization (max)
+2026-11-11T17:39:48.719Z [DEBUG] CA certs: Building the list for hosts that aren't ours
+2026-11-11T17:39:48.719Z [DEBUG] CA certs: stores=bundled,system, extraCertsPath=undefined
+2026-11-11T17:39:48.719Z [DEBUG] CA certs: Loaded 118 bundled root certificates
+2026-11-11T17:39:48.719Z [DEBUG] CA certs: Loaded 6 system CA certificates
+2026-11-11T17:39:48.720Z [DEBUG] CA certs: Re-encoded certificate 40f6af0346a99aa1cd1d555a4e9cce62c7f9634603ee406615833dc8c8d00367 from bundled: the list for hosts that aren't ours trusts it, and its original text could stop that list from loading
+2026-11-11T17:39:48.724Z [DEBUG] mTLS: Creating HTTPS agent with custom certificates
+2026-11-11T17:39:48.728Z [DEBUG] [STARTUP] setup() completed in 50ms
+2026-11-11T17:39:48.729Z [DEBUG] Broken symlink or missing file encountered for settings.json at path: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/proj/.claude/settings.local.json
+2026-11-11T17:39:48.730Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-11-11T17:39:48.734Z [DEBUG] getSkills returning: 0 skill dir commands, 1 plugin skills, 30 bundled skills, 1 builtin plugin skills
+2026-11-11T17:39:48.737Z [DEBUG] Artifact gates frozen: capabilities=true comments=true db=true files=true types=true type_create=true type_catalog=true room=false verify=false delete=true preview=false preview_browser=unread open=true endpoints=false pin=true share=false versions=false flag_source=disk gb_fresh=false
+2026-11-11T17:39:48.741Z [DEBUG] [STARTUP] Commands and agents loaded in 11ms
+2026-11-11T17:39:48.750Z [DEBUG] [servedCatalog] primary: using served rows (13 rows via cache over the org route, fetched 6s ago); the served list replaces the compiled picker for this session
+2026-11-11T17:39:48.754Z [DEBUG] nonBlockingStdout: active
+2026-11-11T17:39:48.755Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-11-11T17:39:48.804Z [DEBUG] Cleared mTLS configuration cache
+2026-11-11T17:39:48.804Z [DEBUG] Cleared proxy agent cache
+2026-11-11T17:39:48.804Z [DEBUG] Grove: Using fresh cached config
+2026-11-11T17:39:48.805Z [DEBUG] Grove: the server recently confirmed a Consumer Terms answer; not asking again
+2026-11-11T17:39:48.805Z [DEBUG] [STARTUP] showSetupScreens() completed in 50ms
+2026-11-11T17:39:48.806Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-11-11T17:39:48.806Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-11-11T17:39:48.806Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-11-11T17:39:48.806Z [DEBUG] Starting background startup prefetches
+2026-11-11T17:39:48.806Z [DEBUG] [Bootstrap] Fetching
+2026-11-11T17:39:48.807Z [DEBUG] Passes: Using fresh cached eligibility data
+2026-11-11T17:39:48.811Z [DEBUG] [STARTUP] MCP configs resolved in 0ms (awaited at +132ms)
+2026-11-11T17:39:48.811Z [DEBUG] Artifacts MCP server not added: managed_or_strict_mcp_config (strict_mcp_config)
+2026-11-11T17:39:48.824Z [DEBUG] Fast mode unavailable: Fast mode is currently unavailable
+2026-11-11T17:39:48.825Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-11-11T17:39:48.843Z [DEBUG] Total LSP servers loaded: 0
+2026-11-11T17:39:48.843Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-11-11T17:39:48.843Z [DEBUG] LSP manager initialized with 0 servers
+2026-11-11T17:39:48.844Z [DEBUG] LSP server manager initialized successfully
+2026-11-11T17:39:48.844Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-11-11T17:39:48.852Z [DEBUG] [API REQUEST] /v1/messages x-client-request-id=82de6172-1175-46ea-ac92-539887e838e9 source=quota_check
+2026-11-11T17:39:48.853Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-11-11T17:39:48.853Z [DEBUG] [3P telemetry] isTelemetryEnabled=false (CLAUDE_CODE_ENABLE_TELEMETRY=undefined)
+2026-11-11T17:39:48.870Z [DEBUG] [3P telemetry] Event dropped (no event logger initialized): plugin_loaded
+2026-11-11T17:39:48.903Z [DEBUG] Git remote URL: null
+2026-11-11T17:39:48.903Z [DEBUG] No git remote URL found
+2026-11-11T17:39:48.903Z [DEBUG] Not in a GitHub repository, skipping path mapping update
+2026-11-11T17:39:48.910Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-11T17:39:48.911Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:48.911Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.8cee91be269a
+2026-11-11T17:39:48.914Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:48.919Z [DEBUG] Temp file written successfully, size: 73104 bytes
+2026-11-11T17:39:48.919Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.8cee91be269a to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:48.919Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:48.923Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:48.923Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.b12a6d097242
+2026-11-11T17:39:48.924Z [DEBUG] plugin cc-plugin-agents-md: no pluginConfigs["agents-md@builtin" or "cc-plugin-agents-md@builtin"].options in user, --settings or managed settings (project settings are not read); every option is its default
+2026-11-11T17:39:48.924Z [DEBUG] cc-plugin-telemetry: hooks telemetry for: anthropic, collector
+2026-11-11T17:39:48.925Z [DEBUG] hooks worker spawned (one for every plugin)
+2026-11-11T17:39:48.928Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:48.928Z [DEBUG] Temp file written successfully, size: 73293 bytes
+2026-11-11T17:39:48.928Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.b12a6d097242 to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:48.928Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:48.952Z [DEBUG] [keybindings] KeybindingSetup initialized with 227 bindings, 0 warnings
+2026-11-11T17:39:48.968Z [DEBUG] Fast mode unavailable: Fast mode is currently unavailable
+2026-11-11T17:39:48.981Z [DEBUG] [engine] send set_max_thinking_tokens max=null
+2026-11-11T17:39:48.981Z [DEBUG] [engine] send set_model model=claude-haiku-5-5
+2026-11-11T17:39:48.984Z [DEBUG] prompt.edit: unhooked; the composer relays nothing
+2026-11-11T17:39:48.991Z [DEBUG] performStartupChecks called
+2026-11-11T17:39:48.993Z [DEBUG] [jobStateNameSync] watch skipped: Error: ENOENT: no such file or directory, watch '/Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude/jobs/2d2d4469'
+2026-11-11T17:39:48.995Z [DEBUG] [REPL:mount] REPL mounted, disabled=false
+2026-11-11T17:39:48.995Z [DEBUG] Detected Homebrew cask installation: /opt/homebrew/Caskroom/claude-code@latest/2.1.322/claude
+2026-11-11T17:39:48.997Z [DEBUG] [ScheduledTasks] scheduler start() — enabled=false, hasTasks=false
+2026-11-11T17:39:48.998Z [DEBUG] Broken symlink or missing file encountered for settings.json at path: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/proj/.claude/settings.json
+2026-11-11T17:39:48.999Z [DEBUG] Broken symlink or missing file encountered for settings.json at path: /Library/Application Support/ClaudeCode/managed-settings.json
+2026-11-11T17:39:49.018Z [DEBUG] Total plugin workflows loaded: 0
+2026-11-11T17:39:49.019Z [DEBUG] mcp runtime arm: v2 (source: growthbook)
+2026-11-11T17:39:49.027Z [DEBUG] Starting background plugin installations
+2026-11-11T17:39:49.031Z [DEBUG] [servedCatalog] shadow compare logged (fetch=cache_fresh, rows=13, source=served)
+2026-11-11T17:39:49.031Z [DEBUG] [servedCatalog] primary: served list replaces the compiled picker; every compiled row is served
+2026-11-11T17:39:49.033Z [DEBUG] getSkills returning: 0 skill dir commands, 1 plugin skills, 30 bundled skills, 1 builtin plugin skills
+2026-11-11T17:39:49.033Z [DEBUG] [auto-mode] verifyAutoModeGateAccess: enabledState=enabled disabledBySettings=false model=claude-haiku-5-5 modelSupported=true disableFastModeBreakerFires=false carouselAvailable=true canEnterAuto=true
+2026-11-11T17:39:49.033Z [DEBUG] performBackgroundPluginInstallations called
+2026-11-11T17:39:49.035Z [DEBUG] [event-loop-stall] detector started (interval=200ms, threshold=500ms)
+2026-11-11T17:39:49.043Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-11T17:39:49.043Z [DEBUG] hooks native host made (for the plugins the binary carries)
+2026-11-11T17:39:49.044Z [DEBUG] hooks module cc-plugin-agents-md@builtin loaded (native, environment 2, tier builtin); events: session.start,prompt.context,command.run,session.compact,prompt.submit,turn.start,turn.complete,agent.spawn,tool.call,prompt.mention
+2026-11-11T17:39:49.045Z [DEBUG] hooks module cc-plugin-telemetry@builtin loaded (native, environment 3, tier builtin); events: telemetry.*,telemetry.log,telemetry.mark,session.start,session.end,engine.create
+2026-11-11T17:39:49.045Z [DEBUG] hooks module cc-plugin-plugin-authoring@builtin loaded (native, environment 4, tier builtin); events: skill.prompt,tool.check,tool.call
+2026-11-11T17:39:49.045Z [DEBUG] hooks module cc-plugin-privacy@builtin loaded (native, environment 5, tier builtin); events: tool.check
+2026-11-11T17:39:49.047Z [DEBUG] hooks module cc-plugin-telemetry@builtin engine.create settled in 0.7ms (native hop, next() included)
+2026-11-11T17:39:49.048Z [DEBUG] [keybindings] Watching for changes to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude/keybindings.json
+2026-11-11T17:39:49.053Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-11T17:39:49.053Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-11T17:39:49.054Z [DEBUG] engine.create: no plugin-provided interfaces; $ built for pane-grid,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-privacy
+2026-11-11T17:39:49.055Z [DEBUG] plugin.register: cc-plugin-agents-md (builtin, cc-plugin-agents-md@builtin), judged by core alone: admitted
+2026-11-11T17:39:49.055Z [DEBUG] plugin.register: cc-plugin-telemetry (builtin, cc-plugin-telemetry@builtin), judged by core alone: admitted
+2026-11-11T17:39:49.055Z [DEBUG] plugin.register: cc-plugin-plugin-authoring (builtin, cc-plugin-plugin-authoring@builtin), judged by core alone: admitted
+2026-11-11T17:39:49.055Z [DEBUG] plugin.register: cc-plugin-privacy (builtin, cc-plugin-privacy@builtin), judged by core alone: admitted
+2026-11-11T17:39:49.055Z [DEBUG] plugin.register: pane-grid (user, pane-grid@inline), judged by core alone: admitted
+2026-11-11T17:39:49.066Z [DEBUG] plugin-dir watch: watching pane-grid; folders of plugins none
+2026-11-11T17:39:49.104Z [DEBUG] Artifact publish edits offer frozen: edit_hook=false
+2026-11-11T17:39:49.105Z [DEBUG] Artifact input schema built: assets=false copy_from=false publish_edits=true assets_source=cold
+2026-11-11T17:39:49.144Z [DEBUG] Lock acquisition took longer than expected - another Claude instance may be running
+2026-11-11T17:39:49.148Z [DEBUG] Watching for changes in skill/command directories: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude/skills, /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude/skills/synced...
+2026-11-11T17:39:49.160Z [DEBUG] [FileIndex] getProjectFiles called, respectGitignore=true
+2026-11-11T17:39:49.160Z [DEBUG] [FileIndex] getFilesUsingGit called
+2026-11-11T17:39:49.170Z [DEBUG] "Loaded 1 CLAUDE.md/rules files:\n  [Project] /Users/uhd/.claude/CLAUDE.md (27717 chars)"
+2026-11-11T17:39:49.174Z [DEBUG] hooks module cc-plugin-agents-md@builtin prompt.context settled in 0.9ms (native link, next() included)
+2026-11-11T17:39:49.175Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.175Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.8344c16c45de
+2026-11-11T17:39:49.175Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/routines: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/routines'
+2026-11-11T17:39:49.175Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/workflows: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/workflows'
+2026-11-11T17:39:49.175Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/skills: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/skills'
+2026-11-11T17:39:49.176Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/output-styles: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/output-styles'
+2026-11-11T17:39:49.176Z [DEBUG] Org fast mode: disabled (extra_usage_disabled)
+2026-11-11T17:39:49.177Z [DEBUG] [Bootstrap] Fetch ok
+2026-11-11T17:39:49.178Z [DEBUG] [Bootstrap] Cache updated, persisting to disk
+2026-11-11T17:39:49.180Z [DEBUG] Watching /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/proj for /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/proj/.claude to appear
+2026-11-11T17:39:49.180Z [DEBUG] Watching for changes in setting files /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude/settings.json...
+2026-11-11T17:39:49.182Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.183Z [DEBUG] [engine] send seed_read_state path=/Users/uhd/.claude/CLAUDE.md
+2026-11-11T17:39:49.185Z [DEBUG] Temp file written successfully, size: 74904 bytes
+2026-11-11T17:39:49.185Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.8344c16c45de to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.186Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:49.190Z [DEBUG] XTVERSION: terminal identified as "tmux 3.7c"
+2026-11-11T17:39:49.190Z [DEBUG] [FileIndex] git ls-files (tracked) took 30ms
+2026-11-11T17:39:49.204Z [DEBUG] [FileIndex] git ls-files: 0 tracked files in 44ms
+2026-11-11T17:39:49.205Z [DEBUG] [FileIndex] using git ls-files result (0 files)
+2026-11-11T17:39:49.206Z [DEBUG] [FileIndex] cache refresh completed in 46ms
+2026-11-11T17:39:49.218Z [DEBUG] tmux images: passthrough off, focus events on, kitty no, iTerm2 no, pane's top-left at row 0, column 0 (from 0)
+2026-11-11T17:39:49.218Z [DEBUG] Terminal capabilities: extendedKeys=yes (env: terminal=tmux); synchronizedOutput=yes (probe: DECRPM 2026 status=2); kittyKeyboard=no (probe: no reply to CSI ? u); kittyGraphics=no (probe: tmux does not know which terminal is outside it, so Claude Code draws no images here: attach tmux from kitty 0.28 or later, Ghostty, or iTerm2 3.5 or later, run `tmux set -g allow-passthrough on` and `tmux set -g focus-events on`, detach and attach again, then restart Claude Code); itermImages=no (probe: tmux does not know which terminal is outside it, so Claude Code draws no images here: attach tmux from kitty 0.28 or later, Ghostty, or iTerm2 3.5 or later, run `tmux set -g allow-passthrough on` and `tmux set -g focus-events on`, detach and attach again, then restart Claude Code); mousePixels=no (env: inside tmux or screen); programStatus=no (probe: no reply to OSC 7501 ; ?); terminal said: no reply to CSI ? u
+2026-11-11T17:39:49.218Z [DEBUG] DECSTBM: gated (TMUX=set ZELLIJ=unset TERM_PROGRAM=tmux TERM=xterm-256color)
+2026-11-11T17:39:49.221Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.221Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.89b213bf9e06
+2026-11-11T17:39:49.222Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.222Z [DEBUG] Temp file written successfully, size: 74995 bytes
+2026-11-11T17:39:49.222Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.89b213bf9e06 to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.224Z [DEBUG] [FileIndex] background untracked fetch: 0 files (0 re-included by .ignore)
+2026-11-11T17:39:49.225Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:49.229Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.229Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.737356c2b73a
+2026-11-11T17:39:49.234Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.235Z [DEBUG] Temp file written successfully, size: 75036 bytes
+2026-11-11T17:39:49.235Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.737356c2b73a to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.236Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:49.239Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.239Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.f214d0471087
+2026-11-11T17:39:49.239Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.239Z [DEBUG] Temp file written successfully, size: 75073 bytes
+2026-11-11T17:39:49.239Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.f214d0471087 to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.240Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:49.243Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.243Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.1b94fdea4b1e
+2026-11-11T17:39:49.243Z [DEBUG] type root of pane-grid at /Users/uhd/.claude/jobs/2d2d4469/tmp/base/.claude-plugin/types: entries claude-code, claude-code-tools, claude-code-mcp; wrote .claude-plugin/types/claude-code-tools/index.d.ts
+2026-11-11T17:39:49.243Z [DEBUG] Registered 0 hooks from 5 plugins
+2026-11-11T17:39:49.244Z [DEBUG] session.start: raised (surface terminal, interactive)
+2026-11-11T17:39:49.245Z [DEBUG] settings.read: the engine's merge was raised (the loaded plugins changed) in 1.6 ms; 0 keys answered otherwise than the files.
+2026-11-11T17:39:49.245Z [DEBUG] settings.read: the engine's merge is not raised again (the loaded plugins changed): neither the loaded plugins nor the settings changed.
+2026-11-11T17:39:49.247Z [DEBUG] Loaded plugins - Enabled: 5, Disabled: 1, Commands: 0, Agents: 0, Errors: 0
+2026-11-11T17:39:49.248Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.252Z [DEBUG] Temp file written successfully, size: 75109 bytes
+2026-11-11T17:39:49.252Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.1b94fdea4b1e to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.253Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:49.258Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.258Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.2c17ac8e2fda
+2026-11-11T17:39:49.258Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/proj (root /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/proj) -> /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude/pane-grid/projects/proj-a1e08dc1ca7654e9
+2026-11-11T17:39:49.259Z [DEBUG] $.command.register (pane-grid): /grid listed
+2026-11-11T17:39:49.261Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.265Z [DEBUG] Temp file written successfully, size: 75182 bytes
+2026-11-11T17:39:49.265Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.2c17ac8e2fda to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.265Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:49.267Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.267Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.08e0e048e2c5
+2026-11-11T17:39:49.268Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.268Z [DEBUG] Temp file written successfully, size: 75221 bytes
+2026-11-11T17:39:49.268Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.08e0e048e2c5 to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.269Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:49.269Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main,w2,w3 placed=
+2026-11-11T17:39:49.269Z [DEBUG] ui.open pane-grid grid-main (unasked, 170 columns): placed
+2026-11-11T17:39:49.270Z [DEBUG] ui.open pane-grid grid-w2 (unasked, 170 columns): placed
+2026-11-11T17:39:49.282Z [DEBUG] High write ratio: blit=0, write=4098 (100.0% writes), screen=45x170
+2026-11-11T17:39:49.284Z [DEBUG] ui.open pane-grid grid-w3 (unasked, 170 columns): placed
+2026-11-11T17:39:49.286Z [DEBUG] hooks module cc-plugin-telemetry@builtin (native): telemetry.log nested in cc-plugin-agents-md#0
+2026-11-11T17:39:49.286Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.9ms (native link, next() included)
+2026-11-11T17:39:49.286Z [DEBUG] hooks module cc-plugin-telemetry@builtin session.start settled in 1.5ms (native link, next() included)
+2026-11-11T17:39:49.287Z [DEBUG] cc-plugin-telemetry (builtin) answered telemetry.log without next() in 1.1ms; nothing beneath it ran for this dispatch
+2026-11-11T17:39:49.287Z [DEBUG] hooks module cc-plugin-agents-md@builtin session.start settled in 1.8ms (native link, next() included)
+2026-11-11T17:39:49.287Z [DEBUG] hooks module cc-plugin-telemetry@builtin (native): telemetry.log nested in cc-plugin-agents-md
+2026-11-11T17:39:49.287Z [DEBUG] hooks module cc-plugin-telemetry@builtin (native): telemetry.mark nested in cc-plugin-agents-md
+2026-11-11T17:39:49.288Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.8ms (native link, next() included)
+2026-11-11T17:39:49.288Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.mark settled in 0.5ms (native link, next() included)
+2026-11-11T17:39:49.288Z [DEBUG] cc-plugin-telemetry (builtin) answered telemetry.mark without next() in 0.6ms; nothing beneath it ran for this dispatch
+2026-11-11T17:39:49.292Z [DEBUG] hooks module pane-grid@inline session.start settled in 48.2ms (worker hop, next() included)
+2026-11-11T17:39:49.292Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.292Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.d555bed3642b
+2026-11-11T17:39:49.298Z [DEBUG] High write ratio: blit=0, write=4102 (100.0% writes), screen=45x170
+2026-11-11T17:39:49.300Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.300Z [DEBUG] Temp file written successfully, size: 75265 bytes
+2026-11-11T17:39:49.300Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.d555bed3642b to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.301Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:49.302Z [DEBUG] $.process.run (cc-plugin-telemetry): sh with 2 args in /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/proj (pid 31721)
+2026-11-11T17:39:49.303Z [DEBUG] hooks module pane-grid@inline ui.render settled in 23.3ms (worker hop, next() included) key=grid-w2
+2026-11-11T17:39:49.309Z [DEBUG] hooks module pane-grid@inline ui.render settled in 12.9ms (worker hop, next() included) key=grid-w3
+2026-11-11T17:39:49.325Z [DEBUG] surface environment of pane-grid (environment 1) loaded hooks/activate.tsx, hooks/divider.tsx, hooks/measure.tsx
+2026-11-11T17:39:49.327Z [DEBUG] $.process.run (cc-plugin-telemetry): sh exited 0 in 26ms, 31 + 0 chars
+2026-11-11T17:39:49.328Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.328Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.a24e17f5a9db
+2026-11-11T17:39:49.330Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.331Z [DEBUG] Temp file written successfully, size: 75727 bytes
+2026-11-11T17:39:49.331Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.a24e17f5a9db to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.331Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:49.333Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.333Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.dd6e52e63f55
+2026-11-11T17:39:49.333Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.334Z [DEBUG] Temp file written successfully, size: 76256 bytes
+2026-11-11T17:39:49.334Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.dd6e52e63f55 to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.334Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:49.336Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.336Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.d2ffc54f279b
+2026-11-11T17:39:49.337Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.337Z [DEBUG] Temp file written successfully, size: 76297 bytes
+2026-11-11T17:39:49.337Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.d2ffc54f279b to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.337Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:49.339Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.339Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.f6d03fd266fa
+2026-11-11T17:39:49.339Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.340Z [DEBUG] Temp file written successfully, size: 76355 bytes
+2026-11-11T17:39:49.340Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.f6d03fd266fa to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.340Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:49.344Z [DEBUG] hooks module pane-grid@inline ui.message settled in 1.4ms (worker hop, next() included) key=grid-w3
+2026-11-11T17:39:49.344Z [DEBUG] ui.message pane-grid/measure:w3 (hooks/measure.tsx) in Pane from terminal: dispatched, settled in 1.7ms
+2026-11-11T17:39:49.365Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.365Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.bbb6e9f83419
+2026-11-11T17:39:49.365Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.365Z [DEBUG] Temp file written successfully, size: 76538 bytes
+2026-11-11T17:39:49.365Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.bbb6e9f83419 to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.366Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:49.399Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.399Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.1ee7d65a5e5c
+2026-11-11T17:39:49.400Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.400Z [DEBUG] Temp file written successfully, size: 76706 bytes
+2026-11-11T17:39:49.400Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.1ee7d65a5e5c to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.400Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:49.528Z [DEBUG] [fs.watch probe] verdict: delivers
+2026-11-11T17:39:49.639Z [DEBUG] High write ratio: blit=0, write=4391 (100.0% writes), screen=45x170
+2026-11-11T17:39:49.804Z [DEBUG] Zip extraction completed: 627 files, 14485KB uncompressed
+2026-11-11T17:39:49.935Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:49.935Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.051894a473d6
+2026-11-11T17:39:49.936Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:49.936Z [DEBUG] Temp file written successfully, size: 76801 bytes
+2026-11-11T17:39:49.936Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.051894a473d6 to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:49.936Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:54.290Z [DEBUG] $.http.fetch (cc-plugin-telemetry): POST https://api.anthropic.com/api/event_logging/v2/batch
+2026-11-11T17:39:54.447Z [DEBUG] $.http.fetch (cc-plugin-telemetry): 200 in 157ms, 39 chars
+2026-11-11T17:39:54.447Z [DEBUG] [cc-plugin-telemetry] $.ui.log (to debug): telemetry: sent 3 row(s)
+2026-11-11T17:39:58.511Z [DEBUG] Detected Homebrew cask installation: /opt/homebrew/Caskroom/claude-code@latest/2.1.322/claude
+2026-11-11T17:39:58.512Z [DEBUG] AutoUpdaterWrapper: Installation type: package-manager
+2026-11-11T17:39:58.513Z [DEBUG] Detected Homebrew cask installation: /opt/homebrew/Caskroom/claude-code@latest/2.1.322/claude
+2026-11-11T17:39:58.997Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:39:58.997Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.ee6b8ca8e6e6
+2026-11-11T17:39:58.997Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:39:58.997Z [DEBUG] Temp file written successfully, size: 76612 bytes
+2026-11-11T17:39:58.997Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.ee6b8ca8e6e6 to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:39:58.998Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:39:58.998Z [DEBUG] fullscreen boot canary: healthy
+2026-11-11T17:39:59.287Z [DEBUG] cc-plugin-telemetry (builtin) answered telemetry.log without next() 1 more times in the last 10s (the last in 0.9ms)
+2026-11-11T17:40:12.149Z [DEBUG] High write ratio: blit=0, write=4358 (100.0% writes), screen=45x170
+2026-11-11T17:40:26.911Z [DEBUG] Plugin autoupdate: skipped (auto-updater disabled)
+2026-11-11T17:40:26.921Z [DEBUG] Started caffeinate to prevent sleep
+2026-11-11T17:40:26.925Z [DEBUG] ui.open pane-grid grid-w2 (asked, 170 columns): placed
+2026-11-11T17:40:26.930Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action select w2: showing w2
+2026-11-11T17:40:26.930Z [DEBUG] pane-grid (user) answered command.run without next() in 17.7ms; nothing beneath it ran for this dispatch
+2026-11-11T17:40:26.930Z [DEBUG] hooks module pane-grid@inline command.run settled in 18.1ms (worker hop, next() included)
+2026-11-11T17:40:26.954Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-11T17:40:26.954Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-11T17:40:26.964Z [DEBUG] High write ratio: blit=0, write=4103 (100.0% writes), screen=45x170
+2026-11-11T17:40:26.965Z [DEBUG] Registered claude-cli:// protocol handler at /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/Applications/Claude Code URL Handler.app
+2026-11-11T17:40:26.965Z [DEBUG] Auto-registered claude-cli:// deep link protocol handler
+2026-11-11T17:40:26.965Z [DEBUG] hooks module pane-grid@inline ui.render settled in 36.1ms (worker hop, next() included) key=grid-w2
+2026-11-11T17:40:26.966Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:40:26.966Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.01e1d0eabfd8
+2026-11-11T17:40:26.970Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:40:26.971Z [DEBUG] Temp file written successfully, size: 76728 bytes
+2026-11-11T17:40:26.971Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.01e1d0eabfd8 to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:40:26.971Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:40:26.973Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:40:26.973Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.41576e79b135
+2026-11-11T17:40:26.974Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:40:26.974Z [DEBUG] Temp file written successfully, size: 76849 bytes
+2026-11-11T17:40:26.974Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.41576e79b135 to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:40:26.974Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:40:26.989Z [DEBUG] hooks module pane-grid@inline ui.message settled in 0.8ms (worker hop, next() included) key=grid-w2
+2026-11-11T17:40:26.989Z [DEBUG] ui.message pane-grid/measure:w2 (hooks/measure.tsx) in Pane from terminal: dispatched, settled in 1.0ms
+2026-11-11T17:40:40.301Z [DEBUG] High write ratio: blit=0, write=4393 (100.0% writes), screen=45x170
+2026-11-11T17:40:44.039Z [DEBUG] hooks module pane-grid@inline ui.render settled in 2.2ms (worker hop, next() included) key=grid-w2
+2026-11-11T17:40:56.964Z [DEBUG] Stopped sleep inhibitor, allowing sleep
+2026-11-11T17:40:58.072Z [DEBUG] Started caffeinate to prevent sleep
+2026-11-11T17:40:58.077Z [DEBUG] $.fs.write (pane-grid): /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude/pane-grid/projects/proj-a1e08dc1ca7654e9/layout.json (643 bytes)
+2026-11-11T17:40:58.080Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main,w3 placed=
+2026-11-11T17:40:58.083Z [DEBUG] ui.open pane-grid grid-main (asked, 170 columns): placed
+2026-11-11T17:40:58.083Z [DEBUG] ui.open pane-grid grid-w3 (asked, 170 columns): placed
+2026-11-11T17:40:58.083Z [DEBUG] hooks module pane-grid@inline ui.render settled in 3.0ms (worker hop, next() included) key=grid-w2
+2026-11-11T17:40:58.083Z [DEBUG] ui.open pane-grid grid-main (asked, 170 columns): placed
+2026-11-11T17:40:58.087Z [DEBUG] High write ratio: blit=0, write=4369 (100.0% writes), screen=45x170
+2026-11-11T17:40:58.088Z [DEBUG] hooks module pane-grid@inline ui.render settled in 5.6ms (worker hop, next() included) key=grid-w3
+2026-11-11T17:40:58.088Z [DEBUG] pane-grid (user) answered command.run without next() in 21.7ms; nothing beneath it ran for this dispatch
+2026-11-11T17:40:58.089Z [DEBUG] hooks module pane-grid@inline command.run settled in 26.0ms (worker hop, next() included)
+2026-11-11T17:40:58.113Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action close: closed w2; it is behind w3, click its tab to show it
+2026-11-11T17:40:58.113Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-11T17:40:58.113Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-11T17:40:58.125Z [DEBUG] hooks module pane-grid@inline ui.render settled in 38.9ms (worker hop, next() included) key=grid-main
+2026-11-11T17:40:58.132Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:40:58.132Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.d2ff86256131
+2026-11-11T17:40:58.135Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:40:58.135Z [DEBUG] Temp file written successfully, size: 76923 bytes
+2026-11-11T17:40:58.135Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.d2ff86256131 to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:40:58.136Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:40:58.139Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:40:58.140Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.cd7f60483459
+2026-11-11T17:40:58.140Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:40:58.140Z [DEBUG] Temp file written successfully, size: 76995 bytes
+2026-11-11T17:40:58.140Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.cd7f60483459 to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:40:58.140Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:40:58.142Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:40:58.142Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.a8f4883704c1
+2026-11-11T17:40:58.142Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:40:58.142Z [DEBUG] Temp file written successfully, size: 77047 bytes
+2026-11-11T17:40:58.142Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.a8f4883704c1 to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:40:58.142Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically
+2026-11-11T17:40:58.150Z [DEBUG] hooks module pane-grid@inline ui.message settled in 1.0ms (worker hop, next() included) key=grid-main
+2026-11-11T17:40:58.150Z [DEBUG] ui.message pane-grid/measure:main (hooks/measure.tsx) in Pane from terminal: dispatched, settled in 1.3ms
+2026-11-11T17:41:18.497Z [DEBUG] hooks module pane-grid@inline ui.render settled in 3.8ms (worker hop, next() included) key=grid-main
+2026-11-11T17:41:22.690Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action list: * main active=c1 {c1:50,c2:50}
+2026-11-11T17:41:22.690Z [DEBUG] pane-grid (user) answered command.run without next() in 10.6ms; nothing beneath it ran for this dispatch
+2026-11-11T17:41:22.690Z [DEBUG] hooks module pane-grid@inline command.run settled in 10.9ms (worker hop, next() included)
+2026-11-11T17:41:22.693Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-11T17:41:22.693Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-11T17:41:22.704Z [DEBUG] Preserving file permissions: 100644
+2026-11-11T17:41:22.704Z [DEBUG] Writing to temp file: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.b544f4411d6b
+2026-11-11T17:41:22.704Z [DEBUG] Applied original permissions to temp file
+2026-11-11T17:41:22.704Z [DEBUG] Temp file written successfully, size: 77123 bytes
+2026-11-11T17:41:22.704Z [DEBUG] Renaming /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json.tmp.31316.b544f4411d6b to /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json
+2026-11-11T17:41:22.704Z [DEBUG] File /Users/uhd/.claude/jobs/2d2d4469/tmp/run/C1r/home/.claude.json written atomically

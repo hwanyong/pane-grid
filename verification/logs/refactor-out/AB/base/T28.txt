@@ -1,0 +1,27 @@
+$ g new
+pane-grid: opened tab w2
+[exit-ish done]
+$ g close
+pane-grid: closed main
+[exit-ish done]
+$ g list
+pane-grid: * w2 active=c3 c3
+[exit-ish done]
+--- pl
+{
+  "version": 1,
+  "project": "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/proj",
+  "tabs": [
+    {
+      "name": "w2",
+      "root": {
+        "kind": "cell",
+        "id": "c3"
+      },
+      "active": "c3"
+    }
+  ]
+}
+
+--- log refused|kept|command failed
+--- failed=0

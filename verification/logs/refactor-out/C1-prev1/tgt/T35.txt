@@ -1,0 +1,6 @@
+-- /grid
+❯ /grid
+-- /grid + space
+❯ /grid  <split|kill|next|select-cell|place|swap|zoom|resize|layout|new|select|rename|close|break|list|reload|help>
+-- log
+$.command.register (pane-grid): /grid listed

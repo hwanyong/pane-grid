@@ -1,0 +1,56 @@
+-- pane
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -                                 │c2 pending-questions
+empty. place a mod here:             │Mode: manual [ Switch to auto ]
+pending-questions (move from c2)     │[ Rescan last response ]
+                                     │
+                                     │No pending questions.
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+load order: built for pane-grid,pending-questions,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+Switch button at: 150 7
+-- (1) press Switch to: ui.press lines
+[DEBUG] pending-questions (core) answered ui.press without next(); nothing beneath it ran for this dispatch
+[DEBUG] hooks module pane-grid@inline, pending-questions@inline ui.press settled (worker hop, next() included) key=grid-main
+[DEBUG] ui.press pending-questions/mode in Pane from terminal: settled
+-- (1) toasts/acts
+-- (1) mode line: Mode: auto
+-- (2) hotkey q: ui.press lines
+[DEBUG] pane-grid (core) answered ui.press without next(); nothing beneath it ran for this dispatch
+[DEBUG] hooks module pane-grid@inline, pending-questions@inline ui.press settled (worker hop, next() included) key=grid-main
+[DEBUG] ui.press pane-grid/hotkey:q in Pane from terminal: settled
+-- (2) toasts
+$.ui.toast (pane-grid): pane-grid: * main active=c2 {c1:50,c2=pending-questions:50}
+failed: 0

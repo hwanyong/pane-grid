@@ -1,0 +1,11 @@
+-- DIR=locked g list
+pane-grid: * main active=c1 c1
+other stdout lines (model text): none
+-- log
+pane-grid: start failed: {"kind":"throw","message":"pane-grid: $.fs.read($H/locked/.git) failed: EACCES","budget":1000}
+-- DIR=locked g split -h
+pane-grid: pane-grid: the command failed; see the debug log
+other stdout lines (model text): none
+-- log
+pane-grid: start failed: {"kind":"throw","message":"pane-grid: $.fs.read($H/locked/.git) failed: EACCES","budget":1000}
+pane-grid: command failed: {"kind":"throw","message":"pane-grid: $.fs.write(/layout.json) failed: EROFS","budget":1000}

@@ -1,0 +1,19 @@
+select: pane-grid: action select-cell c2: active cell c2
+c1 usage-gauge                       │c2 -
+Weekly #-day window        #% / #%│empty. place a mod here:
+<bar>│<bar>│#: pending-questions
+Resets in #d #h · target #%         │#: usage-gauge (move from c1)
+                                     │
+                                     │
+                                     │
+
+toast: $.ui.toast (pane-grid): pane-grid: placed usage-gauge in c2
+c1 -                                 │c2 usage-gauge
+empty. place a mod here:             │Weekly #-day window        #% / #%
+pending-questions                    │<bar>│<bar>
+usage-gauge (move from c2)           │Resets in #d #h · target #%
+                                     │
+                                     │
+                                     │
+
+failed=0

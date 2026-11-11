@@ -1,0 +1,7 @@
+pane before:  main   w2   w3                                                          ✕
+first cell row: ───────────────────────────────────────────────────────────────────────────
+$.ui.toast (pane-grid): pane-grid: closed main
+pane-grid: action close: closed main
+-- tab row
+ w2   w3                                                                 ✕
+press failed lines: 0

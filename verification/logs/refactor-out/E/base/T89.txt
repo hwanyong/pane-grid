@@ -1,0 +1,48 @@
+-- select-cell c1: ⎿  pane-grid: active cell c1
+k8member: readPlacement {"usage-gauge":{"tab":"main","requestId":"grid-main","cell":"c1","column":0,"row":5,"columns":37,"rows":34,"isActive":true},"filetree":null}
+-- place usage-gauge c2: ⎿  pane-grid: placed usage-gauge in c2
+k8member: readPlacement {"usage-gauge":{"tab":"main","requestId":"grid-main","cell":"c2","column":38,"row":5,"columns":37,"rows":34,"isActive":true},"filetree":null}
+-- resize 30: ⎿  pane-grid: resized c2 to 30%
+k8member: readPlacement {"usage-gauge":{"tab":"main","requestId":"grid-main","cell":"c2","column":53,"row":5,"columns":22,"rows":34,"isActive":true},"filetree":null}
+-- pane
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -                                                │c2 usage-gauge
+empty. place a mod here:                            │Weekly N-day  NN% /
+usage-gauge (move from c2)                          │window        NNN%
+                                                    ││░░░░░░░░░░░░░░░░░░░░░
+                                                    │Resets in Nd NNh ·
+                                                    │target N%
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+                                                    │
+failed hooks: 0

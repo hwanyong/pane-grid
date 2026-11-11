@@ -1,0 +1,11 @@
+1st press: pane-grid: action select-cell c1: active cell c1 
+2nd press: pane-grid: action place pending-questions c1: placed pending-questions in c1 $.ui.toast (pane-grid): pane-grid: placed pending-questions in c1 
+c1 pending-questions                 │c2 usage-gauge
+Mode: manual [ Switch to auto ]      │Weekly #-day window        #% / #%
+[ Rescan last response ]             ││<bar>
+                                     │Resets in #d #h · target #%
+No pending questions.                │
+                                     │
+                                     │
+
+failed=0

@@ -1,0 +1,7 @@
+pane-grid: loaded 1 tab(s) from
+pane-grid: split c1 into c1 and c3
+--ls
+layout.json
+--invalid
+NONE
+failed hooks: 0

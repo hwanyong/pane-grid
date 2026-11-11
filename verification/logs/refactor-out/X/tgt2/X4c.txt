@@ -1,0 +1,3 @@
+pane-grid: active cell c1
+
+failed hooks: 0

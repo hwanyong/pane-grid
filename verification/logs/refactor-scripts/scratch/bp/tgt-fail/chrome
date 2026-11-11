@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "fake chrome: GPU init failed" >&2
+exit 3

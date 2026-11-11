@@ -1,0 +1,6 @@
+project not resolved lines >0: 0
+not awaited lines: 1
+--toasts
+--project lines
+pane-grid: project ~/proj
+failed hooks: 0

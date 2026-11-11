@@ -1,0 +1,18 @@
+TOOLBAR_KEYS lines in SKILL.md: 1
+--Keep sentence
+Keep `GRID_VERSION` and the render key constants (`SLOT_KEY`, `CHOICES_KEY`, `ACTIVE_SUFFIX`, `NONE_KEY`, `PLACE_KEY`, `CHOICE_HOTKEYS`)
+export lines in pane-grid.ts: 15
+--exported names
+ACTIVE_SUFFIX
+CHOICE_HOTKEYS
+CHOICES_KEY
+fillSlot
+GRID_VERSION
+isScrollIn
+NONE_KEY
+offerChoice
+PLACE_KEY
+placementIn
+scrollsKey
+SLOT_KEY
+TOOLBAR_KEYS

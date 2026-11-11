@@ -1,0 +1,16 @@
+pane-grid: split c1 into c1 and c2
+pane-grid: split c2 into c2 and c3
+pane-grid: split c3 into c3 and c4
+pane-grid: split c4 into c4 and c5
+pane-grid: split c5 into c5 and c6
+pane-grid: split c6 into c6 and c7
+pane-grid: split c7 into c7 and c8
+pane-grid: split c8 into c8 and c9
+pane-grid: * main active=c9 {c1:49.29,c2:24.64,c3:12.32,c4:6.16,c5:3.07,c6:1.53,c7:1,c8:1,c9:0.99}
+--titles
+c1 -
+c2 -
+c3 -
+c4 -
+title count: 4
+failed hooks: 0

@@ -1,0 +1,18 @@
+built: built for pane-grid,filetree,md-preview,flightdeck,inbox,pending-questions,uhd-kanban,terminal-browser,usage-gauge,pane-grid-r1,pane-grid-r2,pane-grid-probe-snapshot,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+───────────────────────────────────────────────────────────────────────────
+c1 -                                 │c2 -
+empty. place a mod here:             │empty. place a mod here:
+1: filetree                          │filetree
+2: flightdeck                        │flightdeck
+3: inbox                             │inbox
+4: md-preview                        │md-preview
+5: pane-grid-probe-snapshot          │pane-grid-probe-snapshot
+6: pane-grid-r1                      │pane-grid-r1
+7: pane-grid-r2                      │pane-grid-r2
+8: pending-questions                 │pending-questions
+9: terminal-browser                  │terminal-browser
+uhd-kanban                           │uhd-kanban
+usage-gauge                          │usage-gauge
+                                     │
+                                     │
+failed=0

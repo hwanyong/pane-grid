@@ -1,0 +1,121 @@
+-- a reload: pane-grid: loaded 1 tab(s) from ~/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json
+-- a split -h: pane-grid: split c5 into c5 and c6
+-- b toasts
+$.ui.toast (pane-grid): pane-grid: refused: another session changed this project's layout; loaded ~/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json again, do it once more
+-- b log
+pane-grid: $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json changed by another session (mtimeMs N -> N); not written
+-- file
+{
+  "version": 1,
+  "project": "$H/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1"
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "column",
+              "children": [
+                {
+                  "node": {
+                    "kind": "cell",
+                    "id": "c3"
+                  },
+                  "size": 50
+                },
+                {
+                  "node": {
+                    "kind": "cell",
+                    "id": "c4"
+                  },
+                  "size": 25
+                },
+                {
+                  "node": {
+                    "kind": "row",
+                    "children": [
+                      {
+                        "node": {
+                          "kind": "cell",
+                          "id": "c5"
+                        },
+                        "size": 50
+                      },
+                      {
+                        "node": {
+                          "kind": "cell",
+                          "id": "c6"
+                        },
+                        "size": 50
+                      }
+                    ]
+                  },
+                  "size": 25
+                }
+              ]
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2"
+            },
+            "size": 50
+          }
+        ]
+      },
+      "active": "c6"
+    }
+  ]
+}
+-- b pane
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -              │c3 -               │c2 -
+empty. place a mod│empty. place a mod │empty. place a mod here:
+here:             │here:              │no grid-ready mod is loaded
+no grid-ready mod │no grid-ready mod  │
+is loaded         │is loaded          │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │───────────────────│
+                  │c4 -               │
+                  │empty. place a mod │
+                  │here:              │
+                  │no grid-ready mod  │
+                  │is loaded          │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │───────────────────│
+                  │c5 -     │c6 -     │
+                  │empty.   │empty.   │
+                  │place a  │place a  │
+                  │mod here:│mod here:│
+                  │no grid-r│no grid-r│
+                  │eady mod │eady mod │
+                  │is loaded│is loaded│
+                  │         │         │

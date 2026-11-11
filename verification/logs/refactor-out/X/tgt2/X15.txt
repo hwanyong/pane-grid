@@ -1,0 +1,15 @@
+project not resolved lines >0: 1
+pane-grid: project not resolved: HooksError: pane-grid: $.fs.read(/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/sm/.git) failed: 
+not awaited lines: 0
+--toasts
+pane-grid: the session moved to ~/sm; loaded 1 tab(s) from ~/.claude/pane-grid/layout.json
+--project lines
+pane-grid: project ~/proj
+pane-grid: project not
+pane-grid: project not
+pane-grid: project not
+pane-grid: project not
+pane-grid: project not
+pane-grid: project not
+pane-grid: project ~/sm
+failed hooks: 0

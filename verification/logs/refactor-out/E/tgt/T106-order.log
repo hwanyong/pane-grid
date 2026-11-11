@@ -1,0 +1,9 @@
+2026-11-11T18:21:10.996Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/JOB/tmp/run/E/home/proj (root /Users/uhd/.claude/jobs/JOB/tmp
+2026-11-11T18:21:11.000Z [DEBUG] ui.open pane-grid grid-main (unasked, 170 columns): placed
+2026-11-11T18:21:11.010Z [DEBUG] hooks module cc-plugin-diff@builtin session.start settled in 3.3ms (native link, next() included)
+2026-11-11T18:21:11.010Z [DEBUG] hooks module cc-plugin-telemetry@builtin session.start settled in 3.4ms (native link, next() included)
+2026-11-11T18:21:11.010Z [DEBUG] hooks module cc-plugin-agents-md@builtin session.start settled in 3.6ms (native link, next() included)
+2026-11-11T18:21:11.012Z [DEBUG] hooks module pane-grid@inline, k12shown@inline session.start settled in 31.6ms (worker hop, next() included)
+2026-11-11T18:21:12.008Z [DEBUG] [k12shown] $.ui.log (to debug): k12shown: readShownTab "main"
+2026-11-11T18:21:31.032Z [DEBUG] [k12shown] $.ui.log (to debug): k12shown: readShownTab "w2"
+2026-11-11T18:21:39.050Z [DEBUG] [k12shown] $.ui.log (to debug): k12shown: readShownTab "main"

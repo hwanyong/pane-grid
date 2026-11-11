@@ -1,0 +1,615 @@
+X1 DIFF
+    --- base/X1
+    +++ tgt/X1
+    @@ -1,8 +1,8 @@
+    -pane-grid: * main active=c1 {c1:null,c2:null}
+    +pane-grid: * main active=c1 {c1:50,c2:50}
+     failed hooks: 0
+     pane-grid: split c1 into c1 and c3
+     failed hooks: 0
+    -pane-grid: * main active=c3 {c1:33.33,c3:33.33,c2:33.34}
+    +pane-grid: * main active=c3 {c1:25,c3:25,c2:50}
+     --file
+     {
+       "version": 1,
+    @@ -18,21 +18,21 @@
+                   "kind": "cell",
+                   "id": "c1"
+                 },
+    -            "size": 33.33
+    +            "size": 25
+               },
+               {
+                 "node": {
+                   "kind": "cell",
+                   "id": "c3"
+                 },
+    -            "size": 33.33
+    +            "size": 25
+               },
+               {
+                 "node": {
+                   "kind": "cell",
+                   "id": "c2"
+                 },
+    -            "size": 33.34
+    +            "size": 50
+               }
+             ]
+           },
+X2 DIFF
+    --- base/X2
+    +++ tgt/X2
+    @@ -40,7 +40,7 @@
+     c2 -
+     ───────────────────────────────────────────────────────────────────────────
+     drag at col=101 row=40 by -3
+    -pane-grid: * main active=c1 [c1:96,c2:1,c3:3]
+    +pane-grid: * main active=c1 [c1:98,c2:1,c3:1]
+     --after
+                                                                              ✕
+     ───────────────────────────────────────────────────────────────────────────
+    @@ -80,6 +80,6 @@
+     
+     
+     ───────────────────────────────────────────────────────────────────────────
+    +c2 -
+     ───────────────────────────────────────────────────────────────────────────
+    -c3 -
+     failed hooks: 0
+X3 DIFF
+    --- base/X3
+    +++ tgt/X3
+    @@ -2,7 +2,7 @@
+     pane-grid: placed usage-gauge in c2
+     pane-grid: * main active=c2 zoomed {c1:50,c2=usage-gauge:50}
+     --file after place
+    -active=c2 zoomed=c1
+    +active=c2 zoomed=c2
+     pane-grid: emptied c1
+     --file after place -
+     active=c1 zoomed=c1
+X4a DIFF
+    --- base/X4a
+    +++ tgt/X4a
+    @@ -1,81 +1,12 @@
+     pane-grid: active cell c1
+     --file
+    -{
+    -  "version": 1,
+    -  "project": "/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/proj",
+    -  "tabs": [
+    -    {
+    -      "name": "main",
+    -      "root": {
+    -        "kind": "cell",
+    -        "id": "c1"
+    -      },
+    -      "active": "c1"
+    -    }
+    -  ]
+    -}
+    +NOFILE
+     pane-grid: active cell c1
+     --file
+    -{
+    -  "version": 1,
+    -  "project": "/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/proj",
+    -  "tabs": [
+    -    {
+    -      "name": "main",
+    -      "root": {
+    -        "kind": "row",
+    -        "children": [
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c1"
+    -            },
+    -            "size": 50
+    -          },
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c2"
+    -            },
+    -            "size": 50
+    -          }
+    -        ]
+    -      },
+    -      "active": "c1"
+    -    }
+    -  ]
+    -}
+    +NOFILE
+     pane-grid: resized c1 to 50%
+     --file
+    -{
+    -  "version": 1,
+    -  "project": "/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/proj",
+    -  "tabs": [
+    -    {
+    -      "name": "main",
+    -      "root": {
+    -        "kind": "row",
+    -        "children": [
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c1"
+    -            },
+    -            "size": 50
+    -          },
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c2"
+    -            },
+    -            "size": 50
+    -          }
+    -        ]
+    -      },
+    -      "active": "c1"
+    -    }
+    -  ]
+    -}
+    +NOFILE
+     pane-grid: emptied c2
+     --file
+     {
+X4b DIFF
+    --- base/X4b
+    +++ tgt/X4b
+    @@ -1,21 +1,7 @@
+     pane-grid: active cell c1
+     --ls
+    -layout.invalid.json
+     layout.json
+     --layout.json
+    -{
+    -  "version": 1,
+    -  "project": "/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/proj",
+    -  "tabs": [
+    -    {
+    -      "name": "main",
+    -      "root": {
+    -        "kind": "cell",
+    -        "id": "c1"
+    -      },
+    -      "active": "c1"
+    -    }
+    -  ]
+    -}
+    ---layout.invalid.json
+     not json
+    +--layout.invalid.json
+    +cat: <d>/layout.invalid.json: No such file or directory
+X4c DIFF
+    --- base/X4c
+    +++ tgt/X4c
+    @@ -1,3 +1,3 @@
+    -pane-grid: refused: another session changed this project's layout; loaded
+    -~/.claude/pane-grid/projects/proj-<hash>/layout.json again, do it once more
+    +pane-grid: active cell c1
+    +
+     failed hooks: 0
+X5 DIFF
+    --- base/X5
+    +++ tgt/X5
+    @@ -1,109 +1,14 @@
+     ## split -h Foo
+    -pane-grid: split c1 into c1 and c3
+    +pane-grid: refused: tabs[0].root.children[1].node: plugin must match /^[a-z0-9][a-z0-9_.-]{0,127}$/
+     --file
+    -{
+    -  "version": 1,
+    -  "project": "/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/proj",
+    -  "tabs": [
+    -    {
+    -      "name": "main",
+    -      "root": {
+    -        "kind": "row",
+    -        "children": [
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c1"
+    -            },
+    -            "size": 25
+    -          },
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c3",
+    -              "plugin": "Foo"
+    -            },
+    -            "size": 25
+    -          },
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c2"
+    -            },
+    -            "size": 50
+    -          }
+    -        ]
+    -      },
+    -      "active": "c3"
+    -    }
+    -  ]
+    -}
+    -pane-grid: * main active=c1 c1
+    -layout file /Users/uhd/.claude/jobs/JOB/tmp/run/X/home/.claude/pane-grid/projects/proj-<hash>/layout.json refused: tabs[0].root.children[1].node: plugin must match /^[a-z0-9][a-z0-9_.-]{0,127}$/
+    +NOFILE
+    +pane-grid: * main active=c1 {c1:50,c2:50}
+     ## place Foo c2
+    -pane-grid: placed Foo in c2
+    +pane-grid: refused: tabs[0].root.children[1].node: plugin must match /^[a-z0-9][a-z0-9_.-]{0,127}$/
+     --file
+    -{
+    -  "version": 1,
+    -  "project": "/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/proj",
+    -  "tabs": [
+    -    {
+    -      "name": "main",
+    -      "root": {
+    -        "kind": "row",
+    -        "children": [
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c1"
+    -            },
+    -            "size": 50
+    -          },
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c2",
+    -              "plugin": "Foo"
+    -            },
+    -            "size": 50
+    -          }
+    -        ]
+    -      },
+    -      "active": "c2"
+    -    }
+    -  ]
+    -}
+    +NOFILE
+     ## place -x
+    -pane-grid: placed -x in c1
+    +pane-grid: refused: tabs[0].root.children[0].node: plugin must match /^[a-z0-9][a-z0-9_.-]{0,127}$/
+     --file
+    -{
+    -  "version": 1,
+    -  "project": "/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/proj",
+    -  "tabs": [
+    -    {
+    -      "name": "main",
+    -      "root": {
+    -        "kind": "row",
+    -        "children": [
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c1",
+    -              "plugin": "-x"
+    -            },
+    -            "size": 50
+    -          },
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c2"
+    -            },
+    -            "size": 50
+    -          }
+    -        ]
+    -      },
+    -      "active": "c1"
+    -    }
+    -  ]
+    -}
+    +NOFILE
+     failed hooks: 0
+X6 DIFF
+    --- base/X6
+    +++ tgt/X6
+    @@ -1,4 +1,4 @@
+    -pane-grid: * main active=c1 {c1:null,c2:null}
+    +pane-grid: * main active=c1 {c1:1.96,c2:98.04}
+     failed hooks: 0
+     pane-grid: split c1 into c1 and c3
+     --file
+    @@ -16,21 +16,21 @@
+                   "kind": "cell",
+                   "id": "c1"
+                 },
+    -            "size": 33.33
+    +            "size": 1
+               },
+               {
+                 "node": {
+                   "kind": "cell",
+                   "id": "c3"
+                 },
+    -            "size": 33.33
+    +            "size": 1
+               },
+               {
+                 "node": {
+                   "kind": "cell",
+                   "id": "c2"
+                 },
+    -            "size": 33.34
+    +            "size": 98
+               }
+             ]
+           },
+    @@ -38,5 +38,5 @@
+         }
+       ]
+     }
+    -pane-grid: * main active=c3 {c1:33.33,c3:33.33,c2:33.34}
+    +pane-grid: * main active=c3 {c1:1,c3:1,c2:98}
+     failed hooks: 0
+X7 DIFF
+    --- base/X7
+    +++ tgt/X7
+    @@ -6,7 +6,7 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 -                                 │active -
+     empty. place a mod here:             │empty. place a mod here:
+    -1: usage-gauge                       │1: usage-gauge
+    +1: usage-gauge                       │usage-gauge
+                                          │
+                                          │
+                                          │
+    @@ -40,6 +40,8 @@
+                                          │
+                                          │
+     --toasts
+    +pane-grid: placed usage-gauge in c1
+     --actions
+    -pane-grid: * main active=c1 {c1:50,active:50}
+    +pane-grid: action place usage-gauge c1: placed usage-gauge in c1
+    +pane-grid: * main active=c1 {c1=usage-gauge:50,active:50}
+     failed hooks: 0
+X9 DIFF
+    --- base/X9
+    +++ tgt/X9
+    @@ -1 +1 @@
+    -0.5.0
+    +0.5.1
+X10 DIFF
+    --- base/X10
+    +++ tgt/X10
+    @@ -1,9 +1,10 @@
+    -pane-grid: pane-grid: the command failed; see the debug log
+    -failed hooks: 1
+    -$.fs.write(/.claude/pane-grid/projects/proj-<hash>/layout.json) failed: EROFS","budget":1000}
+    -pane-grid: loaded 1 tab(s) from /.claude/pane-grid/layout.json
+    -failed hooks: 1
+    -$.fs.write(/.claude/pane-grid/projects/proj-<hash>/layout.json) failed: EROFS","budget":1000}
+    +pane-grid: split c1 into c1 and c2
+    +failed hooks: 0
+    +no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+    +pane-grid: loaded 1 tab(s) from no file (neither HOME nor CLAUDE_CONFIG_DIR is set)
+    +failed hooks: 0
+    +no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+    +no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+     --written under PROJ
+     .cache
+     .claude
+X11 DIFF
+    --- base/X11
+    +++ tgt/X11
+    @@ -1,5 +1,5 @@
+     pane-grid: loaded 1 tab(s) from ~/.claude/pane-grid/layout.json
+     pane-grid: split c1 into c1 and c3
+    -pane-grid: loaded 1 tab(s) from rel/pane-grid/projects/proj-<hash>/layout.json
+    +pane-grid: loaded 1 tab(s) from ~/proj/rel/pane-grid/projects/proj-<hash>/layout.json
+     --ls
+     proj-<hash>
+X12 DIFF
+    --- base/X12
+    +++ tgt/X12
+    @@ -1,5 +1,7 @@
+    -pane-grid: loaded 1 tab(s) from ~/.claude/pane-grid/layout.json
+    +pane-grid: loaded 1 tab(s) from no file (neither HOME nor CLAUDE_CONFIG_DIR is set)
+     failed hooks: 0
+    -pane-grid: pane-grid: the command failed; see the debug log
+    -failed hooks: 1
+    -$.fs.write(/pane-grid/projects/proj-<hash>/layout.json) failed: EROFS","budget":1000}
+    +no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+    +pane-grid: split c1 into c1 and c2
+    +failed hooks: 0
+    +no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+    +no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+X13 DIFF
+    --- base/X13
+    +++ tgt/X13
+    @@ -1,7 +1,46 @@
+    -start failed lines: 0
+    -hook skipped lines: 1
+    -session.start hook skipped: threw pane-grid: $.fs.read(/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/.cl
+    -c1 title rows after chmod 644: 0
+    -layout state is empty lines >0: 0
+    +start failed lines: 1
+    +hook skipped lines: 0
+    +pane-grid: start failed: {"kind":"throw","message":"pane-grid: $.fs.read(/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/.cla
+    +c1 title rows after chmod 644: 1
+    +layout state is empty lines >0: 1
+     --grid
+    -
+    +                                                                         ✕
+    +───────────────────────────────────────────────────────────────────────────
+    +v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+    +k: close tab q: list
+    +───────────────────────────────────────────────────────────────────────────
+    +c1 -                                 │c2 -
+    +empty. place a mod here:             │empty. place a mod here:
+    +no grid-ready mod is loaded          │no grid-ready mod is loaded
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+    +                                     │
+X14 DIFF
+    --- base/X14
+    +++ tgt/X14
+    @@ -1,8 +1,7 @@
+    -session.start hook skipped: threw pane-grid: $.fs.read(/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/sm/.git) failed: EACCES
+    +pane-grid: start failed: {"kind":"throw","message":"pane-grid: $.fs.read(/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/sm/.git) failed: EACCES"
+     --after list
+    -pane-grid: session.start hook skipped: threw pane-grid: $.fs.read(/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/sm/.git) failed: EACCES
+    -Unknown command: /grid
+    +pane-grid: * main active=c1 {c1:50,c2:50}                                                │                                     │
+     --after split
+    -pane-grid: session.start hook skipped: threw pane-grid: $.fs.read(/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/sm/.git) failed: EACCES
+    -Unknown command: /grid
+    -Unknown command: /grid
+    +pane-grid: * main active=c1 {c1:50,c2:50}                                                │                                     │
+    +pane-grid: pane-grid: the command failed; see the debug log                              │                                     │
+    +pane-grid: command failed: {"kind":"throw","message":"pane-grid: $.fs.write(/layout.json) failed: EROFS","budget":1000}
+X15 DIFF
+    --- base/X15
+    +++ tgt/X15
+    @@ -1,6 +1,15 @@
+    -project not resolved lines >0: 0
+    -not awaited lines: 1
+    +project not resolved lines >0: 1
+    +pane-grid: project not resolved: HooksError: pane-grid: $.fs.read(/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/sm/.git) failed: 
+    +not awaited lines: 0
+     --toasts
+    +pane-grid: the session moved to ~/sm; loaded 1 tab(s) from ~/.claude/pane-grid/layout.json
+     --project lines
+     pane-grid: project ~/proj
+    +pane-grid: project not
+    +pane-grid: project not
+    +pane-grid: project not
+    +pane-grid: project not
+    +pane-grid: project not
+    +pane-grid: project not
+    +pane-grid: project ~/sm
+     failed hooks: 0
+X16 DIFF
+    --- base/X16
+    +++ tgt/X16
+    @@ -1,9 +1,7 @@
+     pane-grid: loaded 1 tab(s) from
+     pane-grid: split c1 into c1 and c3
+     --ls
+    -layout.invalid.json
+     layout.json
+     --invalid
+    -not json
+    -pane-grid: kept the invalid layout file as /Users/uhd/.claude/jobs/JOB/tmp/run/X/home/.claude/pane-grid/projects/proj-<hash>/layout.invalid.json
+    +NONE
+     failed hooks: 0
+X17 DIFF
+    --- base/X17
+    +++ tgt/X17
+    @@ -1,5 +1,6 @@
+     --toasts
+    -press failed lines: 1
+    +pane-grid: the press failed; see the debug log
+    +press failed lines: 2
+     pane-grid: press failed: {"kind":"throw","message":"pane-grid: $.fs.write(/Users/uhd/.claude/jobs/2d2d4
+     --grid
+                                                                              ✕
+X18 DIFF
+    --- base/X18
+    +++ tgt/X18
+    @@ -1,5 +1,5 @@
+     --title SGR
+    -^[[0m^[[38;5;246m^[[48;5;235mc2 -
+    +^[[0;1m^[[38;5;72m^[[48;5;235mc2 -
+     --grid
+                                                                              ✕
+     ───────────────────────────────────────────────────────────────────────────
+    @@ -8,9 +8,8 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c2 -
+     empty. place a mod here:
+    -usage-gauge
+    +1: usage-gauge
+     --actions after click
+    -pane-grid: action select-cell c2: active cell c2
+     --toasts after key 1
+     pane-grid: placed usage-gauge in c2
+     failed hooks: 0
+X19 SAME
+X21 DIFF
+    --- base/X21
+    +++ tgt/X21
+    @@ -1,7 +1,7 @@
+     --actions
+     pane-grid: action split -h: split c1 into c1 and c3
+    -pane-grid: action split -h: split c1 into c1 and c3
+    -pane-grid: action split -h: split c1 into c1 and c3
+    -pane-grid: action split -h: split c1 into c1 and c3
+    -pane-grid: * main active=c3 {c1:25,c3:25,c2:50}
+    +pane-grid: action split -h: split c3 into c3 and c4
+    +pane-grid: action split -h: split c4 into c4 and c5
+    +pane-grid: action split -h: split c5 into c5 and c6
+    +pane-grid: * main active=c6 {c1:25,c3:12.5,c4:6.25,c5:3.12,c6:3.12,c2:50.01}
+     failed hooks: 0
+X27 DIFF
+    --- base/X27
+    +++ tgt/X27
+    @@ -1,12 +1,21 @@
+    +Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+     pane-grid: split c1 into c1 and c2
+    +Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+     pane-grid: split c2 into c2 and c3
+    +Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+     pane-grid: split c3 into c3 and c4
+    +Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+     pane-grid: split c4 into c4 and c5
+    +Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+     pane-grid: split c5 into c5 and c6
+    +Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+     pane-grid: split c6 into c6 and c7
+    +Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+     pane-grid: split c7 into c7 and c8
+    +Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+     pane-grid: split c8 into c8 and c9
+    -pane-grid: * main active=c9 {c1:49.29,c2:24.64,c3:12.32,c4:6.16,c5:3.07,c6:1.53,c7:1,c8:1,c9:0.99}
+    +Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+    +pane-grid: * main active=c9 {c1:48.57,c2:25,c3:12.5,c4:6.25,c5:3.12,c6:1.56,c7:1,c8:1,c9:1}
+     --titles
+     c1 -
+     c2 -
+X28 SAME
+X29 SAME
+X30 SAME
+summary: same=4 diff=21 missing=0

@@ -1,0 +1,43 @@
+$.ui.toast (pane-grid): pane-grid: split c1 into c1 and c3
+pane-grid: action split -h: split c1 into c1 and c3
+-- pane
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -              │c3 -               │c2 -
+empty. place a mod│empty. place a mod │empty. place a mod here:
+here:             │here:              │no grid-ready mod is loaded
+no grid-ready mod │no grid-ready mod  │
+is loaded         │is loaded          │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │

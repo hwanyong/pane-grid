@@ -1,0 +1,24 @@
+--- ls before
+ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+$ g resize 0
+pane-grid: usage: resize <1-99>
+[exit-ish done]
+$ g resize 100
+pane-grid: usage: resize <1-99>
+[exit-ish done]
+$ g resize abc
+pane-grid: usage: resize <1-99>
+[exit-ish done]
+$ g resize 35.5
+pane-grid: usage: resize <1-99>
+[exit-ish done]
+$ g resize
+pane-grid: usage: resize <1-99>
+[exit-ish done]
+--- ls after
+ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+--- pl
+NOFILE
+
+--- log refused|kept|command failed
+--- failed=0
