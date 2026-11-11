@@ -50,7 +50,7 @@ The values are declared in pane-grid's own contract (`types/index.d.ts`), which 
 
 ## Step 1: copy the reading module
 
-Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pane-grid.ts) to `hooks/pane-grid.ts` in your mod. Do not edit the exports you keep; delete only the ones the table below says you may delete. It exports seven functions and two constants.
+Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pane-grid.ts) to `hooks/pane-grid.ts` in your mod. Do not edit the exports you keep; delete only the ones the table below says you may delete. It exports seven functions and eight constants.
 
 | Export | Use |
 |---|---|
@@ -63,6 +63,7 @@ Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pan
 | `isScrollIn(placement, e)` | Whether a `ui.scroll` on a grid pane is for your cell. Only Step 7 needs it; delete it if you skip Step 7 |
 | `TOOLBAR_KEYS` | The letters of pane-grid's toolbar hotkeys. Only Step 5 needs it, when your cell draws Button `hotkey`s; delete it otherwise |
 | `GRID_VERSION` | The layout format's version. pane-grid writes its layout value from this constant. `placementIn` uses it, so keep it even though your mod does not import it |
+| `SLOT_KEY`, `CHOICES_KEY`, `ACTIVE_SUFFIX`, `NONE_KEY`, `PLACE_KEY`, `CHOICE_HOTKEYS` | The render key prefixes pane-grid draws and the number of choice hotkeys. pane-grid draws from these constants. `fillSlot` and `offerChoice` use them, so keep them even though your mod does not import them |
 
 `readPlacement` and `readShownTab` are `function` declarations on purpose. From Claude Code 2.1.299, `claude plugin validate` follows `$` across an import only through function declarations.
 

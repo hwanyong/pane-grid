@@ -7,10 +7,12 @@ import { HORIZONTAL, VERTICAL } from './glyphs'
 import { defaultTabs, dirName, parseLayoutFile, serializeLayoutFile } from './layout-file'
 import { RULE_ROWS, TOOLBAR_ROWS, activeOf, cellAt, contentArea, contentSize, gridRect, visibleRects } from './pane-area'
 import {
-  ACTIVATE_KEY, ACTIVE_SUFFIX, CHOICES_KEY, DIVIDER_KEY, HOTKEY_KEY, HOTKEYS, MEASURE_KEY, NONE_KEY, PLACE_KEY, PRESS_KEY, SLOT_KEY,
+  ACTIVATE_KEY, DIVIDER_KEY, HOTKEY_KEY, HOTKEYS, MEASURE_KEY, PRESS_KEY,
   collectCells, dividerKey, gridReady, holdsKey, parseDividerKey, pressWords,
 } from './render-keys'
-import { GRID_VERSION, isScrollIn, scrollsKey } from '../skills/add-pane-grid-cell/pane-grid'
+import {
+  ACTIVE_SUFFIX, CHOICE_HOTKEYS, CHOICES_KEY, GRID_VERSION, NONE_KEY, PLACE_KEY, SLOT_KEY, isScrollIn, scrollsKey,
+} from '../skills/add-pane-grid-cell/pane-grid'
 import { ROOT_PATH, allCells, cellsOf, childPath, findCell, moveDivider, rectAt, replaceAt, splitAt, splitRects } from './tree'
 import type { Rect } from './tree'
 
@@ -37,8 +39,6 @@ const NO_FILE = 'no file (neither HOME nor CLAUDE_CONFIG_DIR is set)'
 const COMMON_GIT_DIR = '/.git'
 const SHOWN_POLL_MS = 1000
 const ACTIVE_COLOR = 'green'
-// 빈 칸 선택지의 hotkey 는 활성 칸에서만 1-9 를 붙인다. 칸마다 붙이면 같은 숫자가 겹친다.
-const CHOICE_HOTKEYS = 9
 // slot 을 채우지 않은 놓인 mod: 불러오지 않았거나, hooks/pane-grid.ts 가 slot 을 모르는 0.3.0 이전 사본이다.
 const UNFILLED_HINT = 'not loaded, or its hooks/pane-grid.ts is older than pane-grid 0.3.0'
 

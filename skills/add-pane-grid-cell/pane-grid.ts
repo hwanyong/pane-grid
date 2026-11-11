@@ -18,14 +18,17 @@ const GRID_SHOWN = { plugin: 'pane-grid', key: 'shown' } as const
 // The layout format's version, as pane-grid's types/index.d.ts GridVersion names it. pane-grid writes it into the layout
 // value from this constant, so the two cannot drift. Your mod need not import it; placementIn uses it.
 export const GRID_VERSION = 1
-const SLOT_KEY = 'slot:'
-const CHOICES_KEY = 'choices:'
-const ACTIVE_SUFFIX = ':active'
-const NONE_KEY = 'none:'
-const PLACE_KEY = 'place:'
+// The render keys pane-grid draws and fillSlot and offerChoice read: `slot:<plugin>`, `choices:<cell>[:active]`,
+// `none:<cell>` and the choice Button `place:<cell>:<plugin>`. pane-grid draws them from these constants, so the two
+// sides cannot drift. Your mod need not import them; fillSlot and offerChoice use them.
+export const SLOT_KEY = 'slot:'
+export const CHOICES_KEY = 'choices:'
+export const ACTIVE_SUFFIX = ':active'
+export const NONE_KEY = 'none:'
+export const PLACE_KEY = 'place:'
 const SCROLLS_KEY = 'scrolls:'
-// Empty-cell choices take hotkeys 1-9 in the active cell only.
-const CHOICE_HOTKEYS = 9
+// Empty-cell choices take hotkeys 1-9 in the active cell only; numbered in every cell, one number would mean two cells.
+export const CHOICE_HOTKEYS = 9
 
 // The letters of pane-grid's toolbar hotkeys. A Button `hotkey` drawn in a cell acts for the whole grid pane, and of two
 // Buttons with one hotkey the engine presses the later drawn. Leave these letters out of the hotkeys your cell draws.

@@ -1,20 +1,17 @@
 import type { RenderElement, RenderNode, Tier, TraceEntry } from 'claude-code'
-import { TOOLBAR_KEYS } from '../skills/add-pane-grid-cell/pane-grid'
+import { PLACE_KEY, TOOLBAR_KEYS } from '../skills/add-pane-grid-cell/pane-grid'
 
 // grid pane 의 render tree key 와 Button 누름 해석. 만드는 쪽(register.tsx 의 render)과 읽는 쪽(press · message hook)이 이 파일의
 // 상수 · 함수를 함께 쓴다. $ 를 받지 않는다.
 
 // render tree 의 key 머리말(docs/grid-and-tabs.md §3.7). 규약 mod 가 pane-grid 보다 아래(뒤에 로드)에 있으면 `cell:<plugin>` Box 를
 // 그려 next(e) 결과로 내고, 위(먼저 로드)에 있으면 pane-grid 가 그린 `slot:<plugin>` Box 를 채우고 `choices:<cell>` Box 에 선택지 Button 을 더한다.
+// 규약 mod 와 함께 쓰는 머리말(SLOT_KEY · CHOICES_KEY · ACTIVE_SUFFIX · NONE_KEY · PLACE_KEY)과 CHOICE_HOTKEYS 는 읽기 모듈
+// skills/add-pane-grid-cell/pane-grid.ts 가 갖는다. 그 파일은 member 저장소에 복사되어 hooks/ 를 import 하지 않으므로 이쪽이 읽는다.
 export const CELL_KEY = 'cell:'
-export const SLOT_KEY = 'slot:'
-export const CHOICES_KEY = 'choices:'
-export const ACTIVE_SUFFIX = ':active'
-export const NONE_KEY = 'none:'
-// pane-grid 가 그리는 Button 의 key 머리말. 누름은 모두 ui.press hook 하나가 받는다(로드 순서와 무관하게 같은 입구).
-export const PLACE_KEY = 'place:'
+// pane-grid 가 그리는 Button 의 key 머리말은 PLACE_KEY(선택지)와 이것(툴바)이다. 누름은 모두 ui.press hook 하나가 받는다(로드 순서와 무관하게 같은 입구).
 export const HOTKEY_KEY = 'hotkey:'
-// ui.press hook 의 element matcher. 위 두 머리말로 만든다(머리말을 바꾸면 matcher 도 따라 바뀐다).
+// ui.press hook 의 element matcher. 두 머리말로 만든다(머리말을 바꾸면 matcher 도 따라 바뀐다).
 export const PRESS_KEY = new RegExp(`^(${PLACE_KEY}|${HOTKEY_KEY})`)
 // pane-grid 의 Client(surface module) key 머리말. 누름 · 끌기는 ui.message hook 이 받는다.
 export const ACTIVATE_KEY = 'activate:'
