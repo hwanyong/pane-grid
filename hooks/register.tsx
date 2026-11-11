@@ -200,9 +200,13 @@ const projectOf = async ($: EngineInterface, root: string) => {
   return findProject($, real, real)
 }
 
-// $.session.root() 를 읽어 프로젝트를 정한다. root 가 그대로면 아무것도 하지 않는다. 프로젝트가 바뀌었으면 true.
+// resolveProject 의 결과. resolved: 프로젝트를 처음 정했다(그때까지 run.project 가 빈 문자열). moved: 정해져 있던 프로젝트가
+// 바뀌었다(`/cd` · worktree 이동). false: 그대로이거나 거부됐다.
+type Resolved = 'resolved' | 'moved' | false
+
+// $.session.root() 를 읽어 프로젝트를 정한다. root 가 그대로면 아무것도 하지 않는다.
 // 거부되면 run 을 바꾸지 않는다. 부르는 쪽은 tryResolveProject 를 쓴다.
-const resolveProject = async ($: EngineInterface) => {
+const resolveProject = async ($: EngineInterface): Promise<Resolved> => {
   const root = await $.session.root()
   if (root == run.root) return false
   // run.root 는 projectOf 가 끝난 뒤에 바꾼다. projectOf 가 거부되면(`.git` 을 읽지 못하는 등) 다음 주기에 다시 정한다.
@@ -211,12 +215,13 @@ const resolveProject = async ($: EngineInterface) => {
   if (project == run.project) return false
   // 프로젝트와 그 파일 자리는 await 없이 함께 바꾼다. 설정 디렉터리가 없으면 파일 자리도 없다(persist 가 쓰지 않는다).
   const dir = run.config == undefined ? '' : `${run.config}/${PROJECTS_DIR}/${await dirName(project)}`
+  const resolved: Resolved = run.project ? 'moved' : 'resolved'
   run.project = project
   run.dir = dir
   run.mtimeMs = undefined
   run.invalidText = undefined
   log($, `project ${project} (root ${root}) -> ${run.config == undefined ? NO_FILE : run.dir}`)
-  return true
+  return resolved
 }
 
 // resolveProject 의 거부를 debug log 에 남기고 false 로 바꾼다. 시작과 주기(moveProject)가 같은 처리를 한다.
@@ -397,13 +402,20 @@ const ensureLayout = async ($: EngineInterface): Promise<GridLayout> => {
   }
 }
 
-// 프로젝트가 바뀌었으면 새 프로젝트 파일을 읽고 그 알림 글을 돌려준다. 그대로이거나 거부됐으면 undefined.
-const moveProject = async ($: EngineInterface) => ((await tryResolveProject($)) ? loadText($) : undefined)
+// 프로젝트를 처음 정했거나 바뀌었으면 그 프로젝트 파일을 읽고 toast 글을 돌려준다. 그대로이거나 거부됐으면 undefined.
+// 시작 때 정하지 못한 프로젝트를 주기가 정한 것(resolved)은 세션이 옮긴 것이 아니므로 다른 글을 낸다.
+const moveProject = async ($: EngineInterface) => {
+  const resolved = await tryResolveProject($)
+  if (!resolved) return undefined
+  const text = await loadText($)
+  const project = shownPath(run.project)
+  return resolved == 'resolved' ? `resolved the project ${project}; ${text}` : `the session moved to ${project}; ${text}`
+}
 
 const watchShown = async ($: EngineInterface) => {
   // `/cd` · worktree 이동은 mod 에 알리지 않으므로(classic.CwdChanged 도 오지 않는다) root 를 여기서 읽어 비교한다.
-  const moved = await serial(() => moveProject($))
-  if (moved) $.ui.toast(`pane-grid: the session moved to ${shownPath(run.project)}; ${moved}`)
+  const notice = await serial(() => moveProject($))
+  if (notice) $.ui.toast(`pane-grid: ${notice}`)
   // grid 탭이 가려져 있으면 render hook 이 불리지 않는다. 규약 mod 는 layout 이 비면 자기 pane 으로 돌아가므로 여기서도 되살린다.
   await ensureLayout($)
   const pane = (await $.ui.panes()).find(item => item.isShown && item.id.startsWith(PANE_PREFIX))
@@ -423,7 +435,7 @@ export const register: Register = on => {
     run.config = !given ? undefined : given.startsWith('/') ? config : `${await $.session.cwd()}/${config}`
     if (run.config == undefined) log($, `${NO_FILE}; the layout is kept in this session only`)
     // 파일 읽기에 기대지 않는 등록을 먼저 한다. 파일을 읽지 못해 reload 가 거부돼도 /grid 와 주기(watchShown)는 남고,
-    // 주기의 ensureLayout 이 다시 읽는다. 주기는 프로젝트를 정한 뒤에 건다(run.root 가 비어 있으면 첫 주기가 「moved」로 여긴다).
+    // 주기의 ensureLayout 이 다시 읽는다. 주기는 프로젝트를 정한 뒤에 건다(run.root 가 비어 있으면 첫 주기가 프로젝트를 정하고 `resolved the project` toast 를 낸다).
     // 프로젝트를 정하지 못하면 주기와 같이 debug log 에 남기고 이어 간다. 그동안 바꾸는 동작은 UNRESOLVED 로 거부하고 주기가 다시 정한다.
     await $.command.register({ name: COMMAND, description: 'pane-grid: split panes into a grid of mods, tmux style', argumentHint: `<${VERBS.join('|')}>` })
     await tryResolveProject($)
