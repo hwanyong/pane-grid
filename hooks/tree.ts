@@ -15,7 +15,7 @@ const MAIN_HORIZONTAL_SHARE = 60
 
 // 한 노드의 size 합(types/index.d.ts GridChild). layout 파일 형식이다.
 const WHOLE = 100
-// resize 로 줄 수 있는 칸 비율의 범위(%). `/grid resize` 의 입력 검사와 usage 도 이 값을 쓴다.
+// 자식 하나의 가장 작은 비율이자 resize 로 줄 수 있는 칸 비율의 범위(%). `/grid resize` 의 입력 검사와 usage 도 이 값을 쓴다.
 export const SHARE_MIN = 1
 export const SHARE_MAX = WHOLE - SHARE_MIN
 
@@ -43,12 +43,33 @@ const sizeOf = (child: GridChild) => (child.size > 0 ? child.size : 1)
 const total = (children: GridChild[]) => children.reduce((sum, child) => sum + child.size, 0)
 const rounded = (value: number) => Math.round(value * PRECISION) / PRECISION
 
-// 합이 WHOLE 인 비율(소수 둘째 자리)로 맞춘다. 0 이하는 1 로 올리고, 나머지는 마지막 자식이 받는다.
+// 합이 WHOLE 이 되도록 남은 비율을 마지막 자식에 더한다.
+const withRest = (children: GridChild[]): GridChild[] => {
+  const rest = rounded(WHOLE - total(children))
+  return children.map((child, index) => (index == children.length - 1 ? { node: child.node, size: rounded(child.size + rest) } : child))
+}
+
+// 합이 WHOLE 을 `excess` 만큼 넘은 비율을 큰 자식부터 덜어 낸다. 어느 자식도 SHARE_MIN 아래로 내리지 않는다.
+// 자식이 WHOLE / SHARE_MIN 개보다 많아 모두 SHARE_MIN 이어도 넘으면, 가장 작은 비율을 WHOLE / 자식 수(내림)로 낮춘다.
+const shrinkBy = (children: GridChild[], excess: number): GridChild[] => {
+  const least = Math.min(SHARE_MIN, Math.floor((WHOLE * PRECISION) / children.length) / PRECISION)
+  const largestFirst = children.map((child, index) => ({ size: child.size, index })).sort((a, b) => b.size - a.size)
+  const taken = new Map<number, number>()
+  largestFirst.reduce((left, { size, index }) => {
+    const take = rounded(Math.min(left, Math.max(size - least, 0)))
+    taken.set(index, take)
+    return rounded(left - take)
+  }, excess)
+  return withRest(children.map((child, index) => ({ node: child.node, size: rounded(child.size - (taken.get(index) ?? 0)) })))
+}
+
+// 합이 WHOLE 인 비율(소수 둘째 자리)로 맞춘다. SHARE_MIN 보다 작은 비율은 SHARE_MIN 으로 올리고, 나머지는 마지막 자식이 받는다.
+// 올린 만큼 합이 WHOLE 을 넘어 마지막 자식이 0 이하가 되면, 그때만 큰 자식에서 덜어 낸다(shrinkBy). 그래서 모든 자식의 비율이 0 보다 크다.
 export const normalize = (children: GridChild[]): GridChild[] => {
   const whole = children.reduce((sum, child) => sum + sizeOf(child), 0)
-  const scaled = children.map(child => ({ node: child.node, size: Math.max(1, Math.floor((sizeOf(child) * WHOLE * PRECISION) / whole) / PRECISION) }))
-  const rest = rounded(WHOLE - total(scaled))
-  return scaled.map((child, index) => (index == scaled.length - 1 ? { node: child.node, size: rounded(child.size + rest) } : child))
+  const scaled = children.map(child => ({ node: child.node, size: Math.max(SHARE_MIN, Math.floor((sizeOf(child) * WHOLE * PRECISION) / whole) / PRECISION) }))
+  const kept = withRest(scaled)
+  return kept.every(child => child.size > 0) ? kept : shrinkBy(scaled, rounded(total(scaled) - WHOLE))
 }
 
 const evenly = (nodes: GridNode[]): GridChild[] => normalize(nodes.map(node => ({ node, size: 1 })))
@@ -152,6 +173,7 @@ export const preset = (root: GridNode, name: Preset): GridNode => {
 }
 
 // 나눈 노드의 자식 길이(칸 수). 분할선을 뺀 길이를 비율의 누적합으로 반올림해 나눈다. 누적합으로 나누므로 합이 늘 그 길이다.
+// 길이가 자식 수 * 2 - 1 보다 짧으면 0칸 자식이 생긴다(pane 크기의 한계다).
 const partLengths = (node: GridSplit, length: number): number[] => {
   const room = Math.max(length - DIVIDER * (node.children.length - 1), 0)
   const bounds = node.children.map((_, index) => (index == node.children.length - 1
@@ -186,15 +208,18 @@ export const splitRects = (node: GridSplit, rect: Rect): { parts: { node: GridNo
 
 const childRects = (node: GridSplit, rect: Rect) => splitRects(node, rect).parts
 
-// 분할선 `index` 를 부모 시작에서 `at` 칸 자리로 옮긴다. 양옆 두 자식만 길이가 바뀌고, 둘 다 1칸 이상 남긴다.
-// 다른 자식의 길이는 그대로 두고 모든 비율을 지금 칸 수에서 다시 계산한다.
+// 분할선을 옮겨도 양옆 자식에 남기는 가장 작은 칸 수.
+const MIN_PART = 1
+
+// 분할선 `index` 를 부모 시작에서 `at` 칸 자리로 옮긴다. 양옆 두 자식만 길이가 바뀌고, 둘 다 MIN_PART 칸 이상 남긴다.
+// 두 자식의 길이 합이 그보다 짧으면 옮기지 않는다. 다른 자식의 길이는 그대로 두고 모든 비율을 지금 칸 수에서 다시 계산한다.
 export const moveDivider = (node: GridSplit, length: number, index: number, at: number): GridSplit => {
   const lengths = partLengths(node, length)
   const before = lengths[index]
   const after = lengths[index + 1]
-  if (before == undefined || after == undefined) return node
+  if (before == undefined || after == undefined || before + after < MIN_PART * 2) return node
   const start = partStarts(lengths)[index] ?? 0
-  const moved = Math.min(Math.max(at - start, 1), before + after - 1)
+  const moved = Math.min(Math.max(at - start, MIN_PART), before + after - MIN_PART)
   if (moved == before) return node
   const next = lengths.map((part, position) => (position == index ? moved : position == index + 1 ? before + after - moved : part))
   const room = next.reduce((sum, part) => sum + part, 0)
