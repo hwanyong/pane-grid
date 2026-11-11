@@ -203,6 +203,8 @@ const persist = async ($: EngineInterface, tabs: GridTab[]) => {
 // mtimeMs 는 읽기 전에 잰다. 읽은 뒤에 재면 그 사이에 다른 세션이 쓴 것을 이 세션이 읽은 것으로 여겨 덮어쓸 수 있다.
 // run.mtimeMs 를 이 파일의 것으로 정하고, 파일이 무효였으면 run.invalidText 에 원문을 남긴다(둘 다 persist 가 읽는다).
 const loadFile = async ($: EngineInterface): Promise<{ tabs: GridTab[]; path: string }> => {
+  // 앞서 읽은 무효 원문은 이번에 읽는 파일이 유효하거나 없으면 남기지 않는다.
+  run.invalidText = undefined
   const own = await statOf($, projectFile())
   run.mtimeMs = own?.mtimeMs
   const path = own ? projectFile() : await globalFile($)
