@@ -1,0 +1,56 @@
+--start lines
+pane-grid: project not resolved: HooksError: pane-grid: $.fs.read($H/sm/.git) failed: EACCES
+pane-grid: project not resolved: HooksError: pane-grid: $.fs.read($H/sm/.git) failed: EACCES
+--split before
+pane-grid: refused: this session's project is not resolved yet, so the layout cannot be
+--projects dir before
+ls: $H/.claude/pane-grid/projects: No such file or directory
+--toasts after chmod 644
+pane-grid: the session moved to ~/sm; loaded 1 tab(s) from ~/.claude/pane-grid/layout.json
+--project lines
+pane-grid: project $H/sm (root $H/sm) -> $H/.claude/pane-grid/projects/sm-<hash>
+--split after
+pane-grid: refused: this session's project is not resolved yet, so the layout cannot be
+pane-grid: split c1 into c1 and c3
+--projects dir after
+sm-<hash>
+--saved file
+{
+  "version": 1,
+  "project": "$H/sm",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1"
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c3"
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2"
+            },
+            "size": 50
+          }
+        ]
+      },
+      "active": "c3"
+    }
+  ]
+}
+--pwd
+$H/sm
+failed hooks: 0

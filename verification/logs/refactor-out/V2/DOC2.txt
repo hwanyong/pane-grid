@@ -1,0 +1,35 @@
+# DOC2: docs/add-pane-grid-cell.md Step 1 · Step 6 에 더한 문단(4934a60)의 주장 대조
+## export 수
+base: 8
+tgt2: 15
+## tgt2 에만 있는 export (comm -13)
+ACTIVE_SUFFIX
+CHOICE_HOTKEYS
+CHOICES_KEY
+GRID_VERSION
+NONE_KEY
+PLACE_KEY
+SLOT_KEY
+## base 에만 있는 export (comm -23, 비면 지운 export 없음)
+## base 의 같은 이름 상수(export 없음)
+18:const GRID_VERSION = 1
+19:const SLOT_KEY = 'slot:'
+20:const CHOICES_KEY = 'choices:'
+21:const ACTIVE_SUFFIX = ':active'
+22:const NONE_KEY = 'none:'
+23:const PLACE_KEY = 'place:'
+26:const CHOICE_HOTKEYS = 9
+## tgt2 의 값
+20:export const GRID_VERSION = 1
+24:export const SLOT_KEY = 'slot:'
+25:export const CHOICES_KEY = 'choices:'
+26:export const ACTIVE_SUFFIX = ':active'
+27:export const NONE_KEY = 'none:'
+28:export const PLACE_KEY = 'place:'
+31:export const CHOICE_HOTKEYS = 9
+## 기존 export 여덟 개 선언 줄 diff (비면 같음)
+## shown 주기와 reload 의 차례
+tgt2/hooks/register.tsx:430:    $.clock.every(SHOWN_POLL_MS, () => void watchShown($))
+tgt2/hooks/register.tsx:431:    await reload($)
+base/hooks/register.tsx:421:    await reload($)
+base/hooks/register.tsx:422:    $.clock.every(SHOWN_POLL_MS, () => void watchShown($))

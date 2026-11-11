@@ -1,0 +1,6 @@
+-- b split -h: pane-grid: refused: another session changed this project's layout; loaded ~/.claude/pane-grid/layout.json again, do it once more
+-- b log
+pane-grid: $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json changed by another session (mtimeMs N -> undefined); not written
+-- file
+NOFILE
+-- failed: a 0 b 0

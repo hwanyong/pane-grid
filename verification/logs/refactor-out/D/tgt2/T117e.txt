@@ -1,0 +1,14 @@
+-- DIR=locked g list
+pane-grid: * main active=c1 {c1:50,c2:50}
+other stdout lines (model text): none
+-- log
+pane-grid: project not resolved: HooksError: pane-grid: $.fs.read($H/locked/.git) failed: EACCES
+pane-grid: project not resolved: HooksError: pane-grid: $.fs.read($H/locked/.git) failed: EACCES
+pane-grid: project not resolved: HooksError: pane-grid: $.fs.read($H/locked/.git) failed: EACCES
+-- DIR=locked g split -h
+pane-grid: refused: this session's project is not resolved yet, so the layout cannot be saved; see the debug log
+other stdout lines (model text): none
+-- log
+pane-grid: project not resolved: HooksError: pane-grid: $.fs.read($H/locked/.git) failed: EACCES
+pane-grid: project not resolved: HooksError: pane-grid: $.fs.read($H/locked/.git) failed: EACCES
+pane-grid: project not resolved: HooksError: pane-grid: $.fs.read($H/locked/.git) failed: EACCES

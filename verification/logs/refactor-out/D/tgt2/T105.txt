@@ -1,0 +1,4 @@
+-- DIR=sm g list
+pane-grid: * main active=c1 {c1:50,c2:50}
+pane-grid: project $H/sm (root $H/sm) -> $H/.claude/pane-grid/projects/sm-d137313b15ac2c65
+-- other pane-grid log lines

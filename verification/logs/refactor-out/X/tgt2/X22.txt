@@ -1,0 +1,10 @@
+exit=1
+--stdout
+--stderr(last 3)
+fake chrome: GPU init failed
+<W>/chrome exited with 3 while rendering pane-structure.svg
+--files
+pane-lifecycle.svg old
+pane-structure.svg old
+pane-lifecycle.png old
+pane-structure.png old

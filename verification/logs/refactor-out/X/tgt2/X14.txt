@@ -1,0 +1,5 @@
+--after list
+pane-grid: * main active=c1 {c1:50,c2:50}                                                │                                     │
+--after split
+pane-grid: * main active=c1 {c1:50,c2:50}                                                │                                     │
+pane-grid: refused: this session's project is not resolved yet, so the layout cannot be  │                                     │

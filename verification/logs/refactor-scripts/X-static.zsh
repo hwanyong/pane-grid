@@ -22,5 +22,5 @@ zsh $J/scratch/buildpy_fail.zsh $TREE missing > $OUT/X24.txt 2>&1
 python3 -I $J/scratch/x25.py $TREE > $OUT/X25.txt 2>&1
 
 # X26: 문서가 `hooks/<파일>` 의 `<이름>` 으로 가리키는 식별자가 그 파일에 있는가
-python3 -I $J/scratch/doc_anchors.py | awk -v t="== $TREE" '/^== /{p=($0==t); next} p' > $OUT/X26.txt
+python3 -I $J/scratch/doc_anchors.py $TREE | awk -v t="== $TREE" '/^== /{p=($0==t); next} p' > $OUT/X26.txt
 exit 0

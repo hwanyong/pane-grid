@@ -1,0 +1,5 @@
+zoom resp: ⎿  pane-grid: zoomed c1
+tabs: main [Z]   w2
+unzoom resp: ⎿  pane-grid: unzoomed
+tabs: main   w2
+failed=0

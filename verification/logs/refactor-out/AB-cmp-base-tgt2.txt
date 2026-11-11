@@ -1,0 +1,229 @@
+T1 SAME
+T2 SAME
+T3 SAME
+T4 SAME
+T5 SAME
+T6 SAME
+T7 SAME
+T8 SAME
+T9 SAME
+T10 SAME
+T11 SAME
+T12 SAME
+T13 SAME
+T14 SAME
+T15 SAME
+T16 SAME
+T17 DIFF
+    --- base/T17
+    +++ tgt2/T17
+    @@ -5,7 +5,7 @@
+     pane-grid: resized c3 to 99%
+     [exit-ish done]
+     $ g list
+    -pane-grid: * main active=c3 {c1:1,c3:98.01,c2:0.99}
+    +pane-grid: * main active=c3 {c1:1,c3:98,c2:1}
+     [exit-ish done]
+     --- pl
+     {
+    @@ -29,14 +29,14 @@
+                   "kind": "cell",
+                   "id": "c3"
+                 },
+    -            "size": 99
+    +            "size": 98
+               },
+               {
+                 "node": {
+                   "kind": "cell",
+                   "id": "c2"
+                 },
+    -            "size": 0
+    +            "size": 1
+               }
+             ]
+           },
+T18 SAME
+T19 SAME
+T20 SAME
+T21 SAME
+T22 SAME
+T23 SAME
+T24 SAME
+T25 SAME
+T26 SAME
+T27 SAME
+T28 SAME
+T29 SAME
+T30 SAME
+T31 SAME
+T32 SAME
+T33 SAME
+T34 SAME
+T36 SAME
+T37 SAME
+T38 SAME
+T39 SAME
+T40 SAME
+T41 SAME
+T42 SAME
+T43 SAME
+T44 SAME
+T45 SAME
+T46 SAME
+T47 SAME
+T48 SAME
+T49 SAME
+T50 SAME
+T51 SAME
+T52 SAME
+T53 SAME
+T54 SAME
+T55 SAME
+T56 DIFF
+    --- base/T56
+    +++ tgt2/T56
+    @@ -10,22 +10,9 @@
+     pane-grid: * main active=c1 c1
+     [exit-ish done]
+     --- ls after
+    -layout.json
+    +ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+     --- pl
+    -{
+    -  "version": 1,
+    -  "project": "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/proj",
+    -  "tabs": [
+    -    {
+    -      "name": "main",
+    -      "root": {
+    -        "kind": "cell",
+    -        "id": "c1"
+    -      },
+    -      "active": "c1"
+    -    }
+    -  ]
+    -}
+    +NOFILE
+     
+     --- log refused|kept|command failed
+     --- failed=0
+T94 DIFF
+    --- base/T94
+    +++ tgt2/T94
+    @@ -1,45 +1,15 @@
+     --- ls before
+     ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+     $ g place Foo
+    -pane-grid: placed Foo in c1
+    +pane-grid: refused: tabs[0].root.children[0].node: plugin must match /^[a-z0-9][a-z0-9_.-]{0,127}$/
+     [exit-ish done]
+     $ g list
+    -pane-grid: * main active=c1 c1
+    +pane-grid: * main active=c1 {c1:50,c2:50}
+     [exit-ish done]
+     --- ls after
+    -layout.json
+    +ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+     --- pl
+    -{
+    -  "version": 1,
+    -  "project": "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/proj",
+    -  "tabs": [
+    -    {
+    -      "name": "main",
+    -      "root": {
+    -        "kind": "row",
+    -        "children": [
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c1",
+    -              "plugin": "Foo"
+    -            },
+    -            "size": 50
+    -          },
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c2"
+    -            },
+    -            "size": 50
+    -          }
+    -        ]
+    -      },
+    -      "active": "c1"
+    -    }
+    -  ]
+    -}
+    +NOFILE
+     
+     --- log refused|kept|command failed
+    -[p2] [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout file /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a/layout.json refused: tabs[0].root.children[0].node: plugin must match /^[a-z0-9][a-z0-9_.-]{0,127}$/
+     --- failed=0
+T95 SAME
+T96 SAME
+T98 DIFF
+    --- base/T98
+    +++ tgt2/T98
+    @@ -1,52 +1,15 @@
+     --- ls before
+     ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+     $ g split -h Foo
+    -pane-grid: split c1 into c1 and c3
+    +pane-grid: refused: tabs[0].root.children[1].node: plugin must match /^[a-z0-9][a-z0-9_.-]{0,127}$/
+     [exit-ish done]
+     $ g list
+    -pane-grid: * main active=c1 c1
+    +pane-grid: * main active=c1 {c1:50,c2:50}
+     [exit-ish done]
+     --- ls after
+    -layout.json
+    +ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+     --- pl
+    -{
+    -  "version": 1,
+    -  "project": "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/proj",
+    -  "tabs": [
+    -    {
+    -      "name": "main",
+    -      "root": {
+    -        "kind": "row",
+    -        "children": [
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c1"
+    -            },
+    -            "size": 25
+    -          },
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c3",
+    -              "plugin": "Foo"
+    -            },
+    -            "size": 25
+    -          },
+    -          {
+    -            "node": {
+    -              "kind": "cell",
+    -              "id": "c2"
+    -            },
+    -            "size": 50
+    -          }
+    -        ]
+    -      },
+    -      "active": "c3"
+    -    }
+    -  ]
+    -}
+    +NOFILE
+     
+     --- log refused|kept|command failed
+    -[p2] [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout file /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a/layout.json refused: tabs[0].root.children[1].node: plugin must match /^[a-z0-9][a-z0-9_.-]{0,127}$/
+     --- failed=0
+T99 SAME
+T112 SAME
+T113 SAME
+summary: same=58 diff=4 missing=0

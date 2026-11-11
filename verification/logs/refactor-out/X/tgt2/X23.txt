@@ -1,0 +1,9 @@
+exit=1
+--stdout
+--stderr(last 3)
+<W>/chrome exited with 0 but wrote no pane-structure.draft.png while rendering pane-structure.svg
+--files
+pane-lifecycle.svg old
+pane-structure.svg old
+pane-lifecycle.png old
+pane-structure.png old

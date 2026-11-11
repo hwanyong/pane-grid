@@ -1,0 +1,47 @@
+--screen
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -                                 │active -
+empty. place a mod here:             │empty. place a mod here:
+1: usage-gauge                       │usage-gauge
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+--toasts
+pane-grid: placed usage-gauge in c1
+--actions
+pane-grid: action place usage-gauge c1: placed usage-gauge in c1
+pane-grid: * main active=c1 {c1=usage-gauge:50,active:50}
+failed hooks: 0

@@ -1,10 +1,11 @@
+import sys
 import pathlib
 import re
 
 # docs/*.md · README.md 가 `hooks/<파일>` 의 `<이름>` 으로 가리키는 식별자가 그 파일에 정의돼 있는지 base · tgt 에서 본다.
 ROOT = pathlib.Path('/Users/uhd/.claude/jobs/2d2d4469/tmp')
 PAT = re.compile(r"`(hooks/[\w.-]+|skills/add-pane-grid-cell/pane-grid\.ts)`\s*(?:의|에서|\()\s*`([A-Za-z_][\w.]*)`")
-for tree in ['base', 'tgt']:
+for tree in (sys.argv[1:] or ['base', 'tgt']):
     print('==', tree)
     docs = sorted((ROOT / tree / 'docs').glob('*.md')) + [ROOT / tree / 'README.md']
     for doc in docs:

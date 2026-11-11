@@ -1,0 +1,4 @@
+334c334
+<         svg_draft.unlink(missing_ok=True)
+---
+>         pass  # BROKEN: svg_draft 를 지우지 않는다

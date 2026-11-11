@@ -1,0 +1,2 @@
+FAKE-CHROME-STDERR: --headless=new --user-data-dir=<P>/tmpegmbd8fl --hide-scrollbars --force-device-scale-factor=2 --window-size=1420,830 --screenshot=<P>/pane-structure.draft.png file:<P>/pane-structure.draft.svg
+/Users/uhd/.claude/jobs/2d2d4469/tmp/run/F/fakechrome exited with 21 while rendering pane-structure.svg

@@ -1,0 +1,44 @@
+built for pane-grid,usage-gauge,pending-questions,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+-- out: ⎿  pane-grid: showing main
+-- pane
+ main   Pending questions                                                ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 usage-gauge                       │c2 -
+Weekly N-day window        NN% / NNN%│empty. place a mod here:
+░│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+Resets in Nd NNh · target N%         │2: usage-gauge (move from c1)
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+failed hooks: 0

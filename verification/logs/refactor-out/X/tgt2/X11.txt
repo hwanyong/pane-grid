@@ -1,0 +1,5 @@
+pane-grid: loaded 1 tab(s) from ~/.claude/pane-grid/layout.json
+pane-grid: split c1 into c1 and c3
+pane-grid: loaded 1 tab(s) from ~/proj/rel/pane-grid/projects/proj-<hash>/layout.json
+--ls
+proj-<hash>

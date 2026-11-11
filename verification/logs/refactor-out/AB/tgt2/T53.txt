@@ -1,0 +1,15 @@
+--- ls before
+ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+$ g select zz
+pane-grid: no tab zz
+[exit-ish done]
+$ g select
+pane-grid: no tab 
+[exit-ish done]
+--- ls after
+ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+--- pl
+NOFILE
+
+--- log refused|kept|command failed
+--- failed=0

@@ -1,0 +1,41 @@
+--- wheel down x2 on c1 last row
+engine: by 1 
+───────────────────────────────────────────────────────────────────────────
+c1 -
+pending-questions
+───────────────────────────────────────────────────────────────────────────
+c2 -
+empty. place a mod here:
+--- wheel up x2 on c1
+engine: by -1 
+--- wheel down x2 on c2 title row
+engine: by 1 
+───────────────────────────────────────────────────────────────────────────
+c1 -
+empty. place a mod here:
+───────────────────────────────────────────────────────────────────────────
+c2 -
+1: pending-questions
+2: usage-gauge
+
+--- wheel up x2 on c2 title row
+engine: by -1 
+───────────────────────────────────────────────────────────────────────────
+c1 -
+empty. place a mod here:
+───────────────────────────────────────────────────────────────────────────
+c2 -
+empty. place a mod here:
+1: pending-questions
+2: usage-gauge
+--- wheel down x2 on each hotkey row
+engine: by 1 by 1 by 1 
+───────────────────────────────────────────────────────────────────────────
+c1 -
+empty. place a mod here:
+───────────────────────────────────────────────────────────────────────────
+c2 -
+empty. place a mod here:
+1: pending-questions
+2: usage-gauge
+failed=0

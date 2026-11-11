@@ -1,0 +1,12 @@
+-- toasts
+$.ui.toast (pane-grid): pane-grid: ~/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json is not a valid layout (not JSON: JSON Parse error: Unexpected identifier "not"); using one empty tab
+-- pane
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -
+empty. place a mod here:
+no grid-ready mod is loaded
+failed hooks: 0

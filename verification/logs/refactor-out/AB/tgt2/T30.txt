@@ -1,0 +1,10 @@
+$ g list
+pane-grid: * main active=c1 {c1:50,c2:50}
+[exit-ish done]
+--- ls
+layout.json
+--- pl
+NOFILE
+
+--- log refused|kept|command failed
+--- failed=0

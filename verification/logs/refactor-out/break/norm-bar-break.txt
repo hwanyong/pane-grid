@@ -1,0 +1,5 @@
+T61 DIFF-after-bar-norm
+    1c1
+    < toast: $.ui.toast (pane-grid): pane-grid: placed usage-gauge in c1
+    ---
+    > toast: $.ui.toast (pane-grid): pane-grid: placed usage-gauge in c2

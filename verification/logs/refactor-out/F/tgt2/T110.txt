@@ -1,0 +1,17 @@
+state layout: hooks={"plugin":"pane-grid","key":"layout"} pane-grid.ts={"plugin":"pane-grid","key":"layout"} -> both equal
+state shown: hooks={"plugin":"pane-grid","key":"shown"} pane-grid.ts={"plugin":"pane-grid","key":"shown"} -> both equal
+state scroll: hooks={"plugin":"pane-grid","key":"scroll"} pane-grid.ts="<none>" -> hooks only
+slot:: hooks="slot:" pane-grid.ts="slot:" -> both equal
+choices:: hooks="choices:" pane-grid.ts="choices:" -> both equal
+:active: hooks=":active" pane-grid.ts=":active" -> both equal
+none:: hooks="none:" pane-grid.ts="none:" -> both equal
+place:: hooks="place:" pane-grid.ts="place:" -> both equal
+choice hotkeys: hooks=9 pane-grid.ts=9 -> both equal
+cell:: hooks="cell:" pane-grid.ts="<none>" -> hooks only
+scrolls:: hooks="<none>" pane-grid.ts="scrolls:" -> pane-grid.ts only
+hotkey:: hooks="hotkey:" pane-grid.ts="<none>" -> hooks only
+activate:: hooks="activate:" pane-grid.ts="<none>" -> hooks only
+divider:: hooks="divider:" pane-grid.ts="<none>" -> hooks only
+measure:: hooks="measure:" pane-grid.ts="<none>" -> hooks only
+layout.version written by publish: 1 (update key {"plugin":"pane-grid","key":"layout"}); pane-grid.ts GRID_VERSION=1 -> equal
+register.tsx draws key `cellbox:` : 1

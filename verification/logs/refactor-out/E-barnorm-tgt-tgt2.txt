@@ -1,0 +1,8 @@
+T81 SAME-after-bar-norm
+T82 SAME-after-bar-norm
+T83 SAME-after-bar-norm
+T84 SAME-after-bar-norm
+T85 SAME-after-bar-norm
+T90 SAME-after-bar-norm
+T91 SAME-after-bar-norm
+T92 SAME-after-bar-norm

@@ -1,0 +1,7 @@
+pane-grid: active cell c1
+--ls
+layout.json
+--layout.json
+not json
+--layout.invalid.json
+cat: <d>/layout.invalid.json: No such file or directory

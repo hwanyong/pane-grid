@@ -1,0 +1,61 @@
+T59a SAME
+T59b SAME
+T59c SAME
+T60 SAME
+T61 DIFF
+    --- base/T61
+    +++ tgt2/T61
+    @@ -1,7 +1,7 @@
+     toast: $.ui.toast (pane-grid): pane-grid: placed usage-gauge in c1
+     c1 usage-gauge                       │c2 -
+     Weekly #-day window        #% / #%│empty. place a mod here:
+    -│<bar>│pending-questions
+    +<bar>│<bar>│pending-questions
+     Resets in #d #h · target #%         │usage-gauge (move from c1)
+                                          │
+                                          │
+T62 DIFF
+    --- base/T62
+    +++ tgt2/T62
+    @@ -2,7 +2,7 @@
+     2nd press: pane-grid: action place pending-questions c1: placed pending-questions in c1 $.ui.toast (pane-grid): pane-grid: placed pending-questions in c1 
+     c1 pending-questions                 │c2 usage-gauge
+     Mode: manual [ Switch to auto ]      │Weekly #-day window        #% / #%
+    -[ Rescan last response ]             ││<bar>
+    +[ Rescan last response ]             │<bar>│<bar>
+                                          │Resets in #d #h · target #%
+     No pending questions.                │
+                                          │
+T63 DIFF
+    --- base/T63
+    +++ tgt2/T63
+    @@ -1,7 +1,7 @@
+     select: pane-grid: action select-cell c2: active cell c2
+     c1 usage-gauge                       │c2 -
+     Weekly #-day window        #% / #%│empty. place a mod here:
+    -│<bar>│#: pending-questions
+    +<bar>│<bar>│#: pending-questions
+     Resets in #d #h · target #%         │#: usage-gauge (move from c1)
+                                          │
+                                          │
+    @@ -10,7 +10,7 @@
+     toast: $.ui.toast (pane-grid): pane-grid: placed usage-gauge in c2
+     c1 -                                 │c2 usage-gauge
+     empty. place a mod here:             │Weekly #-day window        #% / #%
+    -pending-questions                    ││<bar>
+    +pending-questions                    │<bar>│<bar>
+     usage-gauge (move from c2)           │Resets in #d #h · target #%
+                                          │
+                                          │
+T64a SAME
+T64b SAME
+T64c SAME
+T64d SAME
+T65a SAME
+T65b SAME
+T65c SAME
+T65d SAME
+T65e SAME
+T101 SAME
+T102 SAME
+summary: same=15 diff=3 missing=0

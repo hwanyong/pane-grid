@@ -1,0 +1,31 @@
+T35 SAME
+T57a SAME
+T57b SAME
+T57c SAME
+T57d SAME
+T57e SAME
+T57f SAME
+T57g SAME
+T57h SAME
+T57i SAME
+T57j SAME
+T57k DIFF
+    --- tgt/T57k
+    +++ tgt2/T57k
+    @@ -1,7 +1,7 @@
+     pane before:  main   w2   w3                                                          ✕
+     first cell row: ───────────────────────────────────────────────────────────────────────────
+    -$.ui.toast (pane-grid): pane-grid: closed main
+    -pane-grid: action close: closed main
+    +$.ui.toast (pane-grid): pane-grid: closed main; it is behind w3, click its tab to show it
+    +pane-grid: action close: closed main; it is behind w3, click its tab to show it
+     -- tab row
+      w2   w3                                                                 ✕
+     press failed lines: 0
+T58 SAME
+T100 SAME
+T114 SAME
+T116 SAME
+T116i MISSING-tgt2
+failed-t SAME
+summary: same=16 diff=1 missing=1

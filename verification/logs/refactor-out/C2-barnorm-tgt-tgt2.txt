@@ -1,0 +1,3 @@
+T61 SAME-after-bar-norm
+T62 SAME-after-bar-norm
+T63 SAME-after-bar-norm

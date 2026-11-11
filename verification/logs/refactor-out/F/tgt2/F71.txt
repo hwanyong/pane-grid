@@ -1,0 +1,4 @@
+<ROOT>/docs/images/pane-structure.png
+<ROOT>/docs/images/pane-lifecycle.png
+exit 0
+# git status --short docs/images

@@ -1,0 +1,45 @@
+select: pane-grid: action select-cell c1: active cell c1
+--- NPage with c1 active
+engine: by 39 
+───────────────────────────────────────────────────────────────────────────
+c1 -                                 │c2 filetree
+                                     │■ proj      ↑  ⌂  ⊙  ◫  ⊟  ◷  ⊡  ↻
+                                     │⑂ main                          ?:40
+                                     │
+                                     │⌕ search                    Aa .* ≡
+                                     │    Name                        Git
+                                     │  ∙ f09.txt                        ?│
+                                     │  ∙ f10.txt                        ?│
+                                     │  ∙ f11.txt                        ?│
+                                     │  ∙ f12.txt                        ?│
+                                     │  ∙ f13.txt                        ?│
+select: pane-grid: action select-cell c2: active cell c2
+--- NPage with c2(filetree) active
+engine: by 39 
+───────────────────────────────────────────────────────────────────────────
+c1 -                                 │c2 filetree
+                                     │■ proj      ↑  ⌂  ⊙  ◫  ⊟  ◷  ⊡  ↻
+                                     │⑂ main                          ?:40
+                                     │
+                                     │⌕ search                    Aa .* ≡
+                                     │    Name                        Git
+                                     │  ∙ f13.txt                        ?│
+                                     │  ∙ f14.txt                        ?│
+                                     │  ∙ f15.txt                        ?│
+                                     │  ∙ f16.txt                        ?│
+                                     │  ∙ f17.txt                        ?│
+--- PPage with c2(filetree) active
+engine: by -39 
+───────────────────────────────────────────────────────────────────────────
+c1 -                                 │c2 filetree
+                                     │■ proj      ↑  ⌂  ⊙  ◫  ⊟  ◷  ⊡  ↻
+                                     │⑂ main                          ?:40
+                                     │
+                                     │⌕ search                    Aa .* ≡
+                                     │    Name                        Git
+                                     │▸ ■ .git                            ┃
+                                     │  ∙ f01.txt                        ?┃
+                                     │  ∙ f02.txt                        ?┃
+                                     │  ∙ f03.txt                        ?┃
+                                     │  ∙ f04.txt                        ?┃
+failed=0

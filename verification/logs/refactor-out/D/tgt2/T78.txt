@@ -1,0 +1,46 @@
+-- log after /clear
+pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+pane-grid: layout revision=1 tabs=main placed=
+-- pane
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -              │c3 -               │c2 -
+empty. place a mod│empty. place a mod │empty. place a mod here:
+here:             │here:              │no grid-ready mod is loaded
+no grid-ready mod │no grid-ready mod  │
+is loaded         │is loaded          │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+                  │                   │
+-- list: pane-grid: * main active=c3 {c1:25,c3:25,c2:50}
+failed hooks: 0
