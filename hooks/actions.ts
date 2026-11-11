@@ -31,7 +31,7 @@ const USAGE = [
   'close                    close the current tab',
   'break                    move the active cell to a new tab',
   'list                     print the tabs and their cells',
-  'reload                   read ~/.claude/pane-grid/layout.json again',
+  'reload                   read this project\'s layout file again',
 ].join('\n')
 
 const same = (tabs: GridTab[], current: string, text: string): Outcome => ({ tabs, current, text, isChanged: false })

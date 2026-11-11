@@ -76,7 +76,7 @@ pane-grid 0.3.0 에서 이 절의 두 경우를 모두 구현했다(`docs/grid-a
 | 항목 | 기본값 | 다른 후보 · 이유 |
 |---|---|---|
 | 형식 | JSON 파일 하나 | manifest 의 `userConfig` 는 `settings.json` 의 `pluginConfigs` 에 저장되고, 바뀌면 엔진이 module 을 다시 불러온다. 다만 필드가 낱개 값이라 행 · 열 · 너비가 중첩된 배치를 담기 어렵다 |
-| 경로 | `${CLAUDE_CONFIG_DIR ?? $HOME/.claude}/pane-grid/layout.json` | `pending-questions` 가 런타임 데이터를 같은 위치(`.../pending-questions/`)에 둔다. 프로젝트별 배치가 필요하면 작업 폴더의 파일을 함께 읽는다 |
+| 경로 | 프로젝트 파일 `${CLAUDE_CONFIG_DIR ?? $HOME/.claude}/pane-grid/projects/<이름>/layout.json`, 그것이 없을 때 읽는 global 파일 `${CLAUDE_CONFIG_DIR ?? $HOME/.claude}/pane-grid/layout.json` | `pending-questions` 가 런타임 데이터를 같은 위치(`.../pending-questions/`)에 둔다. 2026-11-10 사용자 결정으로 프로젝트마다 따로 두고, 저장소 안에는 두지 않는다(`docs/grid-and-tabs.md` 결정 20 · §3.1) |
 | 읽는 방법 | `$.fs.read`(절대 경로를 받고 4 MiB 까지 읽는다) | - |
 | 다시 읽는 시점 | `$.fs.stat` 의 `mtimeMs` 가 바뀌었을 때 | `$.fs` 에 파일 감시 API 가 없다(타입 정의 `fs` 에서 확인). 확인하는 시점은 R10 에서 정한다 |
 

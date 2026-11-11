@@ -1,0 +1,1 @@
+{ "name": "k8probe", "version": "0.0.1", "description": "Not a plugin to install. Probe for cwd, root and repo changes." }

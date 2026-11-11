@@ -1,0 +1,115 @@
+# a1: started in proj-a (no project file), /grid split -h
+2026-11-10T23:47:37.323Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-10T23:47:37.873Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a) -> /Users/uhd/.claude/pane-grid/projects/proj-a-0952985bc9094c16
+2026-11-10T23:47:37.881Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/pane-grid/projects/proj-a-0952985bc9094c16/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/pane-grid/projects/proj-a-0952985bc9094c16/layout.json'
+2026-11-10T23:47:37.911Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:47:38.039Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:48:23.227Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/pane-grid/projects/proj-a-0952985bc9094c16/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/pane-grid/projects/proj-a-0952985bc9094c16/layout.json'
+2026-11-10T23:48:23.296Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=3 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:48:23.297Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action split -h: split c3 into c3 and c5
+2026-11-10T23:59:26.028Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+2026-11-10T23:59:26.073Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+# b1: started in proj-b, /grid list
+2026-11-10T23:48:40.610Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-10T23:48:41.165Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b) -> /Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812
+2026-11-10T23:48:41.171Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json'
+2026-11-10T23:48:41.209Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:48:41.360Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:48:56.267Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action list: * main active=c3 [c3=pending-questions:25.74,c4=filetree:55.44,c2=uhd-kanban:14.85,c1=usage-gauge:3.97]
+2026-11-10T23:49:28.094Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+2026-11-10T23:49:28.095Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json'
+2026-11-10T23:49:28.105Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+2026-11-10T23:49:28.117Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812/layout.json'
+2026-11-10T23:49:28.150Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:49:28.150Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+# s1: started in proj-a/sub
+2026-11-10T23:49:31.926Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-10T23:49:32.696Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a/sub/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/proj-a/sub/.git'
+2026-11-10T23:49:32.713Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a/sub) -> /Users/uhd/.claude/pane-grid/projects/proj-a-0952985bc9094c16
+2026-11-10T23:49:32.755Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:49:32.924Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:50:14.418Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action list: * main active=c5 [{c3=pending-questions:50,c5:50}:25.74,c4=filetree:55.44,c2=uhd-kanban:14.85,c1=usage-gauge:3.97]
+2026-11-10T23:50:53.339Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=3 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:50:53.340Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action split -v: split c5 into c5 and c6
+2026-11-10T23:59:26.236Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+2026-11-10T23:59:26.274Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+# w1: started in proj-a-wt (a worktree of proj-a)
+2026-11-10T23:49:34.910Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-10T23:49:35.368Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a-wt) -> /Users/uhd/.claude/pane-grid/projects/proj-a-0952985bc9094c16
+2026-11-10T23:49:35.406Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:49:35.574Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:50:20.855Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action list: * main active=c5 [{c3=pending-questions:50,c5:50}:25.74,c4=filetree:55.44,c2=uhd-kanban:14.85,c1=usage-gauge:3.97]
+2026-11-10T23:51:00.254Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: /Users/uhd/.claude/pane-grid/projects/proj-a-0952985bc9094c16/layout.json changed by another session (mtimeMs 1794354503228.8416 -> 1794354653276.2002); not written
+2026-11-10T23:51:00.268Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=3 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:51:06.780Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action list: * main active=c6 [{c3=pending-questions:50,[c5:50,c6:50]:50}:25.74,c4=filetree:55.44,c2=uhd-kanban:14.85,c1=usage-gauge:3.97]
+2026-11-10T23:51:22.148Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=4 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:51:22.148Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action split -v: split c6 into c6 and c7
+2026-11-10T23:59:26.331Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+2026-11-10T23:59:26.385Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+# n1: started in plain (outside git), /grid list, /grid split -h; the module reloaded once in between
+2026-11-10T23:50:03.602Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-10T23:50:04.205Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/plain/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/plain/.git'
+2026-11-10T23:50:04.207Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/.git'
+2026-11-10T23:50:04.207Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/.git'
+2026-11-10T23:50:04.208Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/.git'
+2026-11-10T23:50:04.209Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/.git'
+2026-11-10T23:50:04.210Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.git'
+2026-11-10T23:50:04.212Z [DEBUG] $.fs.stat (pane-grid): /Users/.git failed: ENOENT: no such file or directory, lstat '/Users/.git'
+2026-11-10T23:50:04.213Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/plain (root /Users/uhd/.claude/jobs/39225c0f/tmp/plain) -> /Users/uhd/.claude/pane-grid/projects/plain-62f36839f35f376c
+2026-11-10T23:50:04.225Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/pane-grid/projects/plain-62f36839f35f376c/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/pane-grid/projects/plain-62f36839f35f376c/layout.json'
+2026-11-10T23:50:04.260Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:50:04.421Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:50:29.146Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action list: * main active=c3 [c3=pending-questions:25.74,c4=filetree:55.44,c2=uhd-kanban:14.85,c1=usage-gauge:3.97]
+2026-11-10T23:57:44.584Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/plain/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/plain/.git'
+2026-11-10T23:57:44.589Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/.git'
+2026-11-10T23:57:44.591Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/.git'
+2026-11-10T23:57:44.593Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/.git'
+2026-11-10T23:57:44.597Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/.git'
+2026-11-10T23:57:44.599Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.git'
+2026-11-10T23:57:44.600Z [DEBUG] $.fs.stat (pane-grid): /Users/.git failed: ENOENT: no such file or directory, lstat '/Users/.git'
+2026-11-10T23:57:44.604Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/plain (root /Users/uhd/.claude/jobs/39225c0f/tmp/plain) -> /Users/uhd/.claude/pane-grid/projects/plain-62f36839f35f376c
+2026-11-10T23:57:44.608Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=3 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:57:44.608Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/pane-grid/projects/plain-62f36839f35f376c/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/pane-grid/projects/plain-62f36839f35f376c/layout.json'
+2026-11-10T23:57:44.678Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=4 tabs=main placed=pending-questions,inbox,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:57:52.092Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/pane-grid/projects/plain-62f36839f35f376c/layout.json failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/pane-grid/projects/plain-62f36839f35f376c/layout.json'
+2026-11-10T23:57:52.107Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=5 tabs=main placed=pending-questions,inbox,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:57:52.107Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action split -h: split c6 into c6 and c7
+2026-11-10T23:59:26.360Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+2026-11-10T23:59:26.408Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,inbox,filetree,uhd-kanban,usage-gauge
+# c1: pane-grid and k8probe, started in proj-b, `! cd inner`, /cd proj-a-wt, /grid reload, /clear, /grid list, /grid reload, /grid place filetree c7, /grid zoom twice
+2026-11-10T23:54:24.964Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-10T23:54:24.969Z [DEBUG] hooks module k8probe@inline loaded (worker, environment 2, tier user); events: session.start,classic.CwdChanged,command.run
+2026-11-10T23:54:25.486Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-b) -> /Users/uhd/.claude/pane-grid/projects/proj-b-e0a3b6d4609a5812
+2026-11-10T23:54:25.527Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:54:25.561Z [DEBUG] [k8probe] $.ui.log (to debug): k8probe: start {"cwd":"/Users/uhd/.claude/jobs/39225c0f/tmp/proj-b","root":"/Users/uhd/.claude/jobs/39225c0f/tmp/proj-b","repoRoot":"/Users/uhd/.claude/jobs/39225c0f/tmp/proj-b","config":null}
+2026-11-10T23:54:25.699Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:54:36.464Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=3 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:54:41.476Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=4 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:54:43.586Z [DEBUG] [k8probe] $.ui.log (to debug): k8probe: poll changed {"cwd":"/Users/uhd/.claude/jobs/39225c0f/tmp/proj-b/inner","root":"/Users/uhd/.claude/jobs/39225c0f/tmp/proj-b","repoRoot":"/Users/uhd/.claude/jobs/39225c0f/tmp/proj-b/inner","config":null}
+2026-11-10T23:54:50.589Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a-wt) -> /Users/uhd/.claude/pane-grid/projects/proj-a-0952985bc9094c16
+2026-11-10T23:54:50.627Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=5 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:54:50.628Z [DEBUG] $.ui.toast (pane-grid): pane-grid: the session moved to ~/.claude/jobs/39225c0f/tmp/proj-a; loaded 1 tab(s) from ~/.claude/pane-grid/projects/proj-a-0952985bc9094c16/layout.json
+2026-11-10T23:54:50.633Z [DEBUG] [k8probe] $.ui.log (to debug): k8probe: poll changed {"cwd":"/Users/uhd/.claude/jobs/39225c0f/tmp/proj-a-wt","root":"/Users/uhd/.claude/jobs/39225c0f/tmp/proj-a-wt","repoRoot":"/Users/uhd/.claude/jobs/39225c0f/tmp/proj-a","config":null}
+2026-11-10T23:54:51.376Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=6 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:55:27.183Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=7 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:55:32.440Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+2026-11-10T23:55:32.475Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+2026-11-10T23:55:32.622Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:55:32.672Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:55:32.786Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=3 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:55:40.868Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action list: * main active=c7 [{c3=pending-questions:50,[c5:50,c6:25,c7:25]:50}:25.74,c4=filetree:55.44,c2=uhd-kanban:14.85,c1=usage-gauge:3.97]
+2026-11-10T23:55:55.649Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=4 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:56:47.294Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=5 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:56:47.294Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action place filetree c7: placed filetree in c7
+2026-11-10T23:57:14.310Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=6 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:57:14.316Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action zoom: zoomed c7
+2026-11-10T23:57:28.059Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=7 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:57:28.063Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action zoom: unzoomed
+2026-11-10T23:59:27.290Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+2026-11-10T23:59:27.324Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+# v299: engine 2.1.299, claude -p "/grid list" in proj-a/sub
+2026-11-10T23:59:11.733Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-10T23:59:12.583Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a/sub/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/jobs/39225c0f/tmp/proj-a/sub/.git'
+2026-11-10T23:59:12.595Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a (root /Users/uhd/.claude/jobs/39225c0f/tmp/proj-a/sub) -> /Users/uhd/.claude/pane-grid/projects/proj-a-0952985bc9094c16
+2026-11-10T23:59:12.915Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=pending-questions,filetree,uhd-kanban,usage-gauge
+2026-11-10T23:59:14.887Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action list: * main active=c7 [{c3=pending-questions:50,[c5:50,c6:25,c7=filetree:25]:50}:25.74,c4:55.44,c2=uhd-kanban:14.85,c1=usage-gauge:3.97]

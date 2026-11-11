@@ -12,7 +12,7 @@
 [![Plugin version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhwanyong%2Fpane-grid%2Fmain%2F.claude-plugin%2Fplugin.json&query=%24.version&label=plugin&color=blue)](.claude-plugin/plugin.json)
 [![Tested on Claude Code 2.1.319](https://img.shields.io/badge/tested%20on%20Claude%20Code-2.1.319-D97757)](https://github.com/anthropics/claude-code)
 
-**pane-grid is a Claude Code mod (a plugin with a hooks module) that shows several Claude Code mods side by side in one pane.** Claude Code shows one mod pane at a time and puts the rest in tabs. pane-grid opens one pane, splits it into cells the way tmux splits a window, and lets each grid-ready mod draw in its own cell. Splits, resizing, zoom, swap, layout presets and layout tabs work from `/grid` commands and single-key hotkeys, and the layout is saved to `~/.claude/pane-grid/layout.json`.
+**pane-grid is a Claude Code mod (a plugin with a hooks module) that shows several Claude Code mods side by side in one pane.** Claude Code shows one mod pane at a time and puts the rest in tabs. pane-grid opens one pane, splits it into cells the way tmux splits a window, and lets each grid-ready mod draw in its own cell. Splits, resizing, zoom, swap, layout presets and layout tabs work from `/grid` commands and single-key hotkeys, and each project's layout is saved under `~/.claude/pane-grid/projects/`.
 
 <img src="docs/images/demo-overview.png" width="860" alt="Animated recording of a Claude Code session. The right half is one pane-grid pane split into four cells: filetree and pending-questions on top, a uhd-kanban board and usage-gauge rate-limit bars below. The prompt Prepare the billing release. is sent, Claude answers with three numbered questions, and pending-questions lists them as q1 to q3 in its cell. The mouse wheel then scrolls the questions cell while the other three cells stay still. Clicking the filetree cell makes it active, clicking src and then webhooks expands those folders, and the wheel scrolls the tree while its search row and column header stay in place.">
 
@@ -54,7 +54,7 @@ Claude Code mods draw panes beside the chat: a kanban board, the questions Claud
 | Layout tabs | Each layout is a Claude Code pane tab. `c` opens one, `b` breaks a cell out into one, `k` closes one | [Tabs](#how-do-layout-tabs-work) |
 | Scroll per cell | The mouse wheel scrolls the cell under the pointer; page keys scroll the active cell. A mod that scrolls its own rows under a fixed header keeps doing so in its cell ([Step 7 of the guide](docs/add-pane-grid-cell.md#step-7-scroll-your-own-rows-in-the-cell-optional)) | [Overview](#pane-grid-a-claude-code-mod-that-splits-a-claude-code-pane-into-a-tmux-style-grid) |
 | One place per mod | A placed mod stops drawing in its own pane or band, and returns there when its cell is emptied | [Own pane](#what-happens-to-a-mods-own-pane) |
-| Saved layout | Layouts are kept in `~/.claude/pane-grid/layout.json` and restored in every new Claude Code session | [Layout file](#where-is-the-layout-saved) |
+| Saved layout per project | Each project keeps its own layout, restored in every new Claude Code session there. Worktrees and subfolders of a repository share it | [Layout file](#where-is-the-layout-saved) |
 | Skill for mod authors | `/pane-grid:add-pane-grid-cell` makes another Claude Code mod grid-ready. Claude also opens it without being asked when it creates a mod, or adds or changes a pane or a band above the prompt in one, and applies it to a mod that draws a pane or a band | [Make a mod grid-ready](#how-do-i-make-my-claude-code-mod-grid-ready) |
 
 ## How do I install it?
@@ -138,17 +138,26 @@ Hotkeys work while the grid pane has focus. Commands work at the Claude Code pro
 | `k` | `/grid close` | Close the current tab |
 | `b` | `/grid break` | Move the active cell to a new tab |
 | `q` | `/grid list` | Print the tabs and cells |
-| - | `/grid reload` | Read `~/.claude/pane-grid/layout.json` again |
+| - | `/grid reload` | Read this project's layout file again |
 
 `/grid help` prints the same list. tmux users: `v` and `s` replace tmux's `%` and `"`, which a Claude Code Button hotkey cannot use.
 
 ## Where is the layout saved?
 
-In `~/.claude/pane-grid/layout.json`, written after every change and read when a Claude Code session starts and again after `/clear`. You can edit it and run `/grid reload`.
+In `~/.claude/pane-grid/projects/<name>/layout.json`, one file per project, written after every change and read when a Claude Code session starts and again after `/clear`. You can edit it and run `/grid reload`. If `CLAUDE_CONFIG_DIR` is set, the folder is `$CLAUDE_CONFIG_DIR/pane-grid/` instead of `~/.claude/pane-grid/`.
+
+| Question | Answer |
+|---|---|
+| What is a project? | The main working tree of the git repository the session started in. A session started in a subfolder or in a worktree of that repository uses the same file. Outside git, it is the folder the session started in |
+| What is `<name>`? | The project folder's last name and the first 16 hex digits of the SHA-256 of its path, for example `pane-grid-1a2b3c4d5e6f7a8b`. The file also holds the full path as `"project"` |
+| A project without a file | pane-grid reads `~/.claude/pane-grid/layout.json`. Your first change writes the project file; `~/.claude/pane-grid/layout.json` is never written and stays the starting layout for new projects |
+| `/cd` or a worktree move | pane-grid detects the new folder within a second, loads that project's layout and shows a toast |
+| Two sessions in one project | Before writing, pane-grid checks that the file has not changed since it last read or wrote it. If another session changed it, pane-grid does not write, loads the file again and prints `refused: another session changed this project's layout`; do the change once more |
 
 ```json
 {
   "version": 1,
+  "project": "/Users/you/code/my-app",
   "tabs": [
     {
       "name": "main",
@@ -168,7 +177,7 @@ In `~/.claude/pane-grid/layout.json`, written after every change and read when a
 }
 ```
 
-`row` places children left to right and `column` top to bottom. `size` is a share of the parent; sizes are scaled to add up to 100. A file that breaks the rules (a duplicate cell id or tab name, a mod in two cells) is not used: pane-grid starts with one empty tab, shows a toast with the reason, and keeps the file as `layout.invalid.json` before its first write.
+`project` is only for you to read; pane-grid does not use it when reading. `row` places children left to right and `column` top to bottom. `size` is a share of the parent; sizes are scaled to add up to 100. A file that breaks the rules (a duplicate cell id or tab name, a mod in two cells) is not used: pane-grid starts with one empty tab, shows a toast with the reason, and keeps the file as `layout.invalid.json` in the project folder before its first write.
 
 ## Which Claude Code mods are grid-ready?
 
@@ -241,7 +250,7 @@ No. It is a community Claude Code mod. Claude and Claude Code are products of An
 
 ### Does pane-grid use my Claude usage?
 
-No. pane-grid makes no model calls. It draws, reads and writes `~/.claude/pane-grid/layout.json` and handles hotkeys.
+No. pane-grid makes no model calls. It draws, reads and writes its layout files under `~/.claude/pane-grid/` and handles hotkeys.
 
 ### Why does a cell say a mod is not loaded?
 
@@ -257,7 +266,7 @@ tmux and agent teams split the terminal into separate processes or sessions. pan
 
 ### Where is my layout stored, and can I share it?
 
-In `~/.claude/pane-grid/layout.json`. Copy the file to another machine and run `/grid reload`.
+In `~/.claude/pane-grid/projects/<name>/layout.json`, one per project ([details](#where-is-the-layout-saved)). To use a layout in another project or on another machine, copy the file over that project's file, or over `~/.claude/pane-grid/layout.json` to make it the starting layout for projects without a file, and run `/grid reload`.
 
 ## About the recordings
 

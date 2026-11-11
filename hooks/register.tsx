@@ -8,15 +8,23 @@ import { ROOT_PATH, cellsOf, childPath, findCell, geometry, moveDivider, rectAt,
 import type { Rect } from './tree'
 
 // pane-grid: 탭(엔진 pane `grid-<이름>`)마다 배치 트리를 그리고, 칸에 규약 mod 가 그린 `cell:<plugin>` Box 를 놓는다.
-// 설계는 docs/grid-and-tabs.md §3. 배치의 원본은 ~/.claude/pane-grid/layout.json 이고(결정 12), state 는 그 사본이다.
+// 설계는 docs/grid-and-tabs.md §3. 배치의 원본은 프로젝트 파일 `<설정 디렉터리>/pane-grid/projects/<이름>/layout.json` 이고
+// (결정 20), state 는 그 사본이다. 프로젝트 파일이 없으면 global 파일 `<설정 디렉터리>/pane-grid/layout.json` 을 읽는다.
 
 const LAYOUT = { plugin: 'pane-grid', key: 'layout' } as const
 const SCROLL = { plugin: 'pane-grid', key: 'scroll' } as const
 const SHOWN = { plugin: 'pane-grid', key: 'shown' } as const
 const COMMAND = 'grid'
 const PANE_PREFIX = 'grid-'
-const FILE = '.claude/pane-grid/layout.json'
-const INVALID_COPY = '.claude/pane-grid/layout.invalid.json'
+// 설정 디렉터리 아래의 경로. 설정 디렉터리는 CLAUDE_CONFIG_DIR, 없으면 $HOME/.claude 다(엔진이 설정 · plugin 을 두는 곳).
+const OWN_DIR = 'pane-grid'
+const GLOBAL_FILE = `${OWN_DIR}/layout.json`
+const PROJECTS_DIR = `${OWN_DIR}/projects`
+const FILE_NAME = 'layout.json'
+const INVALID_NAME = 'layout.invalid.json'
+// 프로젝트 디렉터리 이름 `<주 작업 트리의 마지막 이름>-<경로 SHA-256 의 앞 16자리 hex>`.
+const HASH_HEX = 16
+const COMMON_GIT_DIR = '/.git'
 // hotkey Button 줄. 높이를 고정해야 칸 사각형과 휠 `pointer.row` 를 맞출 수 있다.
 const TOOLBAR_ROWS = 2
 // 엔진의 탭 줄과 hotkey 줄 사이, hotkey 줄과 grid 사이의 고정 구분선(끌 수 없다). 각 1행이다.
@@ -73,7 +81,16 @@ type Measured = { columns: number; rows: number }
 // 모듈 변수는 다시 불러오면 처음 값으로 돌아간다. 그려진 것은 모두 $.state 에서 읽고, 여기에는 다시 계산할 수 있는 것만 둔다.
 const run = {
   home: '',
-  // 파일이 형식에 맞지 않아 기본 배치로 시작했으면 그 원문. 처음 저장할 때 INVALID_COPY 로 옮겨 남긴다.
+  config: '',
+  // 마지막으로 읽은 $.session.root(). 이것이 바뀔 때만(`/cd` · worktree 이동) 프로젝트를 다시 정한다.
+  root: '',
+  // 프로젝트 키(projectOf)와 그 프로젝트 파일이 있는 디렉터리.
+  project: '',
+  dir: '',
+  // 이 세션이 프로젝트 파일을 마지막으로 읽거나 쓴 때의 mtimeMs. 그때 파일이 없었으면 undefined.
+  // 저장 전에 파일의 mtimeMs 가 이것과 다르면 다른 세션이 바꾼 것이므로 쓰지 않는다.
+  mtimeMs: undefined as number | undefined,
+  // 파일이 형식에 맞지 않아 기본 배치로 시작했으면 그 원문. 처음 저장할 때 프로젝트 디렉터리의 INVALID_NAME 으로 옮겨 남긴다.
   invalidText: undefined as string | undefined,
   // slash 명령이 다룰 탭. 보이는 grid 탭이 있으면 그것, 없으면 마지막으로 보였던 탭.
   current: '',
@@ -151,25 +168,103 @@ const publishPlacements = async ($: EngineInterface) => {
   await publish($, layout.tabs)
 }
 
-const persist = async ($: EngineInterface, tabs: GridTab[]) => {
-  if (run.invalidText != undefined) {
-    await $.fs.write(`${run.home}/${INVALID_COPY}`, run.invalidText)
-    log($, `kept the invalid layout file as ${INVALID_COPY}`)
-    run.invalidText = undefined
-  }
-  await $.fs.write(`${run.home}/${FILE}`, serializeLayoutFile(tabs))
+const globalFile = () => `${run.config}/${GLOBAL_FILE}`
+const projectFile = () => `${run.dir}/${FILE_NAME}`
+
+// 사람이 읽는 경로: $HOME 아래면 `~` 로 줄인다.
+const shownPath = (path: string) => (run.home && path.startsWith(`${run.home}/`) ? `~${path.slice(run.home.length)}` : path)
+
+// 없는 경로는 undefined. $.fs.stat 은 없는 경로에서 ENOENT 로 거부한다.
+const statOf = ($: EngineInterface, path: string, options?: { resolve: boolean }) => $.fs.stat(path, options).catch(() => undefined)
+
+const absoluteIn = (dir: string, path: string) => (path.startsWith('/') ? path : `${dir}/${path}`)
+
+// `.git` 이 파일인 디렉터리(worktree · submodule)의 주 작업 트리. 그 파일의 `gitdir:` 이 가리키는 git 디렉터리에 `commondir` 가
+// 있으면(worktree) 그것이 공통 git 디렉터리이고, 그 이름이 `.git` 이면 그 위가 주 작업 트리다. 그 밖(submodule 등)은 undefined.
+const mainTreeOf = async ($: EngineInterface, dir: string) => {
+  const gitdir = (await $.fs.read(`${dir}/.git`)).match(/^gitdir:\s*(.+)$/m)?.[1]?.trim()
+  if (!gitdir) return undefined
+  const own = absoluteIn(dir, gitdir)
+  const pointer = `${own}/commondir`
+  if (!(await $.fs.exists(pointer))) return undefined
+  const common = (await statOf($, absoluteIn(own, (await $.fs.read(pointer)).trim()), { resolve: true }))?.realPath
+  return common?.endsWith(COMMON_GIT_DIR) ? common.slice(0, -COMMON_GIT_DIR.length) : undefined
 }
 
-const loadFile = async ($: EngineInterface): Promise<GridTab[]> => {
-  const path = `${run.home}/${FILE}`
-  if (!(await $.fs.exists(path))) return defaultTabs()
+// dir 에서 위로 `.git` 을 찾는다. 디렉터리면 dir 이 주 작업 트리이고, 파일이면 mainTreeOf, 끝까지 없으면 fallback.
+const findProject = async ($: EngineInterface, dir: string, fallback: string): Promise<string> => {
+  const dotGit = await statOf($, `${dir}/.git`)
+  if (dotGit?.kind == 'dir') return dir
+  if (dotGit?.kind == 'file') return (await mainTreeOf($, dir)) ?? dir
+  const cut = dir.lastIndexOf('/')
+  return cut > 0 ? findProject($, dir.slice(0, cut), fallback) : fallback
+}
+
+// 프로젝트 키: root 가 속한 git 저장소의 주 작업 트리, git 밖이면 root. symbolic link 를 따라간 경로다.
+// $.session.repo() 를 쓰지 않는다. repo() 는 shell `cd` 를 따라가서(작업 디렉터리 안의 중첩 저장소로 cd 하면 그 저장소를 낸다)
+// 다시 정하는 순간의 셸 위치에 따라 키가 root 와 다른 저장소가 될 수 있다.
+const projectOf = async ($: EngineInterface, root: string) => {
+  const real = (await statOf($, root, { resolve: true }))?.realPath ?? root
+  return findProject($, real, real)
+}
+
+// 프로젝트 디렉터리 이름: 사람이 알아볼 마지막 이름과, 경로가 달라도 이름이 같은 프로젝트를 가르는 SHA-256 앞부분.
+// 파일 안에도 원래 경로(`project`)를 적는다(serializeLayoutFile).
+const dirName = async (project: string) => {
+  const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(project)))
+  const hex = Array.from(digest, byte => byte.toString(16).padStart(2, '0')).join('').slice(0, HASH_HEX)
+  const base = (project.split('/').at(-1) ?? '').replace(/[^A-Za-z0-9._-]+/g, '-')
+  return base ? `${base}-${hex}` : hex
+}
+
+// $.session.root() 를 읽어 프로젝트를 정한다. root 가 그대로면 아무것도 하지 않는다. 프로젝트가 바뀌었으면 true.
+const resolveProject = async ($: EngineInterface) => {
+  const root = await $.session.root()
+  if (root == run.root) return false
+  run.root = root
+  const project = await projectOf($, root)
+  if (project == run.project) return false
+  run.project = project
+  run.dir = `${run.config}/${PROJECTS_DIR}/${await dirName(project)}`
+  run.mtimeMs = undefined
+  run.invalidText = undefined
+  log($, `project ${project} (root ${root}) -> ${run.dir}`)
+  return true
+}
+
+// 프로젝트 파일에 쓴다. global 파일에는 쓰지 않는다. 이 세션이 마지막으로 읽거나 쓴 뒤 파일의 mtimeMs 가 바뀌었으면
+// (다른 세션이 쓰거나 지웠으면) 쓰지 않고 false 를 돌려준다. 부른 쪽이 reloadChanged 로 다시 읽는다.
+const persist = async ($: EngineInterface, tabs: GridTab[]) => {
+  const path = projectFile()
+  const now = await statOf($, path)
+  if (now?.mtimeMs != run.mtimeMs) {
+    log($, `${path} changed by another session (mtimeMs ${run.mtimeMs} -> ${now?.mtimeMs}); not written`)
+    return false
+  }
+  if (run.invalidText != undefined) {
+    await $.fs.write(`${run.dir}/${INVALID_NAME}`, run.invalidText)
+    log($, `kept the invalid layout file as ${run.dir}/${INVALID_NAME}`)
+    run.invalidText = undefined
+  }
+  await $.fs.write(path, serializeLayoutFile(tabs, run.project))
+  run.mtimeMs = (await $.fs.stat(path)).mtimeMs
+  return true
+}
+
+// 프로젝트 파일이 있으면 그것을, 없으면 global 파일을 읽는다. 읽은 파일의 경로를 함께 돌려준다.
+// mtimeMs 는 읽기 전에 잰다. 읽은 뒤에 재면 그 사이에 다른 세션이 쓴 것을 이 세션이 읽은 것으로 여겨 덮어쓸 수 있다.
+const loadFile = async ($: EngineInterface): Promise<{ tabs: GridTab[]; path: string }> => {
+  const own = await statOf($, projectFile())
+  run.mtimeMs = own?.mtimeMs
+  const path = own ? projectFile() : globalFile()
+  if (!own && !(await $.fs.exists(path))) return { tabs: defaultTabs(), path }
   const text = await $.fs.read(path)
   const parsed = parseLayoutFile(text)
-  if (parsed.isValid) return parsed.tabs
+  if (parsed.isValid) return { tabs: parsed.tabs, path }
   run.invalidText = text
-  log($, `layout file refused: ${parsed.reason}`)
-  $.ui.toast(`pane-grid: ~/${FILE} is not a valid layout (${parsed.reason}); using one empty tab`)
-  return defaultTabs()
+  log($, `layout file ${path} refused: ${parsed.reason}`)
+  $.ui.toast(`pane-grid: ${shownPath(path)} is not a valid layout (${parsed.reason}); using one empty tab`)
+  return { tabs: defaultTabs(), path }
 }
 
 // 엔진 pane 으로 여는 것: 탭마다 pane id 와 title. 이 값이 같으면 syncPanes 가 할 일이 없다.
@@ -200,8 +295,8 @@ const runAction = async ($: EngineInterface, words: string[], tabName?: string) 
   if (broken) return `refused: ${broken}`
   run.current = outcome.current
   if (outcome.isChanged) {
+    if (!(await persist($, outcome.tabs))) return reloadChanged($)
     await publish($, outcome.tabs)
-    await persist($, outcome.tabs)
     // 활성 칸 · 칸 나누기 · 크기처럼 탭 목록과 title 이 그대로인 동작에서는 pane 을 다시 열지 않는다.
     if (paneSpec(outcome.tabs) != paneSpec(layout.tabs)) await syncPanes($, outcome.tabs)
   }
@@ -241,19 +336,28 @@ const dragDivider = async ($: EngineInterface, tabName: string, path: string, in
   const moved = moveDivider(node, node.kind == 'row' ? rect.width : rect.height, index, at)
   const tabs = moved === node ? layout.tabs : layout.tabs.map(item => (item.name == tabName ? { ...item, root: replaceAt(item.root, path, moved) } : item))
   if (moved !== node) await publish($, tabs)
-  if (isFinal) await persist($, tabs)
+  if (isFinal && !(await persist($, tabs))) $.ui.toast(`pane-grid: ${await reloadChanged($)}`)
 }
 
-// 원본 파일을 읽어 state 사본과 엔진 pane 을 다시 만든다. 쓴 값을 돌려준다: 한 dispatch 의 $.state.get 은 모두 같은 시점을 읽어
-// 방금 쓴 값을 다시 읽지 못한다.
+// 원본 파일을 읽어 state 사본과 엔진 pane 을 다시 만든다. 쓴 값과 읽은 파일을 돌려준다: 한 dispatch 의 $.state.get 은 모두 같은
+// 시점을 읽어 방금 쓴 값을 다시 읽지 못한다.
 const loadLayout = async ($: EngineInterface) => {
-  const tabs = await loadFile($)
+  const { tabs, path } = await loadFile($)
   const layout = await publish($, tabs)
   await syncPanes($, tabs)
-  return layout
+  return { layout, path }
 }
 
-const reload = async ($: EngineInterface) => `loaded ${(await loadLayout($)).tabs.length} tab(s) from ~/${FILE}`
+const reload = async ($: EngineInterface) => {
+  const { layout, path } = await loadLayout($)
+  return `loaded ${layout.tabs.length} tab(s) from ${shownPath(path)}`
+}
+
+// 다른 세션이 바꾼 프로젝트 파일을 다시 읽는다. 이 세션의 바뀐 배치는 버린다. 알릴 글을 돌려준다.
+const reloadChanged = async ($: EngineInterface) => {
+  const { path } = await loadLayout($)
+  return `refused: another session changed this project's layout; loaded ${shownPath(path)} again, do it once more`
+}
 
 // $.state 는 세션 id 마다 따로 있다. /clear 는 같은 프로세스를 새 세션 id 로 이어 가고 session.start 를 다시 부르지 않으므로
 // (SessionEndInput.reason), 그 뒤에는 layout 사본이 비어 있다. 비어 있으면 원본 파일에서 다시 만든다. render 중에는 쓸 수 없으므로
@@ -262,10 +366,12 @@ const ensureLayout = async ($: EngineInterface): Promise<GridLayout> => {
   const layout = await readLayout($)
   if (layout) return layout
   log($, 'layout state is empty (a /clear starts a new session state); loading the layout file again')
-  return loadLayout($)
+  return (await loadLayout($)).layout
 }
 
 const watchShown = async ($: EngineInterface) => {
+  // `/cd` · worktree 이동은 mod 에 알리지 않으므로(classic.CwdChanged 도 오지 않는다) root 를 여기서 읽어 비교한다.
+  if (await resolveProject($)) $.ui.toast(`pane-grid: the session moved to ${shownPath(run.project)}; ${await reload($)}`)
   // grid 탭이 가려져 있으면 render hook 이 불리지 않는다. 규약 mod 는 layout 이 비면 자기 pane 으로 돌아가므로 여기서도 되살린다.
   await ensureLayout($)
   const pane = (await $.ui.panes()).find(item => item.isShown && item.id.startsWith(PANE_PREFIX))
@@ -300,6 +406,8 @@ const gridReady = (trace: readonly TraceEntry[]) => [
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     run.home = String((await $.env.get('HOME')) ?? '')
+    run.config = ((await $.env.get('CLAUDE_CONFIG_DIR')) || `${run.home}/.claude`).replace(/\/+$/, '')
+    await resolveProject($)
     await $.command.register({ name: COMMAND, description: 'pane-grid: split panes into a grid of mods, tmux style', argumentHint: '<split|kill|next|place|swap|zoom|resize|layout|new|select|rename|close|break|list|reload|help>' })
     await reload($)
     $.clock.every(SHOWN_POLL_MS, () => void watchShown($))

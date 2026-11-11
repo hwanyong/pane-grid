@@ -1,8 +1,10 @@
 import type { GridChild, GridNode, GridTab } from '../types/index.d.ts'
 import { cellsOf, normalize } from './tree'
 
-// `~/.claude/pane-grid/layout.json` 의 형식과 검사. 이 파일이 배치의 원본이다(docs/grid-and-tabs.md §3.1, 결정 12).
-// 형식: { "version": 1, "tabs": GridTab[] }. 칸 스크롤 위치와 칸 크기는 파일에 적지 않는다.
+// layout 파일(프로젝트 파일 `<설정 디렉터리>/pane-grid/projects/<이름>/layout.json` 과 global 파일 `<설정 디렉터리>/pane-grid/layout.json`)의
+// 형식과 검사. 프로젝트 파일이 배치의 원본이다(docs/grid-and-tabs.md §3.1, 결정 20).
+// 형식: { "version": 1, "project"?: string, "tabs": GridTab[] }. `project` 는 그 파일의 프로젝트 경로이고 사람이 읽으라고 적는다.
+// 읽을 때는 보지 않는다. 칸 스크롤 위치와 칸 크기는 파일에 적지 않는다.
 
 const FILE_VERSION = 1
 export const TAB_NAME = /^[a-z0-9][a-z0-9_-]{0,31}$/
@@ -90,4 +92,4 @@ export const parseLayoutFile = (text: string): Parsed => {
   return { isValid: true, tabs }
 }
 
-export const serializeLayoutFile = (tabs: GridTab[]) => `${JSON.stringify({ version: FILE_VERSION, tabs }, null, 2)}\n`
+export const serializeLayoutFile = (tabs: GridTab[], project: string) => `${JSON.stringify({ version: FILE_VERSION, project, tabs }, null, 2)}\n`

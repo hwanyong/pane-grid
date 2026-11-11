@@ -24,7 +24,7 @@
 
 같은 날 구현 전에 정한 세 가지. 사용자가 다른 안을 고르지 않아 권하는 안으로 진행한다:
 
-12. **배치 파일은 `~/.claude/pane-grid/layout.json` 하나다.** 어느 프로젝트를 열어도 같은 배치다.
+12. **배치 파일은 `~/.claude/pane-grid/layout.json` 하나다.** 어느 프로젝트를 열어도 같은 배치다. 2026-11-10 결정 20 으로 바꿨다.
 13. **slash 명령은 `/grid` 하나에 하위 명령을 붙인다**(`/grid split -h` · `/grid new <이름>` · `/grid select <이름>`).
 14. **배치 파일이 없으면 칸 하나짜리 빈 탭 `main` 을 연다.** 어느 mod 도 grid 에 넣지 않으므로 세 mod 는 지금처럼 자기 자리에 그린다.
 
@@ -38,6 +38,15 @@
 
 18. **칸에서 뺀 mod 가 자기 pane 을 다시 열면서 보이는 탭이 바뀌는 동작을 그대로 둔다**(§4.1 「칸에서 빼기」). §4.2 에 남아 있던 항목이다.
 19. **엔진의 탭 줄과 hotkey 줄 사이, hotkey 줄과 grid 사이에 끌 수 없는 구분선을 하나씩 둔다(§3.8).** 「탭 버튼과 hotkey 버튼 사이에 구분선(이동 불가), hotkey 버튼과 슬롯 사이에 구분선(이동 불가) 두곳에 추가해.」
+
+2026-11-10 사용자 결정 한 가지(결정 12 를 바꾼다, 카드 k8):
+
+20. **배치는 프로젝트마다 따로 저장한다**(§3.1).
+    - 프로젝트 파일은 `<설정 디렉터리>/pane-grid/projects/<이름>/layout.json` 이다. 설정 디렉터리는 `CLAUDE_CONFIG_DIR`, 없으면 `$HOME/.claude` 다. 저장소 안에는 파일을 만들지 않는다.
+    - 프로젝트 키는 주 작업 트리다. worktree 와 하위 디렉터리에서 시작한 세션이 같은 저장소의 배치를 쓴다. git 밖이면 `$.session.root()` 다.
+    - 프로젝트 파일이 없으면 global 파일 `<설정 디렉터리>/pane-grid/layout.json` 을 읽고, 처음 배치를 바꿀 때 프로젝트 파일을 만들어 거기에 쓴다. global 파일에는 쓰지 않고 새 프로젝트의 초기값으로만 읽는다.
+    - 같은 프로젝트를 연 다른 세션이 파일을 바꿨으면 덮어쓰지 않는다. 저장 전에 파일의 `mtimeMs` 를 마지막으로 읽거나 쓴 값과 비교하고, 다르면 다시 읽고 알린다.
+    - 결정의 원문은 키를 `(await $.session.repo())?.root ?? await $.session.root()` 로 적었다. `repo()` 가 shell `cd` 를 따라가는 것을 실행해 확인한 뒤(§4.1 11회차) 같은 날 메인 세션의 확인(카드 k8 의 c3 코멘트)으로 `$.session.root()` 에서 위로 `.git` 을 찾는 방식으로 바꿨다(§3.1).
 
 | mod | 저장소 | 그리는 곳 |
 |---|---|---|
@@ -121,12 +130,16 @@ tmux 글자 중 `hotkey` 로 쓸 수 없는 것을 대신하는 글자(결정 10
 
 ### 3.1 배치 상태: `pane-grid` 가 하나만 가진다
 
-- `pane-grid` 가 `~/.claude/pane-grid/layout.json` 을 읽어, 그 결과를 자기 state `{ plugin: 'pane-grid', key: 'layout' }` 에 쓴다.
+- `pane-grid` 가 이 세션의 프로젝트 파일(결정 20)을 읽어, 그 결과를 자기 state `{ plugin: 'pane-grid', key: 'layout' }` 에 쓴다. 프로젝트 파일이 없으면 global 파일을 읽는다. state 는 세션마다 따로 있으므로 규약 mod 가 읽는 key 와 값의 모양은 결정 20 전과 같다.
 - 값에는 배치(탭)마다 §2.1 의 트리가 들어가고, 칸마다 대상 mod 이름 · 칸 너비(열 수) · 칸 높이(행 수)가 들어간다.
 - 칸 너비는 `pane-grid` 가 `e.props.bodyColumns` 와 트리 비율로 계산한다. 규약 mod 는 계산하지 않고 이 값을 읽는다. 계산 규칙이 mod 마다 복사되면 SSOT 가 깨지기 때문이다.
 - 규약 mod 는 `grid` 요청을 그릴 때 이 값을 읽는다. 읽은 것만으로 구독이 걸려서, `pane-grid` 가 값을 다시 쓰면 규약 mod 의 칸도 다시 그려진다(R11).
-- 사람이 hotkey · 명령으로 배치를 바꾸면 `pane-grid` 가 `layout.json` 에 다시 써서 파일이 SSOT 로 남는다.
-- `$.state` 는 세션 id 마다 따로 있다. `/clear` 는 같은 프로세스를 새 세션 id 로 이어 가고 `session.start` 를 다시 부르지 않으므로(`SessionEndInput.reason` 문서), 그 뒤 `layout` · `scroll` · `shown` 이 비어 있다. `ensureLayout` 이 `layout` 이 빈 것을 보면 파일에서 다시 만든다. 부르는 곳은 grid pane 의 render(render 가 끝난 뒤 `$.clock.after(0)`) · 1초 poll(`watchShown`) · slash 명령과 hotkey(`runAction`) 세 곳이다. grid 탭이 가려져 있으면 render 가 불리지 않으므로 poll 이 되살린다. 칸 스크롤 위치는 되살리지 않는다(10회차).
+- 사람이 hotkey · 명령으로 배치를 바꾸면 `pane-grid` 가 프로젝트 파일에 다시 써서 파일이 SSOT 로 남는다. global 파일에는 쓰지 않는다.
+- 프로젝트 키(`projectOf`)는 `$.session.root()` 를 symbolic link 를 따라간 경로로 바꾸고, 거기서 위로 `.git` 을 찾아 정한다. `.git` 이 디렉터리면 그 디렉터리가 주 작업 트리다. 파일이면 그 `gitdir:` 이 가리키는 git 디렉터리의 `commondir` 로 공통 git 디렉터리를 찾고, 그 이름이 `.git` 이면 그 위가 주 작업 트리다(worktree). `commondir` 가 없으면(submodule) `.git` 파일이 있는 디렉터리다. 끝까지 없으면 root 다. `$.session.repo()` 를 쓰지 않는 것은 그 값이 shell `cd` 를 따라가기 때문이다. 작업 디렉터리 안의 중첩 저장소로 `cd` 하면 그 저장소를 냈다(11회차).
+- 프로젝트 디렉터리 이름은 `<주 작업 트리의 마지막 이름>-<주 작업 트리 경로의 SHA-256 앞 16자리 hex>` 다(예: `plugin-pane-grid-…`). 마지막 이름에서 `A-Za-z0-9._-` 밖의 글자는 `-` 로 바꾼다. `~/.claude/projects/` 의 규칙(`/` · `.` · `_` → `-`)은 서로 다른 경로가 같은 이름이 되므로 쓰지 않았다. hash 는 그 충돌을 막고, 마지막 이름은 사람이 디렉터리를 알아보게 한다. 프로젝트 파일에는 원래 경로를 `"project"` 로 함께 적는다. 읽을 때는 이 필드를 보지 않으므로 파일 형식의 `version` 은 1 그대로다.
+- `/cd` · worktree 이동으로 `$.session.root()` 가 바뀌면 1초 poll(`watchShown`)이 그것을 보고 키를 다시 정한다. 키가 바뀌었으면 새 프로젝트의 파일을 읽고 toast 로 알린다. 엔진은 이 이동을 mod 에 알리지 않는다. `classic.CwdChanged` hook 을 건 probe 는 `/cd` 에서도 shell `cd` 에서도 불리지 않았다(11회차). root 가 그대로인 shell `cd` 에서는 키를 다시 정하지 않는다.
+- 저장 전에 프로젝트 파일의 `mtimeMs`(`$.fs.stat`)를 이 세션이 마지막으로 읽거나 쓴 값과 비교한다. 다르면(다른 세션이 쓰거나 지웠으면) 쓰지 않고 파일을 다시 읽어 state 와 pane 을 다시 만들고, `refused: another session changed this project's layout; …` 를 낸다. slash 명령은 이 글을 명령 출력으로, hotkey · 빈 칸 선택지의 누름과 분할선 끌기는 toast 로 낸다. `mtimeMs` 는 파일을 읽기 전에 잰다. 읽은 뒤에 재면 그 사이에 다른 세션이 쓴 것을 이 세션이 읽은 것으로 여겨 덮어쓸 수 있다.
+- `$.state` 는 세션 id 마다 따로 있다. `/clear` 는 같은 프로세스를 새 세션 id 로 이어 가고 `session.start` 를 다시 부르지 않으므로(`SessionEndInput.reason` 문서), 그 뒤 `layout` · `scroll` · `shown` 이 비어 있다. `ensureLayout` 이 `layout` 이 빈 것을 보면 프로젝트 파일(없으면 global 파일)에서 다시 만든다. 부르는 곳은 grid pane 의 render(render 가 끝난 뒤 `$.clock.after(0)`) · 1초 poll(`watchShown`) · slash 명령과 hotkey(`runAction`) 세 곳이다. grid 탭이 가려져 있으면 render 가 불리지 않으므로 poll 이 되살린다. 칸 스크롤 위치는 되살리지 않는다(10회차).
 - 칸마다의 스크롤 위치(§3.4)는 `layout` 이 아니라 다른 key `{ plugin: 'pane-grid', key: 'scroll' }` 에 쓴다. `layout` 을 쓸 때마다 모든 규약 mod 의 `state.set` hook(§3.5)이 실행되기 때문이다. R20 실행에서 스크롤 위치를 `layout` 에 함께 썼더니 휠 한 칸마다 member 의 hook 이 실행됐다(4회차 실행: 휠 29회, member hook 30회, `verification/logs/r20-run4.log`).
 
 ### 3.2 탭: 배치마다 엔진 pane 하나
@@ -431,6 +444,29 @@ tsc 로 고친 것(4회차 전):
 
 - 수정 전 `revision` 이 1 로 돌아간 것으로 `layout` 값이 `/clear` 에서 비었다는 것을 가렸다(`publish` 는 이전 값의 `revision` 에 1 을 더한다).
 - 사용자 화면(2026-11-07)에서 grid pane 이 빈 것과 함께 usage-gauge 의 band 가 prompt 위에 나타났다. `layout` 이 비면 규약 mod 는 `readPlacement` 가 `undefined` 라 자기 자리로 돌아가기 때문이다. grid 탭이 가려진 경우도 되살려야 하는 이유다.
+
+11회차 결과(2026-11-10, 2.1.322 · 2.1.299): 결정 20 을 구현한 작업판을 `--plugin-dir` 로 부르고 설치본 pane-grid 는 `--settings '{"enabledPlugins":{"pane-grid@pane-grid":false}}'` 로 껐다. 170열 × 45행 `tmux` 세션이다. 시험 프로젝트는 그 세션의 job tmp 아래 git 저장소 `proj-a` · `proj-b`, `proj-a` 의 worktree `proj-a-wt`, git 밖 디렉터리 `plain` 이다. `proj-b/inner` 는 `proj-b` 안의 중첩 저장소다. 다른 mod 는 설치본이다. 먼저 `verification/cwd-probe/`(1초마다 `cwd` · `root` · `repo()` 를 읽고 `classic.CwdChanged` 를 hook 하는 시험 mod)로 엔진을 쟀다.
+
+| 확인한 것 | 결과 | 근거 |
+|---|---|---|
+| probe: `/cd proj-b` | `classic.CwdChanged` 줄이 없었다. 1초 poll 에서 `cwd` · `root` · `repo().root` 가 모두 `proj-b` 로 바뀌었다 | `verification/logs/k8-cwd-probe.log` |
+| probe: `proj-b` 에서 `! cd inner` | `CwdChanged` 줄이 없었다. `cwd` 와 `repo().root` 가 `proj-b/inner` 로 바뀌고 `root` 는 `proj-b` 그대로였다 | 같은 파일 |
+| probe: `CLAUDE_CONFIG_DIR=<디렉터리> claude -p "/k8probe"` | `$.env.get('CLAUDE_CONFIG_DIR')` 이 그 디렉터리를 냈다. 주지 않으면 `undefined` 였다 | 명령 출력(파일로 남기지 않았다) |
+| 프로젝트 파일이 없는 `proj-a` 에서 시작, `/grid split -h` | 시작 때 global 의 칸 네 개가 보였다. 분할 뒤 `projects/proj-a-0952985bc9094c16/layout.json` 이 생겼고(`"project"` 필드, 칸 c1 ~ c5) global 파일의 SHA-256 · mtime 은 그대로였다 | `verification/logs/k8-project-key.log` 의 a1 |
+| `proj-b` 에서 시작, `/grid list` | c5 없는 global 의 칸 네 개였다 | 같은 파일의 b1 |
+| `proj-a/sub` · `proj-a-wt` 에서 시작 | 둘 다 키가 `proj-a` 였고 `/grid list` 에 c5 가 있었다 | 같은 파일의 s1 · w1 |
+| `plain`(git 밖)에서 시작, `/grid split -h` | 키가 `plain` 이었고 `projects/plain-62f36839f35f376c/layout.json` 이 생겼다 | 같은 파일의 n1 |
+| `proj-b` 에서 `! cd inner` 뒤 `/cd proj-a-wt` | 키를 다시 정할 때 probe 의 `repo().root` 는 `proj-b/inner` 였고 이어 `proj-a` 가 됐다. pane-grid 는 키를 `proj-a` 로 정하고 `the session moved to …/proj-a; loaded 1 tab(s) from ~/.claude/pane-grid/projects/proj-a-…/layout.json` toast 를 냈다 | 같은 파일의 c1 |
+| `/grid reload` · `/clear` 뒤 `/grid list` | reload 는 `loaded 1 tab(s) from ~/.claude/pane-grid/projects/proj-a-…/layout.json` 을 냈다. `/clear` 뒤 `layout state is empty` 줄이 나왔고 `/grid list` 가 프로젝트 파일의 칸 c1 ~ c7 을 냈다 | 같은 파일의 c1 |
+| 프로젝트 파일을 `{"version":1,"tabs":[]}` 로 바꾸고 `/grid reload`, 이어 `/grid split -h` | `… is not a valid layout (tabs must be a list of one tab or more); using one empty tab` toast, 분할 뒤 `projects/proj-b-…/layout.invalid.json` 에 그 원문이 남고 `layout.json` 은 칸 c1 · c2 로 다시 쓰였다 | `verification/logs/k8-concurrent.log` 의 x2 |
+| 같은 `proj-a` 의 두 세션: `proj-a/sub` 가 `/grid split -v` 로 쓴 뒤 `proj-a-wt` 가 `/grid split -v` | 뒤 세션이 `changed by another session (mtimeMs … -> …); not written` 을 남기고 `refused: another session changed this project's layout; loaded … again, do it once more` 를 냈다. `/grid list` 가 앞 세션의 c6 을 보였다. 같은 명령을 다시 하자 c7 이 쓰였다 | `verification/logs/k8-concurrent.log` 의 w1 |
+| 깬 사본(`persist` 의 `mtimeMs` 비교를 `false &&` 로 끈 사본), `proj-b` 의 두 세션: 앞 세션 `/grid split -h`(c7 생김) 뒤 다른 세션 `/grid resize 30` | 뒤 세션이 그대로 써서 파일의 칸이 c1 ~ c6 이 됐다. 앞 세션의 c7 이 사라졌다 | 같은 파일의 x1 · y1 |
+| 같은 순서를 작업판으로 | 뒤 세션이 거부했고 파일에 c7 이 남았다 | 같은 파일의 x2 · y2 |
+| grid-ready mod | `proj-a-wt` 세션에서 `/grid place filetree c7` 뒤 `/grid zoom` 으로 filetree 가 c7 에 파일 목록을 그렸다. pending-questions · uhd-kanban 도 각 칸에 그렸다 | `tmux capture-pane` 출력(파일로 남기지 않았다) |
+| 엔진 2.1.299 | `claude plugin validate .` 통과. `proj-a/sub` 에서 `claude -p "/grid list"` 가 같은 키(`proj-a`)와 같은 칸을 냈다 | `verification/logs/k8-project-key.log` 의 v299 |
+
+- `plain` 세션은 도중에 module 을 다시 불러(`pane-grid: 0.4.3` 줄) 그때의 global 파일을 읽었다. 그 사이 다른 세션이 global 파일을 바꿨으므로(`inbox` 칸, `"project"` 필드 없음) `plain` 의 칸 id 가 c1 ~ c7 이 됐다. 프로젝트 파일이 없는 프로젝트가 global 파일을 읽는 결정 20 대로의 동작이다. 이 세션의 코드가 쓰는 파일에는 언제나 `"project"` 필드가 있다.
+- 실행하지 않은 것: hotkey · 빈 칸 선택지의 누름과 분할선 끌기에서 거부될 때의 toast. 세 경로 모두 slash 명령과 같은 `persist` 를 거치는 것은 코드를 읽어 확인했다.
 
 녹화(`verification/demo/record.py`)에서 본 것(2.1.319):
 
