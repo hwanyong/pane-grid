@@ -39,7 +39,8 @@ const DIVIDER = 1
 // 칸 단위로 놓이지 않는다.
 const PRECISION = 100
 
-const sizeOf = (child: GridChild) => (child.size > 0 ? child.size : 1)
+// 비율로 셀 수 있는 크기. 0 이하 · 유한하지 않은 수(Infinity · NaN)는 1 로 본다.
+const sizeOf = (child: GridChild) => (Number.isFinite(child.size) && child.size > 0 ? child.size : 1)
 const total = (children: GridChild[]) => children.reduce((sum, child) => sum + child.size, 0)
 const rounded = (value: number) => Math.round(value * PRECISION) / PRECISION
 
@@ -65,9 +66,13 @@ const shrinkBy = (children: GridChild[], excess: number): GridChild[] => {
 
 // 합이 WHOLE 인 비율(소수 둘째 자리)로 맞춘다. SHARE_MIN 보다 작은 비율은 SHARE_MIN 으로 올리고, 나머지는 마지막 자식이 받는다.
 // 올린 만큼 합이 WHOLE 을 넘어 마지막 자식이 0 이하가 되면, 그때만 큰 자식에서 덜어 낸다(shrinkBy). 그래서 모든 자식의 비율이 0 보다 크다.
+// 크기의 합이 유한하지 않으면(1e308 두 개) 모든 자식을 같은 크기로 본다.
 export const normalize = (children: GridChild[]): GridChild[] => {
-  const whole = children.reduce((sum, child) => sum + sizeOf(child), 0)
-  const scaled = children.map(child => ({ node: child.node, size: Math.max(SHARE_MIN, Math.floor((sizeOf(child) * WHOLE * PRECISION) / whole) / PRECISION) }))
+  const sizes = children.map(sizeOf)
+  const sum = sizes.reduce((acc, size) => acc + size, 0)
+  const weights = Number.isFinite(sum) ? sizes : sizes.map(() => 1)
+  const whole = Number.isFinite(sum) ? sum : weights.length
+  const scaled = children.map((child, index) => ({ node: child.node, size: Math.max(SHARE_MIN, Math.floor(((weights[index] ?? 1) * WHOLE * PRECISION) / whole) / PRECISION) }))
   const kept = withRest(scaled)
   return kept.every(child => child.size > 0) ? kept : shrinkBy(scaled, rounded(total(scaled) - WHOLE))
 }

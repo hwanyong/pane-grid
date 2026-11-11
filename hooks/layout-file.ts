@@ -36,8 +36,8 @@ const parseNode = (value: unknown, where: string): GridNode | string => {
     if (!isObject(child)) return `${at}: not an object`
     const node = parseNode(child.node, `${at}.node`)
     if (typeof node == 'string') return node
-    // 비율이 없거나 수가 아니면 1 로 두고, 아래 normalize 가 합 100 으로 맞춘다.
-    children.push({ node, size: typeof child.size == 'number' ? child.size : 1 })
+    // 비율이 없거나 유한한 수가 아니면 1 로 두고, 아래 normalize 가 합 100 으로 맞춘다.
+    children.push({ node, size: typeof child.size == 'number' && Number.isFinite(child.size) ? child.size : 1 })
   }
   return { kind, children: normalize(children) }
 }
