@@ -1,0 +1,4 @@
+# grep -E 'K2PROBE (draw|size|scroll|browserClosed)|answered ui.scroll|ui.scroll Pane|hook skipped|hooks module (pane-grid|terminal-browser)@inline loaded' orderB-broken.log
+2026-11-10T23:00:10.216Z [DEBUG] hooks module terminal-browser@inline loaded (worker, environment 1, tier user); events: engine.create,browser.open,browser.close,session.start,command.run,tool.call,ui.render,state.set,ui.message,ui.scroll,ui.close
+2026-11-10T23:00:10.269Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 2, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+# K2PROBE blit lines: 0

@@ -1,0 +1,45 @@
+                                                                                              │                                                                         ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/8041009f/tmp/k4-cwd · /rc                                           │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/8041009f/tmp/logs/orderB-debug.log  │c3 pending-questions  │c5 -                     │c6 inbox
+                                                                                              │Mode: manual          │empty. place a mod here: │ ╭──────────────────────╮
+❯ /inbox demo                                                                                 │[ Switch to auto ]    │filetree (move from c4)  │ │ Sampl                │
+  ⎿  inbox: Showing sample entries in the inbox. Run /inbox demo again to go back.            │[ Rescan last response│image-view               │ │ e ent                │
+                                                                                              │]                     │pending-questions (move  │ │ ries.                │
+❯ /grid split -h                                                                              │                      │from c3)                 │ │ Butt                 │
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │No pending questions. │token-optimizer          │ │ ons    [ Hide demo ] │
+                                                                                              │                      │uhd-kanban (move from c2)│ │ here                 │
+❯ /grid select main                                                                           │───────────────────────────────────────────────────────────────────────────
+  ⎿  pane-grid: showing main                                                                  │c4 filetree
+                                                                                              │ k4-cwd                                          󱧳              
+❯ /grid zoom                                                                                  │
+  ⎿  pane-grid: zoomed c6                                                                     │
+                                                                                              │ search                                                          Aa .* 󰦪
+❯ /grid zoom                                                                                  │    Name
+  ⎿  pane-grid: unzoomed                                                                      │empty
+                                                                                              │
+❯ /grid place inbox                                                                           │
+  ⎿  pane-grid: placed inbox in c6                                                            │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │?: shortcuts
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+                                                                                              │c2 uhd-kanban
+                                                                                              │16:57 · 카드 9개 · milestone 0개 · 60초마다
+                                                                                              │█to-do 1 █in-progress 4 █in-review 0 █done 4 █decided 0 █implemented 0
+                                                                                              │█cancelled 0
+                                                                                              │in-progress: ░돈다 ⠋다시 뜨는 중 ↻재시작 대기 ▨이어 가기 대기 ✓끝남
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+                                                                                              │c1 usage-gauge
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k8 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)

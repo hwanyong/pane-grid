@@ -1,0 +1,21 @@
+#!/bin/bash
+# The commands of .github/workflows/ci.yml (jobs mods and cli), in order.
+# $1 repo checkout  $2 claude binary
+cd "$1" || exit 9
+export DISABLE_AUTOUPDATER=1 CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
+C="$2"; T=$(mktemp -d /Users/uhd/.claude/jobs/842bed26/tmp/ci.XXXX)
+echo "## engine $($C --version)"
+echo "## step: claude plugin validate ."
+$C plugin validate . >$T/v.out 2>&1; echo "exit=$? $(tail -1 $T/v.out)"
+echo "## step: node --test test/*.test.mjs"
+node --test test/*.test.mjs 2>&1 | grep -E "^ℹ (tests|pass|fail) |^# (tests|pass|fail) |^not ok|^✖ [a-z]"
+echo "## step: validate and test each mod"
+for mod in $(git ls-files 'mods/*/.claude-plugin/plugin.json' | cut -d/ -f2 | sort -u); do
+  $C plugin validate "mods/$mod" >$T/v.out 2>&1; v=$?
+  t=-; if [ -d "mods/$mod/tests" ]; then $C plugin test "mods/$mod" >$T/t.out 2>&1; t=$?; s=$(grep -E "^ *[0-9]+ (pass|fail)" $T/t.out | tr -s ' \n' ' '); fi
+  echo "$mod validate=$v test=$t $s"; s=""
+done
+echo "## step: cli node --test"
+(cd cli && node --test 2>&1 | grep -E "^ℹ (tests|pass|fail) |^# (tests|pass|fail) |^not ok|^✖ [a-z]")
+echo "## step: cli npm pack --dry-run"
+(cd cli && npm pack --dry-run >$T/p.out 2>&1; echo "exit=$?"; git checkout -q -- . 2>/dev/null; git clean -fdq . 2>/dev/null)

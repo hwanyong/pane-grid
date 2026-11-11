@@ -1,0 +1,2 @@
+2026-11-10T22:54:39.351Z [DEBUG] hooks module md-preview@inline loaded (worker, environment 1, tier user); events: session.start,turn.start,turn.complete,tool.call,command.run,ui.render,state.set
+2026-11-10T22:54:54.112Z [DEBUG] ui.open md-preview md-preview (asked, 170 columns): placed

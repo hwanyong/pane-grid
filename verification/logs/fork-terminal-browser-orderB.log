@@ -1,0 +1,40 @@
+# grep -E 'K2PROBE (draw|size|scroll|browserClosed)|answered ui.scroll|ui.scroll Pane|hook skipped|hooks module (pane-grid|terminal-browser)@inline loaded' orderB.log
+2026-11-10T22:58:11.266Z [DEBUG] hooks module terminal-browser@inline loaded (worker, environment 1, tier user); events: engine.create,browser.open,browser.close,session.start,command.run,tool.call,ui.render,state.set,ui.message,ui.scroll,ui.close
+2026-11-10T22:58:11.281Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 2, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-10T22:58:23.627Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:58:23.627Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:58:23.698Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:58:23.707Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:58:23.713Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE size browser 75x38
+2026-11-10T22:58:23.729Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:58:24.318Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:58:24.323Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:58:24.352Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:58:24.419Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:58:24.505Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:58:24.520Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:58:24.983Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:58:42.451Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:58:56.590Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2b 37x33 open=true
+2026-11-10T22:58:56.623Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE size grid-k2b 37x33
+2026-11-10T22:58:56.638Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2b 37x33 open=true
+2026-11-10T22:59:14.042Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2b 22x33 open=true
+2026-11-10T22:59:14.063Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE size grid-k2b 22x33
+2026-11-10T22:59:14.074Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2b 22x33 open=true
+2026-11-10T22:59:21.499Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE scroll grid-k2b scrollup x=11 y=13
+2026-11-10T22:59:21.501Z [DEBUG] terminal-browser (user) answered ui.scroll without next() in 3.9ms; nothing beneath it ran for this dispatch
+2026-11-10T22:59:21.501Z [DEBUG] ui.scroll Pane grid-k2b (person) by -1 to 0: moved
+2026-11-10T22:59:27.245Z [DEBUG] pane-grid (user) answered ui.scroll without next() in 2.3ms; nothing beneath it ran for this dispatch
+2026-11-10T22:59:27.245Z [DEBUG] ui.scroll Pane grid-k2b (person) by -1 to 0: moved
+2026-11-10T22:59:27.252Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2b 22x33 open=true
+2026-11-10T22:59:41.332Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:59:41.337Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:59:41.384Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE size browser 75x38
+2026-11-10T22:59:41.390Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:59:41.424Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T22:59:41.434Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T23:00:02.673Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw browser 75x38 open=true
+2026-11-10T23:00:02.693Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE size browser 75x38
+# K2PROBE blit lines: 49
+2026-11-10T22:58:24.332Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE blit browser the Image draws its alt here: tmux does not know which terminal is outside it, so Claude Code draws no images here: attach tmux from kitty 0.28 or later, Ghostty, or 
+2026-11-10T22:59:41.563Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE blit browser the Image draws its alt here: tmux does not know which terminal is outside it, so Claude Code draws no images here: attach tmux from kitty 0.28 or later, Ghostty, or 

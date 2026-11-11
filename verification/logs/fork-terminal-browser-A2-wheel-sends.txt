@@ -1,0 +1,6 @@
+22:56:50.3N send 65 col=150 row=20 (c8)
+22:57:15.3N send 64 col=150 row=25 (c8)
+22:57:23.3N send 65 col=110 row=20 (c7)
+22:57:30.3N send 64 col=110 row=20 (c7)
+22:57:42.3N send 65 col=150 row=6 (c8-title)
+22:57:46.3N send 64 col=140 row=30 (c8)

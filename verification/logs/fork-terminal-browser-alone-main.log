@@ -1,0 +1,13 @@
+2026-11-10T23:24:11.003Z [DEBUG] hooks module terminal-browser@inline loaded (worker, environment 1, tier user); events: engine.create,browser.open,browser.close,session.start,command.run,tool.call,ui
+2026-11-10T23:24:11.008Z [DEBUG] hooks module usage-gauge@usage-gauge loaded (worker, environment 2, tier user); events: session.start,session.measure,command.run,ui.render
+2026-11-10T23:24:11.019Z [DEBUG] hooks module uhd-kanban@skill-kanban loaded (worker, environment 3, tier user); events: session.start,command.run,classic.PreToolUse,ui.render,state.set
+2026-11-10T23:24:11.026Z [DEBUG] hooks module pending-questions@pending-questions loaded (worker, environment 4, tier user); events: session.start,session.end,command.run,prompt.submit,turn.complete,u
+2026-11-10T23:24:11.036Z [DEBUG] hooks module image-view@claude-image-view loaded (worker, environment 5, tier user); events: session.start,ui.render
+2026-11-10T23:24:11.049Z [DEBUG] hooks module token-optimizer@alexgreensh-token-optimizer loaded (worker, environment 6, tier user); events: session.start,classic.SessionStart,prompt.submit,turn.start
+2026-11-10T23:24:11.116Z [DEBUG] hooks module filetree@claude-code-filetree loaded (worker, environment 7, tier user); events: session.start,config.set,command.run,tool.call,tool.check,turn.start,turn
+2026-11-10T23:24:11.117Z [DEBUG] hooks module cc-plugin-agents-md@builtin loaded (native, environment 8, tier builtin); events: session.start,prompt.context,command.run,session.compact,prompt.submit,t
+2026-11-10T23:24:11.118Z [DEBUG] hooks module cc-plugin-telemetry@builtin loaded (native, environment 9, tier builtin); events: telemetry.*,telemetry.log,telemetry.mark,session.start,session.end,engin
+2026-11-10T23:24:11.119Z [DEBUG] hooks module cc-plugin-plugin-authoring@builtin loaded (native, environment 10, tier builtin); events: skill.prompt,tool.check,tool.call
+2026-11-10T23:24:11.120Z [DEBUG] hooks module cc-plugin-diff@builtin loaded (native, environment 11, tier builtin); events: session.start,ui.render,command.run,ui.close,ui.focus,ui.scroll,tool.call,pr
+2026-11-10T23:24:11.120Z [DEBUG] hooks module cc-plugin-privacy@builtin loaded (native, environment 12, tier builtin); events: tool.check
+2026-11-10T23:24:48.090Z [DEBUG] terminal-browser (user) answered ui.scroll without next() in 4.6ms; nothing beneath it ran for this dispatch

@@ -1,0 +1,4 @@
+# Step 6, order A, page updating its title every 250 ms, counted with grep -c 'K2PROBE blit grid-k2' orderA.log
+grid tab k2 shown: 178 -> 190 in 3 s
+/grid select main (k2 hidden): 194 -> 194 in 4 s
+/grid select k2 (shown again): 203 -> 215 in 3 s, K2PROBE draw grid-k2 22x33 at 22:53:44.828Z

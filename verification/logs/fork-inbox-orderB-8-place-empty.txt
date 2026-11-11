@@ -1,0 +1,45 @@
+ ▐▛███▛█   Claude Code v2.1.322                                                               │ main   Inbox                                                            ✕
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │ ╭───────────────────────────────────────────────────────────────────────╮
+ ▝▝   ▝▝   ~/.claude/jobs/8041009f/tmp/k4-cwd · /rc                                           │ │ Sample entries. Buttons here send nothing.              [ Hide demo ] │
+                                                                                              │ ╰───────────────────────────────────────────────────────────────────────╯
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/8041009f/tmp/logs/orderB-debug.log  │
+                                                                                              │ ▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄
+❯ /inbox demo                                                                                 │   Asks 7     Finds 4     PRs 1
+  ⎿  inbox: Showing sample entries in the inbox. Run /inbox demo again to go back.            │─▀▀▀▀▀▀▀▀▀▀─▀▀▀▀▀▀▀▀▀▀▀─▀▀▀▀▀▀▀▀▀──────────────────────────────────────────
+                                                                                              │
+❯ /grid split -h                                                                              │   ▲ Issues · 2
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │   │
+                                                                                              │ ▌ │
+❯ /grid select main                                                                           │ ▌ ├─ Pinned glances drift in a dim room                              33m
+  ⎿  pane-grid: showing main                                                                  │ ▌ │
+                                                                                              │ ▌ │  Anchoring trusts the camera’s position even when tracking is poor,
+❯ /grid zoom                                                                                  │ ▌ │  so in a dim room a pinned glance slides a few centimeters a minute.
+  ⎿  pane-grid: zoomed c6                                                                     │ ▌ │
+                                                                                              │ ▌ │  Relevant file: anchors.ts
+❯ /grid zoom                                                                                  │ ▌ │
+  ⎿  pane-grid: unzoomed                                                                      │ ▌ │  a: Fix  i: File issue
+                                                                                              │ ▌ │  t: Reply  e: Explain  d: Discuss  x: Dismiss
+❯ /grid place inbox                                                                           │ ▌ │
+  ⎿  pane-grid: placed inbox in c6                                                            │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │   └─ Snoozed glances come back after a restart                       48m
+❯ /grid resize 30                                                                             │
+  ⎿  pane-grid: resized c6 to 30%                                                             │      ▸ 1 closed
+                                                                                              │
+❯ /grid zoom                                                                                  │
+  ⎿  pane-grid: zoomed c6                                                                     │   ✦ Opportunities · 2
+                                                                                              │   │
+❯ /inbox                                                                                      │   ├─ Glances could re-sort only when one moves                        2h
+  ⎿  inbox: Showing sample entries in the inbox. Run /inbox demo again to go back.            │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │   └─ Pinch and flick could share one gesture handler                  3h
+❯ /grid zoom                                                                                  │
+  ⎿  pane-grid: unzoomed                                                                      │
+                                                                                              │
+❯ /grid place - c6                                                                            │
+  ⎿  pane-grid: emptied c6                                                                    │
+Demo: Asks 7 · Finds 4                                       [ Hide demo ] [ Open inbox ] [-] │  Help                                                             v0.3.0
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k8 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)

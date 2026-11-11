@@ -1,0 +1,40 @@
+## engine 2.1.322 (Claude Code)
+## step: claude plugin validate .
+exit=0 ✔ Validation passed with warnings
+## step: node --test test/*.test.mjs
+ℹ tests 217
+ℹ pass 217
+ℹ fail 0
+## step: validate and test each mod
+agent-radar validate=0 test=0  13 pass 0 fail 
+blast-radius validate=0 test=0  18 pass 0 fail 
+browser-lanes validate=0 test=0  11 pass 0 fail 
+cache-clock validate=0 test=0  25 pass 0 fail 
+context-bar validate=0 test=0  25 pass 0 fail 
+glance validate=0 test=0  19 pass 0 fail 
+heatmap validate=0 test=0  28 pass 0 fail 
+md-preview validate=0 test=0  36 pass 0 fail 
+merge-gate validate=0 test=0  16 pass 0 fail 
+mission-control validate=0 test=0  21 pass 0 fail 
+next-steps validate=0 test=0  22 pass 0 fail 
+now-playing validate=0 test=0  9 pass 0 fail 
+openai-balance validate=0 test=0  12 pass 0 fail 
+openrouter-balance validate=0 test=0  14 pass 0 fail 
+prayer-times validate=0 test=1  19 pass 1 fail 
+reels validate=0 test=0  3 pass 0 fail 
+replay-theater validate=0 test=0  3 pass 0 fail 
+review-watch validate=0 test=0  7 pass 0 fail 
+rulebook-guard validate=0 test=0  18 pass 0 fail 
+secret-guard validate=0 test=0  31 pass 0 fail 
+session-saver validate=0 test=0  8 pass 0 fail 
+snake validate=0 test=0  11 pass 0 fail 
+switchboard validate=0 test=0  15 pass 0 fail 
+token-weather validate=0 test=0  24 pass 0 fail 
+usage-meter validate=0 test=0  12 pass 0 fail 
+where-am-i validate=0 test=0  14 pass 0 fail 
+## step: cli node --test
+ℹ tests 275
+ℹ pass 275
+ℹ fail 0
+## step: cli npm pack --dry-run
+exit=0

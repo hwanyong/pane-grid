@@ -1,0 +1,16 @@
+# $J/ci.sh: claude plugin validate . / claude plugin test . on 2.1.289 and 2.1.309, types written by 2.1.309, npx -p typescript@7.0.2 tsc -p . (errors = count of 'error TS')
+main 2.1.289 validate: ✔ Validation passed | test: 59 pass 0 fail
+main 2.1.309 validate: ✔ Validation passed | test: 59 pass 0 fail
+main types: // Written by Claude Code 2.1.309.
+main tsc -p . exit=1 errors=0
+
+fork 2.1.289 validate: ✔ Validation passed | test: 59 pass 0 fail
+fork 2.1.309 validate: ✔ Validation passed | test: 59 pass 0 fail
+fork types: // Written by Claude Code 2.1.309.
+fork tsc -p . exit=1 errors=0
+
+/Users/uhd/.claude/jobs/4657f08f/tmp/fd-main 2.1.322: ✔ Validation passed | 59 pass 0 fail
+/Users/uhd/LOCAL/01-01_Projects/plugin-flightdeck 2.1.322: ✔ Validation passed | 59 pass 0 fail
+# 'exit=' above is grep -v's code (1 = tsc printed nothing). tsc's own exit code, run again:
+/Users/uhd/.claude/jobs/4657f08f/tmp/fd-main tsc -p . exit=0
+/Users/uhd/LOCAL/01-01_Projects/plugin-flightdeck tsc -p . exit=0

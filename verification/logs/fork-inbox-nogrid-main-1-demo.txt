@@ -1,0 +1,45 @@
+                                                                                              │ Pending questions   Files: k4-cwd   uhd-kanban   Inbox                  ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │ ╭───────────────────────────────────────────────────────────────────────╮
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │ │ Sample entries. Buttons here send nothing.              [ Hide demo ] │
+ ▝▝   ▝▝   ~/.claude/jobs/8041009f/tmp/k4-cwd · /rc                                           │ ╰───────────────────────────────────────────────────────────────────────╯
+                                                                                              │
+▎ Debug mode enabled · logging to                                                             │ ▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄
+▎ /Users/uhd/.claude/jobs/8041009f/tmp/logs/nogrid-main-debug.log                             │   Asks 7     Finds 4     PRs 1
+                                                                                              │─▀▀▀▀▀▀▀▀▀▀─▀▀▀▀▀▀▀▀▀▀▀─▀▀▀▀▀▀▀▀▀──────────────────────────────────────────
+❯ /inbox demo                                                                                 │
+  ⎿  inbox: Showing sample entries in the inbox. Run /inbox demo again to go back.            │   Questions · 4
+                                                                                              │   │
+                                                                                              │   ├─ Fade a glance when you look away?
+                                                                                              │   │  ✓ Yes, fade it
+                                                                                              │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │ ▌ │
+                                                                                              │ ▌ ├─ 1) Dismiss a glance with a pinch, or a flick of the wrist?      12m
+                                                                                              │ ▌ │
+                                                                                              │ ▌ │  a: Pinch (recommended)  b: Flick
+                                                                                              │ ▌ │  t: Reply  e: Explain  p: Compare  x: Dismiss
+                                                                                              │ ▌ │
+                                                                                              │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │   ├─ 2) Bring a dismissed glance back when you look at it?           12m
+                                                                                              │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │   ├─ 3) Show glances while you are walking or driving?               12m
+                                                                                              │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │   └─ What should the wake word be for the agent?                     40m
+                                                                                              │
+                                                                                              │      ▸ 4 closed
+                                                                                              │
+                                                                                              │
+                                                                                              │   Tasks · 3
+                                                                                              │   │
+                                                                                              │   ├─ Put on the glasses and pair them with this Mac                   5m
+                                                                                              │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │   ├─ Check the glances outdoors in bright sun                         5m
+Demo: Asks 7 · Finds 4                                       [ Hide demo ] [ Open inbox ] [-] │   │  ────────────────────────────────────────────────────────────────────
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100%     │   ├─ Run the gesture tests and send back the failures                 1m
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ███████████████████████████████████████│███     │   │  ✓ Run gesture tests
+Reset · waiting for the next response         Resets in 14h 58m · target 91%                  │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k8 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)

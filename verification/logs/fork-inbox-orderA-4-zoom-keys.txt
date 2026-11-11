@@ -1,0 +1,45 @@
+                                                                                              │                                                                         ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/8041009f/tmp/k4-cwd · /rc                                           │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/8041009f/tmp/logs/orderA-debug.log  │c5 inbox
+                                                                                              │ ╭───────────────────────────────────────────────────────────────────────╮
+❯ /inbox demo                                                                                 │ │ Sample entries. Buttons here send nothing.              [ Hide demo ] │
+  ⎿  inbox: Showing sample entries in the inbox. Run /inbox demo again to go back.            │ ╰───────────────────────────────────────────────────────────────────────╯
+                                                                                              │
+❯ /grid split -h                                                                              │ ▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄
+  ⎿  pane-grid: split c3 into c3 and c5                                                       │   Asks 7     Finds 4     PRs 1
+                                                                                              │─▀▀▀▀▀▀▀▀▀▀─▀▀▀▀▀▀▀▀▀▀▀─▀▀▀▀▀▀▀▀▀──────────────────────────────────────────
+❯ /grid select main                                                                           │
+  ⎿  pane-grid: showing main                                                                  │   Questions · 4
+                                                                                              │   │
+❯ /grid place inbox                                                                           │   ├─ Fade a glance when you look away?
+  ⎿  pane-grid: placed inbox in c5                                                            │   │  ✓ Yes, fade it
+                                                                                              │   │  ────────────────────────────────────────────────────────────────────
+❯ /grid resize 30                                                                             │ ▌ │
+  ⎿  pane-grid: resized c5 to 30%                                                             │ ▌ ├─ 1) Dismiss a glance with a pinch, or a flick of the wrist?      14m
+                                                                                              │ ▌ │
+❯ /grid resize 70                                                                             │ ▌ │  a: Pinch (recommended)  Flick
+  ⎿  pane-grid: resized c5 to 70%                                                             │ ▌ │  t: Reply  e: Explain  p: Compare  Dismiss
+                                                                                              │ ▌ │
+❯ /grid zoom                                                                                  │   │  ────────────────────────────────────────────────────────────────────
+  ⎿  pane-grid: zoomed c5                                                                     │   ├─ 2) Bring a dismissed glance back when you look at it?           14m
+                                                                                              │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │   ├─ 3) Show glances while you are walking or driving?               14m
+                                                                                              │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │   └─ What should the wake word be for the agent?                     42m
+                                                                                              │
+                                                                                              │      ▸ 4 closed
+                                                                                              │
+                                                                                              │
+                                                                                              │   Tasks · 3
+                                                                                              │   │
+                                                                                              │   ├─ Put on the glasses and pair them with this Mac                   7m
+                                                                                              │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k8 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 1 agent

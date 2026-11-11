@@ -1,0 +1,552 @@
+===== B0-own-pane
+                                                                                              │ main   k1   k2b   k2x   k3   Markdown                                   ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │[ Prev ] [ Next ] [ Before ] [ Render ] [ Text ] [ Browser ] [ Close ]
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │sample.md  1/1
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │ Sample
+                                                                                              │ ────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderB2.log            │
+                                                                                              │ This is the k3 sample file.
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │ • one
+     again · t: page/text · q: close                                                          │ • two
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+===== B1-new-tab
+                                                                                              │ main   k1   k2b   k2x   k3   Markdown   k3b                             ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderB2.log            │c15 -
+                                                                                              │empty. place a mod here:
+❯ /md                                                                                         │1: filetree (move from c4)
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │2: image-view
+     again · t: page/text · q: close                                                          │3: pending-questions (move from c3)
+                                                                                              │4: token-optimizer
+❯ /grid new k3b                                                                               │5: uhd-kanban (move from c2)
+  ⎿  pane-grid: opened tab k3b                                                                │6: usage-gauge (move from c1)
+                                                                                              │7: md-preview
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+===== B2-place
+                                                                                              │ main   k1   k2b   k2x   k3   k3b                                        ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderB2.log            │c15 md-preview
+                                                                                              │[ Prev ] [ Next ] [ Before ] [ Render ] [ Text ] [ Browser ]
+❯ /md                                                                                         │sample.md  1/1
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │ Sample
+     again · t: page/text · q: close                                                          │ ────────
+                                                                                              │
+❯ /grid new k3b                                                                               │ This is the k3 sample file.
+  ⎿  pane-grid: opened tab k3b                                                                │
+                                                                                              │ • one
+❯ /grid place md-preview                                                                      │ • two
+  ⎿  pane-grid: placed md-preview in c15                                                      │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+===== B3-md-while-placed
+                                                                                              │ main   k1   k2b   k2x   k3   k3b                                        ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderB2.log            │c15 md-preview
+                                                                                              │[ Prev ] [ Next ] [ Before ] [ Render ] [ Text ] [ Browser ]
+❯ /md                                                                                         │sample.md  1/1
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │ Sample
+     again · t: page/text · q: close                                                          │ ────────
+                                                                                              │
+❯ /grid new k3b                                                                               │ This is the k3 sample file.
+  ⎿  pane-grid: opened tab k3b                                                                │
+                                                                                              │ • one
+❯ /grid place md-preview                                                                      │ • two
+  ⎿  pane-grid: placed md-preview in c15                                                      │
+                                                                                              │
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md, in the pane-grid cell c15 of k3b.                                 │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+===== B4-split
+                                                                                              │ main   k1   k2b   k2x   k3   k3b                                        ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderB2.log            │c15 md-preview                       │c16 -
+                                                                                              │[ Prev ] [ Next ] [ Before ]         │empty. place a mod here:
+❯ /md                                                                                         │[ Render ] [ Text ] [ Browser ]      │1: filetree (move from c4)
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │sample.md  1/1                       │2: image-view
+     again · t: page/text · q: close                                                          │ Sample                              │3: pending-questions (move from c3)
+                                                                                              │ ────────                            │4: token-optimizer
+❯ /grid new k3b                                                                               │                                     │5: uhd-kanban (move from c2)
+  ⎿  pane-grid: opened tab k3b                                                                │ This is the k3 sample file.         │6: usage-gauge (move from c1)
+                                                                                              │                                     │7: md-preview (move from c15)
+❯ /grid place md-preview                                                                      │ • one                               │
+  ⎿  pane-grid: placed md-preview in c15                                                      │ • two                               │
+                                                                                              │                                     │
+❯ /md                                                                                         │                                     │
+  ⎿  md-preview: sample.md, in the pane-grid cell c15 of k3b.                                 │                                     │
+                                                                                              │                                     │
+❯ /grid split -h                                                                              │                                     │
+  ⎿  pane-grid: split c15 into c15 and c16                                                    │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+===== B5-resize
+                                                                                              │ main   k1   k2b   k2x   k3   k3b                                        ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderB2.log            │c15 md-preview                                      │c16 -
+                                                                                              │[ Prev ] [ Next ] [ Before ] [ Render ] [ Text ]    │empty. place a mod
+❯ /md                                                                                         │[ Browser ]                                         │here:
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │sample.md  1/1                                      │1: filetree (move from
+     again · t: page/text · q: close                                                          │ Sample                                             │c4)
+                                                                                              │ ────────                                           │2: image-view
+❯ /grid new k3b                                                                               │                                                    │3: pending-questions
+  ⎿  pane-grid: opened tab k3b                                                                │ This is the k3 sample file.                        │(move from c3)
+                                                                                              │                                                    │4: token-optimizer
+❯ /grid place md-preview                                                                      │ • one                                              │5: uhd-kanban (move
+  ⎿  pane-grid: placed md-preview in c15                                                      │ • two                                              │from c2)
+                                                                                              │                                                    │6: usage-gauge (move
+❯ /md                                                                                         │                                                    │from c1)
+  ⎿  md-preview: sample.md, in the pane-grid cell c15 of k3b.                                 │                                                    │7: md-preview (move
+                                                                                              │                                                    │from c15)
+❯ /grid split -h                                                                              │                                                    │
+  ⎿  pane-grid: split c15 into c15 and c16                                                    │                                                    │
+                                                                                              │                                                    │
+❯ /grid resize 30                                                                             │                                                    │
+  ⎿  pane-grid: resized c16 to 30%                                                            │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+===== B6-emptied
+                                                                                              │ main   k1   k2b   k2x   k3   k3b   Markdown                             ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │[ Prev ] [ Next ] [ Before ] [ Render ] [ Text ] [ Browser ] [ Close ]
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │sample.md  1/1
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │ Sample
+                                                                                              │ ────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderB2.log            │
+                                                                                              │ This is the k3 sample file.
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │ • one
+     again · t: page/text · q: close                                                          │ • two
+                                                                                              │
+❯ /grid new k3b                                                                               │
+  ⎿  pane-grid: opened tab k3b                                                                │
+                                                                                              │
+❯ /grid place md-preview                                                                      │
+  ⎿  pane-grid: placed md-preview in c15                                                      │
+                                                                                              │
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md, in the pane-grid cell c15 of k3b.                                 │
+                                                                                              │
+❯ /grid split -h                                                                              │
+  ⎿  pane-grid: split c15 into c15 and c16                                                    │
+                                                                                              │
+❯ /grid resize 30                                                                             │
+  ⎿  pane-grid: resized c16 to 30%                                                            │
+                                                                                              │
+❯ /grid place - c15                                                                           │
+  ⎿  pane-grid: emptied c15                                                                   │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+===== B7a
+                                                                                              │ main   k1   k2b   k2x   k3   k3b   Markdown                             ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderB2.log            │c15 -                                               │c16 -
+                                                                                              │empty. place a mod here:                            │empty. place a mod
+❯ /md                                                                                         │1: filetree (move from c4)                          │here:
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │2: image-view                                       │filetree (move from
+     again · t: page/text · q: close                                                          │3: pending-questions (move from c3)                 │c4)
+                                                                                              │4: token-optimizer                                  │image-view
+❯ /grid new k3b                                                                               │5: uhd-kanban (move from c2)                        │pending-questions
+  ⎿  pane-grid: opened tab k3b                                                                │6: usage-gauge (move from c1)                       │(move from c3)
+                                                                                              │7: md-preview                                       │token-optimizer
+❯ /grid place md-preview                                                                      │                                                    │uhd-kanban (move from
+  ⎿  pane-grid: placed md-preview in c15                                                      │                                                    │c2)
+                                                                                              │                                                    │usage-gauge (move from
+❯ /md                                                                                         │                                                    │c1)
+  ⎿  md-preview: sample.md, in the pane-grid cell c15 of k3b.                                 │                                                    │md-preview
+                                                                                              │                                                    │
+❯ /grid split -h                                                                              │                                                    │
+  ⎿  pane-grid: split c15 into c15 and c16                                                    │                                                    │
+                                                                                              │                                                    │
+❯ /grid resize 30                                                                             │                                                    │
+  ⎿  pane-grid: resized c16 to 30%                                                            │                                                    │
+                                                                                              │                                                    │
+❯ /grid place - c15                                                                           │                                                    │
+  ⎿  pane-grid: emptied c15                                                                   │                                                    │
+                                                                                              │                                                    │
+❯ /grid select k3b                                                                            │                                                    │
+  ⎿  pane-grid: showing k3b                                                                   │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+===== B7b
+                                                                                              │ main   k1   k2b   k2x   k3   Markdown                                   ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderB2.log            │c13 -                                               │c14 -
+                                                                                              │empty. place a mod here:                            │empty. place a mod
+❯ /md                                                                                         │1: filetree (move from c4)                          │here:
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │2: image-view                                       │filetree (move from
+     again · t: page/text · q: close                                                          │3: pending-questions (move from c3)                 │c4)
+                                                                                              │4: token-optimizer                                  │image-view
+❯ /grid new k3b                                                                               │5: uhd-kanban (move from c2)                        │pending-questions
+  ⎿  pane-grid: opened tab k3b                                                                │6: usage-gauge (move from c1)                       │(move from c3)
+                                                                                              │7: md-preview                                       │token-optimizer
+❯ /grid place md-preview                                                                      │                                                    │uhd-kanban (move from
+  ⎿  pane-grid: placed md-preview in c15                                                      │                                                    │c2)
+                                                                                              │                                                    │usage-gauge (move from
+❯ /md                                                                                         │                                                    │c1)
+  ⎿  md-preview: sample.md, in the pane-grid cell c15 of k3b.                                 │                                                    │md-preview
+                                                                                              │                                                    │
+❯ /grid split -h                                                                              │                                                    │
+  ⎿  pane-grid: split c15 into c15 and c16                                                    │                                                    │
+                                                                                              │                                                    │
+❯ /grid resize 30                                                                             │                                                    │
+  ⎿  pane-grid: resized c16 to 30%                                                            │                                                    │
+                                                                                              │                                                    │
+❯ /grid place - c15                                                                           │                                                    │
+  ⎿  pane-grid: emptied c15                                                                   │                                                    │
+                                                                                              │                                                    │
+❯ /grid select k3b                                                                            │                                                    │
+  ⎿  pane-grid: showing k3b                                                                   │                                                    │
+                                                                                              │                                                    │
+❯ /grid close                                                                                 │                                                    │
+  ⎿  pane-grid: closed k3b                                                                    │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+===== B7c
+                                                                                              │ main   k1   k2b   k2x   k3   Markdown                                   ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderB2.log            │c13 -                                               │c14 -
+                                                                                              │empty. place a mod here:                            │empty. place a mod
+❯ /md                                                                                         │1: filetree (move from c4)                          │here:
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │2: image-view                                       │filetree (move from
+     again · t: page/text · q: close                                                          │3: pending-questions (move from c3)                 │c4)
+                                                                                              │4: token-optimizer                                  │image-view
+❯ /grid new k3b                                                                               │5: uhd-kanban (move from c2)                        │pending-questions
+  ⎿  pane-grid: opened tab k3b                                                                │6: usage-gauge (move from c1)                       │(move from c3)
+                                                                                              │7: md-preview                                       │token-optimizer
+❯ /grid place md-preview                                                                      │                                                    │uhd-kanban (move from
+  ⎿  pane-grid: placed md-preview in c15                                                      │                                                    │c2)
+                                                                                              │                                                    │usage-gauge (move from
+❯ /md                                                                                         │                                                    │c1)
+  ⎿  md-preview: sample.md, in the pane-grid cell c15 of k3b.                                 │                                                    │md-preview
+                                                                                              │                                                    │
+❯ /grid split -h                                                                              │                                                    │
+  ⎿  pane-grid: split c15 into c15 and c16                                                    │                                                    │
+                                                                                              │                                                    │
+❯ /grid resize 30                                                                             │                                                    │
+  ⎿  pane-grid: resized c16 to 30%                                                            │                                                    │
+                                                                                              │                                                    │
+❯ /grid place - c15                                                                           │                                                    │
+  ⎿  pane-grid: emptied c15                                                                   │                                                    │
+                                                                                              │                                                    │
+❯ /grid select k3b                                                                            │                                                    │
+  ⎿  pane-grid: showing k3b                                                                   │                                                    │
+                                                                                              │                                                    │
+❯ /grid close                                                                                 │                                                    │
+  ⎿  pane-grid: closed k3b                                                                    │                                                    │
+                                                                                              │                                                    │
+❯ /grid select k3                                                                             │                                                    │
+  ⎿  pane-grid: showing k3                                                                    │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+===== B7d
+ ▐▛███▛█   Claude Code v2.1.322                                                               │ main   k1   k2b   k2x   Markdown                                        ✕
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │───────────────────────────────────────────────────────────────────────────
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+                                                                                              │k: close tab q: list
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderB2.log            │───────────────────────────────────────────────────────────────────────────
+                                                                                              │c11 terminal-browser
+❯ /md                                                                                         │terminal-browser is not loaded, or its hooks/pane-grid.ts is older than
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │pane-grid 0.3.0
+     again · t: page/text · q: close                                                          │
+                                                                                              │
+❯ /grid new k3b                                                                               │
+  ⎿  pane-grid: opened tab k3b                                                                │
+                                                                                              │
+❯ /grid place md-preview                                                                      │
+  ⎿  pane-grid: placed md-preview in c15                                                      │
+                                                                                              │
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md, in the pane-grid cell c15 of k3b.                                 │
+                                                                                              │
+❯ /grid split -h                                                                              │
+  ⎿  pane-grid: split c15 into c15 and c16                                                    │
+                                                                                              │
+❯ /grid resize 30                                                                             │
+  ⎿  pane-grid: resized c16 to 30%                                                            │
+                                                                                              │
+❯ /grid place - c15                                                                           │
+  ⎿  pane-grid: emptied c15                                                                   │
+                                                                                              │
+❯ /grid select k3b                                                                            │
+  ⎿  pane-grid: showing k3b                                                                   │
+                                                                                              │
+❯ /grid close                                                                                 │
+  ⎿  pane-grid: closed k3b                                                                    │
+                                                                                              │
+❯ /grid select k3                                                                             │
+  ⎿  pane-grid: showing k3                                                                    │
+                                                                                              │
+❯ /grid close                                                                                 │
+  ⎿  pane-grid: closed k3                                                                     │
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+===== B8-exit
+
+Resume this session with:
+claude --resume fc5fca6c-7f08-4f7f-8fab-cc7362bd01c3
+uhd@UHDs-Mac-Studio-M5-Max work %
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+                                                                                              │                                                                         ✕
+❯ /grid split -h                                                                              │───────────────────────────────────────────────────────────────────────────
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+                                                                                              │k: close tab q: list
+❯ /grid select main                                                                           │───────────────────────────────────────────────────────────────────────────
+  ⎿  pane-grid: showing main                                                                  │c3 pending-questions    │c5 -                       │c6 inbox
+                                                                                              │Mode: manual            │empty. place a mod here:   │ ▄▄▄▄▄▄ ▄▄▄▄▄▄▄ ▄▄▄▄▄
+❯ /grid zoom                                                                                  │[ Switch to auto ]      │filetree (move from c4)    │  Asks   Finds   PRs
+  ⎿  pane-grid: zoomed c6                                                                     │[ Rescan last response ]│image-view                 │─▀▀▀▀▀▀─▀▀▀▀▀▀▀─▀▀▀▀▀─
+                                                                                              │                        │pending-questions (move    │
+❯ /grid zoom                                                                                  │No pending questions.   │from c3)                   │    No findings yet
+  ⎿  pane-grid: unzoomed                                                                      │                        │token-optimizer            │
+                                                                                              │                        │uhd-kanban (move from c2)  │     Claude flags
+❯ /grid place inbox                                                                           │───────────────────────────────────────────────────────────────────────────
+  ⎿  pane-grid: placed inbox in c6                                                            │c4 filetree
+                                                                                              │ k4-cwd                                          󱧳              
+❯ /grid resize 30                                                                             │
+  ⎿  pane-grid: resized c6 to 30%                                                             │
+                                                                                              │ search                                                          Aa .* 󰦪
+❯ /grid zoom                                                                                  │    Name
+  ⎿  pane-grid: zoomed c6                                                                     │empty
+                                                                                              │
+❯ /inbox                                                                                      │
+  ⎿  inbox: Showing sample entries in the inbox. Run /inbox demo again to go back.            │
+                                                                                              │
+❯ /grid zoom                                                                                  │
+  ⎿  pane-grid: unzoomed                                                                      │
+                                                                                              │
+❯ /grid place - c6                                                                            │
+  ⎿  pane-grid: emptied c6                                                                    │
+                                                                                              │?: shortcuts
+❯ /inbox demo                                                                                 │───────────────────────────────────────────────────────────────────────────
+  ⎿  inbox: Opened the inbox.                                                                 │c2 uhd-kanban
+                                                                                              │16:59 · 카드 9개 · milestone 0개 · 60초마다
+❯ /grid place inbox c6                                                                        │█to-do 1 █in-progress 4 █in-review 0 █done 4 █decided 0 █implemented 0
+  ⎿  pane-grid: placed inbox in c6                                                            │█cancelled 0
+                                                                                              │in-progress: ░돈다 ⠋다시 뜨는 중 ↻재시작 대기 ▨이어 가기 대기 ✓끝남
+❯ /inbox                                                                                      │───────────────────────────────────────────────────────────────────────────
+  ⎿  inbox: The inbox is drawn in pane-grid cell c6 of the tab main, so its pane did not open.│c1 usage-gauge
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k8 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)

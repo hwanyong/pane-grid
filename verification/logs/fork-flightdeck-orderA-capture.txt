@@ -1,0 +1,470 @@
+===== A-0-start
+                                                                                              │ main [Z]   Flightdeck                                                   ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │                            FLIGHTDECK · — IDLE
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │                          ■ main  ■ agents  ■ gate
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │╭─────────────────────────────────────────────────────────────────────────╮
+                                                                                              ││ — · main                                                         ○ idle │
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/orderA.log                     ││ effort ▯▯▯▯ —   0 req                                                   │
+                                                                                              ││ $0.00   7d ▱▱▱▱▱ 4% ↻16h06m                                             │
+                                                                                              │╰─────────────────────────────────────────────────────────────────────────╯
+                                                                                              │
+                                                                                              │╭─────────────────────────────────────────────────────────────────────────╮
+                                                                                              ││ session log                                                             │
+                                                                                              ││ nothing yet                                                             │
+                                                                                              │╰─────────────────────────────────────────────────────────────────────────╯
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+  tmux detected · scroll with PgUp/PgDn · or add 'set -g mouse on' to ~/.tmux.conf for whee…  │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ Try "how does register.tsx work?"
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 1 agent
+
+===== A-1-split
+                                                                                              │ main   Flightdeck                                                       ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │                            FLIGHTDECK · — IDLE
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │                          ■ main  ■ agents  ■ gate
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │╭─────────────────────────────────────────────────────────────────────────╮
+                                                                                              ││ — · main                                                         ○ idle │
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/orderA.log                     ││ effort ▯▯▯▯ —   0 req                                                   │
+                                                                                              ││ $0.00   7d ▱▱▱▱▱ 4% ↻16h06m                                             │
+❯ /grid split -h                                                                              │╰─────────────────────────────────────────────────────────────────────────╯
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │
+                                                                                              │╭─────────────────────────────────────────────────────────────────────────╮
+                                                                                              ││ session log                                                             │
+                                                                                              ││ nothing yet                                                             │
+                                                                                              │╰─────────────────────────────────────────────────────────────────────────╯
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 1 agent
+
+===== A-2-newtab-split
+                                                                                              │ main   Flightdeck   k1                                                  ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/orderA.log                     │c7 -                                 │c8 -
+                                                                                              │empty. place a mod here:             │empty. place a mod here:
+❯ /grid split -h                                                                              │filetree (move from c4)              │1: filetree (move from c4)
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │flightdeck                           │2: flightdeck
+                                                                                              │image-view                           │3: image-view
+❯ /grid new k1                                                                                │pending-questions (move from c3)     │4: pending-questions (move from c3)
+  ⎿  pane-grid: opened tab k1                                                                 │token-optimizer                      │5: token-optimizer
+                                                                                              │uhd-kanban (move from c2)            │6: uhd-kanban (move from c2)
+❯ /grid split -h                                                                              │usage-gauge (move from c1)           │7: usage-gauge (move from c1)
+  ⎿  pane-grid: split c7 into c7 and c8                                                       │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 1 agent
+
+===== A-3-place
+                                                                                              │ main   k1                                                               ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/orderA.log                     │c7 -                                 │c8 flightdeck
+                                                                                              │empty. place a mod here:             │                — IDLE
+❯ /grid split -h                                                                              │filetree (move from c4)              │       ■ main  ■ agents  ■ gate
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │flightdeck (move from c8)            │╭───────────────────────────────────╮
+                                                                                              │image-view                           ││ — · main                   ○ idle │
+❯ /grid new k1                                                                                │pending-questions (move from c3)     ││ effort ▯▯▯▯ —   0 req             │
+  ⎿  pane-grid: opened tab k1                                                                 │token-optimizer                      ││ $0.00   7d ▱▱▱▱▱ 4%               │
+                                                                                              │uhd-kanban (move from c2)            │╰───────────────────────────────────╯
+❯ /grid split -h                                                                              │usage-gauge (move from c1)           │
+  ⎿  pane-grid: split c7 into c7 and c8                                                       │                                     │╭───────────────────────────────────╮
+                                                                                              │                                     ││ session log                       │
+❯ /grid place flightdeck                                                                      │                                     ││ nothing yet                       │
+  ⎿  pane-grid: placed flightdeck in c8                                                       │                                     │╰───────────────────────────────────╯
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │                                     │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 1 agent
+
+===== A-4-resize30
+                                                                                              │ main   k1                                                               ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/orderA.log                     │c7 -                                                │c8 flightdeck
+                                                                                              │empty. place a mod here:                            │         — IDLE
+❯ /grid split -h                                                                              │filetree (move from c4)                             │    ■ main  ■ agents
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │flightdeck (move from c8)                           │╭─────────────────────
+                                                                                              │image-view                                          ││ — · main      ○ idle
+❯ /grid new k1                                                                                │pending-questions (move from c3)                    ││ effort ▯▯▯▯ —
+  ⎿  pane-grid: opened tab k1                                                                 │token-optimizer                                     ││ $0.00   7d ▱▱▱▱▱ 4%
+                                                                                              │uhd-kanban (move from c2)                           │╰─────────────────────
+❯ /grid split -h                                                                              │usage-gauge (move from c1)                          │
+  ⎿  pane-grid: split c7 into c7 and c8                                                       │                                                    │╭─────────────────────
+                                                                                              │                                                    ││ session log
+❯ /grid place flightdeck                                                                      │                                                    ││ nothing yet
+  ⎿  pane-grid: placed flightdeck in c8                                                       │                                                    │╰─────────────────────
+                                                                                              │                                                    │
+❯ /grid resize 30                                                                             │                                                    │
+  ⎿  pane-grid: resized c8 to 30%                                                             │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │                                                    │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 1 agent
+
+===== A-5-resize80
+                                                                                              │ main   k1                                                               ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/orderA.log                     │c7 -           │c8 flightdeck
+                                                                                              │empty. place a │                    FLIGHTDECK · — IDLE
+❯ /grid split -h                                                                              │mod here:      │                  ■ main  ■ agents  ■ gate
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │filetree (move │╭─────────────────────────────────────────────────────────╮
+                                                                                              │from c4)       ││ — · main                                         ○ idle │
+❯ /grid new k1                                                                                │flightdeck     ││ effort ▯▯▯▯ —   0 req                                   │
+  ⎿  pane-grid: opened tab k1                                                                 │(move from c8) ││ $0.00   7d ▱▱▱▱▱ 4% ↻16h04m                             │
+                                                                                              │image-view     │╰─────────────────────────────────────────────────────────╯
+❯ /grid split -h                                                                              │pending-questio│
+  ⎿  pane-grid: split c7 into c7 and c8                                                       │ns (move from  │╭─────────────────────────────────────────────────────────╮
+                                                                                              │c3)            ││ session log                                             │
+❯ /grid place flightdeck                                                                      │token-optimizer││ nothing yet                                             │
+  ⎿  pane-grid: placed flightdeck in c8                                                       │uhd-kanban     │╰─────────────────────────────────────────────────────────╯
+                                                                                              │(move from c2) │
+❯ /grid resize 30                                                                             │usage-gauge    │
+  ⎿  pane-grid: resized c8 to 30%                                                             │(move from c1) │
+                                                                                              │               │
+❯ /grid resize 80                                                                             │               │
+  ⎿  pane-grid: resized c8 to 80%                                                             │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 1 agent
+
+===== A-6-gate
+                                                                                              │ main   k1                                                               ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/orderA.log                     │c7 -           │c8 flightdeck
+                                                                                              │empty. place a │                 FLIGHTDECK · OPUS 5.5 IDLE
+❯ /grid split -h                                                                              │mod here:      │                  ■ main  ■ agents  ■ gate
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │filetree (move │╭─────────────────────────────────────────────────────────╮
+                                                                                              │from c4)       ││ Opus 5.5 · main                                  ○ idle │
+❯ /grid new k1                                                                                │flightdeck     ││ effort ▮▮▮▯ high   mode auto   2 req                    │
+  ⎿  pane-grid: opened tab k1                                                                 │(move from c8) ││ ctx ▰▰▰▱▱▱▱▱▱▱ 28% 85k/300k                             │
+                                                                                              │image-view     ││ $0.53   7d ▱▱▱▱▱ 5% ↻16h03m                             │
+❯ /grid split -h                                                                              │pending-questio││ last req  ttft 1.2s                                     │
+  ⎿  pane-grid: split c7 into c7 and c8                                                       │ns (move from  │╰─────────────────────────────────────────────────────────╯
+                                                                                              │c3)            │───────────────────────────────────────────────────────────
+❯ /grid place flightdeck                                                                      │token-optimizer│╭─────────────────────────────────────────────────────────╮
+  ⎿  pane-grid: placed flightdeck in c8                                                       │uhd-kanban     ││ GATE · permissions                             1 checks │
+                                                                                              │(move from c2) ││ ■                                                       │
+❯ /grid resize 30                                                                             │usage-gauge    ││ ■ 0 allowed  ■ 1 classifier  ✗ 0 denied                 │
+  ⎿  pane-grid: resized c8 to 30%                                                             │(move from c1) ││ f: file 0  shell 1  other 0                             │
+                                                                                              │               │╰─────────────────────────────────────────────────────────╯
+❯ /grid resize 80                                                                             │               │───────────────────────────────────────────────────────────
+  ⎿  pane-grid: resized c8 to 80%                                                             │               │╭─────────────────────────────────────────────────────────╮
+                                                                                              │               ││ ✓ last turn 14s · 0 agents · 0 edits · 0 erro… · +$0.53 │
+❯ Run the shell command echo k1-check once with the Bash tool, then reply with only its       │               │╰─────────────────────────────────────────────────────────╯
+  output.                                                                                     │               │
+                                                                                              │               │╭─────────────────────────────────────────────────────────╮
+  Ran 1 shell command                                                                         │               ││ session log                                             │
+                                                                                              │               ││ 15:56:07 you          Run the shell command `echo k1-c… │
+⏺ k1-check                                                                                    │               │╰─────────────────────────────────────────────────────────╯
+                                                                                              │               │
+✻ Brewed for 13s · done 오후 3:56                                                             │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ flightdeck: ctx 28%
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 1 agent
+
+===== A-7-hotkey-f
+                                                                                              │ main   k1                                                               ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/orderA.log                     │c7 -           │c8 flightdeck
+                                                                                              │empty. place a │                 FLIGHTDECK · OPUS 5.5 IDLE
+❯ /grid split -h                                                                              │mod here:      │                  ■ main  ■ agents  ■ gate
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │filetree (move │╭─────────────────────────────────────────────────────────╮
+                                                                                              │from c4)       ││ Opus 5.5 · main                                  ○ idle │
+❯ /grid new k1                                                                                │flightdeck     ││ effort ▮▮▮▯ high   mode auto   2 req                    │
+  ⎿  pane-grid: opened tab k1                                                                 │(move from c8) ││ ctx ▰▰▰▱▱▱▱▱▱▱ 28% 85k/300k                             │
+                                                                                              │image-view     ││ $0.53   7d ▱▱▱▱▱ 5% ↻16h01m                             │
+❯ /grid split -h                                                                              │pending-questio││ last req  ttft 1.2s                                     │
+  ⎿  pane-grid: split c7 into c7 and c8                                                       │ns (move from  │╰─────────────────────────────────────────────────────────╯
+                                                                                              │c3)            │───────────────────────────────────────────────────────────
+❯ /grid place flightdeck                                                                      │token-optimizer│╭─────────────────────────────────────────────────────────╮
+  ⎿  pane-grid: placed flightdeck in c8                                                       │uhd-kanban     ││ GATE · permissions                             1 checks │
+                                                                                              │(move from c2) ││ ■                                                       │
+❯ /grid resize 30                                                                             │usage-gauge    ││ ■ 0 allowed  ■ 1 classifier  ✗ 0 denied                 │
+  ⎿  pane-grid: resized c8 to 30%                                                             │(move from c1) ││ f: file 0 ▾  shell 1  other 0                           │
+                                                                                              │               │╰─────────────────────────────────────────────────────────╯
+❯ /grid resize 80                                                                             │               │───────────────────────────────────────────────────────────
+  ⎿  pane-grid: resized c8 to 80%                                                             │               │╭─────────────────────────────────────────────────────────╮
+                                                                                              │               ││ ✓ last turn 14s · 0 agents · 0 edits · 0 erro… · +$0.53 │
+❯ Run the shell command echo k1-check once with the Bash tool, then reply with only its       │               │╰─────────────────────────────────────────────────────────╯
+  output.                                                                                     │               │
+                                                                                              │               │╭─────────────────────────────────────────────────────────╮
+  Ran 1 shell command                                                                         │               ││ session log                                             │
+                                                                                              │               ││ 15:56:07 you          Run the shell command `echo k1-c… │
+⏺ k1-check                                                                                    │               │╰─────────────────────────────────────────────────────────╯
+                                                                                              │               │
+✻ Brewed for 13s · done 오후 3:56                                                             │               │
+                                                                                              │               │
+❯ /grid select k1                                                                             │               │
+  ⎿  pane-grid: showing k1                                                                    │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ flightdeck: ctx 28%
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 1 agent
+
+===== A-8-hotkey-o
+                                                                 ╭───────────────────────────╮│ main   k1                                                               ✕
+ ▐▛███▛█   Claude Code v2.1.322                                  │ pane-grid                 ││───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra              │ pane-grid: active cell c7 ││v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc         ╰───────────────────────────╯│k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/orderA.log                     │c7 -           │c8 flightdeck
+                                                                                              │empty. place a │                 FLIGHTDECK · OPUS 5.5 IDLE
+❯ /grid split -h                                                                              │mod here:      │                  ■ main  ■ agents  ■ gate
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │1: filetree    │╭─────────────────────────────────────────────────────────╮
+                                                                                              │(move from c4) ││ Opus 5.5 · main                                  ○ idle │
+❯ /grid new k1                                                                                │2: flightdeck  ││ effort ▮▮▮▯ high   mode auto   2 req                    │
+  ⎿  pane-grid: opened tab k1                                                                 │(move from c8) ││ ctx ▰▰▰▱▱▱▱▱▱▱ 28% 85k/300k                             │
+                                                                                              │3: image-view  ││ $0.53   7d ▱▱▱▱▱ 5% ↻16h01m                             │
+❯ /grid split -h                                                                              │4: pending-ques││ last req  ttft 1.2s                                     │
+  ⎿  pane-grid: split c7 into c7 and c8                                                       │tions (move    │╰─────────────────────────────────────────────────────────╯
+                                                                                              │from c3)       │───────────────────────────────────────────────────────────
+❯ /grid place flightdeck                                                                      │5:             │╭─────────────────────────────────────────────────────────╮
+  ⎿  pane-grid: placed flightdeck in c8                                                       │token-optimizer││ GATE · permissions                             1 checks │
+                                                                                              │6: uhd-kanban  ││ ■                                                       │
+❯ /grid resize 30                                                                             │(move from c2) ││ ■ 0 allowed  ■ 1 classifier  ✗ 0 denied                 │
+  ⎿  pane-grid: resized c8 to 30%                                                             │7: usage-gauge ││ file 0 ▾  shell 1  other 0                              │
+                                                                                              │(move from c1) │╰─────────────────────────────────────────────────────────╯
+❯ /grid resize 80                                                                             │               │───────────────────────────────────────────────────────────
+  ⎿  pane-grid: resized c8 to 80%                                                             │               │╭─────────────────────────────────────────────────────────╮
+                                                                                              │               ││ ✓ last turn 14s · 0 agents · 0 edits · 0 erro… · +$0.53 │
+❯ Run the shell command echo k1-check once with the Bash tool, then reply with only its       │               │╰─────────────────────────────────────────────────────────╯
+  output.                                                                                     │               │
+                                                                                              │               │╭─────────────────────────────────────────────────────────╮
+  Ran 1 shell command                                                                         │               ││ session log                                             │
+                                                                                              │               ││ 15:56:07 you          Run the shell command `echo k1-c… │
+⏺ k1-check                                                                                    │               │╰─────────────────────────────────────────────────────────╯
+                                                                                              │               │
+✻ Brewed for 13s · done 오후 3:56                                                             │               │
+                                                                                              │               │
+❯ /grid select k1                                                                             │               │
+  ⎿  pane-grid: showing k1                                                                    │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ flightdeck: ctx 28%
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 1 agent
+
+===== A-9-inactive-f
+                                                                                              │ main   k1                                                               ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/orderA.log                     │c7 -           │c8 flightdeck
+                                                                                              │empty. place a │                 FLIGHTDECK · OPUS 5.5 IDLE
+❯ /grid split -h                                                                              │mod here:      │                  ■ main  ■ agents  ■ gate
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │1: filetree    │╭─────────────────────────────────────────────────────────╮
+                                                                                              │(move from c4) ││ Opus 5.5 · main                                  ○ idle │
+❯ /grid new k1                                                                                │2: flightdeck  ││ effort ▮▮▮▯ high   mode auto   2 req                    │
+  ⎿  pane-grid: opened tab k1                                                                 │(move from c8) ││ ctx ▰▰▰▱▱▱▱▱▱▱ 28% 85k/300k                             │
+                                                                                              │3: image-view  ││ $0.53   7d ▱▱▱▱▱ 5% ↻16h01m                             │
+❯ /grid split -h                                                                              │4: pending-ques││ last req  ttft 1.2s                                     │
+  ⎿  pane-grid: split c7 into c7 and c8                                                       │tions (move    │╰─────────────────────────────────────────────────────────╯
+                                                                                              │from c3)       │───────────────────────────────────────────────────────────
+❯ /grid place flightdeck                                                                      │5:             │╭─────────────────────────────────────────────────────────╮
+  ⎿  pane-grid: placed flightdeck in c8                                                       │token-optimizer││ GATE · permissions                             1 checks │
+                                                                                              │6: uhd-kanban  ││ ■                                                       │
+❯ /grid resize 30                                                                             │(move from c2) ││ ■ 0 allowed  ■ 1 classifier  ✗ 0 denied                 │
+  ⎿  pane-grid: resized c8 to 30%                                                             │7: usage-gauge ││ file 0 ▾  shell 1  other 0                              │
+                                                                                              │(move from c1) │╰─────────────────────────────────────────────────────────╯
+❯ /grid resize 80                                                                             │               │───────────────────────────────────────────────────────────
+  ⎿  pane-grid: resized c8 to 80%                                                             │               │╭─────────────────────────────────────────────────────────╮
+                                                                                              │               ││ ✓ last turn 14s · 0 agents · 0 edits · 0 erro… · +$0.53 │
+❯ Run the shell command echo k1-check once with the Bash tool, then reply with only its       │               │╰─────────────────────────────────────────────────────────╯
+  output.                                                                                     │               │
+                                                                                              │               │╭─────────────────────────────────────────────────────────╮
+  Ran 1 shell command                                                                         │               ││ session log                                             │
+                                                                                              │               ││ 15:56:07 you          Run the shell command `echo k1-c… │
+⏺ k1-check                                                                                    │               │╰─────────────────────────────────────────────────────────╯
+                                                                                              │               │
+✻ Brewed for 13s · done 오후 3:56                                                             │               │
+                                                                                              │               │
+❯ /grid select k1                                                                             │               │
+  ⎿  pane-grid: showing k1                                                                    │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ f
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ flightdeck: ctx 28%
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+

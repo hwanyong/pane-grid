@@ -1,0 +1,158 @@
+2026-11-10T23:21:32.905Z [DEBUG] clearPluginCache: invalidating loadAllPlugins cache (preAction: --plugin-dir inline plugins)
+2026-11-10T23:21:33.309Z [DEBUG] --plugin-dir /Users/uhd/.claude/jobs/4657f08f/tmp/fd-main is one plugin: .claude-plugin at its top marks it
+2026-11-10T23:21:35.660Z [DEBUG] Read hooks.json for plugin flightdeck (enabled=true): /Users/uhd/.claude/jobs/4657f08f/tmp/fd-main/hooks/hooks.json
+2026-11-10T23:21:35.676Z [DEBUG] Loaded inline plugin from path: flightdeck
+2026-11-10T23:21:35.758Z [DEBUG] Checking plugin flightdeck: skillsPath=none, skillsPaths=0 paths
+2026-11-10T23:21:35.763Z [DEBUG] plugin flightdeck: no pluginConfigs["flightdeck" or "flightdeck@inline"].options in user, --settings or managed settings (project settings are not read); every option is its default
+2026-11-10T23:21:54.186Z [DEBUG] hooks module flightdeck@inline loaded (worker, environment 1, tier user); events: session.start,session.end,command.run,classic.UserPromptSubmit,agent.offer,turn.start,turn.step,session.measure,session.compact,tool.check,tool.call,session.append,agent.spawn,turn.complete,ui.fault,ui.render
+2026-11-10T23:21:54.191Z [DEBUG] hooks module usage-gauge@usage-gauge loaded (worker, environment 2, tier user); events: session.start,session.measure,command.run,ui.render
+2026-11-10T23:21:54.197Z [DEBUG] hooks module uhd-kanban@skill-kanban loaded (worker, environment 3, tier user); events: session.start,command.run,classic.PreToolUse,ui.render,state.set
+2026-11-10T23:21:54.202Z [DEBUG] hooks module pending-questions@pending-questions loaded (worker, environment 4, tier user); events: session.start,session.end,command.run,prompt.submit,turn.complete,ui.press,tool.call,ui.render,state.set
+2026-11-10T23:21:54.207Z [DEBUG] hooks module image-view@claude-image-view loaded (worker, environment 5, tier user); events: session.start,ui.render
+2026-11-10T23:21:54.216Z [DEBUG] hooks module token-optimizer@alexgreensh-token-optimizer loaded (worker, environment 6, tier user); events: session.start,classic.SessionStart,prompt.submit,turn.start,turn.step,tool.call,agent.spawn,classic.PermissionRequest,session.compact,turn.complete,ui.render
+2026-11-10T23:21:54.443Z [DEBUG] hooks module filetree@claude-code-filetree loaded (worker, environment 7, tier user); events: session.start,config.set,command.run,tool.call,tool.check,turn.start,turn.complete,ui.message,session.end,ui.close,ui.focus,ui.scroll,prompt.submit,ui.render,state.set
+2026-11-10T23:21:54.444Z [DEBUG] hooks module cc-plugin-agents-md@builtin loaded (native, environment 8, tier builtin); events: session.start,prompt.context,command.run,session.compact,prompt.submit,turn.start,turn.complete,agent.spawn,tool.call,prompt.mention
+2026-11-10T23:21:54.445Z [DEBUG] hooks module cc-plugin-telemetry@builtin loaded (native, environment 9, tier builtin); events: telemetry.*,telemetry.log,telemetry.mark,session.start,session.end,engine.create
+2026-11-10T23:21:54.446Z [DEBUG] hooks module cc-plugin-plugin-authoring@builtin loaded (native, environment 10, tier builtin); events: skill.prompt,tool.check,tool.call
+2026-11-10T23:21:54.446Z [DEBUG] hooks module cc-plugin-diff@builtin loaded (native, environment 11, tier builtin); events: session.start,ui.render,command.run,ui.close,ui.focus,ui.scroll,tool.call,prompt.submit
+2026-11-10T23:21:54.447Z [DEBUG] hooks module cc-plugin-privacy@builtin loaded (native, environment 12, tier builtin); events: tool.check
+2026-11-10T23:21:54.449Z [DEBUG] hooks module cc-plugin-telemetry@builtin engine.create settled in 1.0ms (native hop, next() included)
+2026-11-10T23:21:55.052Z [DEBUG] engine.create: no plugin-provided interfaces; $ built for flightdeck,usage-gauge,uhd-kanban,pending-questions,image-view,token-optimizer,filetree,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+2026-11-10T23:21:55.052Z [DEBUG] plugin.register: flightdeck (user, flightdeck@inline), judged by core alone: admitted
+2026-11-10T23:21:55.075Z [DEBUG] plugin-dir watch: watching flightdeck; folders of plugins none
+2026-11-10T23:21:55.136Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 3.4ms (native link, next() included)
+2026-11-10T23:21:55.154Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 22.3ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:21:55.174Z [DEBUG] type root of flightdeck at /Users/uhd/.claude/jobs/4657f08f/tmp/fd-main/.claude-plugin/types: entries claude-code, claude-code-tools, claude-code-mcp; wrote .claude-plugin/types/claude-code/index.d.ts, .claude-plugin/types/claude-code-tools/index.d.ts
+2026-11-10T23:21:55.178Z [DEBUG] $.command.register (flightdeck): /flightdeck listed
+2026-11-10T23:21:55.210Z [DEBUG] ui.open flightdeck flightdeck (unasked, 170 columns): placed
+2026-11-10T23:21:55.229Z [DEBUG] $.ui.status (flightdeck): (cleared)
+2026-11-10T23:21:55.236Z [DEBUG] flightdeck (user) answered ui.render without next() in 12.6ms; nothing beneath it ran for this dispatch
+2026-11-10T23:21:55.236Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 16.6ms (worker hop, next() included) key=flightdeck
+2026-11-10T23:21:55.251Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 33.8ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:21:55.322Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.5ms (native link, next() included)
+2026-11-10T23:21:56.608Z [DEBUG] hooks module pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 5.2ms (worker hop, next() included) key=pending-questions
+2026-11-10T23:21:56.614Z [DEBUG] hooks module cc-plugin-telemetry@builtin (native): telemetry.log nested in cc-plugin-agents-md#0
+2026-11-10T23:21:56.617Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 3.1ms (native link, next() included)
+2026-11-10T23:21:56.619Z [DEBUG] hooks module cc-plugin-diff@builtin session.start settled in 5.1ms (native link, next() included)
+2026-11-10T23:21:56.619Z [DEBUG] hooks module cc-plugin-telemetry@builtin session.start settled in 5.3ms (native link, next() included)
+2026-11-10T23:21:56.619Z [DEBUG] hooks module cc-plugin-agents-md@builtin session.start settled in 5.5ms (native link, next() included)
+2026-11-10T23:21:57.664Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree session.start settled in 2488.8ms (worker hop, next() included)
+2026-11-10T23:21:57.667Z [DEBUG] hooks module pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 4.2ms (worker hop, next() included) key=pending-questions
+2026-11-10T23:21:57.667Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 5.2ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:21:57.680Z [DEBUG] hooks module pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 2.7ms (worker hop, next() included) key=pending-questions
+2026-11-10T23:21:57.692Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 1.5ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:21:57.749Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 12.5ms (worker hop, next() included) key=filetree
+2026-11-10T23:21:57.793Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 29.7ms (worker hop, next() included) key=filetree
+2026-11-10T23:21:57.810Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 3.3ms (worker hop, next() included) key=filetree
+2026-11-10T23:21:57.841Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 3.2ms (worker hop, next() included) key=filetree
+2026-11-10T23:21:57.863Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 9.1ms (worker hop, next() included) key=filetree
+2026-11-10T23:21:57.893Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 7.0ms (worker hop, next() included) key=filetree
+2026-11-10T23:21:57.923Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 3.0ms (worker hop, next() included) key=filetree
+2026-11-10T23:21:57.955Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 3.4ms (worker hop, next() included) key=filetree
+2026-11-10T23:21:58.173Z [DEBUG] hooks module token-optimizer@alexgreensh-token-optimizer classic.SessionStart settled in 2995.9ms (worker hop, next() included)
+2026-11-10T23:21:58.318Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 3.6ms (worker hop, next() included) key=filetree
+2026-11-10T23:21:58.353Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 2.8ms (worker hop, next() included) key=filetree
+2026-11-10T23:21:58.388Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 2.6ms (worker hop, next() included) key=filetree
+2026-11-10T23:21:58.414Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 2.8ms (worker hop, next() included) key=filetree
+2026-11-10T23:21:58.644Z [DEBUG] hooks module filetree@claude-code-filetree state.set skipped: re-entry (the plugin's own code raised it; origin filetree)
+2026-11-10T23:21:59.721Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 9.7ms (worker hop, next() included) key=filetree
+2026-11-10T23:22:00.701Z [DEBUG] hooks module filetree@claude-code-filetree state.set skipped: re-entry (the plugin's own code raised it; origin filetree)
+2026-11-10T23:22:02.747Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 2.8ms (worker hop, next() included) key=filetree
+2026-11-10T23:22:06.476Z [DEBUG] hooks module filetree@claude-code-filetree ui.render settled in 2.8ms (worker hop, next() included) key=filetree
+2026-11-10T23:22:07.471Z [DEBUG] hooks module filetree@claude-code-filetree state.set skipped: re-entry (the plugin's own code raised it; origin filetree)
+2026-11-10T23:22:10.000Z [DEBUG] hooks module uhd-kanban@skill-kanban state.set skipped: re-entry (the plugin's own code raised it; origin uhd-kanban)
+2026-11-10T23:22:10.012Z [DEBUG] hooks module uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 6.5ms (worker hop, next() included) key=uhd-kanban-board
+2026-11-10T23:22:13.246Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 1.2ms (native link, next() included)
+2026-11-10T23:22:19.169Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 3.2ms (native link, next() included)
+2026-11-10T23:22:19.170Z [DEBUG] hooks module filetree@claude-code-filetree: ui.close nested in flightdeck#2
+2026-11-10T23:22:19.176Z [DEBUG] hooks module filetree@claude-code-filetree ui.close settled in 6.3ms (worker hop, next() included)
+2026-11-10T23:22:19.177Z [DEBUG] flightdeck (user) answered command.run without next() in 29.0ms; nothing beneath it ran for this dispatch
+2026-11-10T23:22:19.177Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 29.5ms (worker hop, next() included)
+2026-11-10T23:22:19.382Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 216.4ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:22:20.006Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 4.0ms (native link, next() included)
+2026-11-10T23:22:20.021Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 19.1ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:22:30.419Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 7.7ms (native link, next() included)
+2026-11-10T23:22:35.733Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 4.4ms (native link, next() included)
+2026-11-10T23:22:35.733Z [DEBUG] ui.open flightdeck flightdeck (asked, 170 columns): placed
+2026-11-10T23:22:35.738Z [DEBUG] flightdeck (user) answered command.run without next() in 17.9ms; nothing beneath it ran for this dispatch
+2026-11-10T23:22:35.738Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 22.3ms (worker hop, next() included)
+2026-11-10T23:22:36.132Z [DEBUG] flightdeck (user) answered ui.render without next() in 269.8ms; nothing beneath it ran for this dispatch
+2026-11-10T23:22:36.132Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 394.6ms (worker hop, next() included) key=flightdeck
+2026-11-10T23:22:36.133Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 404.7ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:22:36.149Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 5.0ms (native link, next() included)
+2026-11-10T23:22:36.162Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 18.0ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:22:45.208Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 1.0ms (native link, next() included)
+2026-11-10T23:22:48.332Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 1.8ms (native link, next() included)
+2026-11-10T23:22:48.336Z [DEBUG] ui.open flightdeck flightdeck (asked, 170 columns): placed
+2026-11-10T23:22:48.336Z [DEBUG] flightdeck (user) answered command.run without next() in 14.7ms; nothing beneath it ran for this dispatch
+2026-11-10T23:22:48.336Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 15.1ms (worker hop, next() included)
+2026-11-10T23:22:49.073Z [DEBUG] flightdeck (user) answered ui.render without next() in 1.2ms; nothing beneath it ran for this dispatch
+2026-11-10T23:22:49.073Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 738.0ms (worker hop, next() included) key=flightdeck
+2026-11-10T23:22:49.074Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 744.5ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:22:49.238Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 2.6ms (native link, next() included)
+2026-11-10T23:22:49.250Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 14.7ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:22:56.422Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 1.0ms (native link, next() included)
+2026-11-10T23:22:57.673Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 2.9ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:22:57.708Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 1.9ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:22:59.286Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 2.0ms (native link, next() included)
+2026-11-10T23:22:59.290Z [DEBUG] ui.open flightdeck flightdeck (asked, 170 columns): placed
+2026-11-10T23:22:59.291Z [DEBUG] flightdeck (user) answered command.run without next() in 16.6ms; nothing beneath it ran for this dispatch
+2026-11-10T23:22:59.291Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 17.1ms (worker hop, next() included)
+2026-11-10T23:22:59.380Z [DEBUG] flightdeck (user) answered ui.render without next() in 1.2ms; nothing beneath it ran for this dispatch
+2026-11-10T23:22:59.380Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 89.8ms (worker hop, next() included) key=flightdeck
+2026-11-10T23:22:59.380Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 97.0ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:22:59.423Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 3.8ms (native link, next() included)
+2026-11-10T23:22:59.427Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 8.8ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:23:06.085Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 1.1ms (native link, next() included)
+2026-11-10T23:23:09.377Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 1.9ms (native link, next() included)
+2026-11-10T23:23:09.378Z [DEBUG] ui.open flightdeck flightdeck (asked, 170 columns): placed
+2026-11-10T23:23:09.380Z [DEBUG] flightdeck (user) answered command.run without next() in 12.7ms; nothing beneath it ran for this dispatch
+2026-11-10T23:23:09.380Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 14.9ms (worker hop, next() included)
+2026-11-10T23:23:09.552Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 176.7ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:23:10.431Z [DEBUG] flightdeck (user) answered ui.render without next() in 172.9ms; nothing beneath it ran for this dispatch
+2026-11-10T23:23:10.431Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 1051.6ms (worker hop, next() included) key=flightdeck
+2026-11-10T23:23:10.445Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 4.1ms (native link, next() included)
+2026-11-10T23:23:10.451Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 9.5ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:23:14.033Z [DEBUG] hooks module uhd-kanban@skill-kanban state.set skipped: re-entry (the plugin's own code raised it; origin uhd-kanban)
+2026-11-10T23:23:22.613Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 1.4ms (native link, next() included)
+2026-11-10T23:23:28.928Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 3.3ms (native link, next() included)
+2026-11-10T23:23:28.934Z [DEBUG] ui.open flightdeck flightdeck (asked, 170 columns): placed
+2026-11-10T23:23:28.936Z [DEBUG] flightdeck (user) answered command.run without next() in 21.5ms; nothing beneath it ran for this dispatch
+2026-11-10T23:23:28.936Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 22.4ms (worker hop, next() included)
+2026-11-10T23:23:28.982Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 57.5ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:23:28.983Z [DEBUG] flightdeck (user) answered ui.render without next() in 2.5ms; nothing beneath it ran for this dispatch
+2026-11-10T23:23:28.983Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 49.4ms (worker hop, next() included) key=flightdeck
+2026-11-10T23:23:29.080Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 5.5ms (native link, next() included)
+2026-11-10T23:23:29.084Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 9.4ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:23:42.246Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 1.1ms (native link, next() included)
+2026-11-10T23:23:49.840Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 3.1ms (native link, next() included)
+2026-11-10T23:23:49.840Z [DEBUG] flightdeck (user) answered command.run without next() in 0.3ms; nothing beneath it ran for this dispatch
+2026-11-10T23:23:49.840Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 17.0ms (worker hop, next() included)
+2026-11-10T23:23:50.916Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 3.0ms (native link, next() included)
+2026-11-10T23:23:50.917Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 1080.7ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:23:50.921Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 7.5ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:23:57.672Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 1.5ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:23:57.707Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 1.9ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:24:09.376Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 1.0ms (native link, next() included)
+2026-11-10T23:24:15.776Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 2.2ms (native link, next() included)
+2026-11-10T23:24:15.780Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 6.9ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:24:15.782Z [DEBUG] flightdeck (user) answered ui.render without next() in 1.6ms; nothing beneath it ran for this dispatch
+2026-11-10T23:24:15.782Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 2.6ms (worker hop, next() included) key=flightdeck
+2026-11-10T23:24:15.790Z [DEBUG] $.ui.status (flightdeck): (cleared)
+2026-11-10T23:24:15.790Z [DEBUG] flightdeck (user) answered command.run without next() in 26.4ms; nothing beneath it ran for this dispatch
+2026-11-10T23:24:15.790Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 27.1ms (worker hop, next() included)
+2026-11-10T23:24:16.507Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 3.1ms (native link, next() included)
+2026-11-10T23:24:16.513Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 9.5ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:24:16.517Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 3.9ms (worker hop, next() included) key=flightdeck
+2026-11-10T23:24:20.629Z [DEBUG] hooks module uhd-kanban@skill-kanban state.set skipped: re-entry (the plugin's own code raised it; origin uhd-kanban)
+2026-11-10T23:24:25.781Z [DEBUG] flightdeck (user) answered ui.render without next() 1 more times in the last 10s (the last in 2.0ms)
+2026-11-10T23:24:28.548Z [DEBUG] hooks module cc-plugin-telemetry@builtin session.end settled in 0.1ms (native link, next() included)
+2026-11-10T23:24:28.548Z [DEBUG] hooks module flightdeck@inline, pending-questions@pending-questions, filetree@claude-code-filetree session.end settled in 2.4ms (worker hop, next() included)
+2026-11-10T23:24:28.556Z [DEBUG] flightdeck (user) answered ui.render without next() in 1.3ms; nothing beneath it ran for this dispatch
+2026-11-10T23:24:28.556Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 2.0ms (worker hop, next() included) key=flightdeck
+2026-11-10T23:24:28.563Z [DEBUG] hooks module filetree@claude-code-filetree state.set skipped: re-entry (the plugin's own code raised it; origin filetree)
+2026-11-10T23:24:28.569Z [DEBUG] hooks module usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 15.2ms (worker hop, next() included) key=above-prompt
+2026-11-10T23:24:28.574Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 8.4ms (worker hop, next() included) key=flightdeck
+2026-11-10T23:24:28.595Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 1.7ms (worker hop, next() included) key=flightdeck
+2026-11-10T23:24:28.662Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 1.9ms (worker hop, next() included) key=flightdeck
+2026-11-10T23:24:28.703Z [DEBUG] hooks module flightdeck@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, image-view@claude-image-view, token-optimizer@alexgreensh-token-optimizer, filetree@claude-code-filetree ui.render settled in 2.3ms (worker hop, next() included) key=flightdeck

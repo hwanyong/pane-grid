@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "column",
+        "children": [
+          {
+            "node": {
+              "kind": "row",
+              "children": [
+                {
+                  "node": {
+                    "kind": "cell",
+                    "id": "c3",
+                    "plugin": "pending-questions"
+                  },
+                  "size": 70
+                },
+                {
+                  "node": {
+                    "kind": "cell",
+                    "id": "c5",
+                    "plugin": "md-preview"
+                  },
+                  "size": 15
+                },
+                {
+                  "node": {
+                    "kind": "cell",
+                    "id": "c6"
+                  },
+                  "size": 15
+                }
+              ]
+            },
+            "size": 25.74
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c4",
+              "plugin": "filetree"
+            },
+            "size": 55.44
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2",
+              "plugin": "uhd-kanban"
+            },
+            "size": 14.85
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1",
+              "plugin": "usage-gauge"
+            },
+            "size": 3.97
+          }
+        ]
+      },
+      "active": "c6"
+    },
+    {
+      "name": "k1",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c7"
+            },
+            "size": 20
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c8",
+              "plugin": "flightdeck"
+            },
+            "size": 80
+          }
+        ]
+      },
+      "active": "c8"
+    }
+  ]
+}

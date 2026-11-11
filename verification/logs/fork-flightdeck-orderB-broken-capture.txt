@@ -1,0 +1,47 @@
+===== B-broken
+                                                                                              │ main   k1                                                               ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/B-broken.log                   │c7 -           │c8 flightdeck
+                                                                                              │empty. place a │flightdeck is not loaded, or its hooks/pane-grid.ts is
+❯ /grid select k1                                                                             │mod here:      │older than pane-grid 0.3.0
+  ⎿  pane-grid: showing k1                                                                    │filetree (move │
+                                                                                              │from c4)       │
+                                                                                              │image-view     │
+                                                                                              │pending-questio│
+                                                                                              │ns (move from  │
+                                                                                              │c3)            │
+                                                                                              │token-optimizer│
+                                                                                              │uhd-kanban     │
+                                                                                              │(move from c2) │
+                                                                                              │usage-gauge    │
+                                                                                              │(move from c1) │
+                                                                                              │flightdeck     │
+                                                                                              │(move from c8) │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │               │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ Transcript saving is off — inherited CLAUDE_CODE_CHILD_SESSION marker · restart with CLAUDE_CODE_FORCE_SESSION_PERSISTENCE=1 to keep future transcripts
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+

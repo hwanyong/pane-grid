@@ -1,0 +1,495 @@
+
+tests/hooks-band.test.ts:
+(pass) a question’s handle is the number a typed answer reaches, and the band counts what the tab counts [911.97ms]
+(pass) the band is [Open inbox] and the counts with full-brightness labels, the same while working and after 15 idle minutes [511.30ms]
+(pass) the band keeps what the mods after the inbox draw there, with its counts and with its stop line [392.56ms]
+
+tests/hooks-catch-up.test.ts:
+(pass) resumed into a conversation it cannot fork yet, it catches up from the transcript before any reply [588.92ms]
+(pass) a catch-up writes its Status with a separate call over the transcript [469.07ms]
+(pass) a catch-up’s Status call waits for a failing Status call still out, and its answer clears the failure that call saved [550.89ms]
+(pass) after a failed update, the next reply catches up over the whole conversation [608.94ms]
+(pass) a reload that cuts off the end-of-turn hook catches up on load, and a subagent’s turn leaves nothing to catch up [455.32ms]
+
+tests/hooks-children.test.ts:
+(pass) Claude Code task calls build the agent task list the Status call reads [794.22ms]
+(pass) a subagent, a background command, a Monitor and a Workflow each run as a child on the Status until their result or notice ends them [712.04ms]
+(pass) a subagent that runs inside its Agent call ends at the call’s result, and one the agent list no longer names ends at the turn’s end [731.11ms]
+
+tests/hooks-closing.test.ts:
+(pass) Claude closes an item or finding that no longer applies, by the id it reads beside the prompt [825.01ms]
+(pass) Dismiss settles a question in place with Undo, which brings it back open and selected, a second close reaches Claude too, and a message typed while Undo lasts folds the row when Undo ends [847.74ms]
+
+tests/hooks-conversations.test.ts:
+(pass) /clear and /resume switch the inbox to the other conversation, and each keeps its saved items [2662.52ms]
+(pass) where classic.SessionStart is skipped, the first prompt after /clear, /resume and /branch loads that conversation and carries its open questions [1132.74ms]
+(pass) a ledger update held during clear cannot write its old question into the new conversation [1370.36ms]
+(pass) a forked conversation keeps the parent’s findings and closed records, and dismissing the question that replaced a finding brings the finding back [2148.28ms]
+
+tests/hooks-delegates.test.ts:
+(pass) a Herdr delegate runs as a child from the command that starts it until a wait on it ends, keeps its id when prompted again, and at a turn’s end takes the state Herdr shows: blocked keeps it running, and ready ends it, finished once it had worked [1075.32ms]
+(pass) a herdr agent command that was blocked adds no delegate row and leaves an ended one ended, and the same prompt once it ran adds one [733.59ms]
+(pass) a herdr wait shows its delegate running while it waits, for a delegate with no row yet, and ends it once it returns [765.63ms]
+(pass) while the Status shows a running delegate, the inbox asks Herdr each HERDR_CHECK_MS, with no turn ending, and stops once the Status hides [2549.82ms]
+
+tests/hooks-delivery.test.ts:
+(pass) a press whose submit stays pending through a turn reads Queued instead of Not confirmed until the message runs [1307.92ms]
+(pass) a press during a turn reads Queued until its prompt enters, and one that will not enter is undone with Not sent and [Try again] [2114.64ms]
+(pass) a reply another plugin rewrote to the text of a pending press reads Not confirmed and keeps its draft [1218.16ms]
+(pass) a second Explain press while the first is out sends nothing, and the first reads Explaining… once it enters [825.66ms]
+
+tests/hooks-demo.test.ts:
+(pass) /inbox demo shows sample entries in every tab, presses change only its copy, the reply to a press leaves the sample’s hand-off waiting, and [Hide demo] goes back [3661.63ms]
+(pass) /inbox demo recording shows the sample entries without the notices that mark them as samples [616.23ms]
+
+tests/hooks-desktop-buttons.test.ts:
+(pass) the desktop task keeps help before Done, puts Try again first when its send fails, and keeps Undo’s place after Done once Undo ends [1336.62ms]
+(pass) the desktop pane draws each action as one button and the tabs as one click region, with no keys and no close button of its own [1156.26ms]
+
+tests/hooks-dialogs.test.ts:
+(pass) a question the desktop app’s box shows reaches the update, even when the turn ends with no text [491.95ms]
+(pass) a dialog reaches the model with its questions, whether answered or dismissed, and a dismissed one’s copy, added by the update or recorded by Claude, shows its option descriptions [668.89ms]
+
+tests/hooks-done.test.ts:
+(pass) Done on a task Claude just left tells Claude once Undo ends, and a task from an earlier reply or one already read stays silent [1199.06ms]
+(pass) a Done message that waits for its prompt to run reads Queued instead of Not confirmed [999.06ms]
+(pass) a Done message another plugin rewrote reads as delivered once Claude runs it, not Queued [1022.59ms]
+(pass) a Done message another plugin rewrote to text a pending press also sent reads Not confirmed, not Queued [785.12ms]
+(pass) a refused Done batch stays recoverable after resume, with session switch during send: null [1305.94ms]
+(pass) a refused Done batch stays recoverable after resume, with session switch during send: before-submit [1748.87ms]
+(pass) a refused Done batch stays recoverable after resume, with session switch during send: during-submit [1233.63ms]
+
+tests/hooks-fields.test.ts:
+(pass) t opens a field for the person’s own words: a question’s words go to Claude, which closes it once they answer it, and a reply hands a finding to Claude [2158.96ms]
+(pass) Escape in a reply field closes the field and keeps the pane and the draft [1007.30ms]
+(pass) a reply field that opens without the keys says to click it, until it has them [599.74ms]
+(pass) a press on a question Claude closed since the draw sends nothing and says so [552.03ms]
+
+tests/hooks-held-rows.test.ts:
+(pass) a question Claude closes while the person types an answer stays in place with its field and words, out of the count, until its answer sends and the person types their next message, then folds into Closed [1243.65ms]
+(pass) a held row and the rows that closed while the tab shows stay in place, and the reply still sends, after more items close than the Closed list keeps [960.43ms]
+(pass) Discard ends a held row’s reply and folds it into Closed at once, and a row the person dismisses with a draft settles with Undo instead of holding [2062.97ms]
+
+tests/hooks-loads.test.ts:
+(pass) a session saved with no version, mid-turn, by a process that ended loads with no turn running, its Done message goes, and its next save writes the session version [993.61ms]
+(pass) resuming a session waits for its in-flight save before loading it [768.12ms]
+(pass) a delayed saved-session read cannot replace a newer conversation [652.07ms]
+(pass) a delayed saved-session application cannot poison the next load [1235.13ms]
+(pass) a tool call after a hot reload, before the load converts the ledger, still applies [1137.14ms]
+
+tests/hooks-permission-rows.test.ts:
+(pass) where classic.PermissionRequest is skipped, an ask shows its row only if the call is still waiting after the delay, and an allowed call shows none [526.67ms]
+(pass) a query without a tool_use_id never arms the permission row [427.32ms]
+(pass) once classic.PermissionRequest has run, an ask draws no row of its own [426.82ms]
+(pass) a tool row or group that reports the call running ends the wait and clears the row; one that does not leaves it alone [456.60ms]
+
+tests/hooks-prs-buttons.test.ts:
+(pass) Resolve conflicts reads the PR from GitHub before it sends: it reads Refreshing while gh answers, sends while the conflicts remain, and sends nothing once a push resolved them [1770.42ms]
+(pass) a PR’s Dismiss settles its block until the person types their next message or leaves the tab, with Undo that brings it back, a ready PR’s Merge asks Claude unless it stopped being ready, and a fetch keeps a Dismiss made while it ran, and the branch PR when its lookup fails [1780.51ms]
+
+tests/hooks-prs-fetch.test.ts:
+(pass) opening the PRs tab while another PR fetch runs still finds the branch’s PR [1556.41ms]
+(pass) the PRs tab shows a linked PR only when the viewer wrote it and a fetch found it open, and keeps it once it merges, while a task naming a teammate’s PR keeps its Open PR step [1138.58ms]
+(pass) the terminal PRs tab says gh is missing until gh starts again [797.85ms]
+(pass) the terminal PRs tab does not say gh is missing when every gh run times out [566.94ms]
+(pass) the terminal PRs tab says gh is not signed in until gh answers without asking for a sign-in [559.94ms]
+(pass) the desktop PRs tab says gh is missing until gh starts again [570.90ms]
+(pass) the desktop PRs tab does not say gh is missing when every gh run times out [680.32ms]
+(pass) the desktop PRs tab says gh is not signed in until gh answers without asking for a sign-in [1614.63ms]
+
+tests/hooks-prs-links.test.ts:
+(pass) a PR linked in a reply shows in the PRs tab, a task naming it opens it, its buttons send its conflicts and thread and say so, and its failing check waits on the person [3165.10ms]
+
+tests/hooks-prs-looks.test.ts:
+(pass) in the terminal look, Dismiss merged draws after the PR blocks while a merged PR shows, and settles each merged PR with its own Undo [1846.73ms]
+(pass) in the desktop look, Dismiss merged draws after the PR blocks while a merged PR shows, and settles each merged PR with its own Undo [1066.68ms]
+(pass) in the terminal look, an order_prs call draws its order's lines and a rank before each ranked PR, ahead of the rest, a changed PR draws Rank again until the agent ranks again, and a merge, a later link, Dismiss, Undo and a clear each redraw it [1169.16ms]
+(pass) in the desktop look, an order_prs call draws its order's lines and a rank before each ranked PR, ahead of the rest, a changed PR draws Rank again until the agent ranks again, and a merge, a later link, Dismiss, Undo and a clear each redraw it [763.77ms]
+
+tests/hooks-recorded.test.ts:
+(pass) the guidance reaches Claude in the close tool’s description and nowhere else, and every inbox tool loads with the session [1224.37ms]
+(pass) a finding Claude records while the pane shows an empty tab brings the pane to it, and Fix hands it to Claude, settles its row as the choice made until the person leaves the tab, then moves it to the Closed fold even when Claude’s reply leaves it open [1265.06ms]
+(pass) a question Claude records waits in the pane with its recommendation, a repeat is not added, one the person dismissed is not recorded again, and one they answered with List the choices can be asked again with choices [786.79ms]
+(pass) the result under a record or close call reads the person's line, nothing when the call changed nothing, and the agent's text in the ctrl+o transcript [1056.97ms]
+(pass) findings that arrive one by one after the pane moves to them keep the first one open [1076.07ms]
+
+tests/hooks-replies.test.ts:
+(pass) a reply becomes open items, and "1. yes" carries the question [689.84ms]
+(pass) a question with 7 options shows 4 until [All 7 options], draws its steps after them, and letters only the first 9 [1609.94ms]
+(pass) once the person answers or closes the last waiting row, a row from a later reply opens [2185.01ms]
+
+tests/hooks-resends.test.ts:
+(pass) a press resent after the app quit with its first delivery lost reads as delivered once Claude gets it [1320.28ms]
+(pass) a uniquely rewritten Claude prompt is confirmed when its row enters before submit returns [1095.03ms]
+(pass) two Claude sends rewritten to the same text are each confirmed by their own row when they run in turn [771.47ms]
+(pass) an older Claude send with no saved receipt cannot acknowledge a new identical press after reload [686.06ms]
+
+tests/hooks-row-drawing.test.ts:
+(pass) in the terminal and desktop looks, an open row’s follow-ups are never split between rows: the terminal gives them a row of their own when they do not fit after its buttons, and desktop draws Reply as a Button and its links box asks for the width of the rest [4176.67ms]
+(pass) in a theme without tone colors, a replied question’s ✓ takes the done color whether its row is selected or not [602.71ms]
+(pass) on desktop, a cancelled question’s ✗ is drawn as a shape and a dismissed one’s ✕ as text, so the two read apart [2183.13ms]
+
+tests/hooks-running-marks.test.ts:
+(pass) an answer on its way runs its mark each frame in the terminal and as an Svg on desktop, and shows ✓ once it arrives [2537.20ms]
+(pass) a working subject’s mark on the Status moves each frame only while a turn runs, and a queued subject’s never does [1207.15ms]
+(pass) a running mark on the terminal Status keeps moving while the desktop app draws the same pane, and no frame redraws the desktop pane [2042.96ms]
+(pass) a running mark moves again at the next redraw after the engine ends its timer [1861.78ms]
+
+tests/hooks-saves.test.ts:
+(pass) tool calls during a turn leave the saved session alone, and the turn’s update saves it [2252.47ms]
+(pass) a failed first save keeps the prior saved session intact [1073.57ms]
+(pass) a save that meets a held store lock waits, and the turn’s update still lands [1498.45ms]
+(pass) when the store lock stays held, the update still shows and the next save writes it [2194.54ms]
+(pass) session pruning uses saved time and retains records whose age cannot be read [905.79ms]
+(pass) a ledger write committed before clear still saves to its original session [501.89ms]
+(pass) the latest committed ledger wins when an older write completes afterward [578.60ms]
+
+tests/hooks-startup.test.ts:
+(pass) tools the engine refuses show an error banner on every tab, and the mod still loads the conversation [2315.26ms]
+(pass) a saved session the store cannot read shows as unreadable, not empty, until [Try again] reads it [1729.38ms]
+(pass) a headless run stays inactive when sdk invokes the inbox command [1548.94ms]
+(pass) a headless run stays inactive when plugin invokes the inbox command [1713.69ms]
+(pass) the first inbox command loads saved rows before desktop attaches [910.86ms]
+(pass) an inbox command waits for the saved rows loading during desktop start [466.21ms]
+(pass) an inbox command waits for the saved rows loading during desktop attach [621.16ms]
+(pass) a refused inbox command registration leaves normal desktop startup and saved rows available [499.73ms]
+(pass) the desktop app turns the mod on when it attaches before the start [554.98ms]
+(pass) the desktop app turns the mod on when it attaches after the start [439.21ms]
+(pass) a session the desktop app started carries its saved rows into a first prompt that comes before the attach [516.12ms]
+(pass) a claude -p run from a desktop session stays off [569.53ms]
+
+tests/hooks-status-calls.test.ts:
+(pass) a reply’s Status comes from the separate Status call, after the ledger update [2523.72ms]
+(pass) a failed Status call leaves the ledger update applied and no Status, and saves that it gave no answer [1054.69ms]
+(pass) a Status answer that holds prose is asked once more, and the second answer applies [1845.87ms]
+(pass) a Status call that answers with prose twice writes nothing and saves its second answer [1701.23ms]
+(pass) a Status answer of UNCHANGED leaves the last Status as it was [911.33ms]
+(pass) a ledger update shows before its Status call returns [526.31ms]
+(pass) a turn past the wait runs the Status call on its work so far at its next tool call, once, and no ledger call until the reply [528.85ms]
+(pass) a ledger call that gives no usable answer runs no Status call [547.47ms]
+(pass) the next ledger update does not wait for an earlier Status call, and Status calls run one at a time [493.90ms]
+(pass) a mid-turn Status call still out when its turn ends writes first, and the reply’s Status call reads that write and writes last [612.79ms]
+(pass) a Status answer that lands after /clear goes to the conversation it was for, and the new conversation keeps an empty Status [704.27ms]
+
+tests/hooks-status-goal.test.ts:
+(pass) on a next build, a proposed goal shows above the head with its keys selected, its x bound to Not now alone and no Set a goal, Edit opens the field in its place, Set as goal sets it with its milestones and draws the head as its Now line, and nothing is sent [2348.20ms]
+(pass) on a next build, Not now drops the proposal and keeps Set a goal, which opens an empty goal field that sets the typed goal and waits for its milestones [1484.79ms]
+(pass) on a next build, the goal header’s Edit opens the field with the goal in it in place of the goal’s text, leaves the header as Goal and gives the field the keys, and Cancel closes it and keeps the goal [2592.18ms]
+(pass) on a next build, Set a goal on the empty Status page sets the typed goal before any Status call [930.66ms]
+
+tests/hooks-status-page.test.ts:
+(pass) on a next build, a look starts when the Status page shows, the page shows the head and the subjects in place of rows, binds only the held subject’s View key, View shows Asks with its ask selected, and an ask names the subject it holds up [2743.57ms]
+(pass) on a next build, a look at the Status that ends while a Status call is out keeps its Seen line, and the answer that lands after it shows above the line [1512.50ms]
+(pass) a release build keys Asks, Finds and PRs 1 to 3, and a saved Status page shows Asks, tells Claude so, starts no look, stays saved, and names no subject an ask holds up [2456.17ms]
+(pass) the Status page says what it is for before the session has any work [1053.25ms]
+(pass) on a next build, seen finished work folds into "N done" with no mark, a press unfolds it to list the finished rows one step in and a second folds it, and j selects the fold so f unfolds it, and desktop’s fold line takes its click [513.66ms]
+
+tests/hooks-status-rows.test.ts:
+(pass) on the Status, where a subject stands goes under its name, wraps to three lines at the docked width and is cut with an ellipsis past them, and a merged line is cut to one line at a phrase, in the terminal and on desktop [2635.28ms]
+(pass) on the Status in the terminal, the rows under a subject hang from its mark, ├─ for each and └─ for the last, and the line runs beside each wrapped line [1200.87ms]
+(pass) on the Status, a rule sets each item apart in the docked terminal and on desktop, and the inline pane draws none [2287.26ms]
+(pass) on the Status, the look line is a dashed rule, unlike the solid rules between items, with a blank line above and below it in the terminal and space above and below it on desktop [1533.71ms]
+
+tests/hooks-stops.test.ts:
+(pass) a stop and an open permission prompt lead the sidebar line until they clear [2509.73ms]
+(pass) a delayed Resume refusal belongs only to the stop and conversation that sent it [1068.02ms]
+(pass) a turn an API error ended shows its stop from the error text in the transcript, and a StopFailure hook that ran keeps its own [1907.72ms]
+
+tests/hooks-tabs-and-footer.test.ts:
+(pass) the pane footer shows the version from the plugin manifest [2177.96ms]
+(pass) the pane footer marks a build that follows the next branch [1041.69ms]
+(pass) /inbox opens on the tab that has rows when the tab it would show is empty [1190.74ms]
+(pass) on a next build, at 20 desktop columns the tabs show their symbols with their counts, at 69 their words, and the Status page draws there [2709.13ms]
+(pass) on a release build, the terminal tabs show their words down to the narrowest pane they fit, docked and inline, and their symbols below it [1661.75ms]
+(pass) on a next build, the terminal tabs show their words down to the narrowest pane they fit, docked and inline, and their symbols below it [1010.80ms]
+(pass) a PR that arrives while the Asks tab is empty moves the pane to the PRs tab [547.10ms]
+(pass) on a release build, the desktop tabs fit one line at the narrowest dock, by their words, and narrower still they wrap, each line within the pane, and a tab on the second line takes its click [459.71ms]
+(pass) on a next build, the desktop tabs fit one line at the narrowest dock, by their words, and narrower still they wrap, each line within the pane, and a tab on the second line takes its click [655.58ms]
+
+tests/hooks-tasks.test.ts:
+(pass) a task handed to Claude folds and leaves the count until Claude’s reply leaves it open, whatever it opens or copies meanwhile [3222.78ms]
+(pass) last actions an earlier build saved convert once by the table, and a task handed off then still folds [1642.27ms]
+
+tests/hooks-turns.test.ts:
+(pass) a turn runs from the main agent’s turn.start to its turn.complete, not for a subagent’s turn, a Done message waits for an interrupted turn to end, and a reload clears it [2885.39ms]
+(pass) once a call from its source raised a Post hook, a call that raised none adds no activity line, a call that ran or failed does, and so does a call to a tool another mod answers, which raises none [1006.37ms]
+(pass) where no Post hook runs, as under the guard, every call adds its activity line [1861.77ms]
+(pass) a reply a step ends on before another step starts reaches the per-turn call, and the last answer is not counted twice [1801.68ms]
+(pass) text a step writes before its tool calls reaches the per-turn call ahead of the final answer [647.50ms]
+(pass) a turn whose last step wrote nothing reaches the per-turn call with its earlier text [609.51ms]
+(pass) text from an interrupted turn stays out of the next turn’s per-turn call [603.41ms]
+
+tests/hooks.test.ts:
+(pass) no two buttons on a row share a hotkey, for every row kind in the demo [8.26ms]
+(fail) on a release build, every row in the demo, on every tab, draws its plan’s buttons in the plan’s order in the terminal and desktop looks, under the build’s tabs [5051.22ms]
+  Error: timed out after 5000 ms
+(pass) on a next build, every row in the demo, on every tab, draws its plan’s buttons in the plan’s order in the terminal and desktop looks, under the build’s tabs [4006.21ms]
+
+tests/host-tasks.test.ts:
+(pass) Claude Code tasks are created, then updated by id, and a TodoWrite call replaces the list [3.60ms]
+(pass) a deleted task leaves the list, and a long list cuts finished tasks before the open ones [0.72ms]
+(pass) the omp list is the newest todo result or /todo edit on the branch [0.50ms]
+(pass) a Codex plan and an omp todo result each give the whole list, and anything else gives none [1.73ms]
+(pass) a saved list keeps only well-formed tasks, and the Status call reads the list only when there is one [1.27ms]
+
+tests/ledger-agent-items.test.ts:
+(pass) items the agent recorded > a CLOSED line closes one only with the person's answer [3.13ms]
+(pass) items the agent recorded > one stays open after 12 prompts, when the update's items expire [0.56ms]
+(pass) items the agent recorded > a NEW line of its kind in the turn it was recorded adds nothing, and one that restates it adds its steps and recommendation [1.17ms]
+(pass) items the agent recorded > a repeat record changes the recommendation to one of the open options and says so [0.48ms]
+(pass) items the agent recorded > a record or close gives the person a line naming what it changed, and none when it changed nothing [0.78ms]
+(pass) items the agent recorded > the agent can record again what it closed, but not what the person or the update closed [0.52ms]
+
+tests/ledger-apply-update.test.ts:
+(pass) applyUpdate > numbers new items, closes answered ones, and remembers the batch [4.84ms]
+(pass) applyUpdate > closes items left unanswered for more than 12 prompts as expired [1.00ms]
+(pass) applyUpdate > merges a reworded copy of an open item instead of adding it [0.95ms]
+(pass) applyUpdate > an UPDATE line gives an open question new options or a recommendation, and leaves tasks alone [1.22ms]
+(pass) applyUpdate > a question naming a different number, or in another script, is not taken for an open one [1.81ms]
+(pass) applyUpdate > an UPDATE keeps a question that a CLOSED line in the same answer names [0.73ms]
+(pass) applyUpdate > questions in the same frame from one batch are all added, and a later turn restating one is not [128.95ms]
+(pass) applyUpdate > does not add an item that is already open [2.18ms]
+(pass) applyUpdate > a NEW line with the id of an item closed during the update as its label is dropped [0.61ms]
+(pass) applyUpdate > a NEW line with the ask of an item closed during the update is dropped [0.59ms]
+(pass) applyUpdate > a NEW line with a restated ask of an item closed during the update is dropped [0.24ms]
+(pass) applyUpdate > a NEW line with the label of an item closed during the update is dropped [1.68ms]
+(pass) applyUpdate > a NEW line with the label of an item closed before the prompt is added [0.31ms]
+(pass) applyUpdate > a NEW line with the ask of an item answered before the prompt is dropped [0.16ms]
+(pass) applyUpdate > a NEW line with an unrelated question is added [1.71ms]
+(pass) applyUpdate > a NEW line with a follow-up in the words of an item answered before the prompt is added [0.98ms]
+(pass) applyUpdate > a follow-up to an answered question is recorded, and a rewording of a dismissed one is not [2.98ms]
+(pass) applyUpdate > a dismissed question blocks a rewording of it, but not a question about something else in the same words [1.91ms]
+(pass) applyUpdate > the inbox model can add a question again with choices after the person answered it with List the choices [0.92ms]
+(pass) applyUpdate > an update that closes an item as no longer applying keeps it open when its reason names nothing that made it moot [0.41ms]
+(pass) applyUpdate > a NEW line with the ask of an item that expired before the prompt is added [0.20ms]
+
+tests/ledger-parse-reply.test.ts:
+(pass) parseReply > reads every key of the line format [11.42ms]
+(pass) parseReply > an answer written after "|" instead of " / " stays an answer, not the recommendation [36.14ms]
+(pass) parseReply > a decide line whose sixth field reads design is a design choice, and a do line never is [0.45ms]
+(pass) parseReply > keeps a recommendation only as the answer it names, by its words or its letter [0.44ms]
+(pass) parseReply > a TODO line becomes a question about starting it, unless it rewords an open finding or the reply did it [14.12ms]
+(pass) parseReply > a key written as "-" adds nothing [0.29ms]
+(pass) parseReply > NONE is a valid answer that changes nothing, and an empty answer is not [1.12ms]
+(pass) parseReply > keeps HELP lines quoted from the reply, attached to the item they name [1.96ms]
+(pass) parseReply > only a command that signs in or asks for a password is the person's to run on its own [4.65ms]
+(pass) parseReply > a terminal step is a command for the person to run, so it copies instead of asking the agent [0.60ms]
+(pass) parseReply > a terminal step in a reply that gives no reason only the person can run it is the agent’s to run [0.75ms]
+(pass) parseReply > reads only the last answer when the model corrects itself and answers again [0.28ms]
+(pass) parseReply > prose that only starts like a key is not a key [0.32ms]
+(pass) parseReply > a step whose command holds "|" keeps the whole command [5.69ms]
+(pass) parseReply > an open step needs a path the reply names on its own, not a bare word [20.41ms]
+(pass) parseReply > HELP "new N" counts every NEW line, including one dropped for having no ask [0.62ms]
+(pass) parseReply > a NEW line that leaves out the label keeps its ask and its steps [16.39ms]
+(pass) parseReply > returns null for prose with no keys [0.75ms]
+
+tests/ledger-reopening.test.ts:
+(pass) reopening > an item goes back in id order, as it was before it closed [2.23ms]
+(pass) reopening > an item whose close record kept no item stays closed [0.26ms]
+(pass) reopening > a closed finding goes back as it was [0.54ms]
+(pass) reopening > closing an id that is already closed says how it closed and changes nothing [0.87ms]
+(pass) reopening > Claude and the per-turn update close findings with how and outcome, and the update closes one only as fixed [1.20ms]
+(pass) reopening > a finding added to a full list closes the oldest as expired, so it stays in Closed [86.55ms]
+(pass) reopening > a finding the person dismissed is not recorded again, but an expired or fixed one is [16.28ms]
+(pass) reopening > a dismissed finding blocks a rewording of it, but not one about a different subject in the same words [8.31ms]
+(pass) reopening > a finding an item asks about closes into that item [1.20ms]
+(pass) reopening > an ASKED line naming no open item leaves the finding open [0.48ms]
+(pass) reopening > a new item that rewords an open finding closes it, and a finding that rewords an open item is not added [0.47ms]
+
+tests/ledger-replaced-findings.test.ts:
+(pass) a finding replaced by a question > an ASKED line for an unrelated item leaves the finding open [3.23ms]
+(pass) a finding replaced by a question > an item labelled with the finding id, or asking from its detail, or naming its PR, takes its place [0.83ms]
+(pass) a finding replaced by a question > an unrelated question sharing common words with a finding does not replace it [0.43ms]
+(pass) a finding replaced by a question > the finding comes back when its question is dismissed, expired, put off or no longer applies [0.85ms]
+(pass) a finding replaced by a question > an update that closes the question as put off brings the finding back [0.34ms]
+(pass) a finding replaced by a question > the finding stays closed when the question is answered or done [0.36ms]
+(pass) a finding replaced by a question > the link survives a save [0.49ms]
+(pass) a finding replaced by a question > a finding saved as "asked as iN" before the link was kept comes back when that question is dismissed [0.28ms]
+(pass) a finding replaced by a question > Fix on a finding closes the question that asks about it [0.48ms]
+(pass) closedState > an item ends handled, dismissed, or lapsed when the work overtook it [0.18ms]
+(pass) upgradeLedger > a ledger saved with a card counts as one update applied, and one saved without counts none [0.19ms]
+(pass) upgradeLedger > a ledger saved before PR orders loads with no order, one saved before reasons loads with no reason and no statuses, and a newer order keeps both [0.33ms]
+(pass) upgradeLedger > converts a ledger saved with `decided` and the kinds decide and do [0.33ms]
+
+tests/ledger-texts.test.ts:
+(pass) answerNote > maps numbered answers to the latest batch by label [2.62ms]
+(pass) answerNote > maps answers written on one line [0.33ms]
+(pass) answerNote > does not read a number mid-sentence as an answer [0.37ms]
+(pass) answerNote > offers the recommendations for a bare "go" [0.46ms]
+(pass) answerNote > ignores numbers once the batch is a turn old [0.18ms]
+(pass) answerNote > says nothing for an ordinary prompt [0.14ms]
+(pass) questionNumbers > numbers questions by their place in the whole batch, as answerNote reads "3. yes" [0.79ms]
+(pass) questionNumbers > numbers only labeled items when any label has a number [0.50ms]
+(pass) questionNumbers > numbers nothing once the batch is a turn old [0.21ms]
+(pass) buildPrompt > a long reply keeps its opening and its closing question, and long activity keeps its latest lines [0.53ms]
+(pass) guidedCloseDescription > stays within the length Claude Code sends of a tool description [0.29ms]
+(pass) carryText > is empty for an empty ledger and lists open items otherwise [0.42ms]
+(pass) the person's own commands > reads a ! command, its output and a slash command from their transcript rows [1.15ms]
+(pass) the person's own commands > a command closes only the task whose step is that exact command [1.29ms]
+(pass) the Herdr status line > names the first waiting item after the count, and what the session is focused on when nothing waits [11.93ms]
+(pass) the Herdr status line > puts a stop and its fix first, then an open dialog [1.08ms]
+(pass) the Herdr status line > tells a reached usage limit, with its reset time, from a busy server [6.36ms]
+(pass) parseInline > reads bold, italic, strikethrough, code and https links, and leaves unmatched markers as text [4.23ms]
+
+tests/presses.test.ts:
+(pass) openTarget opens http and https links, and reads any other target as a path [2.58ms]
+
+tests/prs.test.ts:
+(pass) prs > a review comment reads without the HTML and badges review bots add [8.16ms]
+(pass) prs > a PR press quotes each review comment line and clips a long comment [1.34ms]
+(pass) prs > finds PR links once each [1.22ms]
+(pass) prs > reads checks and open threads; threads where someone else spoke last block the merge [1.65ms]
+(pass) prs > a check run again on the same commit reads as its latest run, so a passing re-run clears an earlier failure and a failing re-run keeps it [0.87ms]
+(pass) prs > an outdated thread waits again when someone replies after the latest commit [3.03ms]
+(pass) prs > a thread sent to Claude stops waiting on the person and waits on others; a failing check always waits [1.33ms]
+(pass) prs > PRs that wait on the person come first, then those waiting on others, then finished ones, newest first within each, and an order puts its open PRs first [1.21ms]
+
+tests/session-pr-order-and-fetch.test.ts:
+(pass) an order_prs call ranks its PRs above the rest, links one the session lacks past the PR limit, ranks a merged PR no longer, keeps a dismissed PR’s place for Undo, and an empty call clears it [48.23ms]
+(pass) an order reads as changed once a ranked open PR is newly blocked, gains a waiting thread or failing check, or becomes ready, and Rank again asks the agent to rank its open PRs again until a new order replaces it [2.70ms]
+(pass) a fetch of many PRs runs at most GH_RUNS_AT_ONCE gh runs at once, and reads every PR [1.64ms]
+(pass) PRs are due for a fetch 15 seconds after the last once the agent replied since it, and otherwise after 2 minutes [0.35ms]
+(pass) a fetch a press asks for while another runs starts once that one ends, and presses during one fetch share the next [0.78ms]
+
+tests/session-presses.test.ts:
+(pass) a refused Done message leaves its row reading Not sent, with Undo [5.94ms]
+(pass) Compare reads Comparing… after its reply until the agent records the question again with its page, or until its limit passes [77.60ms]
+(pass) while a press is out, its button stays out and a second press sends nothing, even when a newer note shows on the row [6.42ms]
+(pass) Resolve conflicts and Fix check the PR on GitHub first, reading Refreshing at once, and send nothing once the problem is gone [8.94ms]
+(pass) Resolve conflicts and Fix send their message when the PR on GitHub still has the problem, after an earlier press of the same fix [3.11ms]
+(pass) a fix press whose check of the PR fails sends nothing and says why on its row [1.17ms]
+
+tests/session-status-calls.test.ts:
+(pass) a Status answer is written to the ledger after later updates and clears a saved failure, and both are dropped when their update is gone [6.38ms]
+(pass) a session whose only record is a Status has a ledger, is not unseen, is copied by a fork and is cleared [0.73ms]
+(pass) the Status page is empty for a new session, and while its first turn runs, until the Status has a head [2.33ms]
+(pass) a running turn claims a Status call once the wait has passed since it started and since the last call, claims it once, and an idle session never does [0.63ms]
+(pass) a claimed Status call reads the running turn’s work with no reply and writes its answer, and a turn that ended first is left to the call after its reply [2.03ms]
+(pass) a next build records a Status call in a file of its own: the exact prompt and system text, each answer, and the Status after [4.02ms]
+(pass) a failed Status call’s record holds the error the host reported, and a record that cannot be written leaves the update in place [0.79ms]
+(pass) a session keeps the records of its newest 100 Status calls, and a session whose last call is 14 days old loses its records [6.32ms]
+(pass) a failed Status call shows in the status line on the Status tab, in place of a failed update, and on no other tab [0.48ms]
+
+tests/session-status-page-and-prune.test.ts:
+(pass) the Status page draws each status with its mark and tone, and ◆ on a subject an open ask holds up, whose Asks row names it until the subject closes [74.06ms]
+(pass) a session saved by the Progress trial build loads without its results, subagents and stated step [5.12ms]
+(pass) a sample saved without a Status is replaced, and the sample session carries its own [5.57ms]
+(pass) a conversation start carries the head and where each open subject stands, not on a resume the guidance, and nothing for an empty session [0.54ms]
+(pass) an applied model answer that changes nothing still makes the session seen, and a fork takes the parent task list [1.28ms]
+(pass) a prune keeps the closed records of held rows and of rows closed since the showing began, a linked PR’s view, and a dismissed PR’s view only while the showing that dismissed it lasts [2.50ms]
+
+tests/session.test.ts:
+(pass) one scripted session runs through the shared session functions [34.37ms]
+(pass) a command that prints local URLs notes each once, and gh pr create links the PR it names [1.83ms]
+(pass) a PR already linked keeps its place when gh pr create names it again with a new one [0.24ms]
+(pass) a failed update catches up over the whole conversation instead of retrying its exchange [5.42ms]
+(pass) a conversation that cannot be read runs the pending exchanges, and ends the run when none are left [63.85ms]
+(pass) a catch-up that gets no usable answer ends the run, and the next update tries it again [0.57ms]
+(pass) an exchange that ends during a catch-up is still run afterward [0.87ms]
+(pass) a dropped reply keeps the warning through later good updates, until a catch-up covers it [1.92ms]
+(pass) the conversation keeps its newest lines when it is too long, and leaves out the inbox notes [0.55ms]
+
+tests/status-bar.test.ts:
+(pass) a planted failure blocks its replay step when most runs show it, and good runs block nothing [167.13ms]
+(pass) the old bar flips a step at a 20% rate one time in ten, as the eval plan computed [0.64ms]
+(pass) each layer blocks at the counts the eval plan computed [3.36ms]
+(pass) a test that can never block says so, and the interval brackets the observed rate [2.15ms]
+
+tests/status-children.test.ts:
+(pass) the call reads open subjects with ids, finished ones by name, and running children with their links [5.57ms]
+(pass) a child the host reports again keeps its id and link, and old ended children are let go [3.04ms]
+(pass) running children sit under their subject, at most three, each tied to it and the last ending its tree, and one with no recent activity still moves and shows no words, as its subject does [7.43ms]
+(pass) a working subject with a child at work draws the running mark, and one with nothing running draws ◐ and stands still [0.64ms]
+(pass) a delegate says what Herdr shows: nothing while it works, waiting while blocked, and finished from when it is ready until the person has looked, its subject moved above the Seen line, and one Herdr no longer lists leaves [1.61ms]
+(pass) a rule sets each item on the page apart: a subject and the rows under it are one item, and the look line takes none beside it [0.63ms]
+(pass) a child whose host reports no activity moves and shows no words for as long as it runs [0.49ms]
+(pass) past six open subjects, the page folds the ones it draws last into one "N more" row: queued first, then waiting on others [0.98ms]
+(pass) a subject an ask holds up or that changed since the last look never folds, so more than six can show, and a page never looked at folds nothing [1.33ms]
+(pass) a subject with a child row under it never folds, so its child stays under it, and more than six can show [1.43ms]
+
+tests/status-evals-known-failing.test.ts:
+(pass) #137: work filed for later draws its own mark and folds apart from the done count, which fails until #137 is built [2.90ms]
+(pass) #138: every piece finished since the last look is drawn as a row, which fails until #138 is built [0.52ms]
+(pass) #139: a look marks as seen only the rows that were on screen, which fails until #139 is built [0.33ms]
+(pass) #140: one ask holds up two subjects, and both show ◆, which fails until #140 is built [1.29ms]
+(pass) #149: a delegate with no published focus shows its name in words, which fails until #149 is built [0.45ms]
+
+tests/status-evals.test.ts:
+(pass) every fixed rule passes a good page and fails a bad one [79.46ms]
+(pass) a good run of each replay passes every rule that is built, at every step [164.73ms]
+(pass) a bad run of each replay fails the rule it breaks at the step it breaks, and nothing before [57.97ms]
+(pass) a failure left on the page counts once, at the step where it first appears, and later steps carry it [42.83ms]
+(pass) every replay is well formed: times rise, facts name known pieces, asks open before they close, and each target or known failing judge check is a check its step runs [14.82ms]
+(pass) a replay from a call record sends the prompt the record holds, at the time it ran [1.10ms]
+(pass) an answer past the host limit is dropped as the host drops it, and the page says the update failed [0.58ms]
+(pass) the judge answer parser reads one verdict per check and refuses a missing or doubled one [0.56ms]
+(pass) a page is called right only when the judge fails just the check a bad page breaks [0.34ms]
+(pass) the facts read the same pieces, asks and running work the judge is told about [0.50ms]
+(pass) the head is a title and a one-line description [0.27ms]
+
+tests/status-goal-ops.test.ts:
+(pass) reads GOAL, MILESTONE and SERVES lines, leaving out a proposed milestone with no known status [111.12ms]
+(pass) a GOAL line proposes and never sets the goal, and one with under two milestones, the current goal or a declined one, however long, is not proposed [3.23ms]
+(pass) Set as goal takes the proposed milestones with their states, and Not now remembers the goal [0.72ms]
+(pass) milestones need a goal, move by id under the rewording hold, and stop at five [2.27ms]
+(pass) SERVES links a subject to a milestone or to none, and LINK can hold up a milestone [0.46ms]
+(pass) the goal is met once every milestone left is done, and unmet when one opens again [0.98ms]
+(pass) a typed goal unlinks every subject and waits until an answer from a call that read it keeps a milestone, and a rewording keeps its milestones and links and sends nothing [2.60ms]
+(pass) the answer that reads a typed goal keeps the milestones it names, and the dropped and unnamed ones of the goal before go and never fill its five places [0.99ms]
+(pass) a goal typed over a proposal declines it, one with the proposal’s words uses the proposal and its milestones, and Set as goal links no subject yet [1.14ms]
+(pass) the replaced goal's was line goes once the person has looked [0.31ms]
+(pass) the call reads the goal, its milestones, each subject's link and the declined goals, and a copy of the system text can leave out any one goal rule [21.58ms]
+
+tests/status-goal-page.test.ts:
+(pass) a proposal shows above the head, with its milestones, until the person answers it [4.53ms]
+(pass) a proposal made while a goal is set reads as a new goal, and its buttons come after the goal’s and its milestones’ rows in the order j and k move [2.17ms]
+(pass) a goal shows how far the work is after its text, its Edit comes before its milestones in the order j and k move, and the head draws as its Now line [0.92ms]
+(pass) work that serves a milestone draws under it one step in, and work the goal does not need sits under Other work, where seen rows fold into a count for each mark [1.11ms]
+(pass) finished work under a milestone shows as a row until the person looks, then folds into the milestone’s count [83.35ms]
+(pass) a subject not linked yet stays in the main list, and nothing splits without a goal [3.27ms]
+(pass) a typed goal waits for its milestones, and a goal whose milestones are all done reads met [2.99ms]
+(pass) an ask linked to a milestone names it as what it holds up, and milestones made with the goal draw as unchanged [17.06ms]
+(pass) the look line that would end the main list gives way to the Other work rule [0.55ms]
+
+tests/status-head.test.ts:
+(pass) a HEAD that keeps the title, or that comes with work finished from under way and none left, keeps the head [4.43ms]
+(pass) a head whose description names work that just finished, while other work goes on, takes a new one or loses it [0.66ms]
+(pass) a SET that keeps the status keeps the old text and age only when its content words are the same [0.51ms]
+
+tests/status-parse-and-ops.test.ts:
+(pass) NO CHANGE keeps the list, and an empty answer or one holding prose cannot be read [3.67ms]
+(pass) reads each operation, tolerating bullets, and takes SET with done as DONE [0.57ms]
+(pass) code dates each change, and a NEW for an open subject changes that subject instead [0.66ms]
+(pass) a LINK ties a running child or an open ask to a subject, even one the same answer adds, and an ask that is not open to none [0.39ms]
+(pass) a subject folded into another passes its linked asks to it [0.21ms]
+(pass) a DONE may name a subject the same answer adds, even a name longer than the list keeps [0.32ms]
+(pass) a DROP INTO folds a subject into another, which names it, and a WAS keeps the replaced plan until the person has seen it [0.68ms]
+
+tests/status-saved.test.ts:
+(pass) a Status saved before subjects keeps its open work, dated at the last look, and its headline as the head [3.13ms]
+(pass) a goal string an earlier model wrote becomes the head with no description and never the goal, and a saved head keeps both lines [0.71ms]
+(pass) a saved Status drops subjects and children it cannot read, reads a delegate state it does not know as none, and nothing else is a Status [0.84ms]
+(pass) a Status saved before the goal loads with no goal, milestones, proposal or links [0.32ms]
+(pass) a saved goal keeps its milestones and proposal, and drops what it cannot read or what links to nothing [0.61ms]
+(pass) a goal with no text or time is no goal [0.27ms]
+
+tests/status.test.ts:
+(pass) a look keeps the look line where it was until the look ends, and counts only once the Status showed for five seconds [4.27ms]
+(pass) an open row below the look line keeps where it stands but not its was line [77.46ms]
+(pass) each side of the look line lists held, working, waiting, queued, then finished rows, newest change first within each [0.61ms]
+(pass) only a subject an open ask holds up reads waiting, in the needs-you tone, with no time, and one waiting on someone else shows no word [0.60ms]
+(pass) a name before its stall word is cut at a word with an ellipsis until both fit, and keeps its first word when nothing fits [0.32ms]
+(pass) a merged line is cut at the last phrase that fits, and keeps its first phrase whole when none fits [0.46ms]
+(pass) an open ask linked to an open subject marks it ◆ and stops its running mark until the ask closes, and the call reads each ask with its link [1.02ms]
+(pass) a subject that open asks hold up offers View on the oldest ask, named for its kind, an ask with no time counting as oldest, and no button once the asks close [0.87ms]
+(pass) with no look yet every row is new, so the page draws no look line and shows where each stands [0.23ms]
+(pass) a page with no head and no rows shows its empty state, even while a turn runs [0.16ms]
+(pass) finished work folds into a count once seen, keeping at most two new finished rows [0.27ms]
+(pass) the Help legend explains every mark a row or group title draws, once each [0.21ms]
+
+tests/view.test.ts:
+(pass) a row’s follow-ups stay on its buttons’ last line only when all of them fit there, and otherwise start the next line together [3.26ms]
+
+ 369 pass
+ 1 fail
+Ran 370 tests across 60 files. [52.86s]

@@ -1,0 +1,45 @@
+                                                                                              │                                                                         ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/8041009f/tmp/k4-cwd · /rc                                           │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/8041009f/tmp/logs/orderB-debug.log  │c6 inbox
+                                                                                              │ ╭───────────────────────────────────────────────────────────────────────╮
+❯ /inbox demo                                                                                 │ │ Sample entries. Buttons here send nothing.              [ Hide demo ] │
+  ⎿  inbox: Showing sample entries in the inbox. Run /inbox demo again to go back.            │ ╰───────────────────────────────────────────────────────────────────────╯
+                                                                                              │
+❯ /grid split -h                                                                              │ ▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │   Asks 7     Finds 4     PRs 1
+                                                                                              │─▀▀▀▀▀▀▀▀▀▀─▀▀▀▀▀▀▀▀▀▀▀─▀▀▀▀▀▀▀▀▀──────────────────────────────────────────
+❯ /grid select main                                                                           │
+  ⎿  pane-grid: showing main                                                                  │   ▲ Issues · 2
+                                                                                              │   │
+❯ /grid zoom                                                                                  │ ▌ │
+  ⎿  pane-grid: zoomed c6                                                                     │ ▌ ├─ Pinned glances drift in a dim room                              32m
+                                                                                              │ ▌ │
+❯ /grid zoom                                                                                  │ ▌ │  Anchoring trusts the camera’s position even when tracking is poor,
+  ⎿  pane-grid: unzoomed                                                                      │ ▌ │  so in a dim room a pinned glance slides a few centimeters a minute.
+                                                                                              │ ▌ │
+❯ /grid place inbox                                                                           │ ▌ │  Relevant file: anchors.ts
+  ⎿  pane-grid: placed inbox in c6                                                            │ ▌ │
+                                                                                              │ ▌ │  a: Fix  i: File issue  ·  t: Reply  e: Explain  d: Discuss  Dismiss
+❯ /grid resize 30                                                                             │ ▌ │
+  ⎿  pane-grid: resized c6 to 30%                                                             │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │   └─ Snoozed glances come back after a restart                       47m
+❯ /grid zoom                                                                                  │
+  ⎿  pane-grid: zoomed c6                                                                     │      ▸ 1 closed
+                                                                                              │
+                                                                                              │
+                                                                                              │   ✦ Opportunities · 2
+                                                                                              │   │
+                                                                                              │   ├─ Glances could re-sort only when one moves                        2h
+                                                                                              │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │   └─ Pinch and flick could share one gesture handler                  3h
+                                                                                              │
+                                                                                              │  Help                                                             v0.3.0
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k8 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)

@@ -1,0 +1,322 @@
+===== A0-md-own-pane
+                                                                                              │ main   Markdown                                                         ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │[ Prev ] [ Next ] [ Before ] [ Render ] [ Text ] [ Browser ] [ Close ]
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │sample.md  1/1
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │ Sample
+                                                                                              │ ────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderA.log             │
+                                                                                              │ This is the k3 sample file.
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │ • one
+     again · t: page/text · q: close                                                          │ • two
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+  tmux focus-events off · add 'set -g focus-events on' to ~/.tmux.conf and reattach for foc…  │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 3 agents
+===== A1-split-choices
+                                                                                              │ main   Markdown                                                         ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderA.log             │c3 pending-questions                 │c5 -
+                                                                                              │Mode: manual [ Switch to auto ]      │empty. place a mod here:
+❯ /md                                                                                         │[ Rescan last response ]             │1: filetree (move from c4)
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │                                     │2: image-view
+     again · t: page/text · q: close                                                          │No pending questions.                │3: md-preview
+                                                                                              │                                     │4: pending-questions (move from c3)
+❯ /grid split -h                                                                              │                                     │5: token-optimizer
+  ⎿  pane-grid: split c3 into c3 and c5                                                       │                                     │6: uhd-kanban (move from c2)
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+❯ /grid select main                                                                           │c4 filetree
+  ⎿  pane-grid: showing main                                                                  │ work                                            󱧳              
+                                                                                              │
+                                                                                              │
+                                                                                              │ search                                                          Aa .* 󰦪
+                                                                                              │    Name                                                         Modified
+                                                                                              │  󰍔 sample.md                                            2026-11-10 15:47
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │?: shortcuts
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+                                                                                              │c2 uhd-kanban
+                                                                                              │보드를 읽는 중이다
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+                                                                                              │c1 usage-gauge
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 3 agents
+===== A1-split
+                                                                                              │ main   Markdown                                                         ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │[ Prev ] [ Next ] [ Before ] [ Render ] [ Text ] [ Browser ] [ Close ]
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │sample.md  1/1
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │ Sample
+                                                                                              │ ────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderA.log             │
+                                                                                              │ This is the k3 sample file.
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │ • one
+     again · t: page/text · q: close                                                          │ • two
+                                                                                              │
+❯ /grid split -h                                                                              │
+  ⎿  pane-grid: split c3 into c3 and c5                                                       │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 3 agents
+===== A2-place
+                                                                                              │                                                                         ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderA.log             │c3 pending-questions                 │c5 md-preview
+                                                                                              │Mode: manual [ Switch to auto ]      │[ Prev ] [ Next ] [ Before ]
+❯ /md                                                                                         │[ Rescan last response ]             │[ Render ] [ Text ] [ Browser ]
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │                                     │sample.md  1/1
+     again · t: page/text · q: close                                                          │No pending questions.                │ Sample
+                                                                                              │                                     │ ────────
+❯ /grid split -h                                                                              │                                     │
+  ⎿  pane-grid: split c3 into c3 and c5                                                       │                                     │ This is the k3 sample file.
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+❯ /grid select main                                                                           │c4 filetree
+  ⎿  pane-grid: showing main                                                                  │ work                                            󱧳              
+                                                                                              │
+❯ /grid place md-preview c5                                                                   │
+  ⎿  pane-grid: placed md-preview in c5                                                       │ search                                                          Aa .* 󰦪
+                                                                                              │    Name                                                         Modified
+                                                                                              │  󰍔 sample.md                                            2026-11-10 15:47
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │?: shortcuts
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+                                                                                              │c2 uhd-kanban
+                                                                                              │보드를 읽는 중이다
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+                                                                                              │c1 usage-gauge
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 3 agents
+===== A3-md-while-placed
+                                                                                              │                                                                         ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderA.log             │c3 pending-questions                 │c5 md-preview
+                                                                                              │Mode: manual [ Switch to auto ]      │[ Prev ] [ Next ] [ Before ]
+❯ /md                                                                                         │[ Rescan last response ]             │[ Render ] [ Text ] [ Browser ]
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │                                     │sample.md  1/1
+     again · t: page/text · q: close                                                          │No pending questions.                │ Sample
+                                                                                              │                                     │ ────────
+❯ /grid split -h                                                                              │                                     │
+  ⎿  pane-grid: split c3 into c3 and c5                                                       │                                     │ This is the k3 sample file.
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+❯ /grid select main                                                                           │c4 filetree
+  ⎿  pane-grid: showing main                                                                  │ work                                            󱧳              
+                                                                                              │
+❯ /grid place md-preview c5                                                                   │
+  ⎿  pane-grid: placed md-preview in c5                                                       │ search                                                          Aa .* 󰦪
+                                                                                              │    Name                                                         Modified
+❯ /md                                                                                         │  󰍔 sample.md                                            2026-11-10 15:47
+  ⎿  md-preview: sample.md, in the pane-grid cell c5 of main.                                 │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │?: shortcuts
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+                                                                                              │c2 uhd-kanban
+                                                                                              │보드를 읽는 중이다
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+                                                                                              │c1 usage-gauge
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 3 agents
+===== A4-resize
+                                                                                              │                                                                         ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderA.log             │c3 pending-questions                                │c5 md-preview
+                                                                                              │Mode: manual [ Switch to auto ]                     │[ Prev ] [ Next ]
+❯ /md                                                                                         │[ Rescan last response ]                            │[ Before ] [ Render ]
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │                                                    │[ Text ] [ Browser ]
+     again · t: page/text · q: close                                                          │No pending questions.                               │sample.md  1/1
+                                                                                              │                                                    │ Sample
+❯ /grid split -h                                                                              │                                                    │ ────────
+  ⎿  pane-grid: split c3 into c3 and c5                                                       │                                                    │
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+❯ /grid select main                                                                           │c4 filetree
+  ⎿  pane-grid: showing main                                                                  │ work                                            󱧳              
+                                                                                              │
+❯ /grid place md-preview c5                                                                   │
+  ⎿  pane-grid: placed md-preview in c5                                                       │ search                                                          Aa .* 󰦪
+                                                                                              │    Name                                                         Modified
+❯ /md                                                                                         │  󰍔 sample.md                                            2026-11-10 15:47
+  ⎿  md-preview: sample.md, in the pane-grid cell c5 of main.                                 │
+                                                                                              │
+❯ /grid resize 30                                                                             │
+  ⎿  pane-grid: resized c5 to 30%                                                             │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │?: shortcuts
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+                                                                                              │c2 uhd-kanban
+                                                                                              │보드를 읽는 중이다
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+                                                                                              │c1 usage-gauge
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 3 agents
+===== A5-emptied
+                                                                                              │ main   Markdown                                                         ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │[ Prev ] [ Next ] [ Before ] [ Render ] [ Text ] [ Browser ] [ Close ]
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │sample.md  1/1
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │ Sample
+                                                                                              │ ────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/orderA.log             │
+                                                                                              │ This is the k3 sample file.
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │ • one
+     again · t: page/text · q: close                                                          │ • two
+                                                                                              │
+❯ /grid split -h                                                                              │
+  ⎿  pane-grid: split c3 into c3 and c5                                                       │
+                                                                                              │
+❯ /grid select main                                                                           │
+  ⎿  pane-grid: showing main                                                                  │
+                                                                                              │
+❯ /grid place md-preview c5                                                                   │
+  ⎿  pane-grid: placed md-preview in c5                                                       │
+                                                                                              │
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md, in the pane-grid cell c5 of main.                                 │
+                                                                                              │
+❯ /grid resize 30                                                                             │
+  ⎿  pane-grid: resized c5 to 30%                                                             │
+                                                                                              │
+❯ /grid place - c5                                                                            │
+  ⎿  pane-grid: emptied c5                                                                    │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 3 agents

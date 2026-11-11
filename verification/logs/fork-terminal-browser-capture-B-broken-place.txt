@@ -1,0 +1,45 @@
+                                                                                              │ main   k1   k2b   k2x                                                   ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/650c88ce/tmp/work · /rc                                             │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/650c88ce/tmp/logs/orderB-broken.log │c11 terminal-browser
+                                                                                              │terminal-browser is not loaded, or its hooks/pane-grid.ts is older than
+❯ /grid new k2x                                                                               │pane-grid 0.3.0
+  ⎿  pane-grid: opened tab k2x                                                                │
+                                                                                              │
+❯ /grid select k2x                                                                            │
+  ⎿  pane-grid: showing k2x                                                                   │
+                                                                                              │
+❯ /grid place terminal-browser                                                                │
+  ⎿  pane-grid: placed terminal-browser in c11                                                │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k2 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)

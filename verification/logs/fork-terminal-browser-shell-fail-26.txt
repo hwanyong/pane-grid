@@ -1,0 +1,26 @@
+✖ a click outside closes the model menu, a right click elsewhere moves the menu, and a click on the line moves zsh's cursor where the terminal reports it
+✖ a full-screen program starting closes the bar, and the bar never opens over one
+✖ a full-screen program starting closes the model menu, the popup and the right-click menu, and nothing comes back after it
+✖ a resize while the bar shows leaves no stray placeholders, and closing it then restores the reflowed screen
+✖ after a clear every row is pxsh's own, so the bar opens above a prompt at the bottom as it always did
+✖ after a resize reflows long old lines, pxsh asks again where the cursor is and the bar still opens at the prompt
+✖ clicking a completion row below the prompt inserts it
+✖ clicking the model picker opens it, and clicking another model switches the bar to it, even though Ghostty 1.3 keeps the release of a click below the prompt
+✖ cmd+shift+e opens the bar, focuses it again with its text kept, and does nothing while it has focus
+✖ ctrl+space opens zsh's completion at the caret, history rows first, without covering the line
+✖ enter or tab while the completion popup shows is the popup's, even with nothing to accept (kitty keys)
+✖ enter or tab while the completion popup shows is the popup's, even with nothing to accept (legacy keys)
+✖ escape closes the innermost open thing one layer per press and never reaches zsh while pxsh's UI shows (kitty keys)
+✖ escape closes the innermost open thing one layer per press and never reaches zsh while pxsh's UI shows (legacy keys)
+✖ gui undo and redo move a word at a time through zle's own undo history
+✖ opening and closing the bar leaves every cell, the cursor and the pen as they were
+✖ page keys with or without shift scroll the answer
+✖ started below old output, clicks on the bar's buttons work at the rows the bar is drawn at
+✖ started below old output, cmd+shift+e opens the bar at the prompt, and closing it leaves every old line in place
+✖ started below old output, ctrl+space opens the popup with its corner at the real caret
+✖ the AI bar opens over the prompt, writes the model's command onto the line, runs it, and leaves no trace when it closes
+✖ the model menu takes arrows and enter, and alt+p or a click opens and closes it (kitty keys)
+✖ the model menu takes arrows and enter, and alt+p or a click opens and closes it (legacy keys)
+✖ the send, stop and close buttons work by click below the prompt
+✖ when the terminal never says where the cursor is, pxsh starts on the bottom row and the bar still opens at the prompt
+✖ while pxsh's UI shows, a right click opens its menu there, and its items work

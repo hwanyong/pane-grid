@@ -1,0 +1,45 @@
+                                                                                              │ main   k2   Example Domain                                              ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │
+ ▝▝   ▝▝   ~/.claude/jobs/650c88ce/tmp/work · /rc                                             │
+                                                                                              │
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/650c88ce/tmp/logs/orderA.log        │
+                                                                                              │
+❯ /grid select k2                                                                             │
+  ⎿  pane-grid: no tab k2                                                                     │
+                                                                                              │
+❯ /browser example.com                                                                        │
+  ⎿  terminal-browser: Opened terminal-browser                                                │
+                                                                                              │
+⏺ terminal-browser: terminal-browser: frame blit refused: the Image draws its alt             │
+  here: tmux does not know which terminal is outside it, so Claude Code draws no              │
+  images here: attach tmux from kitty 0.28 or later, Ghostty, or iTerm2 3.5 or later,         │
+  run `tmux set -g allow-passthrough on` and `tmux set -g focus-events on`, detach and        │
+  attach again, then restart Claude Code                                                      │
+                                                                                              │
+❯ /grid new k2                                                                                │
+  ⎿  pane-grid: opened tab k2                                                                 │
+                                                                                              │
+❯ /grid select k2                                                                             │
+  ⎿  pane-grid: showing k2                                                                    │
+                                                                                              │
+❯ /grid split -h                                                                              │
+  ⎿  pane-grid: split c6 into c6 and c7                                                       │
+                                                                                              │
+❯ /grid place terminal-browser                                                                │
+  ⎿  pane-grid: placed terminal-browser in c7                                                 │
+                                                                                              │
+❯ /grid resize 30                                                                             │
+  ⎿  pane-grid: resized c7 to 30%                                                             │
+                                                                                              │
+❯ /grid place -                                                                               │
+  ⎿  pane-grid: emptied c7                                                                    │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 1 agent

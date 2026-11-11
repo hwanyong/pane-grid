@@ -1,0 +1,30 @@
+2026-11-10T23:06:43.413Z [DEBUG] hooks module md-preview@inline loaded (worker, environment 2, tier user); events: session.start,turn.start,turn.complete,tool.call,command.run,ui.render,state.set
+2026-11-10T23:06:44.509Z [DEBUG] ui.open pane-grid grid-main (unasked, 170 columns): placed
+2026-11-10T23:06:44.510Z [DEBUG] ui.open pane-grid grid-k1 (unasked, 170 columns): placed
+2026-11-10T23:06:44.527Z [DEBUG] ui.open pane-grid grid-k2b (unasked, 170 columns): placed
+2026-11-10T23:06:44.528Z [DEBUG] ui.open pane-grid grid-k2x (unasked, 170 columns): placed
+2026-11-10T23:07:07.567Z [DEBUG] ui.open pane-grid grid-main (asked, 170 columns): placed
+2026-11-10T23:07:07.568Z [DEBUG] ui.open pane-grid grid-k1 (asked, 170 columns): placed
+2026-11-10T23:07:07.569Z [DEBUG] ui.open pane-grid grid-k2b (asked, 170 columns): placed
+2026-11-10T23:07:07.571Z [DEBUG] ui.open pane-grid grid-k2x (asked, 170 columns): placed
+2026-11-10T23:07:07.571Z [DEBUG] ui.open pane-grid grid-k3 (asked, 170 columns): placed
+2026-11-10T23:07:07.573Z [DEBUG] ui.open pane-grid grid-k3 (asked, 170 columns): placed
+2026-11-10T23:07:07.574Z [DEBUG] hooks module pane-grid@inline, md-preview@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 33.7ms (worker hop, next() included)
+2026-11-10T23:07:53.497Z [DEBUG] hooks module pane-grid@inline, md-preview@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 28.6ms (worker hop, next() included)
+2026-11-10T23:08:34.001Z [DEBUG] hooks module md-preview@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 24.4ms (worker hop, next() included)
+2026-11-10T23:09:01.087Z [DEBUG] hooks module pane-grid@inline, md-preview@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 33.1ms (worker hop, next() included)
+2026-11-10T23:09:16.578Z [DEBUG] hooks module pane-grid@inline, md-preview@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 27.1ms (worker hop, next() included)
+2026-11-10T23:09:51.140Z [DEBUG] ui.open md-preview md-preview (unasked, 170 columns): placed
+2026-11-10T23:09:51.145Z [DEBUG] hooks module pane-grid@inline, md-preview@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 36.3ms (worker hop, next() included)
+2026-11-10T23:10:18.203Z [DEBUG] ui.open pane-grid grid-k3 (asked, 170 columns): placed
+2026-11-10T23:10:18.210Z [DEBUG] hooks module pane-grid@inline, md-preview@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 24.6ms (worker hop, next() included)
+2026-11-10T23:10:36.919Z [DEBUG] ui.open pane-grid grid-main (asked, 170 columns): placed
+2026-11-10T23:10:36.919Z [DEBUG] ui.open pane-grid grid-k1 (asked, 170 columns): placed
+2026-11-10T23:10:36.920Z [DEBUG] ui.open pane-grid grid-k2b (asked, 170 columns): placed
+2026-11-10T23:10:36.920Z [DEBUG] ui.open pane-grid grid-k2x (asked, 170 columns): placed
+2026-11-10T23:10:36.920Z [DEBUG] ui.open pane-grid grid-k2x (asked, 170 columns): placed
+2026-11-10T23:10:36.924Z [DEBUG] hooks module pane-grid@inline, md-preview@inline, usage-gauge@usage-gauge, uhd-kanban@skill-kanban, pending-questions@pending-questions, filetree@claude-code-filetree command.run settled in 39.1ms (worker hop, next() included)
+2026-11-10T23:10:52.830Z [DEBUG] ui.open pane-grid grid-main (unasked, 170 columns): placed
+2026-11-10T23:10:52.831Z [DEBUG] ui.open pane-grid grid-k1 (unasked, 170 columns): placed
+2026-11-10T23:10:52.831Z [DEBUG] ui.open pane-grid grid-k2b (unasked, 170 columns): placed
+2026-11-10T23:10:52.831Z [DEBUG] ui.open pane-grid grid-k2x (unasked, 170 columns): placed

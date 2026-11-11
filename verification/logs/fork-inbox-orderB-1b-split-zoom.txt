@@ -1,0 +1,45 @@
+                                                                                              │ main [Z]   Inbox                                                        ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/8041009f/tmp/k4-cwd · /rc                                           │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/8041009f/tmp/logs/orderB-debug.log  │c6 -
+                                                                                              │empty. place a mod here:
+❯ /inbox demo                                                                                 │1: filetree (move from c4)
+  ⎿  inbox: Showing sample entries in the inbox. Run /inbox demo again to go back.            │2: image-view
+                                                                                              │3: pending-questions (move from c3)
+❯ /grid split -h                                                                              │4: token-optimizer
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │5: uhd-kanban (move from c2)
+                                                                                              │6: usage-gauge (move from c1)
+❯ /grid select main                                                                           │7: inbox
+  ⎿  pane-grid: showing main                                                                  │
+                                                                                              │
+❯ /grid zoom                                                                                  │
+  ⎿  pane-grid: zoomed c6                                                                     │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Demo: Asks 7 · Finds 4                                       [ Hide demo ] [ Open inbox ] [-] │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k8 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)

@@ -1,0 +1,36 @@
+# grep -E 'K2PROBE (draw|size|scroll|browserClosed)|answered ui.scroll|ui.scroll Pane|hook skipped|hooks module (pane-grid|terminal-browser)@inline loaded' orderA2.log
+2026-11-10T22:54:20.114Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 1, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-10T22:54:20.131Z [DEBUG] hooks module terminal-browser@inline loaded (worker, environment 2, tier user); events: engine.create,browser.open,browser.close,session.start,command.run,tool.call,ui.render,state.set,ui.message,ui.scroll,ui.close
+2026-11-10T22:55:14.894Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2a 37x33 open=true
+2026-11-10T22:55:14.919Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE size grid-k2a 37x33
+2026-11-10T22:55:14.952Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2a 37x33 open=true
+2026-11-10T22:55:15.553Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2a 37x33 open=true
+2026-11-10T22:55:15.657Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2a 37x33 open=true
+2026-11-10T22:55:16.258Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2a 37x33 open=true
+2026-11-10T22:55:37.258Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE scroll grid-k2a scrolldown x=16 y=13
+2026-11-10T22:55:37.260Z [DEBUG] terminal-browser (user) answered ui.scroll without next() in 3.0ms; nothing beneath it ran for this dispatch
+2026-11-10T22:55:37.260Z [DEBUG] ui.scroll Pane grid-k2a (person) by 1 to 0: moved
+2026-11-10T22:55:37.285Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2a 37x33 open=true
+2026-11-10T22:55:37.961Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2a 37x33 open=true
+2026-11-10T22:55:42.803Z [DEBUG] pane-grid (user) answered ui.scroll without next() in 1.6ms; nothing beneath it ran for this dispatch
+2026-11-10T22:55:42.803Z [DEBUG] ui.scroll Pane grid-k2a (person) by 1 to 0: moved
+2026-11-10T22:55:42.807Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2a 37x33 open=true
+2026-11-10T22:55:46.344Z [DEBUG] ui.scroll Pane grid-k2a (person) by 1 to 0: moved
+2026-11-10T22:55:52.801Z [DEBUG] pane-grid (user) answered ui.scroll without next() 1 more times in the last 10s (the last in 0.6ms)
+2026-11-10T22:56:07.867Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE scroll grid-k2a scrollup x=6 y=23
+2026-11-10T22:56:07.869Z [DEBUG] terminal-browser (user) answered ui.scroll without next() in 1.7ms; nothing beneath it ran for this dispatch
+2026-11-10T22:56:07.869Z [DEBUG] ui.scroll Pane grid-k2a (person) by -1 to 0: moved
+2026-11-10T22:56:07.911Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2a 37x33 open=true
+2026-11-10T22:56:08.561Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2a 37x33 open=true
+2026-11-10T22:57:20.330Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE scroll grid-k2a scrollup x=16 y=18
+2026-11-10T22:57:20.331Z [DEBUG] terminal-browser (user) answered ui.scroll without next() in 1.7ms; nothing beneath it ran for this dispatch
+2026-11-10T22:57:20.331Z [DEBUG] ui.scroll Pane grid-k2a (person) by -1 to 0: moved
+2026-11-10T22:57:39.897Z [DEBUG] pane-grid (user) answered ui.scroll without next() in 1.3ms; nothing beneath it ran for this dispatch
+2026-11-10T22:57:39.898Z [DEBUG] ui.scroll Pane grid-k2a (person) by -1 to 0: moved
+2026-11-10T22:57:39.900Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE draw grid-k2a 37x33 open=true
+2026-11-10T22:57:48.204Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE scroll grid-k2a scrollup x=6 y=23
+2026-11-10T22:57:48.205Z [DEBUG] terminal-browser (user) answered ui.scroll without next() in 2.0ms; nothing beneath it ran for this dispatch
+2026-11-10T22:57:48.205Z [DEBUG] ui.scroll Pane grid-k2a (person) by -1 to 0: moved
+# K2PROBE blit lines: 70
+2026-11-10T22:55:15.565Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE blit grid-k2a the Image draws its alt here: tmux does not know which terminal is outside it, so Claude Code draws no images here: attach tmux from kitty 0.28 or later, Ghostty, or
+2026-11-10T22:56:08.801Z [DEBUG] [terminal-browser] $.ui.log (to debug): K2PROBE blit grid-k2a the Image draws its alt here: tmux does not know which terminal is outside it, so Claude Code draws no images here: attach tmux from kitty 0.28 or later, Ghostty, or

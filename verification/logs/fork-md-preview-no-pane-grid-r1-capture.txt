@@ -1,0 +1,45 @@
+                                                                                              │ Pending questions   Files: work   Markdown                              ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │[ Prev ] [ Next ] [ Before ] [ Render ] [ Text ] [ Browser ] [ Close ]
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │sample.md  1/1
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work · /rc                                             │ Sample
+                                                                                              │ ────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/noGrid.log             │
+                                                                                              │ This is the k3 sample file.
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │ • one
+     again · t: page/text · q: close                                                          │ • two
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ██████████████████████████████████████│████     │
+Reset · waiting for the next response         Resets in 16h 5m · target 90%                   │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k3 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← 1 agent

@@ -1,0 +1,45 @@
+                                                                                              │                                                                         ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/8041009f/tmp/k4-cwd · /rc                                           │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/8041009f/tmp/logs/orderB-debug.log  │c6 inbox
+                                                                                              │ ╭───────────────────────────────────────────────────────────────────────╮
+❯ /inbox demo                                                                                 │ │ Sample entries. Buttons here send nothing.              [ Hide demo ] │
+  ⎿  inbox: Showing sample entries in the inbox. Run /inbox demo again to go back.            │ ╰───────────────────────────────────────────────────────────────────────╯
+                                                                                              │
+❯ /grid split -h                                                                              │ ▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄
+  ⎿  pane-grid: split c5 into c5 and c6                                                       │   Asks 7     Finds 4     PRs 1
+                                                                                              │─▀▀▀▀▀▀▀▀▀▀─▀▀▀▀▀▀▀▀▀▀▀─▀▀▀▀▀▀▀▀▀──────────────────────────────────────────
+❯ /grid select main                                                                           │
+  ⎿  pane-grid: showing main                                                                  │   Questions · 4
+                                                                                              │   │
+❯ /grid zoom                                                                                  │ ▌ │
+  ⎿  pane-grid: zoomed c6                                                                     │ ▌ ├─ 1) Dismiss a glance with a pinch, or a flick of the wrist?      14m
+                                                                                              │ ▌ │
+❯ /grid zoom                                                                                  │ ▌ │  a: Pinch (recommended)  Flick
+  ⎿  pane-grid: unzoomed                                                                      │ ▌ │  t: Reply  e: Explain  p: Compare  Dismiss
+                                                                                              │ ▌ │
+❯ /grid place inbox                                                                           │   │  ────────────────────────────────────────────────────────────────────
+  ⎿  pane-grid: placed inbox in c6                                                            │   ├─ 2) Bring a dismissed glance back when you look at it?           14m
+                                                                                              │   │  ────────────────────────────────────────────────────────────────────
+❯ /grid resize 30                                                                             │   ├─ 3) Show glances while you are walking or driving?               14m
+  ⎿  pane-grid: resized c6 to 30%                                                             │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │   └─ What should the wake word be for the agent?                     42m
+❯ /grid zoom                                                                                  │
+  ⎿  pane-grid: zoomed c6                                                                     │      ▸ 5 closed
+                                                                                              │
+                                                                                              │
+                                                                                              │   Tasks · 3
+                                                                                              │   │
+                                                                                              │   ├─ Put on the glasses and pair them with this Mac                   7m
+                                                                                              │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │   ├─ Check the glances outdoors in bright sun                         7m
+                                                                                              │   │  ────────────────────────────────────────────────────────────────────
+                                                                                              │   ├─ Run the gesture tests and send back the failures                 3m
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k8 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)

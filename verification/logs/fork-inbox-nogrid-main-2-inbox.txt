@@ -1,0 +1,45 @@
+                                                                                              │ Pending questions   Files: k4-cwd   uhd-kanban   Inbox                  ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │ ▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │   Asks     Finds     PRs
+ ▝▝   ▝▝   ~/.claude/jobs/8041009f/tmp/k4-cwd · /rc                                           │─▀▀▀▀▀▀▀▀─▀▀▀▀▀▀▀▀▀─▀▀▀▀▀▀▀────────────────────────────────────────────────
+                                                                                              │
+▎ Debug mode enabled · logging to                                                             │
+▎ /Users/uhd/.claude/jobs/8041009f/tmp/logs/nogrid-main-debug.log                             │
+                                                                                              │
+❯ /inbox demo                                                                                 │
+  ⎿  inbox: Showing sample entries in the inbox. Run /inbox demo again to go back.            │
+                                                                                              │
+❯ /inbox demo                                                                                 │
+  ⎿  inbox: Opened the inbox.                                                                 │
+                                                                                              │
+❯ /inbox                                                                                      │
+  ⎿  inbox: Opened the inbox.                                                                 │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │                               Nothing needed
+                                                                                              │
+                                                                                              │                      Claude's questions and the tasks
+                                                                                              │                       only you can do show up here.
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ███████████████████████████████████████│███     │
+Reset · waiting for the next response         Resets in 14h 58m · target 91%                  │  Help                                                             v0.3.0
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k8 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)

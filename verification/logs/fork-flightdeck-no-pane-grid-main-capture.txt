@@ -1,0 +1,423 @@
+===== N-main-0-start
+                                                                                              │ Flightdeck   Pending questions   Files: plugin-pane-grid   uhd-kanban   ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │16:21 · 카드 7개 · milestone 0개 · 60초마다
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │█to-do 1 █in-progress 5 █in-review 0 █done 1 █decided 0 █implemented 0
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │█cancelled 0
+                                                                                              │in-progress: ░돈다 ⠋다시 뜨는 중 ↻재시작 대기 ▨이어 가기 대기 ✓끝남
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/N-main.log                     │?모르는 state ▒세션 없음
+                                                                                              │
+                                                                                              │처리량 ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▃ 오늘 1 · 7일 1
+                                                                                              │유입   ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█ 오늘 7 · 7일 7 · 순증 +6
+                                                                                              │활동   ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█ 1시간 12 · 마지막 17분 전
+                                                                                              │in-progress 마지막 활동: k1 38분 · k4 37분 · k2 27분 · k3 25분 · k7 17분
+                                                                                              │
+                                                                                              │█ ▾ 소속 없음                                                 1/7 · 약 42일
+                                                                                              │█▓▒░▒▓█
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ██████████████████████████████████████│████     │
+Reset · waiting for the next response         Resets in 15h 38m · target 91%                  │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1 ─
+❯ Try "fix typecheck errors"
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ Transcript saving is off — inherited CLAUDE_CODE_CHILD_SESSION marker · restart with CLAUDE_CODE_FORCE_SESSION_PERSISTENCE=1 to keep future transcripts
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+
+===== N-main-1-close
+                                                                                              │ Pending questions   Files: plugin-pane-grid   uhd-kanban                ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │16:21 · 카드 7개 · milestone 0개 · 60초마다
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │█to-do 1 █in-progress 5 █in-review 0 █done 1 █decided 0 █implemented 0
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │█cancelled 0
+                                                                                              │in-progress: ░돈다 ⠋다시 뜨는 중 ↻재시작 대기 ▨이어 가기 대기 ✓끝남
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/N-main.log                     │?모르는 state ▒세션 없음
+                                                                                              │
+❯ /flightdeck close                                                                           │처리량 ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▃ 오늘 1 · 7일 1
+  ⎿  flightdeck: Flightdeck closed.                                                           │유입   ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█ 오늘 7 · 7일 7 · 순증 +6
+                                                                                              │활동   ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█ 1시간 12 · 마지막 17분 전
+                                                                                              │in-progress 마지막 활동: k1 38분 · k4 37분 · k2 27분 · k3 25분 · k7 17분
+                                                                                              │
+                                                                                              │░ ▾ 소속 없음                                                 1/7 · 약 42일
+                                                                                              │█▒▓█▓▒█
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ██████████████████████████████████████│████     │
+Reset · waiting for the next response         Resets in 15h 38m · target 91%                  │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ Transcript saving is off — inherited CLAUDE_CODE_CHILD_SESSION marker · restart with CLAUDE_CODE_FORCE_SESSION_PERSISTENCE=1 to keep future transcripts
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+
+===== N-main-2-open
+                                                                                              │ Pending questions   Files: plugin-pane-grid   uhd-kanban   Flightdeck   ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │                            FLIGHTDECK · — IDLE
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │                          ■ main  ■ agents  ■ gate
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │╭─────────────────────────────────────────────────────────────────────────╮
+                                                                                              ││ — · main                                                         ○ idle │
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/N-main.log                     ││ effort ▯▯▯▯ —   0 req                                                   │
+                                                                                              ││ $0.00   7d ▱▱▱▱▱ 8% ↻15h37m                                             │
+❯ /flightdeck close                                                                           │╰─────────────────────────────────────────────────────────────────────────╯
+  ⎿  flightdeck: Flightdeck closed.                                                           │
+                                                                                              │╭─────────────────────────────────────────────────────────────────────────╮
+❯ /flightdeck                                                                                 ││ session log                                                             │
+  ⎿  flightdeck: Flightdeck opened. Focus it with ctrl+x tab; 1-6 expand cards, f/s/o open the││ nothing yet                                                             │
+     gate rows.                                                                               │╰─────────────────────────────────────────────────────────────────────────╯
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ██████████████████████████████████████│████     │
+Reset · waiting for the next response         Resets in 15h 38m · target 91%                  │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ Transcript saving is off — inherited CLAUDE_CODE_CHILD_SESSION marker · restart with CLAUDE_CODE_FORCE_SESSION_PERSISTENCE=1 to keep future transcripts
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+
+===== N-main-3-compact
+                                                                                              │ Pending questions   Files: plugin-pane-grid   uhd-kanban   Flightdeck   ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │                            FLIGHTDECK · — IDLE
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │                          ■ main  ■ agents  ■ gate
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │╭─────────────────────────────────────────────────────────────────────────╮
+                                                                                              ││ — · main                                                         ○ idle │
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/N-main.log                     ││ effort ▯▯▯▯ —   0 req                                                   │
+                                                                                              ││ $0.00   7d ▱▱▱▱▱ 8% ↻15h37m                                             │
+❯ /flightdeck close                                                                           │╰─────────────────────────────────────────────────────────────────────────╯
+  ⎿  flightdeck: Flightdeck closed.                                                           │
+                                                                                              │╭─────────────────────────────────────────────────────────────────────────╮
+❯ /flightdeck                                                                                 ││ session log                                                             │
+  ⎿  flightdeck: Flightdeck opened. Focus it with ctrl+x tab; 1-6 expand cards, f/s/o open the││ nothing yet                                                             │
+     gate rows.                                                                               │╰─────────────────────────────────────────────────────────────────────────╯
+                                                                                              │
+❯ /flightdeck layout compact                                                                  │
+  ⎿  flightdeck: Flightdeck layout: compact.                                                  │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ██████████████████████████████████████│████     │
+Reset · waiting for the next response         Resets in 15h 38m · target 91%                  │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ Transcript saving is off — inherited CLAUDE_CODE_CHILD_SESSION marker · restart with CLAUDE_CODE_FORCE_SESSION_PERSISTENCE=1 to keep future transcripts
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+
+===== N-main-4-wide
+                                                                                              │ Pending questions   Files: plugin-pane-grid   uhd-kanban   Flightdeck   ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │                            FLIGHTDECK · — IDLE
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │                          ■ main  ■ agents  ■ gate
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │╭──────────────────────────────────╮
+                                                                                              ││ — · main                  ○ idle │
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/N-main.log                     ││ effort ▯▯▯▯ —   0 req            │
+                                                                                              ││ $0.00   7d ▱▱▱▱▱ 8%              │
+❯ /flightdeck close                                                                           │╰──────────────────────────────────╯
+  ⎿  flightdeck: Flightdeck closed.                                                           │
+                                                                                              │╭─────────────────────────────────────────────────────────────────────────╮
+❯ /flightdeck                                                                                 ││ session log                                                             │
+  ⎿  flightdeck: Flightdeck opened. Focus it with ctrl+x tab; 1-6 expand cards, f/s/o open the││ nothing yet                                                             │
+     gate rows.                                                                               │╰─────────────────────────────────────────────────────────────────────────╯
+                                                                                              │
+❯ /flightdeck layout compact                                                                  │
+  ⎿  flightdeck: Flightdeck layout: compact.                                                  │
+                                                                                              │
+❯ /flightdeck layout wide                                                                     │
+  ⎿  flightdeck: Flightdeck layout: wide.                                                     │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ███████████████████████████████████████│███     │
+Reset · waiting for the next response         Resets in 15h 37m · target 91%                  │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ Transcript saving is off — inherited CLAUDE_CODE_CHILD_SESSION marker · restart with CLAUDE_CODE_FORCE_SESSION_PERSISTENCE=1 to keep future transcripts
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+
+===== N-main-5-mini
+                                                                                              │ Pending questions   Files: plugin-pane-grid   uhd-kanban   Flightdeck   ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │— ○ idle · $0.00
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │
+                                                                                              │
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/N-main.log                     │
+                                                                                              │
+❯ /flightdeck close                                                                           │
+  ⎿  flightdeck: Flightdeck closed.                                                           │
+                                                                                              │
+❯ /flightdeck                                                                                 │
+  ⎿  flightdeck: Flightdeck opened. Focus it with ctrl+x tab; 1-6 expand cards, f/s/o open the│
+     gate rows.                                                                               │
+                                                                                              │
+❯ /flightdeck layout compact                                                                  │
+  ⎿  flightdeck: Flightdeck layout: compact.                                                  │
+                                                                                              │
+❯ /flightdeck layout wide                                                                     │
+  ⎿  flightdeck: Flightdeck layout: wide.                                                     │
+                                                                                              │
+❯ /flightdeck layout mini                                                                     │
+  ⎿  flightdeck: Flightdeck layout: mini.                                                     │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ███████████████████████████████████████│███     │
+Reset · waiting for the next response         Resets in 15h 37m · target 91%                  │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ Transcript saving is off — inherited CLAUDE_CODE_CHILD_SESSION marker · restart with CLAUDE_CODE_FORCE_SESSION_PERSISTENCE=1 to keep future transcripts
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+
+===== N-main-6-auto
+                                                                                              │ Pending questions   Files: plugin-pane-grid   uhd-kanban   Flightdeck   ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │                            FLIGHTDECK · — IDLE
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │                          ■ main  ■ agents  ■ gate
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │╭─────────────────────────────────────────────────────────────────────────╮
+                                                                                              ││ — · main                                                         ○ idle │
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/N-main.log                     ││ effort ▯▯▯▯ —   0 req                                                   │
+                                                                                              ││ $0.00   7d ▱▱▱▱▱ 8% ↻15h36m                                             │
+❯ /flightdeck close                                                                           │╰─────────────────────────────────────────────────────────────────────────╯
+  ⎿  flightdeck: Flightdeck closed.                                                           │
+                                                                                              │╭─────────────────────────────────────────────────────────────────────────╮
+❯ /flightdeck                                                                                 ││ session log                                                             │
+  ⎿  flightdeck: Flightdeck opened. Focus it with ctrl+x tab; 1-6 expand cards, f/s/o open the││ nothing yet                                                             │
+     gate rows.                                                                               │╰─────────────────────────────────────────────────────────────────────────╯
+                                                                                              │
+❯ /flightdeck layout compact                                                                  │
+  ⎿  flightdeck: Flightdeck layout: compact.                                                  │
+                                                                                              │
+❯ /flightdeck layout wide                                                                     │
+  ⎿  flightdeck: Flightdeck layout: wide.                                                     │
+                                                                                              │
+❯ /flightdeck layout mini                                                                     │
+  ⎿  flightdeck: Flightdeck layout: mini.                                                     │
+                                                                                              │
+❯ /flightdeck layout auto                                                                     │
+  ⎿  flightdeck: Flightdeck layout: auto.                                                     │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ███████████████████████████████████████│███     │
+Reset · waiting for the next response         Resets in 15h 37m · target 91%                  │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ Transcript saving is off — inherited CLAUDE_CODE_CHILD_SESSION marker · restart with CLAUDE_CODE_FORCE_SESSION_PERSISTENCE=1 to keep future transcripts
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+
+===== N-main-7-layout
+                                                                                              │ Pending questions   Files: plugin-pane-grid   uhd-kanban   Flightdeck   ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │                            FLIGHTDECK · — IDLE
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │                          ■ main  ■ agents  ■ gate
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │╭─────────────────────────────────────────────────────────────────────────╮
+                                                                                              ││ — · main                                                         ○ idle │
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/N-main.log                     ││ effort ▯▯▯▯ —   0 req                                                   │
+                                                                                              ││ $0.00   7d ▱▱▱▱▱ 8% ↻15h36m                                             │
+❯ /flightdeck close                                                                           │╰─────────────────────────────────────────────────────────────────────────╯
+  ⎿  flightdeck: Flightdeck closed.                                                           │
+                                                                                              │╭─────────────────────────────────────────────────────────────────────────╮
+❯ /flightdeck                                                                                 ││ session log                                                             │
+  ⎿  flightdeck: Flightdeck opened. Focus it with ctrl+x tab; 1-6 expand cards, f/s/o open the││ nothing yet                                                             │
+     gate rows.                                                                               │╰─────────────────────────────────────────────────────────────────────────╯
+                                                                                              │
+❯ /flightdeck layout compact                                                                  │
+  ⎿  flightdeck: Flightdeck layout: compact.                                                  │
+                                                                                              │
+❯ /flightdeck layout wide                                                                     │
+  ⎿  flightdeck: Flightdeck layout: wide.                                                     │
+                                                                                              │
+❯ /flightdeck layout mini                                                                     │
+  ⎿  flightdeck: Flightdeck layout: mini.                                                     │
+                                                                                              │
+❯ /flightdeck layout auto                                                                     │
+  ⎿  flightdeck: Flightdeck layout: auto.                                                     │
+                                                                                              │
+❯ /flightdeck layout                                                                          │
+  ⎿  flightdeck: Usage: /flightdeck layout auto|compact|wide|mini                             │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ███████████████████████████████████████│███     │
+Reset · waiting for the next response         Resets in 15h 36m · target 91%                  │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ Transcript saving is off — inherited CLAUDE_CODE_CHILD_SESSION marker · restart with CLAUDE_CODE_FORCE_SESSION_PERSISTENCE=1 to keep future transcripts
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+
+===== N-main-8-reset
+                                                                                              │ Pending questions   Files: plugin-pane-grid   uhd-kanban   Flightdeck   ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │                            FLIGHTDECK · — IDLE
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │                          ■ main  ■ agents  ■ gate
+ ▝▝   ▝▝   ~/LOCAL/01-01_Projects/plugin-pane-grid · /rc                                      │╭─────────────────────────────────────────────────────────────────────────╮
+                                                                                              ││ — · main                                                         ○ idle │
+▎ Debug mode enabled · logging to /Users/uhd/Library/Caches/k1/N-main.log                     ││ effort ▯▯▯▯ —   0 req                                                   │
+                                                                                              ││ $0.00   7d ▱▱▱▱▱ 8% ↻15h35m                                             │
+❯ /flightdeck close                                                                           │╰─────────────────────────────────────────────────────────────────────────╯
+  ⎿  flightdeck: Flightdeck closed.                                                           │
+                                                                                              │╭─────────────────────────────────────────────────────────────────────────╮
+❯ /flightdeck                                                                                 ││ session log                                                             │
+  ⎿  flightdeck: Flightdeck opened. Focus it with ctrl+x tab; 1-6 expand cards, f/s/o open the││ nothing yet                                                             │
+     gate rows.                                                                               │╰─────────────────────────────────────────────────────────────────────────╯
+                                                                                              │
+❯ /flightdeck layout compact                                                                  │
+  ⎿  flightdeck: Flightdeck layout: compact.                                                  │
+                                                                                              │
+❯ /flightdeck layout wide                                                                     │
+  ⎿  flightdeck: Flightdeck layout: wide.                                                     │
+                                                                                              │
+❯ /flightdeck layout mini                                                                     │
+  ⎿  flightdeck: Flightdeck layout: mini.                                                     │
+                                                                                              │
+❯ /flightdeck layout auto                                                                     │
+  ⎿  flightdeck: Flightdeck layout: auto.                                                     │
+                                                                                              │
+❯ /flightdeck layout                                                                          │
+  ⎿  flightdeck: Usage: /flightdeck layout auto|compact|wide|mini                             │
+                                                                                              │
+❯ /flightdeck reset                                                                           │
+  ⎿  flightdeck: Flightdeck reset.                                                            │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ███████████████████████████████████████│███     │
+Reset · waiting for the next response         Resets in 15h 36m · target 91%                  │
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ Transcript saving is off — inherited CLAUDE_CODE_CHILD_SESSION marker · restart with CLAUDE_CODE_FORCE_SESSION_PERSISTENCE=1 to keep future transcripts
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+

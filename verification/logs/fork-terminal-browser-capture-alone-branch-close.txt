@@ -1,0 +1,45 @@
+                                                                                              │ Pending questions   Files: work                                         ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │ work                                            󱧳              
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │
+ ▝▝   ▝▝   ~/.claude/jobs/650c88ce/tmp/work · /rc                                             │
+                                                                                              │ search                                                          Aa .* 󰦪
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/650c88ce/tmp/logs/alone-branch.log  │    Name
+                                                                                              │empty
+❯ /browser example.com                                                                        │
+  ⎿  terminal-browser: Opened terminal-browser                                                │
+                                                                                              │
+⏺ terminal-browser: terminal-browser: frame blit refused: the Image draws its alt             │
+  here: tmux does not know which terminal is outside it, so Claude Code draws no              │
+  images here: attach tmux from kitty 0.28 or later, Ghostty, or iTerm2 3.5 or later,         │
+  run `tmux set -g allow-passthrough on` and `tmux set -g focus-events on`, detach and        │
+  attach again, then restart Claude Code                                                      │
+                                                                                              │
+❯ /browser                                                                                    │
+  ⎿  terminal-browser: Closed terminal-browser                                                │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ███████████████████████████████████████│███     │
+Reset · waiting for the next response         Resets in 15h 33m · target 91%                  │?: shortcuts
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)

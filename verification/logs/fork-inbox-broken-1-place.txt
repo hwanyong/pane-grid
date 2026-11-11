@@ -1,0 +1,45 @@
+                                                                                              │                                                                         ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Opus 5.5 with high effort · Claude Ultra                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/.claude/jobs/8041009f/tmp/k4-cwd · /rc                                           │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/8041009f/tmp/logs/broken-debug.log  │c3 pending-questions    │c5 -                       │c6 inbox
+                                                                                              │Mode: manual            │empty. place a mod here:   │ ╭──────────────────╮
+❯ /inbox demo                                                                                 │[ Switch to auto ]      │filetree (move from c4)    │ │ S                │
+  ⎿  inbox: Showing sample entries in the inbox. Run /inbox demo again to go back.            │[ Rescan last response ]│image-view                 │ │ a                │
+                                                                                              │                        │inbox (move from c6)       │ │ m                │
+❯ /grid place inbox c6                                                                        │No pending questions.   │pending-questions (move    │ │ p                │
+  ⎿  pane-grid: placed inbox in c6                                                            │                        │from c3)                   │ │ l                │
+                                                                                              │                        │token-optimizer            │ │ e                │
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+                                                                                              │c4 filetree
+                                                                                              │ k4-cwd                                          󱧳              
+                                                                                              │
+                                                                                              │
+                                                                                              │ search                                                          Aa .* 󰦪
+                                                                                              │    Name
+                                                                                              │empty
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │?: shortcuts
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+                                                                                              │c2 uhd-kanban
+                                                                                              │17:03 · 카드 9개 · milestone 0개 · 60초마다
+                                                                                              │█to-do 1 █in-progress 4 █in-review 0 █done 4 █decided 0 █implemented 0
+                                                                                              │█cancelled 0
+                                                                                              │in-progress: ░돈다 ⠋다시 뜨는 중 ↻재시작 대기 ▨이어 가기 대기 ✓끝남
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+Demo: Asks 7 · Finds 4                                       [ Hide demo ] [ Open inbox ] [-] │c1 usage-gauge
+                                                                                              │
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k8 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)

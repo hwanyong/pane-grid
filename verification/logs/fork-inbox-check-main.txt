@@ -1,0 +1,194 @@
+  ok prettier
+  ok file sizes
+  ok plugin validate
+  ok structure
+  ok versions
+  ok compare page
+  ok types parts
+  x types
+      hooks/register.tsx(2525,21): error TS2322: Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 221 more ... | undefined'.
+      hooks/register.tsx(2526,40): error TS2589: Type instantiation is excessively deep and possibly infinite.
+      hooks/register.tsx(2533,21): error TS2322: Type '"mcp__inbox__close"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 221 more ... | undefined'.
+      tests/hooks-band.test.ts(30,33): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "terminal"; }' is not assignable to parameter of type 'MountTarget<"terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-band.test.ts(63,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-band.test.ts(86,65): error TS2741: Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-band.test.ts(94,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-band.test.ts(136,35): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "desktop" | "terminal"; }' is not assignable to parameter of type 'MountTarget<"desktop" | "terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-band.test.ts(145,35): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "desktop" | "terminal"; }' is not assignable to parameter of type 'MountTarget<"desktop" | "terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-catch-up.test.ts(135,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-closing.test.ts(21,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-closing.test.ts(34,33): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "terminal"; }' is not assignable to parameter of type 'MountTarget<"terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-conversations.test.ts(120,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-delivery.test.ts(57,33): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "terminal"; }' is not assignable to parameter of type 'MountTarget<"terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-demo.test.ts(60,35): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "terminal"; }' is not assignable to parameter of type 'MountTarget<"terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-demo.test.ts(151,33): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "terminal"; }' is not assignable to parameter of type 'MountTarget<"terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-desktop-buttons.test.ts(103,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-desktop-buttons.test.ts(131,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-fields.test.ts(22,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-held-rows.test.ts(22,33): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "terminal"; }' is not assignable to parameter of type 'MountTarget<"terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-loads.test.ts(64,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-loads.test.ts(173,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-loads.test.ts(181,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-recorded.test.ts(30,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-recorded.test.ts(41,33): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "terminal"; }' is not assignable to parameter of type 'MountTarget<"terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-recorded.test.ts(68,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-recorded.test.ts(93,31): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Argument of type '{ readonly tool: 'mcp__inbox__record'; readonly kind: 'question'; readonly ask: 'Which cache should the API use?'; readonly options: readonly ["Redis", "In-memory"]; readonly rec: 'Redis'; }' is not assignable to parameter of type '((Omit<ToolInputOf<"Agent", { description: string; prompt: string; subagent_type?: string | undefined; model?: "fable" | "haiku" | "opus" | "sonnet" | undefined; effort?: "high" | "low" | "max" | "medium" | "xhigh" | undefined; name?: string | undefined; team_name?: string | undefined; mode?: "acceptEdits" | ... 5 m...'.
+            Type '{ readonly tool: 'mcp__inbox__record'; readonly kind: 'question'; readonly ask: 'Which cache should the API use?'; readonly options: readonly ["Redis", "In-memory"]; readonly rec: 'Redis'; }' is not assignable to type 'Omit<ToolInputOf<"mcp__inbox__order_prs", { repo?: string | undefined; numbers: number[]; label?: string | undefined; why?: string | undefined; } & Record<string, unknown>>, "tool_use_id"> & ToolCallReserved<...> & AgentLoop'.
+              Type '{ readonly tool: 'mcp__inbox__record'; readonly kind: 'question'; readonly ask: 'Which cache should the API use?'; readonly options: readonly ["Redis", "In-memory"]; readonly rec: 'Redis'; }' is not assignable to type 'ToolCallReserved<"mcp__inbox__order_prs">'.
+                Types of property 'tool' are incompatible.
+                  Type '"mcp__inbox__record"' is not assignable to type '"mcp__inbox__order_prs"'.
+      tests/hooks-recorded.test.ts(97,29): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Argument of type '{ tool: 'mcp__inbox__record'; kind: 'question'; options: readonly ["Redis", "In-memory"]; rec: 'Redis'; ask: string; }' is not assignable to parameter of type '((Omit<ToolInputOf<"Agent", { description: string; prompt: string; subagent_type?: string | undefined; model?: "fable" | "haiku" | "opus" | "sonnet" | undefined; effort?: "high" | "low" | "max" | "medium" | "xhigh" | undefined; name?: string | undefined; team_name?: string | undefined; mode?: "acceptEdits" | ... 5 m...'.
+            Type '{ tool: 'mcp__inbox__record'; kind: 'question'; options: readonly ["Redis", "In-memory"]; rec: 'Redis'; ask: string; }' is not assignable to type 'Omit<ToolInputOf<"mcp__inbox__order_prs", { repo?: string | undefined; numbers: number[]; label?: string | undefined; why?: string | undefined; } & Record<string, unknown>>, "tool_use_id"> & ToolCallReserved<...> & AgentLoop'.
+              Type '{ tool: 'mcp__inbox__record'; kind: 'question'; options: readonly ["Redis", "In-memory"]; rec: 'Redis'; ask: string; }' is not assignable to type 'ToolCallReserved<"mcp__inbox__order_prs">'.
+                Types of property 'tool' are incompatible.
+                  Type '"mcp__inbox__record"' is not assignable to type '"mcp__inbox__order_prs"'.
+      tests/hooks-recorded.test.ts(100,29): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Argument of type '{ tool: 'mcp__inbox__record'; kind: 'question'; options: readonly ["Redis", "In-memory"]; ask: string; rec: string; }' is not assignable to parameter of type '((Omit<ToolInputOf<"Agent", { description: string; prompt: string; subagent_type?: string | undefined; model?: "fable" | "haiku" | "opus" | "sonnet" | undefined; effort?: "high" | "low" | "max" | "medium" | "xhigh" | undefined; name?: string | undefined; team_name?: string | undefined; mode?: "acceptEdits" | ... 5 m...'.
+            Type '{ tool: 'mcp__inbox__record'; kind: 'question'; options: readonly ["Redis", "In-memory"]; ask: string; rec: string; }' is not assignable to type 'Omit<ToolInputOf<"mcp__inbox__order_prs", { repo?: string | undefined; numbers: number[]; label?: string | undefined; why?: string | undefined; } & Record<string, unknown>>, "tool_use_id"> & ToolCallReserved<...> & AgentLoop'.
+              Type '{ tool: 'mcp__inbox__record'; kind: 'question'; options: readonly ["Redis", "In-memory"]; ask: string; rec: string; }' is not assignable to type 'ToolCallReserved<"mcp__inbox__order_prs">'.
+                Types of property 'tool' are incompatible.
+                  Type '"mcp__inbox__record"' is not assignable to type '"mcp__inbox__order_prs"'.
+      tests/hooks-recorded.test.ts(105,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-recorded.test.ts(114,23): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__close"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-recorded.test.ts(115,29): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Argument of type '{ readonly tool: 'mcp__inbox__record'; readonly kind: 'question'; readonly ask: 'Which cache should the API use?'; readonly options: readonly ["Redis", "In-memory"]; readonly rec: 'Redis'; }' is not assignable to parameter of type '((Omit<ToolInputOf<"Agent", { description: string; prompt: string; subagent_type?: string | undefined; model?: "fable" | "haiku" | "opus" | "sonnet" | undefined; effort?: "high" | "low" | "max" | "medium" | "xhigh" | undefined; name?: string | undefined; team_name?: string | undefined; mode?: "acceptEdits" | ... 5 m...'.
+            Type '{ readonly tool: 'mcp__inbox__record'; readonly kind: 'question'; readonly ask: 'Which cache should the API use?'; readonly options: readonly ["Redis", "In-memory"]; readonly rec: 'Redis'; }' is not assignable to type 'Omit<ToolInputOf<"mcp__inbox__order_prs", { repo?: string | undefined; numbers: number[]; label?: string | undefined; why?: string | undefined; } & Record<string, unknown>>, "tool_use_id"> & ToolCallReserved<...> & AgentLoop'.
+              Type '{ readonly tool: 'mcp__inbox__record'; readonly kind: 'question'; readonly ask: 'Which cache should the API use?'; readonly options: readonly ["Redis", "In-memory"]; readonly rec: 'Redis'; }' is not assignable to type 'ToolCallReserved<"mcp__inbox__order_prs">'.
+                Types of property 'tool' are incompatible.
+                  Type '"mcp__inbox__record"' is not assignable to type '"mcp__inbox__order_prs"'.
+      tests/hooks-recorded.test.ts(120,21): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Argument of type '{ tool: 'mcp__inbox__record'; kind: 'question'; ask: 'Where should the job run?'; options: string[]; }' is not assignable to parameter of type '((Omit<ToolInputOf<"Agent", { description: string; prompt: string; subagent_type?: string | undefined; model?: "fable" | "haiku" | "opus" | "sonnet" | undefined; effort?: "high" | "low" | "max" | "medium" | "xhigh" | undefined; name?: string | undefined; team_name?: string | undefined; mode?: "acceptEdits" | ... 5 m...'.
+            Type '{ tool: 'mcp__inbox__record'; kind: 'question'; ask: 'Where should the job run?'; options: string[]; }' is not assignable to type 'Omit<ToolInputOf<"mcp__inbox__order_prs", { repo?: string | undefined; numbers: number[]; label?: string | undefined; why?: string | undefined; } & Record<string, unknown>>, "tool_use_id"> & ToolCallReserved<...> & AgentLoop'.
+              Type '{ tool: 'mcp__inbox__record'; kind: 'question'; ask: 'Where should the job run?'; options: string[]; }' is not assignable to type 'ToolCallReserved<"mcp__inbox__order_prs">'.
+                Types of property 'tool' are incompatible.
+                  Type '"mcp__inbox__record"' is not assignable to type '"mcp__inbox__order_prs"'.
+      tests/hooks-recorded.test.ts(121,23): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__close"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-recorded.test.ts(122,29): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Argument of type '{ tool: 'mcp__inbox__record'; kind: 'question'; ask: 'Where should the job run?'; options: string[]; rec: string; }' is not assignable to parameter of type '((Omit<ToolInputOf<"Agent", { description: string; prompt: string; subagent_type?: string | undefined; model?: "fable" | "haiku" | "opus" | "sonnet" | undefined; effort?: "high" | "low" | "max" | "medium" | "xhigh" | undefined; name?: string | undefined; team_name?: string | undefined; mode?: "acceptEdits" | ... 5 m...'.
+            Type '{ tool: 'mcp__inbox__record'; kind: 'question'; ask: 'Where should the job run?'; options: string[]; rec: string; }' is not assignable to type 'Omit<ToolInputOf<"mcp__inbox__order_prs", { repo?: string | undefined; numbers: number[]; label?: string | undefined; why?: string | undefined; } & Record<string, unknown>>, "tool_use_id"> & ToolCallReserved<...> & AgentLoop'.
+              Type '{ tool: 'mcp__inbox__record'; kind: 'question'; ask: 'Where should the job run?'; options: string[]; rec: string; }' is not assignable to type 'ToolCallReserved<"mcp__inbox__order_prs">'.
+                Types of property 'tool' are incompatible.
+                  Type '"mcp__inbox__record"' is not assignable to type '"mcp__inbox__order_prs"'.
+      tests/hooks-recorded.test.ts(178,7): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-replies.test.ts(25,33): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "terminal"; }' is not assignable to parameter of type 'MountTarget<"terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-row-drawing.test.ts(160,19): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-saves.test.ts(151,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-saves.test.ts(186,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-saves.test.ts(194,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-startup.test.ts(73,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-startup.test.ts(185,33): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "desktop"; }' is not assignable to parameter of type 'MountTarget<"desktop", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-startup.test.ts(212,35): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "desktop"; }' is not assignable to parameter of type 'MountTarget<"desktop", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-status-page.test.ts(50,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-status-page.test.ts(69,23): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__close"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-stops.test.ts(24,33): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "terminal"; }' is not assignable to parameter of type 'MountTarget<"terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-stops.test.ts(59,33): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "terminal"; }' is not assignable to parameter of type 'MountTarget<"terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-stops.test.ts(99,33): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "terminal"; }' is not assignable to parameter of type 'MountTarget<"terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-tabs-and-footer.test.ts(38,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-tabs-and-footer.test.ts(64,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-tasks.test.ts(29,35): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "terminal"; }' is not assignable to parameter of type 'MountTarget<"terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+      tests/hooks-tasks.test.ts(173,5): error TS2769: No overload matches this call.
+        The last overload gave the following error.
+          Type '"mcp__inbox__record"' is not assignable to type '"Agent" | "AppifactRepl" | "Artifact" | "ArtifactCheck" | "ArtifactComments" | "ArtifactData" | "AskUserQuestion" | "Bash" | "ClaudeDesign" | "CronCreate" | "CronDelete" | ... 218 more ... | "request_computer"'.
+      tests/hooks-tasks.test.ts(210,33): error TS2345: Argument of type '{ component: 'AbovePrompt'; props: { hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }; plugin: string; surface: "terminal"; }' is not assignable to parameter of type 'MountTarget<"terminal", "AbovePrompt">'.
+        Types of property 'props' are incompatible.
+          Property 'isCollapsed' is missing in type '{ hasSurvey: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: { offset: number; bodyRows: number; }; view: {}; }' but required in type '{ hasSurvey: boolean; isCollapsed: boolean; isWorking: boolean; maxRows: number; bodyColumns: number; scroll: SiteScroll; view: SiteView; }'.
+  ok tests
+  ok codex bundles
+  ok codex types
+  ok codex tests
+  ok eval cases
+  ok omp bundle
+  ok omp types
+  ok omp tests

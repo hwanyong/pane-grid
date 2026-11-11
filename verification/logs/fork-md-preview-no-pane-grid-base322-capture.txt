@@ -1,0 +1,184 @@
+===== base322-1-md
+                                                                                              │ Pending questions   Files: work-base322   Markdown                      ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │[ Prev ] [ Next ] [ Before ] [ Render ] [ Text ] [ Browser ] [ Close ]
+▝▜██████▀  Haiku 5.5 · Claude Ultra                                                           │sample.md  1/1
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work-base322 · /rc                                     │ Sample
+                                                                                              │ ────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/nogrid-base322.log     │
+                                                                                              │ This is the k3 sample file.
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │ • one
+     again · t: page/text · q: close                                                          │ • two
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ██████████████████████████████████████│████     │
+Reset · waiting for the next response         Resets in 15h 44m · target 91%                  │
+  tmux focus-events off · add 'set -g focus-events on' to ~/.tmux.conf and reattach for foc…  │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+===== base322-2-compare
+                                                                                              │ Pending questions   Files: work-base322   Markdown                      ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │[ Prev ] [ Next ] [ Before ] [ Render ] [ Text ] [ Browser ] [ Close ]
+▝▜██████▀  Haiku 5.5 · Claude Ultra                                                           │sample.md | other.md  side by side
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work-base322 · /rc                                     │ ── sample.md ──
+                                                                                              │
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/nogrid-base322.log     │ Sample
+                                                                                              │ ────────
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │ This is the k3 sample file.
+     again · t: page/text · q: close                                                          │
+                                                                                              │ • one
+❯ /md                                                                                         │ • two
+  ⎿  md-preview: sample.md | other.md side by side. o: open in the browser · q: close         │
+                                                                                              │ ── other.md ──
+                                                                                              │
+                                                                                              │▌Other
+                                                                                              │▌────────
+                                                                                              │
+                                                                                              │▌Another file.
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ██████████████████████████████████████│████     │
+Reset · waiting for the next response         Resets in 15h 44m · target 91%                  │
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+===== base322-3-back
+                                                                                              │ Pending questions   Files: work-base322   Markdown                      ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │[ Prev ] [ Next ] [ Before ] [ Render ] [ Text ] [ Browser ] [ Close ]
+▝▜██████▀  Haiku 5.5 · Claude Ultra                                                           │sample.md  1/1
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work-base322 · /rc                                     │ Sample
+                                                                                              │ ────────
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/nogrid-base322.log     │
+                                                                                              │ This is the k3 sample file.
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │ • one
+     again · t: page/text · q: close                                                          │ • two
+                                                                                              │
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md | other.md side by side. o: open in the browser · q: close         │
+                                                                                              │
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │
+     again · t: page/text · q: close                                                          │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ██████████████████████████████████████│████     │
+Reset · waiting for the next response         Resets in 15h 44m · target 91%                  │
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ 
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
+===== base322-4-edit
+ ▐▛███▛█   Claude Code v2.1.322                                                               │ Pending questions   Files: work-base322   Markdown                      ✕
+▝▜██████▀  Haiku 5.5 · Claude Ultra                                                           │[ Prev ] [ Next ] [ Before ] [ Render ] [ Text ] [ Browser ] [ Close ]
+ ▝▝   ▝▝   ~/.claude/jobs/842bed26/tmp/work-base322 · /rc                                     │sample.md  1/1 · green bar: changed in the last edit
+                                                                                              │ Sample
+▎ Debug mode enabled · logging to /Users/uhd/.claude/jobs/842bed26/tmp/nogrid-base322.log     │ ────────
+                                                                                              │
+❯ /md                                                                                         │ This is the k3 sample file.
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │
+     again · t: page/text · q: close                                                          │▌• one
+                                                                                              │▌• two and a half
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md | other.md side by side. o: open in the browser · q: close         │
+                                                                                              │
+❯ /md                                                                                         │
+  ⎿  md-preview: sample.md. n/p: next/previous · b: before | after · o: browser · r: render   │
+     again · t: page/text · q: close                                                          │
+                                                                                              │
+❯ Use the Edit tool to change the line '- two' to '- two and a half' in sample.md. Do nothing │
+  else.                                                                                       │
+                                                                                              │
+  Read 1 file                                                                                 │
+                                                                                              │
+⏺ Update(sample.md)                                                                           │
+  ⎿  Added 1 line, removed 1 line                                                             │
+      3  This is the k3 sample file.                                                          │
+      4                                                                                       │
+      5  - one                                                                                │
+      6 -- two                                                                                │
+      6 +- two and a half                                                                     │
+  ⎿  Allowed by auto mode                                                                     │
+                                                                                              │
+⏺ sample.md 의 - two 줄을 - two and a half 로 바꿨다. 파일은                                  │
+  <W>/sample.md 이고, 다른 내용은 건드리지      │
+  않았다.                                                                                     │
+                                                                                              │
+✻ Brewed for 9s · done 오후 4:17                                                              │
+Session 5-hour window             -% / 100%   Weekly 7-day window             100% / 100% [-] │
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ██████████████████████████████████████│████     │
+Reset · waiting for the next response         Resets in 15h 42m · target 91%                  │
+                                                                                              │
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── k1404 ─
+❯ /md
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  ⏵⏵ auto mode on (shift+tab to cycle)
