@@ -1,6 +1,6 @@
-import type { GridCell, GridNode, GridTab } from '../types/index.d.ts'
+import type { GridCell, GridTab } from '../types/index.d.ts'
 import { TAB_NAME, checkTabs } from './layout-file'
-import { PRESETS, cellsOf, describe, findCell, newCellId, preset, remove, resize, split, swap } from './tree'
+import { PRESETS, SHARE_MAX, SHARE_MIN, cellsOf, describe, findCell, heirOf, mapCells, newCellId, preset, remove, resize, split, swap } from './tree'
 import type { Preset } from './tree'
 
 // `/grid <동작>` 과 hotkey 가 함께 부르는 동작 함수(docs/grid-and-tabs.md §2.3: 동작 함수 하나에 입구 두 개).
@@ -23,7 +23,7 @@ const USAGE = [
   'place <plugin>|- [<id>]  put a plugin in the active cell (or that cell), or empty it',
   'swap [<id>]              swap the active cell with that cell (default: the next one)',
   'zoom                     draw the active cell alone, or undo it',
-  'resize <1-99>            set the active cell\'s share of its parent in percent',
+  `resize <${SHARE_MIN}-${SHARE_MAX}>            set the active cell's share of its parent in percent`,
   `layout <preset>          ${PRESETS.join(' | ')}`,
   'new [<name>]             open a new tab',
   'select <name>            show that tab',
@@ -44,9 +44,6 @@ const replaceTab = (tabs: GridTab[], tab: GridTab) => tabs.map(item => (item.nam
 // mod 하나는 한 칸에만 놓인다(결정 6). 다른 칸에 있던 같은 mod 를 비운다.
 const unplace = (tabs: GridTab[], plugin: string) =>
   tabs.map(tab => ({ ...tab, root: mapCells(tab.root, cell => (cell.plugin == plugin ? { kind: 'cell', id: cell.id } : cell)) }))
-
-const mapCells = (node: GridNode, change: (cell: GridCell) => GridCell): GridNode =>
-  node.kind == 'cell' ? change(node) : { ...node, children: node.children.map(child => ({ ...child, node: mapCells(child.node, change) })) }
 
 const unusedTabName = (tabs: GridTab[]) => {
   let index = tabs.length + 1
@@ -80,7 +77,7 @@ export const apply = (tabs: GridTab[], current: string, words: string[]): Outcom
 
   if (verb == 'kill') {
     const root = remove(tab.root, tab.active)
-    const heir = cells[index > 0 ? index - 1 : index + 1]
+    const heir = heirOf(tab.root, tab.active)
     if (!root || !heir) return same(tabs, tab.name, 'the last cell of a tab cannot be removed; use close')
     return changed(replaceTab(tabs, { name: tab.name, root, active: heir.id }), tab.name, `removed ${tab.active}`)
   }
@@ -116,7 +113,7 @@ export const apply = (tabs: GridTab[], current: string, words: string[]): Outcom
 
   if (verb == 'resize') {
     const share = Number(rest[0])
-    if (!Number.isInteger(share) || share < 1 || share > 99) return same(tabs, tab.name, 'usage: resize <1-99>')
+    if (!Number.isInteger(share) || share < SHARE_MIN || share > SHARE_MAX) return same(tabs, tab.name, `usage: resize <${SHARE_MIN}-${SHARE_MAX}>`)
     return changed(replaceTab(tabs, { ...tab, root: resize(tab.root, tab.active, share) }), tab.name, `resized ${tab.active} to ${share}%`)
   }
 
@@ -157,7 +154,7 @@ export const apply = (tabs: GridTab[], current: string, words: string[]): Outcom
   if (verb == 'break') {
     const root = remove(tab.root, tab.active)
     const moved = cells[index]
-    const heir = cells[index > 0 ? index - 1 : index + 1]
+    const heir = heirOf(tab.root, tab.active)
     if (!root || !moved || !heir) return same(tabs, tab.name, 'the only cell of a tab cannot be moved out')
     const name = unusedTabName(tabs)
     const next = [...replaceTab(tabs, { name: tab.name, root, active: heir.id }), { name, root: moved, active: moved.id }]
