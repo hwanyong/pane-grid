@@ -1,0 +1,35 @@
+reload: ⎿  pane-grid: loaded 1 tab(s) from ~/.claude/pane-grid/layout.json
+moving: revision lines=3 file=
+moving divider color: ['\x1b[38;5;72m', '\x1b[48;5;235m']
+released: file=layout.json 
+file: {
+  "version": 1,
+  "project": "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/C2/home/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1"
+            },
+            "size": 41.89
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2"
+            },
+            "size": 58.11
+          }
+        ]
+      },
+      "active": "c1"
+    }
+  ]
+}
+after: row=6 col=1 c1 - row=6 col=33 c2 - 
+failed=0

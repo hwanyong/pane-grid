@@ -1,0 +1,8 @@
+-- /cd out: Moved to $H/proj
+-- toasts
+$.ui.toast (pane-grid): pane-grid: the session moved to ~/proj; loaded 1 tab(s) from ~/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json
+-- /grid list: pane-grid: * main active=c3 {c1:25,c3:25,c2:50}
+-- log project
+pane-grid: project $H/proj-b (root $H/proj-b) -> $H/.claude/pane-grid/projects/proj-b-c2469045fda6f1cb
+pane-grid: project $H/proj (root $H/proj) -> $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa
+failed hooks: 0

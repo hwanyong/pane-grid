@@ -1,0 +1,3 @@
+pane-grid: refused: another session changed this project's layout; loaded
+~/.claude/pane-grid/projects/proj-<hash>/layout.json again, do it once more
+failed hooks: 0

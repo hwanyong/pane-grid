@@ -1,0 +1,36 @@
+-- split -h
+pane-grid: split c1 into c1 and c2
+pane-grid: layout file $H/.claude/pane-grid/layout.json refused: not JSON: JSON Parse error: Unexpected identifier "not"
+pane-grid: kept the invalid layout file as $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.invalid.json
+-- invalid: not json
+-- global sha256 same: yes
+-- file
+{
+  "version": 1,
+  "project": "$H/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1"
+            },
+            "size": 50
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2"
+            },
+            "size": 50
+          }
+        ]
+      },
+      "active": "c2"
+    }
+  ]
+}

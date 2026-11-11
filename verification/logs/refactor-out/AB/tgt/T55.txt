@@ -1,0 +1,13 @@
+--- ls before
+ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+$ g list
+pane-grid: * main active=c1 c1
+[exit-ish done]
+--- ls after
+ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+--- pl
+NOFILE
+
+--- log refused|kept|command failed
+[p1] [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout file /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/layout.json refused: plugin usage-gauge is placed in two cells
+--- failed=0

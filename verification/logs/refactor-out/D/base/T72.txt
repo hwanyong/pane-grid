@@ -1,0 +1,1 @@
+pane-grid: loaded 1 tab(s) from ~/.claude/pane-grid/layout.json

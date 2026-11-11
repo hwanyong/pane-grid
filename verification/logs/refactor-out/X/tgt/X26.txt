@@ -1,0 +1,2 @@
+  grid-and-tabs.md:22 hooks/register.tsx lacks TOOLBAR
+  grid-and-tabs.md:392 hooks/register.tsx lacks placedNote

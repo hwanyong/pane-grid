@@ -1,0 +1,7 @@
+after click w2 tabs: main   w2
+list: ⎿  pane-grid:   main active=c1 {c1:50,c2:50}
+     - w2 active=c3 c3
+after click main tabs: main   w2
+list: ⎿  pane-grid: * main active=c1 {c1:50,c2:50}
+     w2 active=c3 c3
+failed=0

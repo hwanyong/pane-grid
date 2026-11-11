@@ -1,0 +1,3 @@
+-- DIR=proj-b g list
+pane-grid: * main active=c1 {c1:50,c2:50}
+pane-grid: project $H/proj-b (root $H/proj-b) -> $H/.claude/pane-grid/projects/proj-b-c2469045fda6f1cb

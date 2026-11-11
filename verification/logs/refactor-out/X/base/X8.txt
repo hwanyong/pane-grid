@@ -1,0 +1,11 @@
+TOOLBAR_KEYS lines in SKILL.md: 0
+--Keep sentence
+NONE
+export lines in pane-grid.ts: 8
+--exported names
+fillSlot
+isScrollIn
+offerChoice
+placementIn
+scrollsKey
+TOOLBAR_KEYS

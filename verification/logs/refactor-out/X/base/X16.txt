@@ -1,0 +1,9 @@
+pane-grid: loaded 1 tab(s) from
+pane-grid: split c1 into c1 and c3
+--ls
+layout.invalid.json
+layout.json
+--invalid
+not json
+pane-grid: kept the invalid layout file as /Users/uhd/.claude/jobs/JOB/tmp/run/X/home/.claude/pane-grid/projects/proj-<hash>/layout.invalid.json
+failed hooks: 0

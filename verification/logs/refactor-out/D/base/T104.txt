@@ -1,0 +1,5 @@
+-- DIR='my proj' g split -h
+pane-grid: split c1 into c1 and c3
+pane-grid: project $H/my proj (root $H/my proj) -> $H/.claude/pane-grid/projects/my-proj-62460fb349f0dd18
+-- projects: my-proj-62460fb349f0dd18 plain-3f6987686c31a492 proj-bb3a7976d66e81fa 
+-- expected dir: my-proj-62460fb349f0dd18

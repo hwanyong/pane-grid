@@ -1,0 +1,34 @@
+# types/index.d.ts without comment lines
+export type GridVersion = 1
+export type GridCell = { kind: 'cell'; id: string; plugin?: string }
+export type GridChild = { node: GridNode; size: number }
+export type GridSplit = { kind: 'row' | 'column'; children: GridChild[] }
+export type GridNode = GridCell | GridSplit
+export type GridTab = { name: string; root: GridNode; active: string; zoomed?: string }
+export type GridPlacement = { tab: string; requestId: string; cell: string; column: number; row: number; columns: number; rows: number; isActive: boolean }
+export type GridLayout = {
+  version: GridVersion
+  revision: number
+  tabs: GridTab[]
+  placed: Record<string, GridPlacement>
+}
+export type GridScroll = Record<string, number>
+export type GridShown = string | null
+declare module 'claude-code' {
+  interface PluginState {
+    'pane-grid': { layout: GridLayout; scroll: GridScroll; shown: GridShown }
+  }
+}
+# export type names
+GridVersion
+GridCell
+GridChild
+GridSplit
+GridNode
+GridTab
+GridPlacement
+GridLayout
+GridScroll
+GridShown
+# imports of types/index.d.ts in hooks that are not `import type`
+0

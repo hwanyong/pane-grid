@@ -1,0 +1,26 @@
+# 시작(2026-11-11T17:03:31Z)
+2026-11-11T17:03:31Z
+1dca3aebdfa19b977e8a6b4ed3812e0d312357071abc32de70170837427918c5  /Users/uhd/.claude/pane-grid/layout.json
+total 0
+drwx------  7 uhd  staff  224 11월 11 08:36 .
+drwxr-xr-x  8 uhd  staff  256 11월 10 23:14 ..
+drwx------  3 uhd  staff   96 11월 10 23:25 CloudLLM-Claude-code-6468e2a086c7fdc4
+drwx------  3 uhd  staff   96 11월 11 08:36 hwanyong.github.io-6c87ed0b1be55dbe
+drwx------  3 uhd  staff   96 11월 10 23:14 plugin-pane-grid-6314d9b7b3856a6d
+drwx------  3 uhd  staff   96 11월 10 23:24 rea_cathode-bdad1510bdb093c0
+drwx------  3 uhd  staff   96 11월 11 06:14 skill-kanban-8c90ad5db404dce5
+c978e66404a4ff21f8c94a60a090ed04f52a9ca14cb806d50fc88a03f01d08ce  /Users/uhd/.claude/pane-grid/projects/CloudLLM-Claude-code-6468e2a086c7fdc4/layout.json
+b7b413d1d56752eccba8afb04ffd2fec506e07a266ba86e47c8e968046caddf3  /Users/uhd/.claude/pane-grid/projects/hwanyong.github.io-6c87ed0b1be55dbe/layout.json
+454dcf08df3ae581c4adce65926892e9bcb36b94a5908f3dc2ca7e8795072451  /Users/uhd/.claude/pane-grid/projects/plugin-pane-grid-6314d9b7b3856a6d/layout.json
+0e9220233c729ee55371f79634b4d60b3e035f6b257ffa4c0d85571dfa4cc6a3  /Users/uhd/.claude/pane-grid/projects/rea_cathode-bdad1510bdb093c0/layout.json
+f34bc87f97342bed27efcc751ee6fe56785af2b7f53f4b3198cea830d2943609  /Users/uhd/.claude/pane-grid/projects/skill-kanban-8c90ad5db404dce5/layout.json
+
+# 끝(2026-11-11T19:09:47Z)
+1dca3aebdfa19b977e8a6b4ed3812e0d312357071abc32de70170837427918c5  /Users/uhd/.claude/pane-grid/layout.json
+c978e66404a4ff21f8c94a60a090ed04f52a9ca14cb806d50fc88a03f01d08ce  /Users/uhd/.claude/pane-grid/projects/CloudLLM-Claude-code-6468e2a086c7fdc4/layout.json
+b7b413d1d56752eccba8afb04ffd2fec506e07a266ba86e47c8e968046caddf3  /Users/uhd/.claude/pane-grid/projects/hwanyong.github.io-6c87ed0b1be55dbe/layout.json
+454dcf08df3ae581c4adce65926892e9bcb36b94a5908f3dc2ca7e8795072451  /Users/uhd/.claude/pane-grid/projects/plugin-pane-grid-6314d9b7b3856a6d/layout.json
+0e9220233c729ee55371f79634b4d60b3e035f6b257ffa4c0d85571dfa4cc6a3  /Users/uhd/.claude/pane-grid/projects/rea_cathode-bdad1510bdb093c0/layout.json
+f34bc87f97342bed27efcc751ee6fe56785af2b7f53f4b3198cea830d2943609  /Users/uhd/.claude/pane-grid/projects/skill-kanban-8c90ad5db404dce5/layout.json
+
+# SHA-256 줄 대조: diff 출력 없음(같음)

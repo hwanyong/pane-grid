@@ -1,0 +1,8 @@
+$ g reload
+pane-grid: loaded 1 tab(s) from ~/.claude/pane-grid/layout.json
+[exit-ish done]
+--- pl
+NOFILE
+
+--- log refused|kept|command failed
+--- failed=0

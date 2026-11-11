@@ -1,0 +1,10 @@
+pane-grid: pane-grid: the command failed; see the debug log
+failed hooks: 1
+$.fs.write(/.claude/pane-grid/projects/proj-<hash>/layout.json) failed: EROFS","budget":1000}
+pane-grid: loaded 1 tab(s) from /.claude/pane-grid/layout.json
+failed hooks: 1
+$.fs.write(/.claude/pane-grid/projects/proj-<hash>/layout.json) failed: EROFS","budget":1000}
+--written under PROJ
+.cache
+.claude
+~

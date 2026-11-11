@@ -1,0 +1,7 @@
+pane-grid: start failed: {"kind":"throw","message":"pane-grid: $.fs.read(/Users/uhd/.claude/jobs/JOB/tmp/run/X/home/sm/.git) failed: EACCES"
+--after list
+pane-grid: * main active=c1 {c1:50,c2:50}                                                │                                     │
+--after split
+pane-grid: * main active=c1 {c1:50,c2:50}                                                │                                     │
+pane-grid: pane-grid: the command failed; see the debug log                              │                                     │
+pane-grid: command failed: {"kind":"throw","message":"pane-grid: $.fs.write(/layout.json) failed: EROFS","budget":1000}

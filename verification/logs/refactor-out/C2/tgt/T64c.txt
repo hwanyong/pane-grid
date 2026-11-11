@@ -1,0 +1,48 @@
+resp: ⎿  pane-grid: split c1 into c1 and c3
+before: row=6 col=1 c1 - row=6 col=33 c2 - row=24 col=1 c3 - 
+after: row=6 col=1 c1 - row=6 col=33 c2 - row=27 col=1 c3 - 
+file: {
+  "version": 1,
+  "project": "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/C2/home/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "column",
+              "children": [
+                {
+                  "node": {
+                    "kind": "cell",
+                    "id": "c1"
+                  },
+                  "size": 58.82
+                },
+                {
+                  "node": {
+                    "kind": "cell",
+                    "id": "c3"
+                  },
+                  "size": 41.18
+                }
+              ]
+            },
+            "size": 41.89
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2"
+            },
+            "size": 58.11
+          }
+        ]
+      },
+      "active": "c3"
+    }
+  ]
+}
+failed=0

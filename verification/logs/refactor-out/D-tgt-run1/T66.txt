@@ -1,0 +1,42 @@
+-- g split -h
+pane-grid: split c1 into c1 and c3
+-- log project
+pane-grid: project $H/proj (root $H/proj) -> $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa
+-- project file $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa
+{
+  "version": 1,
+  "project": "$H/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1"
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c3"
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2"
+            },
+            "size": 50
+          }
+        ]
+      },
+      "active": "c3"
+    }
+  ]
+}
+-- global sha256 same: yes

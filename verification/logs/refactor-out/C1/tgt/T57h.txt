@@ -1,0 +1,4 @@
+$.ui.toast (pane-grid): pane-grid: removed c4
+pane-grid: action kill: removed c4
+-- list
+⎿  pane-grid: * main active=c2 {c1:25,[c3:50,c2:50]:75}

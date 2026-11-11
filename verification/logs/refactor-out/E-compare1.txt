@@ -1,0 +1,142 @@
+T81 DIFF
+    --- base/T81
+    +++ tgt/T81
+    @@ -8,7 +8,7 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge                       │c2 -
+     Weekly N-day window        NN% / NNN%│empty. place a mod here:
+    -│██████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+    +│███████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+     Resets in Nd NNh · target N%         │2: usage-gauge (move from c1)
+                                          │
+                                          │
+T82 DIFF
+    --- base/T82
+    +++ tgt/T82
+    @@ -7,7 +7,7 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge                       │c2 pending-questions
+     Weekly N-day window        NN% / NNN%│Mode: manual [ Switch to auto ]
+    -│██████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│[ Rescan last response ]
+    +│███████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│[ Rescan last response ]
+     Resets in Nd NNh · target N%         │
+                                          │No pending questions.
+                                          │
+    @@ -55,7 +55,7 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge                       │c2 -
+     Weekly N-day window        NN% / NNN%│empty. place a mod here:
+    -│██████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+    +│███████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+     Resets in Nd NNh · target N%         │2: usage-gauge (move from c1)
+                                          │
+                                          │
+T83 DIFF
+    --- base/T83
+    +++ tgt/T83
+    @@ -7,7 +7,7 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge                       │c2 -
+     Weekly N-day window        NN% / NNN%│empty. place a mod here:
+    -│██████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+    +│███████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+     Resets in Nd NNh · target N%         │2: usage-gauge (move from c1)
+                                          │
+                                          │
+T84 DIFF
+    --- base/T84
+    +++ tgt/T84
+    @@ -8,7 +8,7 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge                       │c2 pending-questions
+     Weekly N-day window        NN% / NNN%│Mode: manual [ Switch to auto ]
+    -│██████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│[ Rescan last response ]
+    +│███████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│[ Rescan last response ]
+     Resets in Nd NNh · target N%         │
+                                          │No pending questions.
+                                          │
+T85 DIFF
+    --- base/T85
+    +++ tgt/T85
+    @@ -7,7 +7,7 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge                       │c2 -
+     Weekly N-day window        NN% / NNN%│empty. place a mod here:
+    -│██████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+    +│███████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│1: pending-questions
+     Resets in Nd NNh · target N%         │2: usage-gauge (move from c1)
+                                          │
+                                          │
+T86 SAME
+T87 SAME
+T88 SAME
+T89 DIFF
+    --- base/T89
+    +++ tgt/T89
+    @@ -13,7 +13,7 @@
+     c1 -                                                │c2 usage-gauge
+     empty. place a mod here:                            │Weekly N-day  NN% /
+     usage-gauge (move from c2)                          │window        NNN%
+    -                                                    ││███░░░░░░░░░░░░░░░░░░
+    +                                                    ││████░░░░░░░░░░░░░░░░░
+                                                         │Resets in Nd NNh ·
+                                                         │target N%
+                                                         │
+T90 DIFF
+    --- base/T90
+    +++ tgt/T90
+    @@ -14,6 +14,6 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge
+     Weekly N-day window                                              NN% / NNN%
+    -█│██████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    +█│███████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     Resets in Nd NNh · target N%
+     failed hooks: 0
+T91 DIFF
+    --- base/T91
+    +++ tgt/T91
+    @@ -10,6 +10,6 @@
+     ───────────────────────────────────────────────────────────────────────────
+     c1 usage-gauge
+     Weekly N-day window                                              NN% / NNN%
+    -█│██████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    +█│███████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     Resets in Nd NNh · target N%
+     failed hooks: 0
+T92 DIFF
+    --- base/T92
+    +++ tgt/T92
+    @@ -3,6 +3,6 @@
+     -- prompt 위 4줄(숫자 N)
+     
+     Weekly N-day window                                                                                                                                        NN% / NNN% [-]
+    -██│████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    +██│█████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     Resets in Nd NNh · target N%
+     failed hooks: 0
+T93 SAME
+T106 DIFF
+    --- base/T106
+    +++ tgt/T106
+    @@ -6,7 +6,6 @@
+     -- select main: ⎿  pane-grid: showing main
+     k12shown: readShownTab "main"
+     -- 전부
+    -k12shown: readShownTab null
+     k12shown: readShownTab "main"
+     k12shown: readShownTab "w2"
+     k12shown: readShownTab "main"
+T118 SAME
+T119 SAME
+T120 SAME
+T121 SAME
+T122 SAME
+T123 SAME
+T124 SAME
+T125 SAME
+T126 SAME
+T127 SAME
+summary: same=14 diff=10 missing=0
+
+[exited with code 1]

@@ -1,0 +1,115 @@
+T1 SAME
+T2 SAME
+T3 SAME
+T4 SAME
+T5 SAME
+T6 SAME
+T7 SAME
+T8 SAME
+T9 SAME
+T10 SAME
+T11 SAME
+T12 SAME
+T13 SAME
+T14 SAME
+T15 SAME
+T16 SAME
+T17 SAME
+T18 SAME
+T19 SAME
+T20 SAME
+T21 SAME
+T22 SAME
+T23 SAME
+T24 SAME
+T25 SAME
+T26 SAME
+T27 SAME
+T28 SAME
+T29 SAME
+T30 SAME
+T31 SAME
+T32 SAME
+T33 SAME
+T34 SAME
+T36 SAME
+T37 SAME
+T38 SAME
+T39 SAME
+T40 SAME
+T41 SAME
+T42 SAME
+T43 SAME
+T44 DIFF
+    --- tgt/T44
+    +++ broke/T44
+    @@ -4,7 +4,7 @@
+     pane-grid: usage: resize <1-99>
+     [exit-ish done]
+     $ g resize 100
+    -pane-grid: usage: resize <1-99>
+    +pane-grid: resized c1 to 100%
+     [exit-ish done]
+     $ g resize abc
+     pane-grid: usage: resize <1-99>
+    @@ -16,9 +16,37 @@
+     pane-grid: usage: resize <1-99>
+     [exit-ish done]
+     --- ls after
+    -ls: /Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/.claude/pane-grid/projects/proj-f9e0d9323dd1f53a: No such file or directory
+    +layout.json
+     --- pl
+    -NOFILE
+    +{
+    +  "version": 1,
+    +  "project": "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/proj",
+    +  "tabs": [
+    +    {
+    +      "name": "main",
+    +      "root": {
+    +        "kind": "row",
+    +        "children": [
+    +          {
+    +            "node": {
+    +              "kind": "cell",
+    +              "id": "c1"
+    +            },
+    +            "size": 99
+    +          },
+    +          {
+    +            "node": {
+    +              "kind": "cell",
+    +              "id": "c2"
+    +            },
+    +            "size": 1
+    +          }
+    +        ]
+    +      },
+    +      "active": "c1"
+    +    }
+    +  ]
+    +}
+     
+     --- log refused|kept|command failed
+     --- failed=0
+T45 SAME
+T46 SAME
+T47 SAME
+T48 SAME
+T49 SAME
+T50 SAME
+T51 SAME
+T52 SAME
+T53 SAME
+T54 SAME
+T55 SAME
+T56 SAME
+T94 SAME
+T95 SAME
+T96 SAME
+T98 SAME
+T99 SAME
+T112 SAME
+T113 SAME
+summary: same=61 diff=1 missing=0
+exit=1

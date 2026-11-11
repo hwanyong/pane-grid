@@ -1,0 +1,2 @@
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list

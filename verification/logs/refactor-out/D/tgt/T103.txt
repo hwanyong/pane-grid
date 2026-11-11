@@ -1,0 +1,4 @@
+-- CLAUDE_CONFIG_DIR=$CFG/ split -h
+pane-grid: split c1 into c1 and c2
+pane-grid: project $H/proj (root $H/proj) -> $J/run/D/cfg-own/pane-grid/projects/proj-bb3a7976d66e81fa
+-- CFG projects: proj-bb3a7976d66e81fa 

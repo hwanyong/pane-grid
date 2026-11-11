@@ -1,0 +1,14 @@
+## split -h Foo
+pane-grid: refused: tabs[0].root.children[1].node: plugin must match /^[a-z0-9][a-z0-9_.-]{0,127}$/
+--file
+NOFILE
+pane-grid: * main active=c1 {c1:50,c2:50}
+## place Foo c2
+pane-grid: refused: tabs[0].root.children[1].node: plugin must match /^[a-z0-9][a-z0-9_.-]{0,127}$/
+--file
+NOFILE
+## place -x
+pane-grid: refused: tabs[0].root.children[0].node: plugin must match /^[a-z0-9][a-z0-9_.-]{0,127}$/
+--file
+NOFILE
+failed hooks: 0

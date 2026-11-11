@@ -1,0 +1,45 @@
+-- split -h
+pane-grid: split c1 into c1 and c3
+pane-grid: project $H/proj (root $H/proj) -> $J/run/D/cfg-empty/pane-grid/projects/proj-bb3a7976d66e81fa
+-- reload
+pane-grid: loaded 1 tab(s) from $J/run/D/cfg-empty/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json
+-- H global sha256 same: yes
+-- ls H pane-grid: layout.json 
+-- ls CFG pane-grid/projects: proj-bb3a7976d66e81fa 
+-- CFG file
+{
+  "version": 1,
+  "project": "$H/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1"
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c3"
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2"
+            },
+            "size": 50
+          }
+        ]
+      },
+      "active": "c3"
+    }
+  ]
+}

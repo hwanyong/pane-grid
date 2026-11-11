@@ -1,0 +1,73 @@
+[
+{
+"req": {
+"subtype": "initialize"
+}
+},
+{
+"sleep": 3
+},
+{
+"sleep": 4
+},
+{
+"req": {
+"subtype": "ui_attach",
+"surface": "desktop",
+"client_id": "d1",
+"viewport": {
+"columns": 100,
+"rows": 40
+}
+}
+},
+{
+"mark": "before /clear"
+},
+{
+"req": {
+"subtype": "ui_panes"
+}
+},
+{
+"mark": "/clear"
+},
+{
+"user": "/clear",
+"wait": 60
+},
+{
+"mark": "render grid-main right after /clear"
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "desktop",
+"client_id": "d1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 100,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 40
+},
+"view": {}
+}
+}
+},
+{
+"sleep": 8
+},
+{
+"mark": "panes 8 s later"
+},
+{
+"req": {
+"subtype": "ui_panes"
+}
+}
+]

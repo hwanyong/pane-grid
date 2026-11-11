@@ -1,0 +1,8 @@
+-- no HOME split -h: pane-grid: split c1 into c1 and c2
+pane-grid: no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+pane-grid: project $H/proj (root $H/proj) -> /pane-grid/projects/proj-bb3a7976d66e81fa
+-- no HOME reload: pane-grid: loaded 1 tab(s) from no file (neither HOME nor CLAUDE_CONFIG_DIR is set)
+pane-grid: no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+pane-grid: project $H/proj (root $H/proj) -> /pane-grid/projects/proj-bb3a7976d66e81fa
+-- /.claude exists: no
+-- real same: yes

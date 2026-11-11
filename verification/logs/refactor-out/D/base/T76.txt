@@ -1,0 +1,12 @@
+-- before
+real layout.json sha256 1dca3aebdfa19b977e8a6b4ed3812e0d312357071abc32de70170837427918c5
+real projects: CloudLLM-Claude-code-6468e2a086c7fdc4 hwanyong.github.io-6c87ed0b1be55dbe plugin-pane-grid-6314d9b7b3856a6d rea_cathode-bdad1510bdb093c0 skill-kanban-8c90ad5db404dce5 
+-- split -h: pane-grid: split c6 into c6 and c9
+-- log
+pane-grid: project $H/proj (root $H/proj) -> $J/run/D/cfg-real/pane-grid/projects/proj-bb3a7976d66e81fa
+-- after
+real layout.json sha256 1dca3aebdfa19b977e8a6b4ed3812e0d312357071abc32de70170837427918c5
+real projects: CloudLLM-Claude-code-6468e2a086c7fdc4 hwanyong.github.io-6c87ed0b1be55dbe plugin-pane-grid-6314d9b7b3856a6d rea_cathode-bdad1510bdb093c0 skill-kanban-8c90ad5db404dce5 
+-- same: yes
+-- written under CFG:
+pane-grid/projects/proj-HEX/layout.json

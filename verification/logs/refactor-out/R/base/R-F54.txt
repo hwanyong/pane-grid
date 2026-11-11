@@ -1,0 +1,84 @@
+# R-F54: desktop 100x40 와 mobile 50x30 이 grid-main 을 번갈아 그린다(member-probe 로 placed 를 읽는다)
+[0] initialize success
+[2] ui_attach {"response": {"surfaces": ["desktop"]}, "subtype": "success"}
+[3] ui_attach {"response": {"surfaces": ["desktop", "mobile"]}, "subtype": "success"}
+## round 1: desktop 100x40 render + measure
+[5] ui_render ok cellbox:c1 w=50 Client divider:r:0 cellbox:c2 w=49
+[6] ui_message {"response": {"handled": true}, "subtype": "success"}
+## round 1: mobile 50x30 render
+[9] ui_render ok cellbox:c1 w=25 cellbox:c2 w=24
+## round 2: desktop 100x40 render + measure
+[12] ui_render ok cellbox:c1 w=50 Client divider:r:0 cellbox:c2 w=49
+[13] ui_message {"response": {"handled": true}, "subtype": "success"}
+## round 2: mobile 50x30 render
+[16] ui_render ok cellbox:c1 w=25 cellbox:c2 w=24
+## round 3: desktop 100x40 render + measure
+[19] ui_render ok cellbox:c1 w=50 Client divider:r:0 cellbox:c2 w=49
+[20] ui_message {"response": {"handled": true}, "subtype": "success"}
+## round 3: mobile 50x30 render
+[23] ui_render ok cellbox:c1 w=25 cellbox:c2 w=24
+## wheel from mobile at col30 row8 (last render: mobile)
+[26] ui_scroll {"response": {"moved": true, "offset": 0}, "subtype": "success"}
+## render mobile then desktop to read scroll rows
+[29] ui_render ok cellbox:c1 w=25 cellbox:c2 w=24 c2.marginTop=-1
+[30] ui_render ok cellbox:c1 w=50 Client divider:r:0 cellbox:c2 w=49 c2.marginTop=-1
+[31] ui_message {"response": {"handled": true}, "subtype": "success"}
+## mobile render, then divider drag from desktop to at=70 (isFinal)
+[34] ui_render ok cellbox:c1 w=25 cellbox:c2 w=24 c2.marginTop=-1
+[36] ui_message {"response": {"handled": true}, "subtype": "success"}
+## render desktop after drag
+[39] ui_render ok cellbox:c1 w=97 Client divider:r:0 cellbox:c2 w=2 c2.marginTop=-1
+## log
+pane-grid: layout revision=1 tabs=main placed=usage-gauge,filetree
+ui.open pane-grid grid-main (unasked, unmeasured columns): placed
+k8member: readPlacement {"usage-gauge":{"cell":"c1",0,0,0,0},"filetree":{"cell":"c2",0,0,0,0}}
+pane-grid: layout revision=2 tabs=main placed=usage-gauge,filetree
+k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,50,35},"filetree":{"cell":"c2",51,5,49,35}}
+pane-grid: layout revision=3 tabs=main placed=usage-gauge,filetree
+k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,25,25},"filetree":{"cell":"c2",26,5,24,25}}
+pane-grid: layout revision=4 tabs=main placed=usage-gauge,filetree
+k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,50,35},"filetree":{"cell":"c2",51,5,49,35}}
+pane-grid: layout revision=5 tabs=main placed=usage-gauge,filetree
+k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,25,25},"filetree":{"cell":"c2",26,5,24,25}}
+pane-grid: layout revision=6 tabs=main placed=usage-gauge,filetree
+k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,50,35},"filetree":{"cell":"c2",51,5,49,35}}
+pane-grid: layout revision=7 tabs=main placed=usage-gauge,filetree
+k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,25,25},"filetree":{"cell":"c2",26,5,24,25}}
+pane-grid: layout revision=8 tabs=main placed=usage-gauge,filetree
+k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,50,35},"filetree":{"cell":"c2",51,5,49,35}}
+pane-grid: layout revision=9 tabs=main placed=usage-gauge,filetree
+k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,25,25},"filetree":{"cell":"c2",26,5,24,25}}
+pane-grid: layout revision=10 tabs=main placed=usage-gauge,filetree
+k8member: readPlacement {"usage-gauge":{"cell":"c1",0,5,48,25},"filetree":{"cell":"c2",49,5,1,25}}
+## project file
+{
+  "version": 1,
+  "project": "<JOB>/home/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1",
+              "plugin": "usage-gauge"
+            },
+            "size": 97.95
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2",
+              "plugin": "filetree"
+            },
+            "size": 2.05
+          }
+        ]
+      },
+      "active": "c1"
+    }
+  ]
+}

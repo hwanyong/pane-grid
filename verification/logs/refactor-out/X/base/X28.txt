@@ -1,0 +1,5 @@
+pane-grid: renamed main to work
+--ui log
+ui.open pane-grid grid-main (unasked
+ui.open pane-grid grid-work (asked
+failed hooks: 0

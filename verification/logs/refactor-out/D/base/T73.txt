@@ -1,0 +1,4 @@
+-- reload
+pane-grid: loaded 1 tab(s) from ~/.claude/pane-grid/layout.json
+-- list
+pane-grid: * main active=c1 {c1:50,c2:50}

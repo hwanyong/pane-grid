@@ -1,0 +1,50 @@
+# R-F47: /clear 뒤 겹친 ensureLayout (global layout.json 무효, 사본 loadFile 3초 지연)
+[0] initialize success
+[3] ui_attach {"response": {"surfaces": ["desktop"]}, "subtype": "success"}
+## before /clear
+[5] ui_panes {"response": {"focus_requested_id": null, "focused_id": null, "panes": [{"id": "grid-main", "plugin": "pane-grid", "title": "main"}], "shown_id": "grid-main"}, "subtype": "success"}
+## /clear
+[7] user '/clear' -> ''
+## render grid-main right after /clear
+[9] ui_render ok 
+## panes 8 s later
+[12] ui_panes {"response": {"focus_requested_id": null, "focused_id": null, "panes": [{"id": "grid-main", "plugin": "pane-grid", "title": "main"}], "shown_id": "grid-main"}, "subtype": "success"}
+## log
+pane-grid: layout file <JOB>/home/.claude/pane-grid/layout.json refused: tabs must be a list of one tab or more
+$.ui.toast (pane-grid): pane-grid: ~/.claude/pane-grid/layout.json is not a valid layout (tabs must be a list of one tab or more); using one empty tab
+pane-grid: layout revision=1 tabs=main placed=
+ui.open pane-grid grid-main (unasked, unmeasured columns): placed
+pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+pane-grid: layout file <JOB>/home/.claude/pane-grid/layout.json refused: tabs must be a list of one tab or more
+$.ui.toast (pane-grid): pane-grid: ~/.claude/pane-grid/layout.json is not a valid layout (tabs must be a list of one tab or more); using one empty tab
+pane-grid: layout revision=1 tabs=main placed=
+ui.open pane-grid grid-main (unasked, unmeasured columns): placed
+pane-grid: layout file <JOB>/home/.claude/pane-grid/layout.json refused: tabs must be a list of one tab or more
+$.ui.toast (pane-grid): pane-grid: ~/.claude/pane-grid/layout.json is not a valid layout (tabs must be a list of one tab or more); using one empty tab
+pane-grid: layout revision=2 tabs=main placed=
+ui.open pane-grid grid-main (unasked, unmeasured columns): placed
+pane-grid: layout file <JOB>/home/.claude/pane-grid/layout.json refused: tabs must be a list of one tab or more
+$.ui.toast (pane-grid): pane-grid: ~/.claude/pane-grid/layout.json is not a valid layout (tabs must be a list of one tab or more); using one empty tab
+pane-grid: layout revision=3 tabs=main placed=
+ui.open pane-grid grid-main (unasked, unmeasured columns): placed
+pane-grid: layout file <JOB>/home/.claude/pane-grid/layout.json refused: tabs must be a list of one tab or more
+$.ui.toast (pane-grid): pane-grid: ~/.claude/pane-grid/layout.json is not a valid layout (tabs must be a list of one tab or more); using one empty tab
+pane-grid: layout revision=4 tabs=main placed=
+ui.open pane-grid grid-main (unasked, unmeasured columns): placed
+## project file
+NOFILE
+## counts after /clear
+state-empty: 4
+refused file: 4
+toast: 4
+publish: 4
+
+# R-F47 (지연 없는 원래 트리, 같은 steps)
+## counts after /clear
+state-empty: 1
+refused file: 1
+toast: 1
+publish: 1

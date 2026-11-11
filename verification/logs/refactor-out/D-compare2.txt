@@ -1,0 +1,97 @@
+T66 SAME
+T67 SAME
+T68 SAME
+T69 SAME
+T70 SAME
+T71a SAME
+T71b SAME
+T71c SAME
+T71d SAME
+T72 SAME
+T73 SAME
+T74 SAME
+T75 SAME
+T76 SAME
+T77a SAME
+T77b SAME
+T77c SAME
+T77d SAME
+T77e SAME
+T77f SAME
+T77g SAME
+T78 SAME
+T79 SAME
+T80 SAME
+T103 SAME
+T104 SAME
+T105 SAME
+T115 SAME
+T117a SAME
+T117b DIFF
+    --- base/T117b
+    +++ tgt/T117b
+    @@ -1,7 +1,8 @@
+    --- no HOME split -h: pane-grid: pane-grid: the command failed; see the debug log
+    -pane-grid: project $H/proj (root $H/proj) -> /.claude/pane-grid/projects/proj-bb3a7976d66e81fa
+    -pane-grid: command failed: {"kind":"throw","message":"pane-grid: $.fs.write(/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json) failed: EROFS","budget":1000}
+    --- no HOME reload: pane-grid: loaded 1 tab(s) from /.claude/pane-grid/layout.json
+    -pane-grid: project $H/proj (root $H/proj) -> /.claude/pane-grid/projects/proj-bb3a7976d66e81fa
+    +-- no HOME split -h: pane-grid: split c1 into c1 and c2
+    +pane-grid: no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+    +pane-grid: project $H/proj (root $H/proj) -> /pane-grid/projects/proj-bb3a7976d66e81fa
+    +-- no HOME reload: pane-grid: loaded 1 tab(s) from no file (neither HOME nor CLAUDE_CONFIG_DIR is set)
+    +pane-grid: no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+    +pane-grid: project $H/proj (root $H/proj) -> /pane-grid/projects/proj-bb3a7976d66e81fa
+     -- /.claude exists: no
+     -- real same: yes
+T117b-rel DIFF
+    --- base/T117b-rel
+    +++ tgt/T117b-rel
+    @@ -1,4 +1,4 @@
+     -- CLAUDE_CONFIG_DIR=rel-cfg split -h
+     pane-grid: split c1 into c1 and c2
+    -pane-grid: project $H/proj (root $H/proj) -> rel-cfg/pane-grid/projects/proj-bb3a7976d66e81fa
+    +pane-grid: project $H/proj (root $H/proj) -> $H/proj/rel-cfg/pane-grid/projects/proj-bb3a7976d66e81fa
+     -- written: rel-cfg/pane-grid/projects/proj-HEX/layout.json
+T117d DIFF
+    --- base/T117d
+    +++ tgt/T117d
+    @@ -2,9 +2,8 @@
+     $.ui.toast (pane-grid): pane-grid: ~/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json is not a valid layout (not JSON: JSON Parse error: Unexpected identifier "not"); using one empty tab
+     -- split -h #1: pane-grid: refused: another session changed this project's layout; loaded ~/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json again, do it once more
+     -- split -h #2: pane-grid: split c1 into c1 and c3
+    --- invalid file: not json
+    +-- invalid file: NOFILE
+     -- log
+     pane-grid: layout file $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json refused: not JSON: JSON Parse error: Unexpected identifier "not"
+     pane-grid: $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json changed by another session (mtimeMs N -> N); not written
+    -pane-grid: kept the invalid layout file as $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.invalid.json
+     failed hooks: 0
+T117e DIFF
+    --- base/T117e
+    +++ tgt/T117e
+    @@ -1,18 +1,9 @@
+     -- DIR=locked g list
+    -pane-grid: session.start hook skipped: threw pane-grid: $.fs.read($H/locked/.git) failed: EACCES
+    -`/grid list` 는 실행되지 않았습니다. 이 세션에는 `/grid` 명령이 설치되어 있지 않습니다.
+    -
+    -pane-grid 쪽에서 이 세션에 있는 것은 스킬 `pane-grid:add-pane-grid-cell` 한 개뿐입니다. 이 스킬은 플러그인의 hooks 모듈을 pane-grid 셀 안에 그려지도록 고치는 스킬이라서, 배치된 셀 목록을 출력하는 `list` 기능은 없습니다.
+    -
+    -`/grid` 를 쓰려면 그 명령을 가진 플러그인을 조직 플러그인이나 프로젝트 스킬로 추가해야 합니다. 정확한 설치 방법은 확인하지 못해서 적지 않았습니다.
+    +pane-grid: * main active=c1 {c1:50,c2:50}
+     -- log
+    +pane-grid: start failed: {"kind":"throw","message":"pane-grid: $.fs.read($H/locked/.git) failed: EACCES","budget":1000}
+     -- DIR=locked g split -h
+    -pane-grid: session.start hook skipped: threw pane-grid: $.fs.read($H/locked/.git) failed: EACCES
+    -`/grid split -h` 는 실행되지 않았습니다. 이 세션에는 `/grid` 명령이 설치되어 있지 않습니다.
+    -
+    -이 세션에 있는 pane-grid 관련 항목은 `pane-grid:add-pane-grid-cell` 스킬 하나뿐입니다. 이 스킬은 플러그인의 hooks 모듈을 고쳐 pane-grid 셀 안에 그려지게 하는 작업에 씁니다. 화면을 가로로 나누는 `split` 명령은 이 스킬에 없습니다.
+    -
+    -`/grid` 를 쓰려면 그 명령을 가진 플러그인을 조직 플러그인이나 프로젝트 스킬로 추가해야 합니다. 정확한 설치 절차는 확인하지 못해서 여기에 적지 않았습니다. 플러그인이 이미 설치되어 있다면 이 세션(비대화형 실행)에 로드되지 않은 것일 수 있습니다. 그런 경우에는 대화형 세션에서 다시 실행해 보시면 됩니다.
+    -
+    -여기서 할 수 있는 다른 작업이 있으면 말씀해 주세요. 예를 들어 지금 저장소의 플러그인을 pane-grid 셀에 맞게 고치는 작업은 `pane-grid:add-pane-grid-cell` 스킬로 할 수 있습니다.
+    +pane-grid: pane-grid: the command failed; see the debug log
+     -- log
+    +pane-grid: start failed: {"kind":"throw","message":"pane-grid: $.fs.read($H/locked/.git) failed: EACCES","budget":1000}
+    +pane-grid: command failed: {"kind":"throw","message":"pane-grid: $.fs.write(/layout.json) failed: EROFS","budget":1000}
+summary: same=29 diff=4 missing=0

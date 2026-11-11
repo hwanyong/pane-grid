@@ -1,0 +1,18 @@
+# declaration lines (grep ^export)
+export const TOOLBAR_KEYS = ['v', 's', 'o', 'z', 'x', 'w', 'b', 'c', 'k', 'q'] as const
+export const placementIn = (layout: unknown, plugin: string): GridPlacement | undefined => {
+export async function readPlacement($: EngineInterface, plugin: string): Promise<GridPlacement | undefined> {
+export async function readShownTab($: EngineInterface): Promise<string | null> {
+export const fillSlot = (below: RenderElement, plugin: string, cell: RenderElement): RenderElement | undefined => {
+export const offerChoice = (below: RenderElement, plugin: string, placement: GridPlacement | undefined, makeButton: (choice: GridChoice) => RenderElement): RenderElement =>
+export const scrollsKey = (plugin: string) => `${SCROLLS_KEY}${plugin}`
+export const isScrollIn = (placement: GridPlacement | undefined, e: UiScrollInput): boolean => {
+# runtime exports (tsx)
+TOOLBAR_KEYS: object ["v","s","o","z","x","w","b","c","k","q"]
+fillSlot: Function length=3
+isScrollIn: Function length=2
+offerChoice: Function length=4
+placementIn: Function length=2
+readPlacement: AsyncFunction length=2
+readShownTab: AsyncFunction length=1
+scrollsKey: Function length=1

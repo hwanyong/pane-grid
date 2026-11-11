@@ -1,0 +1,7 @@
+-- DIR=proj-wt g list
+pane-grid: * main active=c3 {c1:25,c3:25,c2:50}
+pane-grid: project $H/proj (root $H/proj-wt) -> $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa
+-- DIR=proj/sub g list
+pane-grid: * main active=c3 {c1:25,c3:25,c2:50}
+pane-grid: project $H/proj (root $H/proj/sub) -> $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa
+-- projects: proj-bb3a7976d66e81fa 

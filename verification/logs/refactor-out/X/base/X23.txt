@@ -1,0 +1,10 @@
+exit=0
+--stdout
+<W>/pane-structure.png
+<W>/pane-lifecycle.png
+--stderr(last 3)
+--files
+pane-lifecycle.svg new
+pane-structure.svg new
+pane-lifecycle.png old
+pane-structure.png old

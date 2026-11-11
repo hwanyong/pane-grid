@@ -1,0 +1,89 @@
+T66 SAME
+T67 SAME
+T68 SAME
+T69 SAME
+T70 SAME
+T71a SAME
+T71b SAME
+T71c SAME
+T71d SAME
+T72 SAME
+T73 SAME
+T74 SAME
+T75 SAME
+T76 SAME
+T77a SAME
+T77b SAME
+T77c SAME
+T77d SAME
+T77e SAME
+T77f SAME
+T77g SAME
+T78 SAME
+T79 SAME
+T80 SAME
+T103 SAME
+T104 SAME
+T105 SAME
+T115 SAME
+T117a SAME
+T117b DIFF
+    --- base/T117b
+    +++ tgt/T117b
+    @@ -1,7 +1,8 @@
+    --- no HOME split -h: pane-grid: pane-grid: the command failed; see the debug log
+    -pane-grid: project $H/proj (root $H/proj) -> /.claude/pane-grid/projects/proj-bb3a7976d66e81fa
+    -pane-grid: command failed: {"kind":"throw","message":"pane-grid: $.fs.write(/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json) failed: EROFS","budget":1000}
+    --- no HOME reload: pane-grid: loaded 1 tab(s) from /.claude/pane-grid/layout.json
+    -pane-grid: project $H/proj (root $H/proj) -> /.claude/pane-grid/projects/proj-bb3a7976d66e81fa
+    +-- no HOME split -h: pane-grid: split c1 into c1 and c2
+    +pane-grid: no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+    +pane-grid: project $H/proj (root $H/proj) -> /pane-grid/projects/proj-bb3a7976d66e81fa
+    +-- no HOME reload: pane-grid: loaded 1 tab(s) from no file (neither HOME nor CLAUDE_CONFIG_DIR is set)
+    +pane-grid: no file (neither HOME nor CLAUDE_CONFIG_DIR is set); the layout is kept in this session only
+    +pane-grid: project $H/proj (root $H/proj) -> /pane-grid/projects/proj-bb3a7976d66e81fa
+     -- /.claude exists: no
+     -- real same: yes
+T117b-rel DIFF
+    --- base/T117b-rel
+    +++ tgt/T117b-rel
+    @@ -1,4 +1,4 @@
+     -- CLAUDE_CONFIG_DIR=rel-cfg split -h
+     pane-grid: split c1 into c1 and c2
+    -pane-grid: project $H/proj (root $H/proj) -> rel-cfg/pane-grid/projects/proj-bb3a7976d66e81fa
+    +pane-grid: project $H/proj (root $H/proj) -> $H/proj/rel-cfg/pane-grid/projects/proj-bb3a7976d66e81fa
+     -- written: rel-cfg/pane-grid/projects/proj-HEX/layout.json
+T117d DIFF
+    --- base/T117d
+    +++ tgt/T117d
+    @@ -2,9 +2,8 @@
+     $.ui.toast (pane-grid): pane-grid: ~/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json is not a valid layout (not JSON: JSON Parse error: Unexpected identifier "not"); using one empty tab
+     -- split -h #1: pane-grid: refused: another session changed this project's layout; loaded ~/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json again, do it once more
+     -- split -h #2: pane-grid: split c1 into c1 and c3
+    --- invalid file: not json
+    +-- invalid file: NOFILE
+     -- log
+     pane-grid: layout file $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json refused: not JSON: JSON Parse error: Unexpected identifier "not"
+     pane-grid: $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json changed by another session (mtimeMs N -> N); not written
+    -pane-grid: kept the invalid layout file as $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.invalid.json
+     failed hooks: 0
+T117e DIFF
+    --- base/T117e
+    +++ tgt/T117e
+    @@ -1,8 +1,11 @@
+     -- DIR=locked g list
+    -pane-grid: session.start hook skipped: threw pane-grid: $.fs.read($H/locked/.git) failed: EACCES
+    -other stdout lines (model text): some
+    +pane-grid: * main active=c1 c1
+    +other stdout lines (model text): none
+     -- log
+    +pane-grid: start failed: {"kind":"throw","message":"pane-grid: $.fs.read($H/locked/.git) failed: EACCES","budget":1000}
+     -- DIR=locked g split -h
+    -pane-grid: session.start hook skipped: threw pane-grid: $.fs.read($H/locked/.git) failed: EACCES
+    -other stdout lines (model text): some
+    +pane-grid: pane-grid: the command failed; see the debug log
+    +other stdout lines (model text): none
+     -- log
+    +pane-grid: start failed: {"kind":"throw","message":"pane-grid: $.fs.read($H/locked/.git) failed: EACCES","budget":1000}
+    +pane-grid: command failed: {"kind":"throw","message":"pane-grid: $.fs.write(/layout.json) failed: EROFS","budget":1000}
+summary: same=29 diff=4 missing=0

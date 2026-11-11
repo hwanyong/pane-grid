@@ -1,0 +1,51 @@
+mod inbox order B
+built for inbox,pane-grid,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-privacy
+-- tab bar before select:                                                                          ✕
+-- out: ⎿  pane-grid: showing main
+-- pane
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 inbox                             │c2 -
+ ▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄          │empty. place a mod here:
+   Asks     Finds     PRs            │inbox (move from c1)
+─▀▀▀▀▀▀▀▀─▀▀▀▀▀▀▀▀▀─▀▀▀▀▀▀▀──────────│
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+            Nothing needed           │
+                                     │
+        Claude's questions and       │
+        the tasks only you can       │
+           do show up here.          │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+  Help                       vN.N.N  │
+failed hooks: 0
+-- inbox log 줄(sort -u)
+-- pane-grid log 줄(sort -u)
+pane-grid: action select main: showing main
+pane-grid: layout revision=N tabs=main placed=inbox
+pane-grid: project /Users/uhd/.claude/jobs/2d2d4469/tmp/run/E/home/proj (root /Users/uhd/.claude/jobs/2d2d4469/tmp/run/E/home/proj) -> /Users/uhd/.claude/jobs/2d2d4469/tmp/run/E/home/.claude/pane-grid/projects/proj-3f623eb1aa936c36

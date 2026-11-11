@@ -1,0 +1,11 @@
+exit=1
+--stdout
+--stderr(last 3)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['<W>/chrome', '--headless=new', '--user-data-dir=<tmp>', '--hide-scrollbars', '--force-device-scale-factor=2', '--window-size=1420,830', '--screenshot=<W>/pane-structure.png', 'file://<W>/pane-structure.svg']' returned non-zero exit status 3.
+--files
+pane-lifecycle.svg old
+pane-structure.svg new
+pane-lifecycle.png old
+pane-structure.png old

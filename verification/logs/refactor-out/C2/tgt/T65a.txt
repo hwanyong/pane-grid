@@ -1,0 +1,35 @@
+ main   Pending questions                                                ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -
+empty. place a mod here:
+───────────────────────────────────────────────────────────────────────────
+c2 -
+empty. place a mod here:
+--- wheel down on c1 content
+engine: by 1 
+ main   Pending questions                                                ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -
+pending-questions
+───────────────────────────────────────────────────────────────────────────
+c2 -
+empty. place a mod here:
+--- wheel up x2
+engine: by -1 
+ main   Pending questions                                                ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -
+empty. place a mod here:
+───────────────────────────────────────────────────────────────────────────
+c2 -
+empty. place a mod here:
+failed=0

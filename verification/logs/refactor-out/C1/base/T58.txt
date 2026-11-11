@@ -1,0 +1,3 @@
+reload: ⎿  pane-grid: loaded 1 tab(s) from ~/.claude/pane-grid/layout.json
+$.ui.toast (pane-grid): pane-grid: the last tab cannot be closed
+pane-grid: action close: the last tab cannot be closed

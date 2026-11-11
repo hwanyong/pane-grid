@@ -1,0 +1,45 @@
+pane-grid: action select-cell c2: active cell c2
+-- colors
+c1 - '\x1b[38;5;153m\x1b[48;5;235m\x1b[38;5;246m'
+c2 - '\x1b[38;5;246m\x1b[1m\x1b[38;5;72m'
+-- pane
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -                                 │c2 -
+empty. place a mod here:             │empty. place a mod here:
+no grid-ready mod is loaded          │no grid-ready mod is loaded
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │

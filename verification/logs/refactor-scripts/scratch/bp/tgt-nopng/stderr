@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/uhd/.claude/jobs/2d2d4469/tmp/scratch/bp/tgt-nopng/build.py", line 333, in <module>
+    render("pane-structure", *structure())
+  File "/Users/uhd/.claude/jobs/2d2d4469/tmp/scratch/bp/tgt-nopng/build.py", line 329, in render
+    png_draft.replace(png_path)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1385, in replace
+    self._accessor.replace(self, target)
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/uhd/.claude/jobs/2d2d4469/tmp/scratch/bp/tgt-nopng/pane-structure.draft.png' -> '/Users/uhd/.claude/jobs/2d2d4469/tmp/scratch/bp/tgt-nopng/pane-structure.png'

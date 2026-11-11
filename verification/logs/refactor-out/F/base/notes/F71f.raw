@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/F/base-fail/docs/images/build.py", line 282, in <module>
+    render("pane-structure", structure(), 1420, 830)
+  File "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/F/base-fail/docs/images/build.py", line 274, in render
+    subprocess.run([
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/Users/uhd/.claude/jobs/2d2d4469/tmp/run/F/fakechrome', '--headless=new', '--user-data-dir=/var/folders/_7/wyfrljvs30bbvg2sc3fj9jk80000gn/T/tmpcl4wwfx3', '--hide-scrollbars', '--force-device-scale-factor=2', '--window-size=1420,830', '--screenshot=/Users/uhd/.claude/jobs/2d2d4469/tmp/run/F/base-fail/docs/images/pane-structure.png', 'file:///Users/uhd/.claude/jobs/2d2d4469/tmp/run/F/base-fail/docs/images/pane-structure.svg']' returned non-zero exit status 21.

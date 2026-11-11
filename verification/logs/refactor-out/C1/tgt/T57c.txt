@@ -1,0 +1,2 @@
+$.ui.toast (pane-grid): pane-grid: active cell c1
+pane-grid: action next: active cell c1

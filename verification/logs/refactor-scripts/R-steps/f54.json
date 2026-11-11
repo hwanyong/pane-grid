@@ -1,0 +1,381 @@
+[
+{
+"req": {
+"subtype": "initialize"
+}
+},
+{
+"sleep": 3
+},
+{
+"req": {
+"subtype": "ui_attach",
+"surface": "desktop",
+"client_id": "d1",
+"viewport": {
+"columns": 100,
+"rows": 40
+}
+}
+},
+{
+"req": {
+"subtype": "ui_attach",
+"surface": "mobile",
+"client_id": "m1",
+"viewport": {
+"columns": 50,
+"rows": 30
+}
+}
+},
+{
+"mark": "round 1: desktop 100x40 render + measure"
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "desktop",
+"client_id": "d1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 100,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 40
+},
+"view": {}
+}
+}
+},
+{
+"req": {
+"subtype": "ui_message",
+"plugin": "pane-grid",
+"component": "Pane",
+"instance_id": "grid-main",
+"client": "measure:main",
+"module": "hooks/measure.tsx",
+"data": {
+"columns": 100,
+"rows": 40
+}
+}
+},
+{
+"sleep": 1.5
+},
+{
+"mark": "round 1: mobile 50x30 render"
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "mobile",
+"client_id": "m1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 50,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 30
+},
+"view": {}
+}
+}
+},
+{
+"sleep": 1.5
+},
+{
+"mark": "round 2: desktop 100x40 render + measure"
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "desktop",
+"client_id": "d1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 100,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 40
+},
+"view": {}
+}
+}
+},
+{
+"req": {
+"subtype": "ui_message",
+"plugin": "pane-grid",
+"component": "Pane",
+"instance_id": "grid-main",
+"client": "measure:main",
+"module": "hooks/measure.tsx",
+"data": {
+"columns": 100,
+"rows": 40
+}
+}
+},
+{
+"sleep": 1.5
+},
+{
+"mark": "round 2: mobile 50x30 render"
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "mobile",
+"client_id": "m1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 50,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 30
+},
+"view": {}
+}
+}
+},
+{
+"sleep": 1.5
+},
+{
+"mark": "round 3: desktop 100x40 render + measure"
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "desktop",
+"client_id": "d1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 100,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 40
+},
+"view": {}
+}
+}
+},
+{
+"req": {
+"subtype": "ui_message",
+"plugin": "pane-grid",
+"component": "Pane",
+"instance_id": "grid-main",
+"client": "measure:main",
+"module": "hooks/measure.tsx",
+"data": {
+"columns": 100,
+"rows": 40
+}
+}
+},
+{
+"sleep": 1.5
+},
+{
+"mark": "round 3: mobile 50x30 render"
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "mobile",
+"client_id": "m1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 50,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 30
+},
+"view": {}
+}
+}
+},
+{
+"sleep": 1.5
+},
+{
+"mark": "wheel from mobile at col30 row8 (last render: mobile)"
+},
+{
+"req": {
+"subtype": "ui_scroll",
+"surface": "mobile",
+"component": "Pane",
+"instance_id": "grid-main",
+"offset": 0,
+"body_rows": 30,
+"content_rows": 30,
+"by": 1,
+"pointer": {
+"column": 30,
+"row": 8
+}
+}
+},
+{
+"sleep": 1
+},
+{
+"mark": "render mobile then desktop to read scroll rows"
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "mobile",
+"client_id": "m1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 50,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 30
+},
+"view": {}
+}
+}
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "desktop",
+"client_id": "d1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 100,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 40
+},
+"view": {}
+}
+}
+},
+{
+"req": {
+"subtype": "ui_message",
+"plugin": "pane-grid",
+"component": "Pane",
+"instance_id": "grid-main",
+"client": "measure:main",
+"module": "hooks/measure.tsx",
+"data": {
+"columns": 100,
+"rows": 40
+}
+}
+},
+{
+"sleep": 1
+},
+{
+"mark": "mobile render, then divider drag from desktop to at=70 (isFinal)"
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "mobile",
+"client_id": "m1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 50,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 30
+},
+"view": {}
+}
+}
+},
+{
+"sleep": 1
+},
+{
+"req": {
+"subtype": "ui_message",
+"plugin": "pane-grid",
+"component": "Pane",
+"instance_id": "grid-main",
+"client": "divider:r:0",
+"module": "hooks/divider.tsx",
+"data": {
+"at": 70,
+"isFinal": true
+}
+}
+},
+{
+"sleep": 1.5
+},
+{
+"mark": "render desktop after drag"
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "desktop",
+"client_id": "d1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 100,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 40
+},
+"view": {}
+}
+}
+},
+{
+"sleep": 1
+}
+]

@@ -1,0 +1,1 @@
+C1 session t failed hooks: 0

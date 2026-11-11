@@ -1,0 +1,160 @@
+[
+{
+"req": {
+"subtype": "initialize"
+}
+},
+{
+"sleep": 3
+},
+{
+"mark": "after initialize"
+},
+{
+"shell": "echo 'Ymark: after initialize' >> \"$H/../logs/sdk.log\""
+},
+{
+"req": {
+"subtype": "ui_attach",
+"surface": "mobile",
+"client_id": "m1",
+"viewport": {
+"columns": 60,
+"rows": 30
+}
+}
+},
+{
+"mark": "A mobile render 60x30"
+},
+{
+"shell": "echo 'Ymark: A mobile render 60x30' >> \"$H/../logs/sdk.log\""
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "mobile",
+"client_id": "m1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 60,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 30
+},
+"view": {}
+}
+}
+},
+{
+"sleep": 2.5
+},
+{
+"mark": "B mobile render 60x30 again"
+},
+{
+"shell": "echo 'Ymark: B mobile render 60x30 again' >> \"$H/../logs/sdk.log\""
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "mobile",
+"client_id": "m1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 60,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 30
+},
+"view": {}
+}
+}
+},
+{
+"sleep": 2.5
+},
+{
+"mark": "C mobile render 50x24"
+},
+{
+"shell": "echo 'Ymark: C mobile render 50x24' >> \"$H/../logs/sdk.log\""
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "mobile",
+"client_id": "m1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 50,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 24
+},
+"view": {}
+}
+}
+},
+{
+"sleep": 2.5
+},
+{
+"mark": "D control desktop render 80x30 without measure message"
+},
+{
+"shell": "echo 'Ymark: D control desktop render 80x30 without measure message' >> \"$H/../logs/sdk.log\""
+},
+{
+"req": {
+"subtype": "ui_attach",
+"surface": "desktop",
+"client_id": "d1",
+"viewport": {
+"columns": 80,
+"rows": 30
+}
+}
+},
+{
+"req": {
+"subtype": "ui_render",
+"surface": "desktop",
+"client_id": "d1",
+"component": "Pane",
+"instance_id": "grid-main",
+"props": {
+"title": "main",
+"isFocused": false,
+"bodyColumns": 80,
+"placement": "dock",
+"scroll": {
+"offset": 0,
+"bodyRows": 30
+},
+"view": {}
+}
+}
+},
+{
+"sleep": 2.5
+},
+{
+"mark": "end"
+},
+{
+"shell": "echo 'Ymark: end' >> \"$H/../logs/sdk.log\""
+}
+]

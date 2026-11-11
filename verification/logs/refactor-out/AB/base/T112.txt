@@ -1,0 +1,62 @@
+$ g resize 30
+pane-grid: resized c4 to 30%
+[exit-ish done]
+$ g list
+pane-grid: * main active=c4 {c1:25,[c3:70,c4=usage-gauge:30]:25,c2:50}
+[exit-ish done]
+--- pl
+{
+  "version": 1,
+  "project": "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1"
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "column",
+              "children": [
+                {
+                  "node": {
+                    "kind": "cell",
+                    "id": "c3"
+                  },
+                  "size": 70
+                },
+                {
+                  "node": {
+                    "kind": "cell",
+                    "id": "c4",
+                    "plugin": "usage-gauge"
+                  },
+                  "size": 30
+                }
+              ]
+            },
+            "size": 25
+          },
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c2"
+            },
+            "size": 50
+          }
+        ]
+      },
+      "active": "c4"
+    }
+  ]
+}
+
+--- log refused|kept|command failed
+--- failed=0

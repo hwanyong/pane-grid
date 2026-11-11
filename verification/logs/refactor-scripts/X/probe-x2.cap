@@ -1,0 +1,45 @@
+                                                                                              │                                                                         ✕
+ ▐▛███▛█   Claude Code v2.1.322                                                               │───────────────────────────────────────────────────────────────────────────
+▝▜██████▀  Haiku 5.5 · Claude Ultra                                                           │v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+ ▝▝   ▝▝   ~/proj                                                                             │k: close tab q: list
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+▎ Auto mode is now Claude Code's default permission mode.                                     │c1 -
+▎ Auto mode lets Claude handle permission prompts automatically. Claude checks each tool call │empty. place a mod here:
+▎ for risky actions and prompt injection before executing, runs the ones it assesses as       │no grid-ready mod is loaded
+▎ lower-risk, and blocks the rest.                                                            │
+▎ https://code.claude.com/docs/en/permission-modes                                            │
+  2 more notices hidden                                                                       │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+                                                                                              │c2 -
+                                                                                              │───────────────────────────────────────────────────────────────────────────
+                                                                                              │
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+❯ Try "fix lint errors"
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⏵⏵ auto mode on (shift+tab to cycle)

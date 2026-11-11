@@ -1,0 +1,55 @@
+--after 30 down
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+───────────────────────────────────────────────────────────────────────────
+c2 -
+empty. place a mod here:
+no grid-ready mod is loaded
+--after 30 up
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -
+no grid-ready mod is loaded
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+───────────────────────────────────────────────────────────────────────────
+c2 -
+empty. place a mod here:
+no grid-ready mod is loaded
+failed hooks: 0

@@ -1,0 +1,10 @@
+toast: $.ui.toast (pane-grid): pane-grid: placed usage-gauge in c1
+c1 usage-gauge                       │c2 -
+Weekly #-day window        #% / #%│empty. place a mod here:
+│<bar>│pending-questions
+Resets in #d #h · target #%         │usage-gauge (move from c1)
+                                     │
+                                     │
+                                     │
+
+failed=0

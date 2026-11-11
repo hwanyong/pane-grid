@@ -1,0 +1,12 @@
+"place:c1:usage-gauge" -> true
+"hotkey:v" -> true
+"place" -> false
+"placed:x" -> false
+"hotkey" -> false
+"xhotkey:v" -> false
+"activate:c1" -> false
+"divider:0:1" -> false
+"measure:main" -> false
+"slot:x" -> false
+"choices:c1" -> false
+"Place:c1" -> false

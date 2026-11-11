@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "<ROOT>/docs/images/build.py", line <N>, in <module>
+    render("pane-structure", *structure())
+  File "<ROOT>/docs/images/build.py", line <N>, in render
+    result = subprocess.run([
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line <N>, in run
+    with Popen(*popenargs, **kwargs) as process:
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line <N>, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line <N>, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/nonexistent/chrome'
+exit 1
+# git status --short docs/images
+?? docs/images/pane-structure.draft.svg

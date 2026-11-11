@@ -1,0 +1,15 @@
+--title SGR
+^[[0;1m^[[38;5;72m^[[48;5;235mc2 -
+--grid
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c2 -
+empty. place a mod here:
+1: usage-gauge
+--actions after click
+--toasts after key 1
+pane-grid: placed usage-gauge in c2
+failed hooks: 0

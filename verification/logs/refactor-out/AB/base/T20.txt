@@ -1,0 +1,54 @@
+$ g layout main-vertical
+pane-grid: layout main-vertical
+[exit-ish done]
+$ g list
+pane-grid: * main active=c3 {c1:67,[c3:50,c2:50]:33}
+[exit-ish done]
+--- pl
+{
+  "version": 1,
+  "project": "/Users/uhd/.claude/jobs/2d2d4469/tmp/run/AB/home/proj",
+  "tabs": [
+    {
+      "name": "main",
+      "root": {
+        "kind": "row",
+        "children": [
+          {
+            "node": {
+              "kind": "cell",
+              "id": "c1"
+            },
+            "size": 67
+          },
+          {
+            "node": {
+              "kind": "column",
+              "children": [
+                {
+                  "node": {
+                    "kind": "cell",
+                    "id": "c3"
+                  },
+                  "size": 50
+                },
+                {
+                  "node": {
+                    "kind": "cell",
+                    "id": "c2"
+                  },
+                  "size": 50
+                }
+              ]
+            },
+            "size": 33
+          }
+        ]
+      },
+      "active": "c3"
+    }
+  ]
+}
+
+--- log refused|kept|command failed
+--- failed=0

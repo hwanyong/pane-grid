@@ -1,0 +1,2 @@
+done base
+zsh scripts/D.zsh base  30.89s user 10.89s system 11% cpu 6:18.48 total

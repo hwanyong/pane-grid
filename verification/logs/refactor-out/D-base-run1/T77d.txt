@@ -1,0 +1,15 @@
+-- file: []
+pane-grid: * main active=c1 c1
+pane-grid: layout file $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json refused: not an object
+-- file: {"version":1,"tabs":[]}
+pane-grid: * main active=c1 c1
+pane-grid: layout file $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json refused: tabs must be a list of one tab or more
+-- file: {"version":1,"tabs":[{"name":"Main","root":{"kind":"cell","id":"c1"},"active":"c1"}]}
+pane-grid: * main active=c1 c1
+pane-grid: layout file $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json refused: tabs[0]: name must match /^[a-z0-9][a-z0-9_-]{0,31}$/
+-- file: {"version":1,"tabs":[{"name":"main","root":{"kind":"row","children":[{"node":{"kind":"cell","id":"c1"},"size":100}]},"active":"c1"}]}
+pane-grid: * main active=c1 c1
+pane-grid: layout file $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json refused: tabs[0].root: a row needs two children or more
+-- file: {"version":1,"tabs":[{"name":"main","root":{"kind":"row","children":[{"node":{"kind":"cell","id":"c1"},"size":50},{"node":{"kind":"cell","id":"c2","plugin":"Bad Name"},"size":50}]},"active":"c1"}]}
+pane-grid: * main active=c1 c1
+pane-grid: layout file $H/.claude/pane-grid/projects/proj-bb3a7976d66e81fa/layout.json refused: tabs[0].root.children[1].node: plugin must match /^[a-z0-9][a-z0-9_.-]{0,127}$/

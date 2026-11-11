@@ -1,0 +1,8 @@
+-- /grid (자동 완성 목록 중 pane-grid 의 줄, prompt 줄)
+  ❯ /grid                           pane-grid: split panes into a grid of mods, tmux style
+    /pane-grid:add-pane-grid-cell   (pane-grid) Make a Claude Code mod (a plugin with a hooks module) grid-ready, so it draws inside a pane-grid cell. Use when the
+❯ /grid
+-- /grid + space
+❯ /grid  <split|kill|next|place|swap|zoom|resize|layout|new|select|rename|close|break|list|reload|help>
+-- log
+$.command.register (pane-grid): /grid listed

@@ -1,0 +1,4 @@
+$.ui.toast (pane-grid): pane-grid: swapped c4 and c2
+pane-grid: action swap: swapped c4 and c2
+-- list
+⎿  pane-grid: * main active=c4 {c1:25,[c3:50,c2:50]:25,c4:50}

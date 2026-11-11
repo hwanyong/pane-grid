@@ -1,0 +1,8 @@
+-- DIR=locked g list
+pane-grid: session.start hook skipped: threw pane-grid: $.fs.read($H/locked/.git) failed: EACCES
+other stdout lines (model text): some
+-- log
+-- DIR=locked g split -h
+pane-grid: session.start hook skipped: threw pane-grid: $.fs.read($H/locked/.git) failed: EACCES
+other stdout lines (model text): some
+-- log

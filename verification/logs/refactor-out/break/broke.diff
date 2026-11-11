@@ -1,0 +1,11 @@
+--- tgt/hooks/actions.ts
++++ broke/hooks/actions.ts
+@@ -119,7 +119,7 @@
+ 
+   if (verb == 'resize') {
+     const share = Number(rest[0])
+-    if (!Number.isInteger(share) || share < SHARE_MIN || share > SHARE_MAX) return same(tabs, tab.name, `usage: resize <${SHARE_MIN}-${SHARE_MAX}>`)
++    if (!Number.isInteger(share) || share < SHARE_MIN || share > SHARE_MAX + 1) return same(tabs, tab.name, `usage: resize <${SHARE_MIN}-${SHARE_MAX}>`)
+     return changed(replaceTab(tabs, { ...tab, root: resize(tab.root, tab.active, share) }), tab.name, `resized ${tab.active} to ${share}%`)
+   }
+ 

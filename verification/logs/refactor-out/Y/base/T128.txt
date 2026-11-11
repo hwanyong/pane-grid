@@ -1,0 +1,92 @@
+--screen
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -                                 │active -
+empty. place a mod here:             │empty. place a mod here:
+usage-gauge                          │1: usage-gauge
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+--choice rows of cell active (right half)
+active -
+empty. place a mod here:
+1: usage-gauge
+--toasts
+pane-grid: placed usage-gauge in active
+--actions
+pane-grid: action place usage-gauge active: placed usage-gauge in active
+--screen after 1
+                                                                         ✕
+───────────────────────────────────────────────────────────────────────────
+v: split-h s: split-v o: next z: zoom x: kill w: swap b: break c: new tab
+k: close tab q: list
+───────────────────────────────────────────────────────────────────────────
+c1 -                                 │active usage-gauge
+empty. place a mod here:             │Weekly 7-day window        25% / 100%
+usage-gauge (move from active)       ││████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+                                     │Resets in 6d 19h · target 2%
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+                                     │
+pane-grid: * main active=active {c1:50,active=usage-gauge:50}
+failed hooks: 0
