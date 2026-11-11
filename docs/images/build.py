@@ -307,30 +307,32 @@ def lifecycle():
 
 
 # SVG 와 PNG 를 초안 이름으로 만들고, Chrome 이 종료 코드 0 으로 끝나고 PNG 초안이 생긴 뒤에만 두 파일을 제 이름으로 옮긴다.
-# 0 이 아닌 종료 코드이거나 PNG 가 없으면 그 stderr 를 내고 종료 코드 1 로 끝나며, 이전 SVG · PNG 는 그대로 남아 둘이 어긋나지 않는다.
+# 그 밖(Chrome 실행 파일이 없음 · 0 이 아닌 종료 코드 · PNG 없음)은 종료 코드 1 로 끝나며, 이전 SVG · PNG 는 그대로 남아 둘이 어긋나지 않는다.
+# 초안은 어느 분기로 끝나든(예외 포함) finally 에서 지운다.
 def render(name, document, width, height):
     svg_path = OUT / f"{name}.svg"
     png_path = OUT / f"{name}.png"
     svg_draft = OUT / f"{name}.draft.svg"
     png_draft = OUT / f"{name}.draft.png"
-    svg_draft.write_text(document, encoding="utf-8")
-    with tempfile.TemporaryDirectory() as profile:
-        result = subprocess.run([
-            CHROME, "--headless=new", f"--user-data-dir={profile}", "--hide-scrollbars",
-            "--force-device-scale-factor=2", f"--window-size={width},{height}",
-            f"--screenshot={png_draft}", svg_draft.as_uri(),
-        ], capture_output=True, text=True)
-    if result.returncode != 0:
-        svg_draft.unlink()
+    try:
+        svg_draft.write_text(document, encoding="utf-8")
+        with tempfile.TemporaryDirectory() as profile:
+            result = subprocess.run([
+                CHROME, "--headless=new", f"--user-data-dir={profile}", "--hide-scrollbars",
+                "--force-device-scale-factor=2", f"--window-size={width},{height}",
+                f"--screenshot={png_draft}", svg_draft.as_uri(),
+            ], capture_output=True, text=True)
+        if result.returncode != 0:
+            sys.stderr.write(result.stderr)
+            sys.exit(f"{CHROME} exited with {result.returncode} while rendering {svg_path.name}")
+        if not png_draft.exists():
+            sys.stderr.write(result.stderr)
+            sys.exit(f"{CHROME} exited with 0 but wrote no {png_draft.name} while rendering {svg_path.name}")
+        svg_draft.replace(svg_path)
+        png_draft.replace(png_path)
+    finally:
+        svg_draft.unlink(missing_ok=True)
         png_draft.unlink(missing_ok=True)
-        sys.stderr.write(result.stderr)
-        sys.exit(f"{CHROME} exited with {result.returncode} while rendering {svg_path.name}")
-    if not png_draft.exists():
-        svg_draft.unlink()
-        sys.stderr.write(result.stderr)
-        sys.exit(f"{CHROME} exited with 0 but wrote no {png_draft.name} while rendering {svg_path.name}")
-    svg_draft.replace(svg_path)
-    png_draft.replace(png_path)
     print(png_path)
 
 
