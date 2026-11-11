@@ -1,7 +1,7 @@
 import { update } from 'claude-code'
 import type { EngineInterface, Register, RenderElement, RenderNode, Tier, TraceEntry } from 'claude-code'
 import type { GridLayout, GridNode, GridPlacement, GridScroll, GridShown, GridTab } from '../types/index.d.ts'
-import { apply, checkOutcome } from './actions'
+import { VERBS, apply, checkOutcome } from './actions'
 import { defaultTabs, parseLayoutFile, serializeLayoutFile } from './layout-file'
 import { isScrollIn, scrollsKey, TOOLBAR_KEYS } from '../skills/add-pane-grid-cell/pane-grid'
 import { ROOT_PATH, cellsOf, childPath, findCell, geometry, moveDivider, rectAt, replaceAt, splitAt, splitRects } from './tree'
@@ -419,7 +419,7 @@ export const register: Register = on => {
     run.home = String((await $.env.get('HOME')) ?? '')
     run.config = ((await $.env.get('CLAUDE_CONFIG_DIR')) || `${run.home}/.claude`).replace(/\/+$/, '')
     await resolveProject($)
-    await $.command.register({ name: COMMAND, description: 'pane-grid: split panes into a grid of mods, tmux style', argumentHint: '<split|kill|next|place|swap|zoom|resize|layout|new|select|rename|close|break|list|reload|help>' })
+    await $.command.register({ name: COMMAND, description: 'pane-grid: split panes into a grid of mods, tmux style', argumentHint: `<${VERBS.join('|')}>` })
     await reload($)
     $.clock.every(SHOWN_POLL_MS, () => void watchShown($))
     return next(e)

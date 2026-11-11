@@ -15,6 +15,9 @@ export type Outcome = {
   focus?: string
 }
 
+// `/grid` 의 하위 명령. USAGE 와 같은 차례이고 끝에 help 가 있다. register.tsx 가 명령 입력 줄의 argumentHint 로 쓴다.
+export const VERBS = ['split', 'kill', 'next', 'select-cell', 'place', 'swap', 'zoom', 'resize', 'layout', 'new', 'select', 'rename', 'close', 'break', 'list', 'reload', 'help'] as const
+
 const USAGE = [
   'split -h|-v [plugin]     split the active cell left-right (-h) or top-bottom (-v)',
   'kill                     remove the active cell',
