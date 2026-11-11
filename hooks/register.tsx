@@ -2,6 +2,8 @@ import { update } from 'claude-code'
 import type { EngineInterface, Register, RenderElement, RenderNode, Tier, TraceEntry } from 'claude-code'
 import type { GridLayout, GridNode, GridPlacement, GridScroll, GridShown, GridTab } from '../types/index.d.ts'
 import { VERBS, apply, checkOutcome } from './actions'
+import type { ActivatePost, DividerPost, DividerProps, MeasurePost, MeasureProps } from './client-messages'
+import { HORIZONTAL, VERTICAL } from './glyphs'
 import { defaultTabs, parseLayoutFile, serializeLayoutFile } from './layout-file'
 import { isScrollIn, scrollsKey, TOOLBAR_KEYS } from '../skills/add-pane-grid-cell/pane-grid'
 import { ROOT_PATH, cellsOf, childPath, findCell, geometry, moveDivider, rectAt, replaceAt, splitAt, splitRects } from './tree'
@@ -34,8 +36,6 @@ const TOOLBAR_ROWS = 2
 const RULE_ROWS = 1
 // grid 위의 행 수: 구분선 · hotkey 줄 · 구분선.
 const HEADER_ROWS = RULE_ROWS + TOOLBAR_ROWS + RULE_ROWS
-const VERTICAL = '│'
-const HORIZONTAL = '─'
 // 칸에는 테두리가 없고 제목 1행만 있다. 칸 사이는 끌어서 크기를 바꾸는 분할선 1칸이다(tree.ts DIVIDER).
 const CELL_CHROME_ROWS = 1
 const SHOWN_POLL_MS = 1000
@@ -79,8 +79,6 @@ const TOOLBAR: Record<(typeof TOOLBAR_KEYS)[number], { label: string; words: str
 }
 const HOTKEYS = TOOLBAR_KEYS.map(key => ({ key, ...TOOLBAR[key] }))
 
-type Measured = { columns: number; rows: number }
-
 // 모듈 변수는 다시 불러오면 처음 값으로 돌아간다. 그려진 것은 모두 $.state 에서 읽고, 여기에는 다시 계산할 수 있는 것만 둔다.
 const run = {
   home: '',
@@ -97,7 +95,7 @@ const run = {
   invalidText: undefined as string | undefined,
   // slash 명령이 다룰 탭. 보이는 grid 탭이 있으면 그것, 없으면 마지막으로 보였던 탭.
   current: '',
-  measured: new Map<string, Measured>(),
+  measured: new Map<string, MeasureProps>(),
   // 칸 안의 `scrolls:<plugin>` Box 로 자기 행을 스스로 스크롤한다고 알린 아래 규약 mod. render 마다 다시 모은다.
   scrolling: new Set<string>(),
 }
@@ -131,7 +129,7 @@ const placements = (tabs: GridTab[]): Record<string, GridPlacement> => {
   return placed
 }
 
-const gridRect = (measured: Measured): Rect => ({ x: 0, y: 0, width: measured.columns, height: Math.max(measured.rows - HEADER_ROWS, 0) })
+const gridRect = (measured: MeasureProps): Rect => ({ x: 0, y: 0, width: measured.columns, height: Math.max(measured.rows - HEADER_ROWS, 0) })
 
 const contentSize = (rect: Rect) => ({
   columns: Math.max(rect.width, 0),
@@ -470,7 +468,8 @@ export const register: Register = on => {
   // 칸 누름(activate:<cell>)과 분할선 끌기(divider:<path>:<index>). data 는 surface module 이 보낸 것이므로 형식을 검사한다.
   on('ui.message', { component: 'Pane', requestId: /^grid-/ }, async ($, e, next) => {
     const tabName = tabOf(e.requestId)
-    const data = typeof e.data == 'object' && e.data != null ? (e.data as Record<string, unknown>) : {}
+    // 필드 이름을 client-messages.ts 의 타입 키로 적는다. 한쪽 이름이 바뀌면 tsc 가 실패한다.
+    const data: Partial<Record<keyof (DividerPost & MeasurePost & ActivatePost), unknown>> = typeof e.data == 'object' && e.data != null ? e.data : {}
     if (e.element.startsWith(MEASURE_KEY) && Number.isInteger(data.columns) && Number.isInteger(data.rows)) await publishPlacements($)
     if (e.element.startsWith(ACTIVATE_KEY) && data.activate == true) await activateCell($, tabName, e.element.slice(ACTIVATE_KEY.length))
     if (e.element.startsWith(DIVIDER_KEY) && typeof data.at == 'number' && Number.isInteger(data.at)) {
@@ -555,7 +554,7 @@ export const register: Register = on => {
 
     const drawDivider = (kind: 'row' | 'column', path: string, index: number, start: number, rect: Rect): RenderNode | null | undefined => {
       const key = `${DIVIDER_KEY}${path}:${index}`
-      if (hasClient) return h('Client', { key, module: './divider.tsx', props: { kind, start, length: kind == 'row' ? rect.height : rect.width }, width: rect.width, height: rect.height })
+      if (hasClient) return h('Client', { key, module: './divider.tsx', props: { kind, start, length: kind == 'row' ? rect.height : rect.width } satisfies DividerProps, width: rect.width, height: rect.height })
       const line = kind == 'row' ? Array.from({ length: rect.height }, () => VERTICAL).join('\n') : HORIZONTAL.repeat(rect.width)
       return <Box key={key} width={rect.width} height={rect.height}><Text dimColor>{line}</Text></Box>
     }
@@ -588,7 +587,7 @@ export const register: Register = on => {
         </Box>
         {drawRule()}
         {grid}
-        {hasClient ? h('Client', { key: `${MEASURE_KEY}${tab.name}`, module: './measure.tsx', props: measured, width: 0, height: 0 }) : null}
+        {hasClient ? h('Client', { key: `${MEASURE_KEY}${tab.name}`, module: './measure.tsx', props: measured satisfies MeasureProps, width: 0, height: 0 }) : null}
       </Box>
     )
   }).catch(($, e, next) => {
@@ -608,7 +607,7 @@ const pressWords = (element: string): string[] | undefined => {
 }
 
 // 휠이면 `pointer` 가 가리키는 칸, 페이지 키면 활성 칸(tmux 의 활성 pane). 칸 밖이면 undefined.
-const cellAt = (tab: GridTab, measured: Measured, pointer: { column: number; row: number } | undefined) => {
+const cellAt = (tab: GridTab, measured: MeasureProps, pointer: { column: number; row: number } | undefined) => {
   if (!pointer) return activeOf(tab)
   const area = gridRect(measured)
   const row = pointer.row - HEADER_ROWS

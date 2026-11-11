@@ -1,4 +1,5 @@
 import type { ClientModule } from 'claude-code'
+import type { ActivatePost } from './client-messages'
 
 // 활성이 아닌 칸 위에 덮는 빈 영역. 그 칸 어디를 눌러도(글자 · Button 위도) 그 칸을 활성으로 한다.
 // 글자 위의 누름은 어느 hook 에도 오지 않으므로 칸 위에 덮어야 한다(docs/grid-and-tabs.md §4.1 8회차).
@@ -9,7 +10,8 @@ type ActivateState = { isStarted: true }
 const Activate: ClientModule<null, ActivateState> = (_props, surface) => {
   if (surface.state == undefined) {
     surface.onPointer(event => {
-      if (event.type == 'down') surface.post({ activate: true })
+      const post: ActivatePost = { activate: true }
+      if (event.type == 'down') surface.post(post)
     })
     surface.setState({ isStarted: true })
   }
