@@ -264,14 +264,15 @@ const currentTab = async ($: EngineInterface, tabs: GridTab[]) => {
 
 // slash 명령과 hotkey 의 공통 입구. `tabName` 은 누름 · 칸 누름이 일어난 grid pane 의 탭이다. slash 명령은 그것이 없어 보이는 탭에 적용한다.
 // 누름을 보이는 탭(SHOWN_POLL_MS 마다 읽는 SHOWN)에 적용하면, 탭을 바꾼 직후의 누름이 앞의 탭에 적용될 수 있다.
+// 알릴 글과, 동작 뒤의 탭 목록(state 에 쓴 값, 거부했으면 그대로인 값)을 돌려준다. 한 dispatch 안에서는 방금 쓴 state 를 다시 읽지 못한다.
 const runAction = ($: EngineInterface, words: string[], tabName?: string) => serial(() => act($, words, tabName))
 
-const act = async ($: EngineInterface, words: string[], tabName?: string) => {
+const act = async ($: EngineInterface, words: string[], tabName?: string): Promise<{ text: string; tabs: GridTab[] }> => {
   const layout = await ensureLayout($)
   const pressedIn = layout.tabs.some(tab => tab.name == tabName) ? tabName : undefined
   const outcome = apply(layout.tabs, pressedIn ?? (await currentTab($, layout.tabs)), words)
   const broken = checkOutcome(outcome)
-  if (broken) return `refused: ${broken}`
+  if (broken) return { text: `refused: ${broken}`, tabs: layout.tabs }
   run.current = outcome.current
   if (outcome.isChanged) {
     if (!(await persist($, outcome.tabs))) return reloadChanged($)
@@ -282,7 +283,7 @@ const act = async ($: EngineInterface, words: string[], tabName?: string) => {
   const hidden = outcome.focus ? await showTab($, outcome.tabs, outcome.focus) : undefined
   const text = hidden ? `${outcome.text}; it is behind ${hidden}, click its tab to show it` : outcome.text
   log($, `action ${words.join(' ')}: ${text.split('\n')[0]}`)
-  return text
+  return { text, tabs: outcome.tabs }
 }
 
 // 탭을 보이게 한다. 엔진은 사람이 pane 을 쥐고 있으면 `focus` 를 거부하므로(PaneOpenArgs.focus) 그 탭이 뒤에 남을 수 있다.
@@ -297,9 +298,8 @@ const showTab = async ($: EngineInterface, tabs: GridTab[], name: string) => {
 
 // 칸을 눌러 활성으로 한다. pane 에 키보드를 주어 hotkey 가 곧바로 그 pane 에서 눌리게 한다.
 const activateCell = async ($: EngineInterface, tabName: string, id: string) => {
-  await runAction($, ['select-cell', id], tabName)
-  const layout = await readLayout($)
-  const tab = layout?.tabs.find(item => item.name == tabName)
+  const { tabs } = await runAction($, ['select-cell', id], tabName)
+  const tab = tabs.find(item => item.name == tabName)
   if (tab) await $.ui.open({ id: paneId(tab.name), title: titleOf(tab), focus: true })
 }
 
@@ -318,7 +318,7 @@ const moveDividerTo = async ($: EngineInterface, tabName: string, path: string, 
   const moved = moveDivider(node, node.kind == 'row' ? rect.width : rect.height, index, at)
   const tabs = moved === node ? layout.tabs : layout.tabs.map(item => (item.name == tabName ? { ...item, root: replaceAt(item.root, path, moved) } : item))
   if (moved !== node) await publish($, tabs)
-  if (isFinal && !(await persist($, tabs))) $.ui.toast(`pane-grid: ${await reloadChanged($)}`)
+  if (isFinal && !(await persist($, tabs))) $.ui.toast(`pane-grid: ${(await reloadChanged($)).text}`)
 }
 
 // 원본 파일을 읽어 state 사본과 엔진 pane 을 다시 만든다. 쓴 값과 읽은 파일을 돌려준다: 한 dispatch 의 $.state.get 은 모두 같은
@@ -337,10 +337,10 @@ const loadText = async ($: EngineInterface) => {
 
 const reload = ($: EngineInterface) => serial(() => loadText($))
 
-// 다른 세션이 바꾼 프로젝트 파일을 다시 읽는다. 이 세션의 바뀐 배치는 버린다. 알릴 글을 돌려준다.
+// 다른 세션이 바꾼 프로젝트 파일을 다시 읽는다. 이 세션의 바뀐 배치는 버린다. 알릴 글과 읽은 탭 목록을 돌려준다.
 const reloadChanged = async ($: EngineInterface) => {
-  const { path } = await loadLayout($)
-  return `refused: another session changed this project's layout; loaded ${shownPath(path)} again, do it once more`
+  const { layout, path } = await loadLayout($)
+  return { text: `refused: another session changed this project's layout; loaded ${shownPath(path)} again, do it once more`, tabs: layout.tabs }
 }
 
 const layoutFromFile = async ($: EngineInterface) => (await loadLayout($)).layout
@@ -406,7 +406,7 @@ export const register: Register = on => {
   on('command.run', { command: COMMAND }, async ($, e) => {
     const words = e.args.trim().split(/\s+/).filter(Boolean)
     if (words[0] == 'reload') return { text: await reload($) }
-    return { text: await runAction($, words) }
+    return { text: (await runAction($, words)).text }
   }).catch(($, e, next) => {
     log($, `command failed: ${JSON.stringify(next.error)}`)
     return next.called ? next(e) : { text: 'pane-grid: the command failed; see the debug log' }
@@ -439,7 +439,7 @@ export const register: Register = on => {
     const pressed = await next(e)
     const words = pressWords(e.element)
     if (words) {
-      const text = await runAction($, words, tabOf(e.requestId))
+      const { text } = await runAction($, words, tabOf(e.requestId))
       $.ui.toast(`pane-grid: ${text.split('\n')[0]}`)
     }
     return pressed
