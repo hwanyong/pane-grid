@@ -63,9 +63,26 @@ const run = {
   scrolling: new Set<string>(),
   // ensureLayout 이 진행 중인 다시 읽기. render 뒤 콜백 · watchShown · runAction 이 다른 dispatch 에서 함께 불러도 파일을 한 번만 읽는다.
   restoring: undefined as Promise<GridLayout> | undefined,
+  // layout 을 쓰는 일의 차례(serial). 마지막에 시작한 일의 Promise 다.
+  queue: Promise.resolve() as Promise<unknown>,
 }
 
 const noop = () => {}
+
+const waitAndRun = async <T,>(before: Promise<unknown>, job: () => Promise<T>) => {
+  await before.catch(noop)
+  return job()
+}
+
+// 앞의 일이 끝난 뒤에 job 을 시작한다. 엔진은 같은 worker 의 dispatch 를 하나씩 처리한다고 보장하지 않는다. 프로젝트 전환
+// (resolveProject 와 reload)이 run.dir 을 바꾼 뒤 state 의 layout 을 새 프로젝트 것으로 바꾸기 전에 다른 dispatch 의 persist 가
+// 돌면 옛 프로젝트 배치를 새 프로젝트 파일에 쓴다. 그래서 전환과 layout 을 쓰는 동작(runAction · dragDivider · reload)을 이것으로 감싼다.
+// 감싼 일 안에서 다시 serial 을 부르지 않는다(앞의 일이 끝나기를 기다려 멈춘다).
+const serial = <T,>(job: () => Promise<T>): Promise<T> => {
+  const turn = waitAndRun(run.queue, job)
+  run.queue = turn
+  return turn
+}
 
 const log = ($: EngineInterface, text: string) => $.ui.log(`pane-grid: ${text}`, { to: 'debug' })
 
@@ -177,8 +194,10 @@ const resolveProject = async ($: EngineInterface) => {
   const project = await projectOf($, root)
   run.root = root
   if (project == run.project) return false
+  // 프로젝트와 그 파일 자리는 await 없이 함께 바꾼다.
+  const dir = `${run.config}/${PROJECTS_DIR}/${await dirName(project)}`
   run.project = project
-  run.dir = `${run.config}/${PROJECTS_DIR}/${await dirName(project)}`
+  run.dir = dir
   run.mtimeMs = undefined
   run.invalidText = undefined
   log($, `project ${project} (root ${root}) -> ${run.dir}`)
@@ -245,7 +264,9 @@ const currentTab = async ($: EngineInterface, tabs: GridTab[]) => {
 
 // slash 명령과 hotkey 의 공통 입구. `tabName` 은 누름 · 칸 누름이 일어난 grid pane 의 탭이다. slash 명령은 그것이 없어 보이는 탭에 적용한다.
 // 누름을 보이는 탭(SHOWN_POLL_MS 마다 읽는 SHOWN)에 적용하면, 탭을 바꾼 직후의 누름이 앞의 탭에 적용될 수 있다.
-const runAction = async ($: EngineInterface, words: string[], tabName?: string) => {
+const runAction = ($: EngineInterface, words: string[], tabName?: string) => serial(() => act($, words, tabName))
+
+const act = async ($: EngineInterface, words: string[], tabName?: string) => {
   const layout = await ensureLayout($)
   const pressedIn = layout.tabs.some(tab => tab.name == tabName) ? tabName : undefined
   const outcome = apply(layout.tabs, pressedIn ?? (await currentTab($, layout.tabs)), words)
@@ -283,7 +304,10 @@ const activateCell = async ($: EngineInterface, tabName: string, id: string) => 
 }
 
 // 분할선을 끄는 동안은 state 만 바꾸고, 놓았을 때(isFinal) 파일에 쓴다.
-const dragDivider = async ($: EngineInterface, tabName: string, path: string, index: number, at: number, isFinal: boolean) => {
+const dragDivider = ($: EngineInterface, tabName: string, path: string, index: number, at: number, isFinal: boolean) =>
+  serial(() => moveDividerTo($, tabName, path, index, at, isFinal))
+
+const moveDividerTo = async ($: EngineInterface, tabName: string, path: string, index: number, at: number, isFinal: boolean) => {
   const layout = await readLayout($)
   const tab = layout?.tabs.find(item => item.name == tabName)
   const measured = run.measured.get(tabName)
@@ -306,10 +330,12 @@ const loadLayout = async ($: EngineInterface) => {
   return { layout, path }
 }
 
-const reload = async ($: EngineInterface) => {
+const loadText = async ($: EngineInterface) => {
   const { layout, path } = await loadLayout($)
   return `loaded ${layout.tabs.length} tab(s) from ${shownPath(path)}`
 }
+
+const reload = ($: EngineInterface) => serial(() => loadText($))
 
 // 다른 세션이 바꾼 프로젝트 파일을 다시 읽는다. 이 세션의 바뀐 배치는 버린다. 알릴 글을 돌려준다.
 const reloadChanged = async ($: EngineInterface) => {
@@ -335,14 +361,20 @@ const ensureLayout = async ($: EngineInterface): Promise<GridLayout> => {
   }
 }
 
-const watchShown = async ($: EngineInterface) => {
-  // `/cd` · worktree 이동은 mod 에 알리지 않으므로(classic.CwdChanged 도 오지 않는다) root 를 여기서 읽어 비교한다.
-  // 거부된 주기는 run.root 를 그대로 두므로 다음 주기에 다시 정한다. 거부는 debug log 에 남긴다.
+// 프로젝트가 바뀌었으면 새 프로젝트 파일을 읽고 그 알림 글을 돌려준다. 그대로면 undefined.
+// 거부된 주기는 run.root 를 그대로 두므로 다음 주기에 다시 정한다. 거부는 debug log 에 남긴다.
+const moveProject = async ($: EngineInterface) => {
   const isMoved = await resolveProject($).catch((error: unknown) => {
     log($, `project not resolved: ${String(error)}`)
     return false
   })
-  if (isMoved) $.ui.toast(`pane-grid: the session moved to ${shownPath(run.project)}; ${await reload($)}`)
+  return isMoved ? loadText($) : undefined
+}
+
+const watchShown = async ($: EngineInterface) => {
+  // `/cd` · worktree 이동은 mod 에 알리지 않으므로(classic.CwdChanged 도 오지 않는다) root 를 여기서 읽어 비교한다.
+  const moved = await serial(() => moveProject($))
+  if (moved) $.ui.toast(`pane-grid: the session moved to ${shownPath(run.project)}; ${moved}`)
   // grid 탭이 가려져 있으면 render hook 이 불리지 않는다. 규약 mod 는 layout 이 비면 자기 pane 으로 돌아가므로 여기서도 되살린다.
   await ensureLayout($)
   const pane = (await $.ui.panes()).find(item => item.isShown && item.id.startsWith(PANE_PREFIX))
