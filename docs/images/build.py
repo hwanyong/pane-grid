@@ -53,11 +53,11 @@ def box(x, y, w, h, fill, stroke, radius=8, dash=None):
     )
 
 
-def arrow(x1, y1, x2, y2, color=GRAY, dash=None, marker="arrow"):
+def arrow(x1, y1, x2, y2, dash=None):
     dash_attr = f' stroke-dasharray="{dash}"' if dash else ""
     return (
-        f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{color}" stroke-width="1.8"'
-        f'{dash_attr} marker-end="url(#{marker})"/>'
+        f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{GRAY}" stroke-width="1.8"'
+        f'{dash_attr} marker-end="url(#arrow)"/>'
     )
 
 
@@ -72,8 +72,6 @@ def fail_mark(x, y, label):
 DEFS = f"""<defs>
 <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
 <path d="M0,0 L10,5 L0,10 z" fill="{GRAY}"/></marker>
-<marker id="arrow-fail" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-<path d="M0,0 L10,5 L0,10 z" fill="{FAIL}"/></marker>
 </defs>"""
 
 
