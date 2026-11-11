@@ -12,7 +12,8 @@ import tempfile
 OUT = pathlib.Path(__file__).resolve().parent
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 SANS = "Apple SD Gothic Neo, sans-serif"
-MONO = "Menlo, monospace"
+# 여러 줄 글자의 줄 간격. lines() 와 note() · callout() 의 상자 높이가 함께 쓴다.
+ROW_GAP = 21
 
 GRAY = "#4b5563"
 LINE = "#9ca3af"
@@ -23,22 +24,24 @@ GRID_FILL = "#ecfdf5"
 GRID_LINE = "#059669"
 FAIL = "#dc2626"
 FAIL_FILL = "#fef2f2"
+WHITE = "#ffffff"
+TEXT = "#111827"
+DIVIDER = "#e5e7eb"
 
 
 def esc(text):
     return html.escape(text, quote=False)
 
 
-def text(x, y, body, size=15, weight="normal", color="#111827", anchor="start", mono=False):
-    family = MONO if mono else SANS
+def text(x, y, body, size=15, weight="normal", color=TEXT, anchor="start"):
     return (
-        f'<text x="{x}" y="{y}" font-family="{family}" font-size="{size}" font-weight="{weight}" '
-        f'fill="{color}" text-anchor="{anchor}" paint-order="stroke" stroke="#ffffff" stroke-width="4" '
+        f'<text x="{x}" y="{y}" font-family="{SANS}" font-size="{size}" font-weight="{weight}" '
+        f'fill="{color}" text-anchor="{anchor}" paint-order="stroke" stroke="{WHITE}" stroke-width="4" '
         f'stroke-linejoin="round">{esc(body)}</text>'
     )
 
 
-def lines(x, y, rows, size=14, gap=21, **kw):
+def lines(x, y, rows, size=14, gap=ROW_GAP, **kw):
     return "".join(text(x, y + i * gap, row, size=size, **kw) for i, row in enumerate(rows))
 
 
@@ -61,7 +64,7 @@ def arrow(x1, y1, x2, y2, color=GRAY, dash=None, marker="arrow"):
 def fail_mark(x, y, label):
     return (
         f'<circle cx="{x}" cy="{y}" r="13" fill="{FAIL}"/>'
-        + f'<text x="{x}" y="{y + 5}" font-family="{SANS}" font-size="14" font-weight="bold" fill="#ffffff" '
+        + f'<text x="{x}" y="{y + 5}" font-family="{SANS}" font-size="14" font-weight="bold" fill="{WHITE}" '
         + f'text-anchor="middle">{esc(label.lstrip("✕"))}</text>'
     )
 
@@ -77,12 +80,18 @@ DEFS = f"""<defs>
 def svg(width, height, body):
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
-        f'viewBox="0 0 {width} {height}"><rect width="100%" height="100%" fill="#ffffff"/>{DEFS}{body}</svg>'
+        f'viewBox="0 0 {width} {height}"><rect width="100%" height="100%" fill="{WHITE}"/>{DEFS}{body}</svg>'
     )
 
 
+# structure() 의 왼쪽 상자에서 한 줄이 차지하는 높이. lines() 는 ROW_GAP 으로 그리므로 상자 아래 여백이 줄 수만큼 1 씩 커진다
+# (k10 F74 2단계. 맞추면 그림이 바뀌므로 그대로 두었다).
+ROW_PITCH = 22
+
+
+# 그림 문서와 그 크기(Chrome 창 크기로도 쓴다)를 돌려준다.
 def structure():
-    width, height = 1420, 830
+    width = 1420
     parts = [text(40, 44, "구조: Claude Code 엔진과 mod 마다 따로 도는 worker", size=22, weight="bold")]
 
     engine_at = len(parts)
@@ -115,12 +124,12 @@ def structure():
     ]
     y = 125
     for title, rows in sections:
-        h = 44 + len(rows) * 22
-        parts.append(box(64, y, 592, h, "#ffffff", LINE))
+        h = 44 + len(rows) * ROW_PITCH
+        parts.append(box(64, y, 592, h, WHITE, LINE))
         parts.append(text(80, y + 26, title, size=16, weight="bold"))
-        parts.append(lines(80, y + 50, rows, mono=False))
+        parts.append(lines(80, y + 50, rows))
         y += h + 16
-    parts.append(box(64, y, 592, 74, "#ffffff", LINE, dash="6 4"))
+    parts.append(box(64, y, 592, 74, WHITE, LINE, dash="6 4"))
     parts.append(text(80, y + 26, "terminal 표면", size=16, weight="bold"))
     parts.append(text(80, y + 52, "보이는 pane 1개 + 나머지는 탭 (분할 API 없음)", size=14))
     engine_bottom = y + 74 + 20
@@ -143,7 +152,7 @@ def structure():
     ]
     y = 110
     for title, fill, stroke, rows in workers:
-        h = 46 + len(rows) * 22
+        h = 46 + len(rows) * ROW_PITCH
         parts.append(arrow(722, y + h / 2, 768, y + h / 2))
         parts.append(box(770, y, 610, h, fill, stroke))
         parts.append(text(788, y + 27, "worker · " + title, size=15, weight="bold"))
@@ -151,13 +160,16 @@ def structure():
         bus_bottom = y + h / 2
         y += h + 22
     parts.append(f'<line x1="720" y1="110" x2="720" y2="{bus_bottom}" stroke="{GRAY}" stroke-width="2"/>')
-    parts.append(lines(770, y + 10, [
+    legend = [
         "$ 호출 · 이벤트: worker 마다 MessagePort 1개.",
         "오가는 것은 순수 데이터뿐이고 함수는 넘어가지 않는다.",
         "worker 끼리는 직접 호출 · import · 메모리 공유가 없다.",
         "순서와 index 는 R1c 실행의 next.trace 와 debug log 에서 읽었다.",
-    ], color=GRAY))
-    return svg(width, height, "".join(parts))
+    ]
+    parts.append(lines(770, y + 10, legend, color=GRAY))
+    # 높이는 가장 아래의 것(엔진 상자 또는 오른쪽 설명)에서 41 아래다. 내용이 늘면 그림이 함께 커진다.
+    height = max(engine_bottom, y + 10 + len(legend) * ROW_GAP) + 41
+    return svg(width, height, "".join(parts)), width, height
 
 
 LANES = [
@@ -167,103 +179,132 @@ LANES = [
     ("중간 mod (index 1 ~ 3)", 1060),
     ("filetree (index 4)", 1320),
 ]
-LANE = {name: x for name, x in LANES}
 SURFACE, ENGINE, GRID, MID, TREE = (x for _, x in LANES)
 CALLOUT_X = 1460
 
 
+# structure() 와 같이 그림 문서와 크기를 돌려준다. 단계의 y 는 앞 단계에서 더해 가며 정하고, 세로선 끝 · 아래 설명 · 높이는
+# 마지막 단계의 아래 끝에서 정한다. 단계를 끼우거나 줄을 더해도 그 뒤의 좌표를 고칠 필요가 없다.
 def lifecycle():
-    width, height = 1960, 1520
+    width = 1960
+    lane_top, lane_head = 66, 40
     parts = [text(40, 44, "pane 이벤트 순서와 실패 지점 (filetree 의 pane 을 pane-grid 가 다룰 때)", size=22, weight="bold")]
+    # 세로선은 끝 y 를 알아야 하므로 자리만 잡고 마지막에 채운다(structure() 의 engine_at 과 같다).
+    lane_at = []
     for name, x in LANES:
-        parts.append(box(x - 110, 66, 220, 40, "#ffffff", GRAY))
+        parts.append(box(x - 110, lane_top, 220, lane_head, WHITE, GRAY))
         parts.append(text(x, 92, name, size=15, weight="bold", anchor="middle"))
-        parts.append(f'<line x1="{x}" y1="106" x2="{x}" y2="1440" stroke="{LINE}" stroke-width="1.5" stroke-dasharray="4 4"/>')
-    parts.append(f'<line x1="{CALLOUT_X - 20}" y1="66" x2="{CALLOUT_X - 20}" y2="1440" stroke="#e5e7eb" stroke-width="1"/>')
+        lane_at.append(len(parts))
+        parts.append("")
+    divider_at = len(parts)
+    parts.append("")
     parts.append(text(CALLOUT_X, 92, "실패 지점 (빨간 번호)", size=16, weight="bold", color=FAIL))
 
     def call(x1, x2, y, label, dash=None):
         parts.append(arrow(x1, y, x2 - 6 if x2 > x1 else x2 + 6, y, dash=dash))
         parts.append(text(min(x1, x2) + 12, y - 9, label, size=14))
 
-    def note(x, y, rows, w=300, fill="#ffffff", stroke=LINE):
-        h = 14 + len(rows) * 21
+    # 상자의 아래 끝을 돌려준다.
+    def note(x, y, rows, w=300, fill=WHITE, stroke=LINE):
+        h = 14 + len(rows) * ROW_GAP
         parts.append(box(x, y, w, h, fill, stroke, radius=6))
         parts.append(lines(x + 12, y + 22, rows, size=14))
+        return y + h
 
     def callout(mark_x, mark_y, label, rows):
         parts.append(f'<line x1="{mark_x + 13}" y1="{mark_y}" x2="{CALLOUT_X}" y2="{mark_y}" stroke="{FAIL}" stroke-width="1.2" stroke-dasharray="3 3"/>')
         parts.append(fail_mark(mark_x, mark_y, label))
-        h = 16 + len(rows) * 21
+        h = 16 + len(rows) * ROW_GAP
         parts.append(box(CALLOUT_X, mark_y - 16, 470, h, FAIL_FILL, FAIL, radius=6))
         parts.append(text(CALLOUT_X + 12, mark_y + 5, label + "  " + rows[0], size=14, weight="bold", color=FAIL))
         parts.append(lines(CALLOUT_X + 12, mark_y + 26, rows[1:], size=14))
 
-    call(TREE, ENGINE, 150, "① $.ui.open({ id: 'filetree' })")
-    note(ENGINE + 10, 162, ["ui.open 연쇄: index 가 작은 hook 이 제목 변경 · deny 가능"], w=380)
+    y = 150
+    call(TREE, ENGINE, y, "① $.ui.open({ id: 'filetree' })")
+    note(ENGINE + 10, y + 12, ["ui.open 연쇄: index 가 작은 hook 이 제목 변경 · deny 가능"], w=380)
 
-    call(ENGINE, SURFACE, 240, "② 배치: dock · 보이는 pane 1개, 나머지 탭")
+    y += 90
+    call(ENGINE, SURFACE, y, "② 배치: dock · 보이는 pane 1개, 나머지 탭")
 
-    note(ENGINE - 150, 290, ["③ 보이는 pane 에만 ui.render 요청을 만든다"], w=320, fill=ENGINE_FILL, stroke=GRAY)
-    callout(ENGINE + 190, 307, "✕5", [
+    y += 50
+    note(ENGINE - 150, y, ["③ 보이는 pane 에만 ui.render 요청을 만든다"], w=320, fill=ENGINE_FILL, stroke=GRAY)
+    callout(ENGINE + 190, y + 17, "✕5", [
         "보이지 않는 pane 에는 요청이 없다 (R2)",
         "invalidate · 파일 변경에도 render 0회.",
         "보이지 않는 남의 mod 의 새 트리를 받을 수 없다",
     ])
 
-    call(ENGINE, GRID, 400, "④ ui.render { component: 'Pane', requestId: 'filetree' }")
-    callout(GRID, 440, "✕1", [
+    y += 110
+    call(ENGINE, GRID, y, "④ ui.render { component: 'Pane', requestId: 'filetree' }")
+    callout(GRID, y + 40, "✕1", [
         "requestId 를 바꾼 next() 는 거부",
         "next({ ...e, requestId: 'grid' }) →",
         "changed requestId (the envelope is the engine's)",
     ])
 
-    call(GRID, MID, 530, "⑤ next(e)")
-    call(MID, TREE, 560, "next(e)")
+    y += 130
+    call(GRID, MID, y, "⑤ next(e)")
+    y += 30
+    call(MID, TREE, y, "next(e)")
 
-    note(TREE - 160, 590, ["⑥ 직접 답한다 (next 를 부르지 않는다)"], w=290, fill=WORKER_FILL, stroke=WORKER_LINE)
-    callout(TREE, 650, "✕4", [
+    y += 30
+    note(TREE - 160, y, ["⑥ 직접 답한다 (next 를 부르지 않는다)"], w=290, fill=WORKER_FILL, stroke=WORKER_LINE)
+    callout(TREE, y + 60, "✕4", [
         "pane-grid 의 index 가 filetree 보다 크면 호출되지 않는다 (R1b)",
         "설치본을 나중에 설치하면 index 가 filetree 보다 커진다.",
         "연쇄가 ⑥ 에서 끝나 pane-grid 의 로그 0줄",
     ])
 
-    call(TREE, MID, 700, "⑦ 트리 반환", dash="6 4")
-    call(MID, GRID, 730, "Button: press { plugin: 'filetree', handle }", dash="6 4")
+    y += 110
+    call(TREE, MID, y, "⑦ 트리 반환", dash="6 4")
+    y += 30
+    call(MID, GRID, y, "Button: press { plugin: 'filetree', handle }", dash="6 4")
 
-    note(GRID - 150, 760, [
+    y += 30
+    note(GRID - 150, y, [
         "⑧ 이 요청의 next(e) 결과는 그대로 쓸 수 있다",
         "→ 저장해 둔 다른 mod 트리와 나란히 그리기 가능",
     ], w=330, fill=GRID_FILL, stroke=GRID_LINE)
-    callout(GRID + 190, 840, "✕2", [
+    callout(GRID + 190, y + 80, "✕2", [
         "다른 요청에서 저장한 남의 Button 은 hook 실패",
         "returned a Button it did not draw (child-a#1);",
         "a render hook may keep the ones next(e) returned",
     ])
 
-    call(GRID, ENGINE, 920, "⑨ 트리 반환 → ② 검사", dash="6 4")
-    call(ENGINE, SURFACE, 970, "⑩ 그린다")
+    y += 160
+    call(GRID, ENGINE, y, "⑨ 트리 반환 → ② 검사", dash="6 4")
+    y += 50
+    call(ENGINE, SURFACE, y, "⑩ 그린다")
 
-    call(SURFACE, ENGINE, 1050, "⑪ Button 누름 → ui.press { plugin, element, requestId }")
-    call(ENGINE, GRID, 1120, "⑫ ui.press 연쇄")
-    callout(GRID, 1150, "✕3", [
+    y += 80
+    call(SURFACE, ENGINE, y, "⑪ Button 누름 → ui.press { plugin, element, requestId }")
+    y += 70
+    call(ENGINE, GRID, y, "⑫ ui.press 연쇄")
+    callout(GRID, y + 30, "✕3", [
         "plugin 을 바꾼 next() 는 거부",
         "next() passed an argument with a plugin",
         "other than the one that drew the element",
     ])
-    parts.append(arrow(ENGINE, 1230, TREE - 6, 1230))
-    parts.append(text(ENGINE + 12, 1221, "⑬ core 가 handle 로 filetree worker 의 onPress 를 실행", size=14))
+    y += 110
+    call(ENGINE, TREE, y, "⑬ core 가 handle 로 filetree worker 의 onPress 를 실행")
 
-    call(GRID, ENGINE, 1310, "⑭ $.ui.invalidate('ui.render')")
-    note(ENGINE - 150, 1330, [
+    y += 80
+    call(GRID, ENGINE, y, "⑭ $.ui.invalidate('ui.render')")
+    bottom = note(ENGINE - 150, y + 20, [
         "⑮ ③ 으로 돌아간다: 보이는 pane 만 다시 render (R3)",
         "보이지 않는 pane 은 다시 ✕5",
     ], w=420, fill=ENGINE_FILL, stroke=GRAY)
 
-    parts.append(lines(40, 1470, [
+    lane_bottom = bottom + 54
+    for at, (_, x) in zip(lane_at, LANES):
+        parts[at] = f'<line x1="{x}" y1="{lane_top + lane_head}" x2="{x}" y2="{lane_bottom}" stroke="{LINE}" stroke-width="1.5" stroke-dasharray="4 4"/>'
+    parts[divider_at] = f'<line x1="{CALLOUT_X - 20}" y1="{lane_top}" x2="{CALLOUT_X - 20}" y2="{lane_bottom}" stroke="{DIVIDER}" stroke-width="1"/>'
+    legend_y = lane_bottom + 30
+    parts.append(lines(40, legend_y, [
         "실선 화살표: 호출 · 이벤트. 점선 화살표: 반환. 빨간 번호의 근거와 시험 폴더는 docs/pane-lifecycle.md 의 표에 있다.",
     ], color=GRAY))
-    return svg(width, height, "".join(parts))
+    height = legend_y + 50
+    return svg(width, height, "".join(parts)), width, height
 
 
 def render(name, document, width, height):
@@ -279,5 +320,5 @@ def render(name, document, width, height):
     print(png_path)
 
 
-render("pane-structure", structure(), 1420, 830)
-render("pane-lifecycle", lifecycle(), 1960, 1520)
+render("pane-structure", *structure())
+render("pane-lifecycle", *lifecycle())
