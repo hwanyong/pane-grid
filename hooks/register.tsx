@@ -47,7 +47,9 @@ const UNFILLED_HINT = 'not loaded, or its hooks/pane-grid.ts is older than pane-
 // 모듈 변수는 다시 불러오면 처음 값으로 돌아간다. 그려진 것은 모두 $.state 에서 읽고, 여기에는 다시 계산할 수 있는 것만 둔다.
 const run = {
   home: '',
-  config: '',
+  // 설정 디렉터리(CLAUDE_CONFIG_DIR, 없으면 $HOME/.claude). 끝 `/` 를 뺀 값이라 루트 `/` 는 빈 문자열이다.
+  // undefined 면 둘 다 없어 파일을 쓰지 않는다(NO_FILE).
+  config: undefined as string | undefined,
   // 마지막으로 읽은 $.session.root(). 이것이 바뀔 때만(`/cd` · worktree 이동) 프로젝트를 다시 정한다.
   root: '',
   // 프로젝트 키(projectOf)와 그 프로젝트 파일이 있는 디렉터리. 프로젝트를 한 번도 정하지 못했으면 둘 다 빈 문자열이다.
@@ -159,7 +161,7 @@ const globalFile = async ($: EngineInterface) => {
 }
 // 프로젝트 파일의 경로. 프로젝트를 정하지 못했으면(run.dir 이 빈 문자열) undefined 다. 빈 run.dir 로 `/layout.json` 을 만들지 않는다.
 const projectFile = () => (run.dir ? `${run.dir}/${FILE_NAME}` : undefined)
-const isUnresolved = () => Boolean(run.config) && !run.dir
+const isUnresolved = () => run.config != undefined && !run.dir
 
 // 사람이 읽는 경로: $HOME 아래면 `~` 로 줄인다.
 const shownPath = (path: string) => (run.home && path.startsWith(`${run.home}/`) ? `~${path.slice(run.home.length)}` : path)
@@ -207,8 +209,8 @@ const resolveProject = async ($: EngineInterface) => {
   const project = await projectOf($, root)
   run.root = root
   if (project == run.project) return false
-  // 프로젝트와 그 파일 자리는 await 없이 함께 바꾼다.
-  const dir = `${run.config}/${PROJECTS_DIR}/${await dirName(project)}`
+  // 프로젝트와 그 파일 자리는 await 없이 함께 바꾼다. 설정 디렉터리가 없으면 파일 자리도 없다(persist 가 쓰지 않는다).
+  const dir = run.config == undefined ? '' : `${run.config}/${PROJECTS_DIR}/${await dirName(project)}`
   run.project = project
   run.dir = dir
   run.mtimeMs = undefined
@@ -232,7 +234,7 @@ type Saved = 'written' | 'changed' | 'unresolved'
 // 프로젝트 파일에 쓴다. global 파일에는 쓰지 않는다. 이 세션이 마지막으로 읽거나 쓴 뒤 파일의 mtimeMs 가 바뀌었으면
 // (다른 세션이 쓰거나 지웠으면) 쓰지 않고 changed 를 돌려준다. 부른 쪽이 reloadChanged 로 다시 읽는다.
 const persist = async ($: EngineInterface, tabs: GridTab[]): Promise<Saved> => {
-  if (!run.config) return 'written'
+  if (run.config == undefined) return 'written'
   const path = projectFile()
   if (!path) return 'unresolved'
   const now = await statOf($, path)
@@ -256,7 +258,7 @@ const persist = async ($: EngineInterface, tabs: GridTab[]): Promise<Saved> => {
 const loadFile = async ($: EngineInterface): Promise<{ tabs: GridTab[]; path: string }> => {
   // 앞서 읽은 무효 원문은 이번에 읽는 파일이 유효하거나 없으면 남기지 않는다.
   run.invalidText = undefined
-  if (!run.config) return { tabs: defaultTabs(), path: NO_FILE }
+  if (run.config == undefined) return { tabs: defaultTabs(), path: NO_FILE }
   const file = projectFile()
   const own = file ? await statOf($, file) : undefined
   run.mtimeMs = own?.mtimeMs
@@ -414,10 +416,12 @@ const watchShown = async ($: EngineInterface) => {
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     run.home = String((await $.env.get('HOME')) ?? '')
-    const config = ((await $.env.get('CLAUDE_CONFIG_DIR')) || (run.home ? `${run.home}/.claude` : '')).replace(/\/+$/, '')
+    const given = (await $.env.get('CLAUDE_CONFIG_DIR')) || (run.home ? `${run.home}/.claude` : '')
+    // 끝 `/` 를 빼고 경로를 이을 때 `/` 를 붙인다. `CLAUDE_CONFIG_DIR=/` 은 빈 문자열이 되어 `/pane-grid/...` 를 가리킨다.
+    const config = given.replace(/\/+$/, '')
     // 상대 경로 CLAUDE_CONFIG_DIR 은 시작한 디렉터리 기준으로 고정한다. $.fs 는 상대 경로를 지금 작업 디렉터리 기준으로 풀어 `/cd` 뒤에 다른 곳을 읽는다.
-    run.config = config && !config.startsWith('/') ? `${await $.session.cwd()}/${config}` : config
-    if (!run.config) log($, `${NO_FILE}; the layout is kept in this session only`)
+    run.config = !given ? undefined : given.startsWith('/') ? config : `${await $.session.cwd()}/${config}`
+    if (run.config == undefined) log($, `${NO_FILE}; the layout is kept in this session only`)
     // 파일 읽기에 기대지 않는 등록을 먼저 한다. 파일을 읽지 못해 reload 가 거부돼도 /grid 와 주기(watchShown)는 남고,
     // 주기의 ensureLayout 이 다시 읽는다. 주기는 프로젝트를 정한 뒤에 건다(run.root 가 비어 있으면 첫 주기가 「moved」로 여긴다).
     // 프로젝트를 정하지 못하면 주기와 같이 debug log 에 남기고 이어 간다. 그동안 바꾸는 동작은 UNRESOLVED 로 거부하고 주기가 다시 정한다.
