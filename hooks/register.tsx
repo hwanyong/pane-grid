@@ -109,6 +109,8 @@ const log = ($: EngineInterface, text: string) => $.ui.log(`pane-grid: ${text}`,
 const paneId = (tab: string) => `${PANE_PREFIX}${tab}`
 const tabOf = (requestId: string) => requestId.slice(PANE_PREFIX.length)
 const titleOf = (tab: GridTab) => (tab.zoomed ? `${tab.name} [Z]` : tab.name)
+// 활성으로 그리고 hotkey 가 다루는 칸: zoom 한 칸, 없으면 활성 칸.
+const activeOf = (tab: GridTab) => tab.zoomed ?? tab.active
 
 const readLayout = async ($: EngineInterface): Promise<GridLayout | undefined> => (await $.state.get(LAYOUT)).value
 
@@ -123,7 +125,7 @@ const placements = (tabs: GridTab[]): Record<string, GridPlacement> => {
       const rect = measured && tab.zoomed == cell.id ? gridRect(measured) : rects.get(cell.id)
       const isShown = !tab.zoomed || tab.zoomed == cell.id
       const area = rect && isShown ? contentArea(rect) : { column: 0, row: 0, columns: 0, rows: 0 }
-      placed[cell.plugin] = { tab: tab.name, requestId: paneId(tab.name), cell: cell.id, ...area, isActive: (tab.zoomed ?? tab.active) == cell.id }
+      placed[cell.plugin] = { tab: tab.name, requestId: paneId(tab.name), cell: cell.id, ...area, isActive: activeOf(tab) == cell.id }
     }
   }
   return placed
@@ -533,7 +535,7 @@ export const register: Register = on => {
     // 칸: 제목 1행과 내용. 활성이 아닌 칸에는 그 칸 전체를 덮는 activate Client 를 마지막에 그려(위에 칠해진다) 어디를 눌러도 활성이 되게 한다.
     const drawCell = (id: string, rect: Rect): RenderElement => {
       const cell = findCell(tab.root, id)
-      const isActive = id == tab.active
+      const isActive = id == activeOf(tab)
       const size = contentSize(rect)
       const title = `${id} ${cell?.plugin ?? '-'}`
       return (
@@ -607,7 +609,7 @@ const pressWords = (element: string): string[] | undefined => {
 
 // 휠이면 `pointer` 가 가리키는 칸, 페이지 키면 활성 칸(tmux 의 활성 pane). 칸 밖이면 undefined.
 const cellAt = (tab: GridTab, measured: Measured, pointer: { column: number; row: number } | undefined) => {
-  if (!pointer) return tab.zoomed ?? tab.active
+  if (!pointer) return activeOf(tab)
   const area = gridRect(measured)
   const row = pointer.row - HEADER_ROWS
   const rects: [string, Rect][] = tab.zoomed ? [[tab.zoomed, area]] : [...geometry(tab.root, area)]

@@ -41,6 +41,9 @@ const changed = (tabs: GridTab[], current: string, text: string, focus?: string)
 
 const replaceTab = (tabs: GridTab[], tab: GridTab) => tabs.map(item => (item.name == tab.name ? tab : item))
 
+// 칸 `id` 를 활성으로 한다. zoom 한 탭이면 zoom 도 그 칸으로 옮긴다(보이지 않는 칸이 활성이 되지 않게).
+const activate = (tab: GridTab, id: string): GridTab => (tab.zoomed ? { ...tab, active: id, zoomed: id } : { ...tab, active: id })
+
 // mod 하나는 한 칸에만 놓인다(결정 6). 다른 칸에 있던 같은 mod 를 비운다.
 const unplace = (tabs: GridTab[], plugin: string) =>
   tabs.map(tab => ({ ...tab, root: mapCells(tab.root, cell => (cell.plugin == plugin ? { kind: 'cell', id: cell.id } : cell)) }))
@@ -85,8 +88,7 @@ export const apply = (tabs: GridTab[], current: string, words: string[]): Outcom
   if (verb == 'next' || verb == 'select-cell') {
     const target = verb == 'next' ? cells[(index + 1) % cells.length]?.id : rest[0]
     if (!target || !findCell(tab.root, target)) return same(tabs, tab.name, `no cell ${target ?? ''} in ${tab.name}`)
-    const zoomed = tab.zoomed ? { zoomed: target } : {}
-    return changed(replaceTab(tabs, { ...tab, active: target, ...zoomed }), tab.name, `active cell ${target}`)
+    return changed(replaceTab(tabs, activate(tab, target)), tab.name, `active cell ${target}`)
   }
 
   if (verb == 'place') {
@@ -96,7 +98,7 @@ export const apply = (tabs: GridTab[], current: string, words: string[]): Outcom
     const base = plugin == '-' ? tabs : unplace(tabs, plugin)
     const own = base.find(item => item.name == tab.name) ?? tab
     const root = mapCells(own.root, cell => (cell.id != id ? cell : plugin == '-' ? { kind: 'cell', id } : { kind: 'cell', id, plugin }))
-    return changed(replaceTab(base, { ...own, root, active: id }), tab.name, plugin == '-' ? `emptied ${id}` : `placed ${plugin} in ${id}`)
+    return changed(replaceTab(base, activate({ ...own, root }, id)), tab.name, plugin == '-' ? `emptied ${id}` : `placed ${plugin} in ${id}`)
   }
 
   if (verb == 'swap') {
