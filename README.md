@@ -221,10 +221,10 @@ The skill was tested on a sample pane mod: it applied the guide, `claude plugin 
 ## How does it work?
 
 - The Claude Code mod engine has no API that splits a pane or draws one mod inside another mod's pane. pane-grid opens its own pane per layout and draws the cell tree with `Box` elements, a one-cell divider between cells.
-- Every grid-ready mod hooks `ui.render` for panes whose id starts with `grid-`. A mod that loads after pane-grid appends a `Box` keyed `cell:<mod name>` to the tree, and pane-grid takes it into its cell. A mod that loads before pane-grid receives pane-grid's finished grid and puts its content into the `Box` keyed `slot:<mod name>` that pane-grid drew for it. Either way each mod's Buttons stay its own and keep working.
+- Every grid-ready mod hooks `ui.render` for panes whose id starts with `grid-` and that pane-grid opened (`{ component: 'Pane', requestId: /^grid-/, plugin: 'pane-grid' }`; Claude Code 2.1.325 and later call a render hook without `plugin` only for panes its own mod opened). A mod that loads after pane-grid appends a `Box` keyed `cell:<mod name>` to the tree, and pane-grid takes it into its cell. A mod that loads before pane-grid receives pane-grid's finished grid and puts its content into the `Box` keyed `slot:<mod name>` that pane-grid drew for it. Either way each mod's Buttons stay its own and keep working.
 - The dividers and the click-to-focus areas are `Client` regions (Claude Code's surface modules). A drag or click is sent to pane-grid's `ui.message` hook, which writes the new layout.
 - pane-grid publishes the layout and each cell's size in Claude Code's `$.state`. A mod reads its size there and redraws when the layout changes.
-- The mod picker in an empty cell lists the mods beneath pane-grid from `next.trace` of the grid render, and each grid-ready mod above pane-grid adds its own Button to the `Box` keyed `choices:<cell>`. pane-grid's `ui.press` hook answers every `place:<cell>:<mod>` Button.
+- The mod picker in an empty cell lists the mods beneath pane-grid from `next.trace` of the grid render, and each grid-ready mod above pane-grid adds its own Button to the `Box` keyed `choices:<cell>`. pane-grid's `ui.press` hook answers every `place:<cell>:<mod>` Button; its matcher has `plugin: '*'` because Claude Code 2.1.325 dispatches a press with the name of the mod that drew the Button.
 
 The design notes, engine measurements and test runs are in [docs/grid-and-tabs.md](docs/grid-and-tabs.md) and [docs/direction.md](docs/direction.md) (Korean).
 
@@ -234,7 +234,7 @@ The design notes, engine measurements and test runs are in [docs/grid-and-tabs.m
 - A click on a cell that is not active only activates it. The engine passes no click on a mod's text to any hook, so pane-grid covers inactive cells to catch the click; the Button under the pointer is pressed by the next click.
 - Dragging dividers and clicking to focus need the terminal: other surfaces have no `Client` regions, so there the dividers are plain lines and `/grid resize` · `/grid select-cell` do the same.
 - The pane's width is Claude Code's: a mod pane takes up to 45% of the terminal, so wide layouts need a wide terminal.
-- The mod picker lists every installed mod whose `ui.render` hook runs for the grid pane. A mod that hooks every `ui.render` without a matcher shows up too, and its cell reads `<mod> draws nothing here`.
+- The mod picker lists every installed mod whose `ui.render` hook runs for the grid pane. A mod that is not grid-ready but hooks the grid pane with `plugin: 'pane-grid'` or `plugin: '*'` shows up too, and its cell reads `<mod> draws nothing here`. With Claude Code 2.1.322 a mod that hooked every `ui.render` without a matcher showed up the same way.
 - A grid-ready mod that calls the reading module's `readPlacement` or `readShownTab` loads in Claude Code 2.1.299 or later. A mod that supports an older engine reads pane-grid's state in its own hooks file instead, as [Engine floor](docs/add-pane-grid-cell.md#engine-floor-claude-code-21299) in the guide shows.
 - Tested in the terminal on macOS. The desktop and IDE surfaces were not tested.
 
@@ -258,7 +258,11 @@ No. pane-grid makes no model calls. It draws, reads and writes its layout files 
 
 ### Why does a cell say a mod is not loaded?
 
-The cell reads `<mod> is not loaded, or its hooks/pane-grid.ts is older than pane-grid 0.3.0`. Either the mod is not installed or is disabled, or it loads before pane-grid and its copy of `hooks/pane-grid.ts` has no `fillSlot`. Install the mod, or update it to a version with the 0.3.0 reading module.
+The cell reads `<mod> is not loaded, its ui.render matcher lacks plugin: 'pane-grid', or its hooks/pane-grid.ts is older than pane-grid 0.3.0`. There are three causes:
+
+- The mod is not installed or is disabled. Install or enable it.
+- Its grid render hook's matcher has no `plugin: 'pane-grid'`. From Claude Code 2.1.325 that hook is never called for a grid pane, so a grid-ready mod written to the guide before 2026-11-14 shows this, and empty cells read `no grid-ready mod is loaded`. Update the mod to a version whose matcher has it ([Why `plugin: 'pane-grid'`](docs/add-pane-grid-cell.md#why-plugin-pane-grid)).
+- It loads before pane-grid and its copy of `hooks/pane-grid.ts` has no `fillSlot`. Update it to a version with the 0.3.0 reading module.
 
 ### Does it work with mods that are not grid-ready?
 

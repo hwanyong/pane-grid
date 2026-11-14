@@ -25,7 +25,7 @@ pane-grid opens one engine pane per layout, with the id `grid-<layout name>`, an
 
 | Rule | What your mod does |
 |---|---|
-| Hook | A `ui.render` hook on `{ component: 'Pane', requestId: /^grid-/ }` |
+| Hook | A `ui.render` hook on `{ component: 'Pane', requestId: /^grid-/, plugin: 'pane-grid' }`. Claude Code 2.1.325 and later need `plugin: 'pane-grid'` ([Why `plugin: 'pane-grid'`](#why-plugin-pane-grid)) |
 | Placement | Reads pane-grid's `layout` state and finds its own entry in `placed`. No entry, or an entry for another grid pane: return `next(e)` unchanged |
 | Content | Draws one `Box` with the key `cell:<plugin name>`. `fillSlot` puts it into the slot pane-grid drew for your mod; when there is no slot, your mod appends it after the result of `next(e)`. The plugin name is the `name` in your `.claude-plugin/plugin.json` |
 | Choice | Calls `offerChoice` on the result of `next(e)`, so empty cells list your mod |
@@ -36,6 +36,14 @@ pane-grid opens one engine pane per layout, with the id `grid-<layout name>`, an
 Without pane-grid installed, the `layout` read is `undefined` and your mod behaves as before. pane-grid is an optional companion, not a dependency.
 
 Load order does not matter. When your mod loads after pane-grid, pane-grid finds your hook in `next.trace` of the grid render and lists your mod in empty cells; it takes your `cell:` Box from the tree. When your mod loads before pane-grid, `next(e)` already holds pane-grid's grid: `offerChoice` adds your Button to each empty cell's `choices:<cell>` Box, and `fillSlot` puts your cell into the `slot:<plugin name>` Box. Either way your hook runs on every grid render, so no registration is needed.
+
+### Why `plugin: 'pane-grid'`
+
+From Claude Code 2.1.325, a hook whose matcher has no `plugin` key matches only events whose `plugin` is the plugin that registered the hook. The engine does this for five events: `ui.render`, `ui.press`, `ui.focus`, `ui.input` and `ui.select`. `ui.scroll` and `ui.message` are not affected. `claude plugin validate` shows this as `(default matcher key: plugin)` after the list of hooks. `plugin: '*'` matches every plugin.
+
+For `ui.render`, `plugin` is the plugin that opened the pane. pane-grid opens every grid pane, so a grid render hook without `plugin: 'pane-grid'` is never called for a grid pane: placed cells read `<plugin> is not loaded, its ui.render matcher lacks plugin: 'pane-grid', …` and empty cells read `no grid-ready mod is loaded`, in both load orders. Claude Code 2.1.322 called the same hook, and its `claude plugin validate` accepts the `plugin` key in this matcher; this guide has not run a session with the new matcher on 2.1.322.
+
+For `ui.press`, `plugin` is the plugin that drew the pressed Button. That is why the hook in [Step 5](#step-5-accept-button-presses-from-the-grid-pane) names `plugin: PLUGIN`, and why pane-grid's own press hook uses `plugin: '*'`: the choice Button your mod adds with `offerChoice` is drawn by your mod, and pane-grid places your mod when it is pressed.
 
 ## What does pane-grid publish?
 
@@ -137,7 +145,7 @@ import { fillSlot, offerChoice, readPlacement } from './pane-grid'
 
 const PLUGIN = 'your-mod' // the name in .claude-plugin/plugin.json
 
-on('ui.render', { component: 'Pane', requestId: /^grid-/ }, async ($, e, next) => {
+on('ui.render', { component: 'Pane', requestId: /^grid-/, plugin: 'pane-grid' }, async ($, e, next) => {
   const placement = await readPlacement($, PLUGIN)
   const below = await next(e)
   const { Box, Button } = $.ui.resolve(e)
@@ -153,10 +161,11 @@ on('ui.render', { component: 'Pane', requestId: /^grid-/ }, async ($, e, next) =
 })
 ```
 
-Three details:
+Four details:
 
+- Keep `plugin: 'pane-grid'` in the matcher. Without it Claude Code 2.1.325 and later never call the hook for a grid pane ([Why `plugin: 'pane-grid'`](#why-plugin-pane-grid)).
 - Call `next(e)` before checking the placement, and return `offered` when your mod has no cell here. Other grid-ready mods and pane-grid itself draw beneath yours, and `offerChoice` is how empty cells list your mod when it loads first.
-- The Button's `onPress` does nothing. Its key is `place:<cell>:<plugin>`, and pane-grid's `ui.press` hook places your mod when it is pressed.
+- The Button's `onPress` does nothing. Its key is `place:<cell>:<plugin>`, and pane-grid's `ui.press` hook places your mod when it is pressed. Your mod drew the Button, so on Claude Code 2.1.325 the engine dispatches the press with your plugin name, and pane-grid's press hook matches it with `plugin: '*'`. A pane-grid whose press hook has no `plugin: '*'` (every release up to 0.5.1) is not called for that press, so the press does not place your mod when your mod loads before pane-grid.
 - Keep `{offered}` in the fallback tree: pane-grid collects every `cell:` Box from the whole tree.
 
 ## Step 4: leave your own pane or band while placed
@@ -209,7 +218,7 @@ If your mod has a slash command that opens its pane, check `readPlacement` there
 
 ## Step 5: accept Button presses from the grid pane
 
-A `ui.press` hook with `requestId: PANE` does not match a Button drawn in the grid pane. List both ids:
+A `ui.press` hook with `requestId: PANE` does not match a Button drawn in the grid pane. List both ids. Keep `plugin: PLUGIN`: your mod drew the Button in its cell, so the press comes with your plugin name, which is also what Claude Code 2.1.325 fills in when the matcher has no `plugin`. Do not write `plugin: 'pane-grid'` here; that is for the render hook only.
 
 ```tsx
 on('ui.press', { plugin: PLUGIN, component: 'Pane', requestId: [PANE, /^grid-/], element: /^q\d+$/ }, async ($, e) => {
@@ -284,7 +293,7 @@ Load order does not matter here either. When your mod loads before pane-grid, yo
 
 ## Step 8: check it
 
-1. `claude plugin validate <your mod>`: the output lists `state reads: pane-grid.layout` and the `state.set{plugin=pane-grid, key=layout}` hook. If your mod supports an engine older than 2.1.299, run it with that engine too: `npx -y @anthropic-ai/claude-code@<oldest version> plugin validate <your mod>`.
+1. `claude plugin validate <your mod>`: the output lists `state reads: pane-grid.layout`, the `state.set{plugin=pane-grid, key=layout}` hook, and the grid render hook as `ui.render{component=Pane, requestId=/"^grid-"/, plugin=pane-grid}`. A `ui.render{component=Pane, requestId=/"^grid-"/}` without `plugin=pane-grid` is the hook that Claude Code 2.1.325 never calls for a grid pane. If your mod supports an engine older than 2.1.299, run it with that engine too: `npx -y @anthropic-ai/claude-code@<oldest version> plugin validate <your mod>`.
 2. Type-check: `tsc -p <your mod> --noEmit` once the engine has written `.claude-plugin/types/`.
 3. Run a session with both plugins:
 
@@ -292,7 +301,14 @@ Load order does not matter here either. When your mod loads before pane-grid, yo
    claude --plugin-dir <path to pane-grid> --plugin-dir <path to your mod>
    ```
 
-   Run it once more with the two `--plugin-dir` options swapped. Your mod should behave the same in both orders. If a placed cell reads `<plugin> is not loaded, or its hooks/pane-grid.ts is older than pane-grid 0.3.0` only when your mod comes first, its `hooks/pane-grid.ts` is an older copy, or the hook returns before calling `fillSlot`.
+   Run it once more with the two `--plugin-dir` options swapped. Your mod should behave the same in both orders. If a placed cell reads `<plugin> is not loaded, its ui.render matcher lacks plugin: 'pane-grid', or its hooks/pane-grid.ts is older than pane-grid 0.3.0`:
+
+   | When | Cause |
+   |---|---|
+   | In both orders, and empty cells read `no grid-ready mod is loaded` | The grid render hook's matcher has no `plugin: 'pane-grid'` (Claude Code 2.1.325 and later), or the mod is not loaded |
+   | Only when your mod comes first | Its `hooks/pane-grid.ts` is an older copy, or the hook returns before calling `fillSlot` |
+
+   If pressing your mod's choice in an empty cell does nothing only when your mod comes first, the pane-grid you run has no `plugin: '*'` in its `ui.press` matcher; update pane-grid.
 
    Then, in that session:
 
@@ -305,7 +321,7 @@ Load order does not matter here either. When your mod loads before pane-grid, yo
    | `/grid place -` | Your own pane or band is back |
    | Run without pane-grid | Your mod behaves as before |
 
-   Start Claude Code with `--debug` to read hook failures: a hook whose tree the engine refused is logged as `<plugin>: ui.render hook skipped: …`.
+   Start Claude Code with `--debug` to read hook failures: a hook whose tree the engine refused is logged as `<plugin>: ui.render hook skipped: …`. The same log shows which plugins' hooks ran for a grid render: a line `hooks module <plugin>@<source>, … ui.render settled in … key=grid-<layout name>` lists every plugin whose hook ran, so check that your plugin name is on it. With only pane-grid's hook the line reads `hooks module pane-grid@… ui.render settled in … key=grid-main`. If it is not, the hook was not called; check the matcher first.
 
 ## Use the skill
 
@@ -342,4 +358,4 @@ The engine has no call that lets one mod draw inside another mod's pane. Every `
 
 ### My mod hooks every `ui.render` without a matcher. Will it show up in empty cells?
 
-Yes. pane-grid lists every installed mod whose `ui.render` hook runs for the grid pane. Placing a mod that draws no `cell:` Box shows `<plugin> draws nothing here` in the cell.
+Not from Claude Code 2.1.325. A matcher without `plugin` matches only panes your mod opened ([Why `plugin: 'pane-grid'`](#why-plugin-pane-grid)), so the hook does not run for a grid pane and pane-grid does not list your mod. On Claude Code 2.1.322 it did: pane-grid lists every installed mod whose `ui.render` hook runs for the grid pane, and placing a mod that draws no `cell:` Box shows `<plugin> draws nothing here` in the cell.

@@ -41,8 +41,9 @@ const UNRESOLVED = "this session's project is not resolved yet, so the layout ca
 const COMMON_GIT_DIR = '/.git'
 const SHOWN_POLL_MS = 1000
 const ACTIVE_COLOR = 'green'
-// slot 을 채우지 않은 놓인 mod: 불러오지 않았거나, hooks/pane-grid.ts 가 slot 을 모르는 0.3.0 이전 사본이다.
-const UNFILLED_HINT = 'not loaded, or its hooks/pane-grid.ts is older than pane-grid 0.3.0'
+// slot 을 채우지 않은 놓인 mod: 불러오지 않았거나, grid ui.render matcher 에 plugin: 'pane-grid' 가 없어 Claude Code 2.1.325 부터
+// 그 hook 이 grid pane 에서 불리지 않거나, hooks/pane-grid.ts 가 slot 을 모르는 0.3.0 이전 사본이다.
+const UNFILLED_HINT = "not loaded, its ui.render matcher lacks plugin: 'pane-grid', or its hooks/pane-grid.ts is older than pane-grid 0.3.0"
 
 // 모듈 변수는 다시 불러오면 처음 값으로 돌아간다. 그려진 것은 모두 $.state 에서 읽고, 여기에는 다시 계산할 수 있는 것만 둔다.
 const run = {
@@ -480,7 +481,8 @@ export const register: Register = on => {
   // grid pane 의 Button 누름. 규약 mod 가 pane-grid 위에 있어도 아래에 있어도 같은 hook 이 받는다.
   // 동작은 chain 이 끝난 뒤에 한다. 탭을 닫는 동작(k · break 등)은 이 pane 을 닫고, 그 뒤의 next(e) 는 chain 맨 아래의
   // Button onPress 를 handle 로 부르는데 pane 과 함께 그 handle 이 없어져 `no handler is held under handle` 로 실패했다.
-  on('ui.press', { component: 'Pane', requestId: /^grid-/, element: PRESS_KEY }, async ($, e, next) => {
+  // plugin: '*': 먼저 로드된 규약 mod 가 그린 선택지 Button 의 누름은 Claude Code 2.1.325 부터 그 mod 이름으로 dispatch 되어, 이것이 없으면 이 hook 이 불리지 않는다.
+  on('ui.press', { component: 'Pane', requestId: /^grid-/, element: PRESS_KEY, plugin: '*' }, async ($, e, next) => {
     const pressed = await next(e)
     const words = pressWords(e.element)
     if (words) {

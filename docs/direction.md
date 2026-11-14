@@ -48,7 +48,7 @@ Claude Code 의 mod(function hooks plugin)는 `$.ui.open` 으로 pane 을 연다
 
 ### 3.1 규약 mod: `slot:<plugin>` 규약
 
-pane-grid 0.3.0 에서 이 절의 두 경우를 모두 구현했다(`docs/grid-and-tabs.md` §3.7, 실행 결과는 §4.1 8회차). 처음 설계와 다른 것은 세 가지다. pane id 는 `grid` 하나가 아니라 배치마다 `grid-<이름>` 이고 규약 mod 의 matcher 는 `requestId: /^grid-/` 다. 빈 칸의 선택지도 `choices:<칸 id>` Box 로 같은 두 경우를 처리한다. pane-grid 0.2.0 은 `cell:*` 쪽만 구현해서 pane-grid 가 규약 mod 보다 먼저 로드되어야 했다(§4.1 7회차). 규약 mod 를 만드는 절차는 `docs/add-pane-grid-cell.md` 가 갖는다. 아래는 2026-11-06 의 처음 설계로 남긴다.
+pane-grid 0.3.0 에서 이 절의 두 경우를 모두 구현했다(`docs/grid-and-tabs.md` §3.7, 실행 결과는 §4.1 8회차). 처음 설계와 다른 것은 세 가지다. pane id 는 `grid` 하나가 아니라 배치마다 `grid-<이름>` 이고 규약 mod 의 matcher 는 `requestId: /^grid-/` 다(Claude Code 2.1.325 부터 `plugin: 'pane-grid'` 도 적는다. `docs/grid-and-tabs.md` 결정 21). 빈 칸의 선택지도 `choices:<칸 id>` Box 로 같은 두 경우를 처리한다. pane-grid 0.2.0 은 `cell:*` 쪽만 구현해서 pane-grid 가 규약 mod 보다 먼저 로드되어야 했다(§4.1 7회차). 규약 mod 를 만드는 절차는 `docs/add-pane-grid-cell.md` 가 갖는다. 아래는 2026-11-06 의 처음 설계로 남긴다.
 
 - `pane-grid` 가 pane `grid` 를 열고 배치 정보에 따라 `key="slot:<plugin>"` Box 를 행 · 열로 그린다.
 - 규약 mod 는 `{ component: 'Pane', requestId: 'grid' }` 를 hook 한다. `next(e)` 결과에 자기 `slot:<plugin>` 이 있으면 그 Box 를 채우고, 없으면 `key="cell:<plugin>"` Box 를 덧붙여 반환한다.
