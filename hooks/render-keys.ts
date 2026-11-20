@@ -1,12 +1,14 @@
 import type { RenderElement, RenderNode, Tier, TraceEntry } from 'claude-code'
-import { PLACE_KEY, TOOLBAR_KEYS } from '../skills/add-pane-grid-cell/pane-grid'
+import { OFFER_KEY, PLACE_KEY, TOOLBAR_KEYS } from '../skills/add-pane-grid-cell/pane-grid'
 
 // grid pane 의 render tree key 와 Button 누름 해석. 만드는 쪽(register.tsx 의 render)과 읽는 쪽(press · message hook)이 이 파일의
 // 상수 · 함수를 함께 쓴다. $ 를 받지 않는다.
 
-// render tree 의 key 머리말(docs/grid-and-tabs.md §3.7). 규약 mod 가 pane-grid 보다 아래(뒤에 로드)에 있으면 `cell:<plugin>` Box 를
-// 그려 next(e) 결과로 내고, 위(먼저 로드)에 있으면 pane-grid 가 그린 `slot:<plugin>` Box 를 채우고 `choices:<cell>` Box 에 선택지 Button 을 더한다.
-// 규약 mod 와 함께 쓰는 머리말(SLOT_KEY · CHOICES_KEY · ACTIVE_SUFFIX · NONE_KEY · PLACE_KEY)과 CHOICE_HOTKEYS 는 읽기 모듈
+// render tree 의 key 머리말(docs/grid-and-tabs.md §3.7). 칸 주인 키는 member id 다. plugin 이 pane 하나만 내면 `<plugin>`, 둘 이상
+// 내면 pane 마다 `<plugin>.<view>` 다(§3.7 「member id」). 규약 mod 가 pane-grid 보다 아래(뒤에 로드)에 있으면 member id 마다 빈
+// `offer:<member id>` Box 와 놓인 칸의 `cell:<member id>` Box 를 그려 next(e) 결과로 내고, 위(먼저 로드)에 있으면 pane-grid 가 그린
+// `slot:<member id>` Box 를 채우고 `choices:<cell>` Box 에 선택지 Button 을 더한다.
+// 규약 mod 와 함께 쓰는 머리말(SLOT_KEY · CHOICES_KEY · ACTIVE_SUFFIX · NONE_KEY · PLACE_KEY · OFFER_KEY)과 CHOICE_HOTKEYS 는 읽기 모듈
 // skills/add-pane-grid-cell/pane-grid.ts 가 갖는다. 그 파일은 member 저장소에 복사되어 hooks/ 를 import 하지 않으므로 이쪽이 읽는다.
 export const CELL_KEY = 'cell:'
 // pane-grid 가 그리는 Button 의 key 머리말은 PLACE_KEY(선택지)와 이것(툴바)이다. 누름은 모두 ui.press hook 하나가 받는다(로드 순서와 무관하게 같은 입구).
@@ -55,25 +57,43 @@ export const holdsKey = (node: RenderNode, key: string): boolean => {
   return 'children' in node && (node.children ?? []).some(child => holdsKey(child, key))
 }
 
-// 규약 mod 가 그린 칸: key 가 `cell:<plugin>` 인 Box.
-export const collectCells = (node: RenderNode, out: Map<string, RenderElement>): void => {
+// key 가 `prefix` 로 시작하는 Box 를 member id(머리말 뒤)마다 모은다. 찾은 Box 아래는 더 내려가지 않는다.
+const collectKeyed = (node: RenderNode, prefix: string, out: Map<string, RenderElement>): void => {
   if (typeof node == 'string') return
   const props: Record<string, unknown> | undefined = 'props' in node ? node.props : undefined
   const key = props?.key
-  if (typeof key == 'string' && key.startsWith(CELL_KEY)) return void out.set(key.slice(CELL_KEY.length), node)
-  if ('children' in node) for (const child of node.children ?? []) collectCells(child, out)
+  if (typeof key == 'string' && key.startsWith(prefix)) return void out.set(key.slice(prefix.length), node)
+  if ('children' in node) for (const child of node.children ?? []) collectKeyed(child, prefix, out)
 }
 
-// grid pane 의 ui.render 에 hook 을 건 mod: 규약 mod 는 놓이지 않았어도 이 hook 을 걸고 있으므로 next.trace 에 이름이 남는다.
-export const gridReady = (trace: readonly TraceEntry[]) => [
-  ...new Set(trace.filter(entry => INSTALLED_TIERS.includes(entry.tier) && entry.plugin != OWN_NAME && entry.plugin != ENGINE_NAME).map(entry => entry.plugin)),
-].sort()
+// 아래 규약 mod 가 그린 칸: key 가 `cell:<member id>` 인 Box.
+export const collectCells = (node: RenderNode, out: Map<string, RenderElement>): void => collectKeyed(node, CELL_KEY, out)
 
-// Button key 를 /grid 명령의 낱말로 바꾼다. `place:<cell>:<plugin>` · `hotkey:<key>`.
+// 아래 규약 mod 가 빈 칸 선택지로 내놓은 member id: key 가 `offer:<member id>` 인 빈 Box.
+const collectOffers = (node: RenderNode): string[] => {
+  const out = new Map<string, RenderElement>()
+  collectKeyed(node, OFFER_KEY, out)
+  return [...out.keys()]
+}
+
+// pane-grid 아래 규약 mod 의 member id(빈 칸 선택지와 안내 문구의 판정에 쓴다). 두 출처를 합친다.
+// ① `offer:<member id>` Box. pane 을 둘 이상 내는 mod 는 이것으로만 member id 를 모두 알린다.
+// ② next.trace 의 plugin 이름. grid pane 의 ui.render 에 hook 을 건 mod 는 놓이지 않았어도 trace 에 이름이 남는다. `offer:` 를
+//    그리지 않는 옛 사본(pane-grid 0.5.2 이전의 hooks/pane-grid.ts)을 위해 남긴다. 규칙: trace 의 plugin 이름 p 는 ① 의 member id 중
+//    p 와 같거나 `p.` 로 시작하는 것이 하나도 없을 때만 member id p 로 더한다. 새 사본은 ① 로 자기 member id 를 모두 내므로
+//    p 를 따로 더하지 않고, 옛 사본은 ① 이 없어 지금처럼 p 로 나온다. 같은 규칙을 docs/grid-and-tabs.md §3.6 「선택지의 출처」에 적었다.
+export const gridReady = (below: RenderNode, trace: readonly TraceEntry[]) => {
+  const offered = collectOffers(below)
+  const plugins = trace.filter(entry => INSTALLED_TIERS.includes(entry.tier) && entry.plugin != OWN_NAME && entry.plugin != ENGINE_NAME).map(entry => entry.plugin)
+  const unoffered = plugins.filter(plugin => !offered.some(id => id == plugin || id.startsWith(`${plugin}.`)))
+  return [...new Set([...offered, ...unoffered])].sort()
+}
+
+// Button key 를 /grid 명령의 낱말로 바꾼다. `place:<cell>:<member id>` · `hotkey:<key>`. 칸 id 와 member id 에는 `:` 가 없다.
 export const pressWords = (element: string): string[] | undefined => {
   if (element.startsWith(PLACE_KEY)) {
-    const [cell, plugin] = element.slice(PLACE_KEY.length).split(':')
-    return cell && plugin ? ['place', plugin, cell] : undefined
+    const [cell, memberId] = element.slice(PLACE_KEY.length).split(':')
+    return cell && memberId ? ['place', memberId, cell] : undefined
   }
   if (element.startsWith(HOTKEY_KEY)) return HOTKEYS.find(item => item.key == element.slice(HOTKEY_KEY.length))?.words
   return undefined

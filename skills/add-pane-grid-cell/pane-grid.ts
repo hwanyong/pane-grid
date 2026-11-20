@@ -8,18 +8,24 @@ import type { EngineInterface, RenderElement, RenderNode, UiScrollInput } from '
 // pane-grid's state types live in the pane-grid repository only, so this module checks the values it reads at run time.
 // When pane-grid is not installed every read is undefined and your mod keeps drawing in its own pane or band.
 //
-// Load order does not matter. When your mod loads after pane-grid, next(e) holds nothing of pane-grid's and your
-// `cell:<plugin>` Box goes after it, where pane-grid collects it. When your mod loads before pane-grid, next(e) holds
-// pane-grid's drawing: fillSlot puts your cell into the `slot:<plugin>` Box pane-grid drew for it, and offerChoice adds
-// your Button to each empty cell's `choices:<cell>` Box. pane-grid's ui.press hook answers that Button by its key.
+// A member id names one pane your mod puts in a cell: `<plugin>` for a mod with one pane, or `<plugin>.<view>` for each
+// pane of a mod with two or more (`uhd-kanban` and `uhd-kanban.flow`). `<plugin>` is the name in .claude-plugin/plugin.json;
+// `<view>` is yours to pick from a-z, 0-9, `_`, `-`. pane-grid places each member id in a cell of its own. The functions
+// below take the member id where earlier copies took the plugin name, so a mod with one pane passes the same string.
+//
+// Load order does not matter. When your mod loads after pane-grid, next(e) holds nothing of pane-grid's: your mod
+// appends an empty `offer:<member id>` Box for each member id (offerKey), so empty cells list it, and its
+// `cell:<member id>` Box, where pane-grid collects both. When your mod loads before pane-grid, next(e) holds pane-grid's
+// drawing: fillSlot puts your cell into the `slot:<member id>` Box pane-grid drew for it, and offerChoice adds your Button
+// to each empty cell's `choices:<cell>` Box. pane-grid's ui.press hook answers that Button by its key.
 
 const GRID_LAYOUT = { plugin: 'pane-grid', key: 'layout' } as const
 const GRID_SHOWN = { plugin: 'pane-grid', key: 'shown' } as const
 // The layout format's version, as pane-grid's types/index.d.ts GridVersion names it. pane-grid writes it into the layout
 // value from this constant, so the two cannot drift. Your mod need not import it; placementIn uses it.
 export const GRID_VERSION = 1
-// The render keys pane-grid draws and fillSlot and offerChoice read: `slot:<plugin>`, `choices:<cell>[:active]`,
-// `none:<cell>` and the choice Button `place:<cell>:<plugin>`. pane-grid draws them from these constants, so the two
+// The render keys pane-grid draws and fillSlot and offerChoice read: `slot:<member id>`, `choices:<cell>[:active]`,
+// `none:<cell>` and the choice Button `place:<cell>:<member id>`. pane-grid draws them from these constants, so the two
 // sides cannot drift. Your mod need not import them; fillSlot and offerChoice use them.
 export const SLOT_KEY = 'slot:'
 export const CHOICES_KEY = 'choices:'
@@ -27,6 +33,9 @@ export const ACTIVE_SUFFIX = ':active'
 export const NONE_KEY = 'none:'
 export const PLACE_KEY = 'place:'
 const SCROLLS_KEY = 'scrolls:'
+// The key prefix of the empty Box a mod loaded after pane-grid draws for each member id. pane-grid reads it with this
+// constant. Your mod need not import it; offerKey uses it.
+export const OFFER_KEY = 'offer:'
 // Empty-cell choices take hotkeys 1-9 in the active cell only; numbered in every cell, one number would mean two cells.
 export const CHOICE_HOTKEYS = 9
 
@@ -47,12 +56,12 @@ const isPlacement = (value: unknown): value is GridPlacement => {
     && typeof placement.columns == 'number' && typeof placement.rows == 'number'
 }
 
-// Finds this mod's cell in a pane-grid layout value. Also used on a `state.set` hook's `value` and `previous`.
-export const placementIn = (layout: unknown, plugin: string): GridPlacement | undefined => {
+// Finds the cell of one member id in a pane-grid layout value. Also used on a `state.set` hook's `value` and `previous`.
+export const placementIn = (layout: unknown, memberId: string): GridPlacement | undefined => {
   if (typeof layout != 'object' || layout == null) return undefined
   const { version, placed } = layout as { version?: unknown; placed?: unknown }
   if (version != GRID_VERSION || typeof placed != 'object' || placed == null) return undefined
-  const placement = (placed as Record<string, unknown>)[plugin]
+  const placement = (placed as Record<string, unknown>)[memberId]
   return isPlacement(placement) ? placement : undefined
 }
 
@@ -64,10 +73,10 @@ export const placementIn = (layout: unknown, plugin: string): GridPlacement | un
 // deletes both, reads pane-grid's state in its own hooks file and imports only placementIn: see "Engine floor" in the
 // guide's Step 1.
 
-// This mod's cell. Called while drawing, the drawing is redrawn when pane-grid changes the layout.
-export async function readPlacement($: EngineInterface, plugin: string): Promise<GridPlacement | undefined> {
+// The cell of one member id. Called while drawing, the drawing is redrawn when pane-grid changes the layout.
+export async function readPlacement($: EngineInterface, memberId: string): Promise<GridPlacement | undefined> {
   const read = await $.state.get(GRID_LAYOUT as never) as { value?: unknown }
-  return placementIn(read.value, plugin)
+  return placementIn(read.value, memberId)
 }
 
 // The name of the grid layout on screen; null when no grid pane is shown or pane-grid is not installed.
@@ -99,41 +108,47 @@ const rewrite = (element: RenderElement, change: (element: RenderElement) => Ren
   return rewritten.every((child, index) => child === children[index]) ? element : ({ ...element, children: rewritten } as RenderElement)
 }
 
-// Puts `cell` into the slot pane-grid drew for this mod. undefined when next(e) holds no such slot (your mod loads
-// after pane-grid, so pane-grid has not drawn yet): append the cell after next(e) instead, keyed `cell:<plugin>`.
-export const fillSlot = (below: RenderElement, plugin: string, cell: RenderElement): RenderElement | undefined => {
+// Puts `cell` into the slot pane-grid drew for this member id. undefined when next(e) holds no such slot (your mod loads
+// after pane-grid, so pane-grid has not drawn yet): append the cell after next(e) instead, keyed `cell:<member id>`.
+export const fillSlot = (below: RenderElement, memberId: string, cell: RenderElement): RenderElement | undefined => {
   let isFilled = false
   const filled = rewrite(below, element => {
-    if (keyOf(element) != `${SLOT_KEY}${plugin}`) return undefined
+    if (keyOf(element) != `${SLOT_KEY}${memberId}`) return undefined
     isFilled = true
     return { ...element, children: [cell] } as RenderElement
   })
   return isFilled ? filled : undefined
 }
 
-// Adds this mod's Button to every empty cell's choices pane-grid drew. Unchanged when next(e) holds none.
-// `placement` is this mod's current cell, if any: the label then says the press moves it from there.
-export const offerChoice = (below: RenderElement, plugin: string, placement: GridPlacement | undefined, makeButton: (choice: GridChoice) => RenderElement): RenderElement =>
+// Adds this member id's Button to every empty cell's choices pane-grid drew. Unchanged when next(e) holds none (your mod
+// loads after pane-grid): draw the `offerKey(memberId)` Box instead. `placement` is this member id's current cell, if any:
+// the label then says the press moves it from there.
+export const offerChoice = (below: RenderElement, memberId: string, placement: GridPlacement | undefined, makeButton: (choice: GridChoice) => RenderElement): RenderElement =>
   rewrite(below, element => {
     const key = keyOf(element)
     if (!key?.startsWith(CHOICES_KEY)) return undefined
     // A cell id holds no `:`, so the id ends at the first `:`; a cell named `active` is then not read as the suffix.
     const [cell = ''] = key.slice(CHOICES_KEY.length).split(':')
     const isActive = key.slice(CHOICES_KEY.length + cell.length) == ACTIVE_SUFFIX
-    const choiceKey = `${PLACE_KEY}${cell}:${plugin}`
+    const choiceKey = `${PLACE_KEY}${cell}:${memberId}`
     const children = childrenOf(element).filter(child => !keyOf(child)?.startsWith(NONE_KEY))
     if (children.some(child => keyOf(child) == choiceKey)) return undefined
     const count = children.filter(child => keyOf(child)?.startsWith(PLACE_KEY)).length
     const hotkey = isActive && count < CHOICE_HOTKEYS ? String(count + 1) : undefined
-    const label = placement ? `${plugin} (move from ${placement.cell})` : plugin
+    const label = placement ? `${memberId} (move from ${placement.cell})` : memberId
     return { ...element, children: [...children, makeButton({ key: choiceKey, label, hotkey })] } as RenderElement
   })
 
-// A mod that scrolls its own rows in the cell draws an empty Box with this key inside its `cell:<plugin>` Box. pane-grid
-// then hands that cell's `ui.scroll` to your hook instead of moving the cell itself. Without the Box pane-grid moves it.
-export const scrollsKey = (plugin: string) => `${SCROLLS_KEY}${plugin}`
+// The key of the empty Box a mod loaded after pane-grid appends after next(e) for each member id, placed or not, so
+// empty cells list it. Draw it next to the `cell:<member id>` Box, not inside it. A mod loaded before pane-grid does
+// not need it (offerChoice adds the Button there), and drawing it there does nothing.
+export const offerKey = (memberId: string) => `${OFFER_KEY}${memberId}`
 
-// Whether a `ui.scroll` on a grid pane is for this mod's cell: the wheel over the cell's area, or a scroll key while the
+// A mod that scrolls its own rows in the cell draws an empty Box with this key inside its `cell:<member id>` Box.
+// pane-grid then hands that cell's `ui.scroll` to your hook instead of moving the cell itself. Without the Box pane-grid moves it.
+export const scrollsKey = (memberId: string) => `${SCROLLS_KEY}${memberId}`
+
+// Whether a `ui.scroll` on a grid pane is for this member id's cell: the wheel over the cell's area, or a scroll key while the
 // cell is the active one. The row in your cell is `e.pointer.row - placement.row`. false with pane-grid before 0.4.0.
 // Answer it without next(e), as `ui.scroll` documents for a hook drawing its own rows; call next(e) for every other event.
 export const isScrollIn = (placement: GridPlacement | undefined, e: UiScrollInput): boolean => {

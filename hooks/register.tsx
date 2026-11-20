@@ -16,7 +16,8 @@ import {
 import { ROOT_PATH, allCells, cellsOf, childPath, findCell, moveDivider, rectAt, replaceAt, splitAt, splitRects } from './tree'
 import type { Rect } from './tree'
 
-// pane-grid: 탭(엔진 pane `grid-<이름>`)마다 배치 트리를 그리고, 칸에 규약 mod 가 그린 `cell:<plugin>` Box 를 놓는다.
+// pane-grid: 탭(엔진 pane `grid-<이름>`)마다 배치 트리를 그리고, 칸에 규약 mod 가 그린 `cell:<member id>` Box 를 놓는다.
+// member id 는 `<plugin>` 또는 `<plugin>.<view>` 다(hooks/render-keys.ts 머리 주석).
 // 설계는 docs/grid-and-tabs.md §3. 배치의 원본은 프로젝트 파일 `<설정 디렉터리>/pane-grid/projects/<이름>/layout.json` 이고
 // (결정 20), state 는 그 사본이다. 프로젝트 파일이 없으면 global 파일 `<설정 디렉터리>/pane-grid/layout.json` 을 읽는다.
 
@@ -41,7 +42,7 @@ const UNRESOLVED = "this session's project is not resolved yet, so the layout ca
 const COMMON_GIT_DIR = '/.git'
 const SHOWN_POLL_MS = 1000
 const ACTIVE_COLOR = 'green'
-// slot 을 채우지 않은 놓인 mod: 불러오지 않았거나, grid ui.render matcher 에 plugin: 'pane-grid' 가 없어 Claude Code 2.1.325 부터
+// slot 을 채우지 않은 놓인 member id: 불러오지 않았거나, grid ui.render matcher 에 plugin: 'pane-grid' 가 없어 Claude Code 2.1.325 부터
 // 그 hook 이 grid pane 에서 불리지 않거나, hooks/pane-grid.ts 가 slot 을 모르는 0.3.0 이전 사본이다.
 const UNFILLED_HINT = "not loaded, its ui.render matcher lacks plugin: 'pane-grid', or its hooks/pane-grid.ts is older than pane-grid 0.3.0"
 
@@ -65,7 +66,7 @@ const run = {
   current: '',
   // 탭을 그린 surface 마다 잰 크기. 키는 measuredKey(surface, 탭 이름).
   measured: new Map<string, MeasureProps>(),
-  // 칸 안의 `scrolls:<plugin>` Box 로 자기 행을 스스로 스크롤한다고 알린 아래 규약 mod. render 마다 다시 모은다.
+  // 칸 안의 `scrolls:<member id>` Box 로 자기 행을 스스로 스크롤한다고 알린 아래 규약 mod 의 member id. render 마다 다시 모은다.
   scrolling: new Set<string>(),
   // ensureLayout 이 진행 중인 다시 읽기. render 뒤 콜백 · watchShown · runAction 이 다른 dispatch 에서 함께 불러도 파일을 한 번만 읽는다.
   restoring: undefined as Promise<GridLayout> | undefined,
@@ -96,7 +97,7 @@ const paneId = (tab: string) => `${PANE_PREFIX}${tab}`
 const tabOf = (requestId: string) => requestId.slice(PANE_PREFIX.length)
 const titleOf = (tab: GridTab) => (tab.zoomed ? `${tab.name} [Z]` : tab.name)
 
-// placed 는 plugin 마다 값이 하나이므로 한 surface 의 크기만 낸다. terminal 에 그렸으면 terminal, 아니면 먼저 잰 surface.
+// placed 는 member id 마다 값이 하나이므로 한 surface 의 크기만 낸다. terminal 에 그렸으면 terminal, 아니면 먼저 잰 surface.
 // 크기가 다른 두 surface 가 같은 탭을 그려도 placed 가 render 차례에 따라 바뀌지 않는다.
 const PLACED_SURFACE: RenderSurface = 'terminal'
 const measuredKey = (surface: RenderSurface, tab: string) => `${surface}\t${tab}`
@@ -115,13 +116,14 @@ const placements = (tabs: GridTab[], sizeOf: (tab: string) => MeasureProps | und
       if (!cell.plugin) continue
       const rect = rects.get(cell.id)
       const area = rect ? contentArea(rect) : { column: 0, row: 0, columns: 0, rows: 0 }
+      // 칸의 `plugin` 필드 값이 member id 다(types/index.d.ts 의 GridCell).
       placed[cell.plugin] = { tab: tab.name, requestId: paneId(tab.name), cell: cell.id, ...area, isActive: activeOf(tab) == cell.id }
     }
   }
   return placed
 }
 
-// 칸 id 마다 놓인 mod. 탭을 모두 본다(칸 id 는 탭을 통틀어 하나뿐이다).
+// 칸 id 마다 놓인 member id. 탭을 모두 본다(칸 id 는 탭을 통틀어 하나뿐이다).
 const occupants = (tabs: GridTab[]) => new Map(allCells(tabs).map(cell => [cell.id, cell.plugin ?? ''] as const))
 
 // 놓인 mod 가 바뀌었거나 없어진 칸의 스크롤 행 수를 지운다. 새 mod 는 맨 위부터 그려지고, 자기 행을 스스로 스크롤하는 mod 의
@@ -469,8 +471,8 @@ export const register: Register = on => {
     const id = cellAt(tab, measured, e.pointer)
     if (!id) return {}
     // 자기 행을 스스로 스크롤하는 아래 규약 mod 의 칸: 그 mod 의 ui.scroll hook 에 넘긴다. 칸 제목 줄의 휠은 버린다.
-    const plugin = findCell(tab.root, id)?.plugin
-    if (plugin && run.scrolling.has(plugin)) return isScrollIn(layout?.placed[plugin], e) ? next(e) : {}
+    const memberId = findCell(tab.root, id)?.plugin
+    if (memberId && run.scrolling.has(memberId)) return isScrollIn(layout?.placed[memberId], e) ? next(e) : {}
     await update($, SCROLL, scroll => ({ ...scroll, [id]: Math.max((scroll?.[id] ?? 0) + e.by, 0) }))
     return {}
   }).catch(($, e, next) => {
@@ -521,11 +523,11 @@ export const register: Register = on => {
     const below = await next(e)
     const cells = new Map<string, RenderElement>()
     collectCells(below, cells)
-    for (const [plugin, cell] of cells) {
-      if (holdsKey(cell, scrollsKey(plugin))) run.scrolling.add(plugin)
-      else run.scrolling.delete(plugin)
+    for (const [memberId, cell] of cells) {
+      if (holdsKey(cell, scrollsKey(memberId))) run.scrolling.add(memberId)
+      else run.scrolling.delete(memberId)
     }
-    const ready = gridReady(next.trace)
+    const ready = gridReady(below, next.trace)
     const measured = { columns: e.props.bodyColumns, rows: e.props.scroll.bodyRows }
     const before = run.measured.get(measuredKey(e.surface, tab.name))
     const isResized = !before || before.columns != measured.columns || before.rows != measured.rows
@@ -538,26 +540,26 @@ export const register: Register = on => {
     // 잰 크기는 measure Client 가 ui.message 로 돌려보내 그 hook 이 칸 크기를 쓴다. Client 가 없는 surface 에서는 render 가 끝난 뒤 쓴다.
     if (isResized && !hasClient) $.clock.after(0, () => void publishPlacements($))
 
-    // 빈 칸: pane-grid 아래의 규약 mod(trace) 를 Button 으로 늘어놓는다. 위의 규약 mod 는 이 `choices:` Box 에 자기 Button 을 더한다.
+    // 빈 칸: pane-grid 아래 규약 mod 의 member id(`offer:` Box 와 trace, gridReady)를 Button 으로 늘어놓는다. 위의 규약 mod 는 이 `choices:` Box 에 자기 Button 을 더한다.
     // 누름은 ui.press hook 이 받아 그 칸에 놓고(다른 칸에 있던 것은 옮긴다) 그 칸을 활성으로 한다.
     const drawChoices = (id: string, isActive: boolean): RenderElement => (
       <Box key={`${CHOICES_KEY}${id}${isActive ? ACTIVE_SUFFIX : ''}`} flexDirection="column">
         <Text dimColor>empty. place a mod here:</Text>
-        {ready.map((plugin, index) => {
-          const from = layout?.placed[plugin]?.cell
-          const label = from ? `${plugin} (move from ${from})` : plugin
+        {ready.map((memberId, index) => {
+          const from = layout?.placed[memberId]?.cell
+          const label = from ? `${memberId} (move from ${from})` : memberId
           const hotkey = isActive && index < CHOICE_HOTKEYS ? String(index + 1) : undefined
-          return <Button key={`${PLACE_KEY}${id}:${plugin}`} plain label={label} hotkey={hotkey} onPress={noop} />
+          return <Button key={`${PLACE_KEY}${id}:${memberId}`} plain label={label} hotkey={hotkey} onPress={noop} />
         })}
         {ready.length == 0 ? <Box key={`${NONE_KEY}${id}`}><Text dimColor>no grid-ready mod is loaded</Text></Box> : null}
       </Box>
     )
 
     // 놓인 칸: `slot:` Box 안에 아래 규약 mod 의 `cell:` Box 를 넣는다. 위의 규약 mod 는 이 Box 의 children 을 자기 칸으로 바꾼다.
-    const drawSlot = (plugin: string): RenderElement => {
-      const content = cells.get(plugin)
-      const note = ready.includes(plugin) ? `${plugin} draws nothing here` : `${plugin} is ${UNFILLED_HINT}`
-      return <Box key={`${SLOT_KEY}${plugin}`} flexDirection="column">{content ?? <Text dimColor>{note}</Text>}</Box>
+    const drawSlot = (memberId: string): RenderElement => {
+      const content = cells.get(memberId)
+      const note = ready.includes(memberId) ? `${memberId} draws nothing here` : `${memberId} is ${UNFILLED_HINT}`
+      return <Box key={`${SLOT_KEY}${memberId}`} flexDirection="column">{content ?? <Text dimColor>{note}</Text>}</Box>
     }
 
     // 칸: 제목 1행과 내용. 활성이 아닌 칸에는 그 칸 전체를 덮는 activate Client 를 마지막에 그려(위에 칠해진다) 어디를 눌러도 활성이 되게 한다.

@@ -6,7 +6,8 @@
 // 배치 형식의 판. 형식을 바꾸면 올린다. hooks/register.tsx 는 GRID_VERSION 을 쓰므로 이것만 올리면 tsc 가 실패한다(pane-grid.ts 도 함께 올린다).
 export type GridVersion = 1
 
-// 칸 하나. `plugin` 이 없으면 빈 칸이다.
+// 칸 하나. `plugin` 이 없으면 빈 칸이다. `plugin` 의 값은 member id(`<plugin>` 또는 `<plugin>.<view>`, docs/grid-and-tabs.md §3.7)다.
+// 필드 이름은 member id 를 들이기 전의 파일 · 판과 맞추려고 그대로 두었다.
 export type GridCell = { kind: 'cell'; id: string; plugin?: string }
 
 // 나눈 노드의 자식 하나와 그 자식이 차지하는 비율. 한 노드의 `size` 합은 100 이다.
@@ -26,7 +27,7 @@ export type GridTab = { name: string; root: GridNode; active: string; zoomed?: s
 // 0.4.0 에서 `column` · `row` · `isActive` 를 더했다. 더한 것뿐이라 GridVersion 은 그대로다.
 export type GridPlacement = { tab: string; requestId: string; cell: string; column: number; row: number; columns: number; rows: number; isActive: boolean }
 
-// `layout`: 탭 목록과, 칸에 넣은 mod 마다 그 자리. mod 하나는 한 칸에만 놓인다(결정 6).
+// `layout`: 탭 목록과, 칸에 넣은 member id 마다 그 자리. member id 하나는 한 칸에만 놓인다(결정 6).
 export type GridLayout = {
   version: GridVersion
   revision: number

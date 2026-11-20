@@ -1,0 +1,794 @@
+2026-11-20T09:48:09.877Z [DEBUG] MDM settings load completed in 0ms
+2026-11-20T09:48:09.884Z [DEBUG] Broken symlink or missing file encountered for settings.json at path: /Library/Application Support/ClaudeCode/managed-settings.json
+2026-11-20T09:48:09.885Z [DEBUG] Broken symlink or missing file encountered for settings.json at path: /Users/uhd/.claude/scratch/pane-grid-matcher/vproj/.claude/settings.json
+2026-11-20T09:48:09.885Z [DEBUG] Broken symlink or missing file encountered for settings.json at path: /Users/uhd/.claude/scratch/pane-grid-matcher/vproj/.claude/settings.local.json
+2026-11-20T09:48:09.886Z [DEBUG] Broken symlink or missing file encountered for settings.json at path: /Library/Application Support/ClaudeCode/managed-settings.json
+2026-11-20T09:48:09.886Z [DEBUG] CA certs: Config fallback - globalEnv keys: , settingsEnv keys: CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS
+2026-11-20T09:48:09.887Z [DEBUG] [init] configureGlobalMTLS starting
+2026-11-20T09:48:09.887Z [DEBUG] [init] configureGlobalMTLS complete
+2026-11-20T09:48:09.887Z [DEBUG] [init] configureGlobalAgents starting
+2026-11-20T09:48:09.887Z [DEBUG] CA certs: stores=bundled,system, extraCertsPath=undefined
+2026-11-20T09:48:09.887Z [DEBUG] CA certs: Loaded 118 bundled root certificates
+2026-11-20T09:48:09.900Z [DEBUG] CA certs: Loaded 6 system CA certificates
+2026-11-20T09:48:09.900Z [DEBUG] CA certs: Dropped blocked certificate 40f6af0346a99aa1cd1d555a4e9cce62c7f9634603ee406615833dc8c8d00367 from bundled
+2026-11-20T09:48:09.902Z [DEBUG] CA certs: Dropped 1 certificate(s) that do not chain to a root in the CA list
+2026-11-20T09:48:09.902Z [DEBUG] mTLS: Creating HTTPS agent with custom certificates
+2026-11-20T09:48:09.903Z [DEBUG] [init] configureGlobalAgents complete
+2026-11-20T09:48:09.905Z [DEBUG] Error log sink initialized
+2026-11-20T09:48:09.905Z [DEBUG] clearPluginCache: invalidating loadAllPlugins cache (preAction: --plugin-dir inline plugins)
+2026-11-20T09:48:09.917Z [DEBUG] --plugin-dir /Users/uhd/.claude/plugins/cache/usage-gauge/usage-gauge/0.4.1 is one plugin: .claude-plugin at its top marks it
+2026-11-20T09:48:09.917Z [DEBUG] --plugin-dir /Users/uhd/.claude/scratch/pane-grid-k37/plugins/flow-probe-nooffer is one plugin: .claude-plugin at its top marks it
+2026-11-20T09:48:09.928Z [DEBUG] [plugins] skipping hidden skills-dir entry '.DS_Store': dot-prefixed dirs are never adopted as plugins
+2026-11-20T09:48:09.928Z [DEBUG] [plugins] skipping skills-dir entry 'synced': the sync-owned root name is never adopted as a plugin
+2026-11-20T09:48:09.929Z [DEBUG] [ToolSearch:optimistic] mode=tst, ENABLE_TOOL_SEARCH=undefined, result=true
+2026-11-20T09:48:09.939Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-11-20T09:48:09.940Z [DEBUG] [STARTUP] Running setup()...
+2026-11-20T09:48:09.943Z [DEBUG] Loaded 20 installed plugins from /Users/uhd/.claude/plugins/installed_plugins.json
+2026-11-20T09:48:09.946Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/uhd/.claude/skills, project=[]
+2026-11-20T09:48:09.946Z [DEBUG] --plugin-dir /Users/uhd/LOCAL/01-01_Projects/plugin-pane-grid/.claude/worktrees/k37-member-id is one plugin: .claude-plugin at its top marks it
+2026-11-20T09:48:09.946Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/agents: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/agents'
+2026-11-20T09:48:09.946Z [DEBUG] Failed to stat directory /Users/uhd/.claude/agents: ENOENT: no such file or directory, stat '/Users/uhd/.claude/agents'
+2026-11-20T09:48:09.946Z [DEBUG] [skills] skipping reserved dir name 'synced' under /Users/uhd/.claude/skills: 'synced' is the sync-owned root
+2026-11-20T09:48:09.950Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/commands: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/commands'
+2026-11-20T09:48:09.950Z [DEBUG] Failed to stat directory /Users/uhd/.claude/commands: ENOENT: no such file or directory, stat '/Users/uhd/.claude/commands'
+2026-11-20T09:48:09.959Z [DEBUG] Loaded 31 unique skills (31 unconditional, 0 conditional, managed: 0, user: 13, project: 0, additional: 0, legacy commands: 0)
+2026-11-20T09:48:09.968Z [INFO] [uds-messaging] Listening: /tmp/cc-socks/41113.sock
+2026-11-20T09:48:09.969Z [DEBUG] [uds-messaging] Inject messages (auth line optional here): { echo '{"type":"auth","token":"[REDACTED]"$CLAUDE_CODE_MESSAGING_TOKEN"'"}'; echo '{"type":"user","message":{"role":"user","content":"hello"}}'; } | socat - UNIX-CONNECT:/tmp/cc-socks/41113.sock
+2026-11-20T09:48:09.970Z [DEBUG] [uds-messaging] Connect when the data is ready (e.g. out=$(cmd); printf '%s\n' "$out" | nc -U "$CLAUDE_CODE_MESSAGING_SOCKET" — or the socat form above): a connection that sends no complete line within 30000 ms is closed
+2026-11-20T09:48:09.970Z [DEBUG] [TeammateModeSnapshot] Captured from config: auto
+2026-11-20T09:48:09.970Z [DEBUG] Error log sink initialized
+2026-11-20T09:48:09.973Z [DEBUG] Read hooks.json for plugin flow-probe (enabled=true): /Users/uhd/.claude/scratch/pane-grid-k37/plugins/flow-probe-nooffer/hooks/hooks.json
+2026-11-20T09:48:09.973Z [DEBUG] Read hooks.json for plugin usage-gauge (enabled=true): /Users/uhd/.claude/plugins/cache/usage-gauge/usage-gauge/0.4.1/hooks/hooks.json
+2026-11-20T09:48:09.975Z [DEBUG] [STARTUP] setup() completed in 35ms
+2026-11-20T09:48:09.977Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-11-20T09:48:09.980Z [DEBUG] [concurrentSessions] updatePidFile failed: ENOENT: no such file or directory, open '/Users/uhd/.claude/sessions/41113.json'
+2026-11-20T09:48:09.980Z [DEBUG] Read hooks.json for plugin filetree (enabled=false; will NOT register, plugin is disabled): /Users/uhd/.claude/plugins/cache/claude-code-filetree/filetree/0.9.1/hooks/hooks.json
+2026-11-20T09:48:09.980Z [DEBUG] Read hooks.json for plugin image-view (enabled=false; will NOT register, plugin is disabled): /Users/uhd/.claude/plugins/cache/claude-image-view/image-view/0.2.0/hooks/hooks.json
+2026-11-20T09:48:09.980Z [DEBUG] Read hooks.json for plugin terminal-browser (enabled=false; will NOT register, plugin is disabled): /Users/uhd/.claude/plugins/cache/terminal-browser/terminal-browser/0.0.3/hooks/hooks.json
+2026-11-20T09:48:09.981Z [DEBUG] Read hooks.json for plugin security-guidance (enabled=true): /Users/uhd/.claude/plugins/cache/claude-plugins-official/security-guidance/2.0.20/hooks/hooks.json
+2026-11-20T09:48:09.981Z [DEBUG] Read hooks.json for plugin md-preview (enabled=false; will NOT register, plugin is disabled): /Users/uhd/.claude/plugins/cache/claude-code-mods/md-preview/0.1.11/hooks/hooks.json
+2026-11-20T09:48:09.981Z [DEBUG] Read hooks.json for plugin token-optimizer (enabled=false; will NOT register, plugin is disabled): /Users/uhd/.claude/plugins/cache/alexgreensh-token-optimizer/token-optimizer/5.13.67/hooks/hooks.json
+2026-11-20T09:48:09.981Z [DEBUG] Read hooks.json for plugin usage-gauge (enabled=true): /Users/uhd/.claude/plugins/cache/usage-gauge/usage-gauge/0.4.1/hooks/hooks.json
+2026-11-20T09:48:09.981Z [DEBUG] Read hooks.json for plugin inbox (enabled=false; will NOT register, plugin is disabled): /Users/uhd/.claude/plugins/cache/inbox/inbox/0.3.1/hooks/hooks.json
+2026-11-20T09:48:09.981Z [DEBUG] Read hooks.json for plugin flightdeck (enabled=false; will NOT register, plugin is disabled): /Users/uhd/.claude/plugins/cache/claude-flightdeck/flightdeck/0.6.2/hooks/hooks.json
+2026-11-20T09:48:09.981Z [DEBUG] Read hooks.json for plugin pane-grid (enabled=true): /Users/uhd/.claude/plugins/cache/pane-grid/pane-grid/0.5.2/hooks/hooks.json
+2026-11-20T09:48:09.985Z [DEBUG] Loaded inline plugin from path: flow-probe
+2026-11-20T09:48:09.985Z [DEBUG] Loaded inline plugin from path: usage-gauge
+2026-11-20T09:48:09.987Z [DEBUG] Read hooks.json for plugin vmq-view (enabled=false; will NOT register, plugin is disabled): /Users/uhd/.claude/tools/vmq/mod/vmq-view/hooks/hooks.json
+2026-11-20T09:48:09.992Z [DEBUG] Read hooks.json for plugin pane-grid (enabled=true): /Users/uhd/LOCAL/01-01_Projects/plugin-pane-grid/.claude/worktrees/k37-member-id/hooks/hooks.json
+2026-11-20T09:48:09.999Z [DEBUG] Loaded inline plugin from path: pane-grid
+2026-11-20T09:48:09.999Z [DEBUG] Loaded 3 directory-loaded plugins
+2026-11-20T09:48:10.026Z [DEBUG] Read hooks.json for plugin uhd-kanban (enabled=false; will NOT register, plugin is disabled): /Users/uhd/LOCAL/01-01_Projects/skill-kanban/plugins/uhd-kanban/hooks/hooks.json
+2026-11-20T09:48:10.038Z [DEBUG] Plugin "pane-grid" from --plugin-dir overrides installed version
+2026-11-20T09:48:10.038Z [DEBUG] Plugin "usage-gauge" from --plugin-dir overrides installed version
+2026-11-20T09:48:10.038Z [DEBUG] Found 27 plugins (17 enabled, 10 disabled)
+2026-11-20T09:48:10.039Z [DEBUG] getPluginSkills: Processing 6 enabled plugins
+2026-11-20T09:48:10.039Z [DEBUG] Checking plugin cc-plugin-agents-md: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.039Z [DEBUG] Checking plugin cc-plugin-telemetry: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.039Z [DEBUG] Checking plugin cc-plugin-privacy: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.039Z [DEBUG] Checking plugin cc-plugin-plugin-authoring: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.039Z [DEBUG] Checking plugin cc-plugin-diff: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.039Z [DEBUG] Checking plugin cc-plugin-easel: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.039Z [DEBUG] Total plugin workflows loaded: 0
+2026-11-20T09:48:10.039Z [DEBUG] Total plugin commands loaded: 0
+2026-11-20T09:48:10.040Z [DEBUG] Total plugin skills loaded: 0 (0 duplicate/user-owned entries skipped)
+2026-11-20T09:48:10.040Z [DEBUG] Total plugin agents loaded: 0
+2026-11-20T09:48:10.041Z [DEBUG] Loading hooks from plugin: security-guidance
+2026-11-20T09:48:10.042Z [DEBUG] cc-plugin-sec-default@builtin not seated: no managed settings and not a Team or Enterprise organization (max)
+2026-11-20T09:48:10.043Z [DEBUG] getSkills returning: 31 skill dir commands, 0 plugin skills, 31 bundled skills, 1 builtin plugin skills
+2026-11-20T09:48:10.044Z [DEBUG] Artifact gates frozen: capabilities=true comments=true db=true files=true types=true type_create=true type_catalog=true room=false verify=false delete=true preview=false preview_browser=unread open=true endpoints=false pin=true share=false versions=false flag_source=disk gb_fresh=false
+2026-11-20T09:48:10.046Z [DEBUG] [STARTUP] Commands and agents loaded in 69ms
+2026-11-20T09:48:10.049Z [DEBUG] [servedCatalog] primary: using served rows (13 rows via cache over the org route, fetched 179s ago); the served list replaces the compiled picker for this session
+2026-11-20T09:48:10.052Z [DEBUG] nonBlockingStdout: active
+2026-11-20T09:48:10.052Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-11-20T09:48:10.067Z [DEBUG] Cleared mTLS configuration cache
+2026-11-20T09:48:10.067Z [DEBUG] Grove: Using fresh cached config
+2026-11-20T09:48:10.067Z [DEBUG] Grove: the server recently confirmed a Consumer Terms answer; not asking again
+2026-11-20T09:48:10.068Z [DEBUG] [STARTUP] showSetupScreens() completed in 16ms
+2026-11-20T09:48:10.068Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-11-20T09:48:10.068Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-11-20T09:48:10.068Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-11-20T09:48:10.068Z [DEBUG] Starting background startup prefetches
+2026-11-20T09:48:10.068Z [DEBUG] [Bootstrap] Fetching
+2026-11-20T09:48:10.069Z [DEBUG] Passes: Using fresh cached eligibility data
+2026-11-20T09:48:10.071Z [DEBUG] [STARTUP] MCP configs resolved in 103ms (awaited at +132ms)
+2026-11-20T09:48:10.077Z [DEBUG] Total LSP servers loaded: 0
+2026-11-20T09:48:10.077Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-11-20T09:48:10.077Z [DEBUG] LSP manager initialized with 0 servers
+2026-11-20T09:48:10.077Z [DEBUG] LSP server manager initialized successfully
+2026-11-20T09:48:10.077Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-11-20T09:48:10.079Z [DEBUG] Fast mode unavailable: Fast mode is currently unavailable
+2026-11-20T09:48:10.080Z [DEBUG] All plugins already exist, skipping migration
+2026-11-20T09:48:10.081Z [DEBUG] Initialized versioned plugins system with 20 plugins
+2026-11-20T09:48:10.096Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-11-20T09:48:10.096Z [DEBUG] [3P telemetry] isTelemetryEnabled=false (CLAUDE_CODE_ENABLE_TELEMETRY=undefined)
+2026-11-20T09:48:10.106Z [DEBUG] [API REQUEST] /v1/messages x-client-request-id=993bed78-2308-480b-b09b-bd4e22e18cd2 source=quota_check
+2026-11-20T09:48:10.108Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-20T09:48:10.109Z [DEBUG] [3P telemetry] Event dropped (no event logger initialized): hook_registered
+2026-11-20T09:48:10.110Z [DEBUG] Preserving file permissions: 100644
+2026-11-20T09:48:10.110Z [DEBUG] Writing to temp file: /Users/uhd/.claude.json.tmp.41113.2943111430e8
+2026-11-20T09:48:10.112Z [DEBUG] Applied original permissions to temp file
+2026-11-20T09:48:10.112Z [DEBUG] Temp file written successfully, size: 284280 bytes
+2026-11-20T09:48:10.112Z [DEBUG] Renaming /Users/uhd/.claude.json.tmp.41113.2943111430e8 to /Users/uhd/.claude.json
+2026-11-20T09:48:10.113Z [DEBUG] File /Users/uhd/.claude.json written atomically
+2026-11-20T09:48:10.113Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/pane-grid/pane-grid: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.116Z [DEBUG] Git remote URL: null
+2026-11-20T09:48:10.116Z [DEBUG] No git remote URL found
+2026-11-20T09:48:10.116Z [DEBUG] Not in a GitHub repository, skipping path mapping update
+2026-11-20T09:48:10.116Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/pane-grid/pane-grid-r1: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.116Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/pane-grid: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.118Z [DEBUG] Preserving file permissions: 100644
+2026-11-20T09:48:10.118Z [DEBUG] Writing to temp file: /Users/uhd/.claude.json.tmp.41113.d0fb4325af47
+2026-11-20T09:48:10.118Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/usage-gauge/usage-gauge: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.118Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/usage-gauge: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.118Z [DEBUG] Applied original permissions to temp file
+2026-11-20T09:48:10.118Z [DEBUG] Temp file written successfully, size: 284469 bytes
+2026-11-20T09:48:10.118Z [DEBUG] Renaming /Users/uhd/.claude.json.tmp.41113.d0fb4325af47 to /Users/uhd/.claude.json
+2026-11-20T09:48:10.118Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/inbox/inbox: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.118Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/inbox: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.118Z [DEBUG] File /Users/uhd/.claude.json written atomically
+2026-11-20T09:48:10.130Z [DEBUG] [keybindings] Loaded 1 user bindings from /Users/uhd/.claude/keybindings.json
+2026-11-20T09:48:10.131Z [DEBUG] [keybindings] KeybindingSetup initialized with 233 bindings, 0 warnings
+2026-11-20T09:48:10.138Z [DEBUG] Fast mode unavailable: Fast mode is currently unavailable
+2026-11-20T09:48:10.147Z [DEBUG] [engine] send set_max_thinking_tokens max=null
+2026-11-20T09:48:10.147Z [DEBUG] [engine] send set_model model=claude-opus-5-5
+2026-11-20T09:48:10.148Z [DEBUG] prompt.edit: unhooked; the composer relays nothing
+2026-11-20T09:48:10.151Z [DEBUG] performStartupChecks called
+2026-11-20T09:48:10.154Z [DEBUG] [REPL:mount] REPL mounted, disabled=false
+2026-11-20T09:48:10.154Z [DEBUG] Detected Homebrew cask installation: /opt/homebrew/Caskroom/claude-code@latest/2.1.329/claude
+2026-11-20T09:48:10.154Z [DEBUG] Official marketplace auto-install skipped: already_installed
+2026-11-20T09:48:10.155Z [DEBUG] [ScheduledTasks] scheduler start() — enabled=false, hasTasks=false
+2026-11-20T09:48:10.156Z [DEBUG] Broken symlink or missing file encountered for settings.json at path: /Users/uhd/.claude/scratch/pane-grid-matcher/vproj/.claude/settings.json
+2026-11-20T09:48:10.156Z [DEBUG] Broken symlink or missing file encountered for settings.json at path: /Users/uhd/.claude/scratch/pane-grid-matcher/vproj/.claude/settings.local.json
+2026-11-20T09:48:10.156Z [DEBUG] Broken symlink or missing file encountered for settings.json at path: /Library/Application Support/ClaudeCode/managed-settings.json
+2026-11-20T09:48:10.164Z [DEBUG] mcp runtime arm: v2 (source: default)
+2026-11-20T09:48:10.169Z [DEBUG] Starting background plugin installations
+2026-11-20T09:48:10.171Z [DEBUG] [servedCatalog] shadow compare logged (fetch=cache_fresh, rows=13, source=served)
+2026-11-20T09:48:10.171Z [DEBUG] [servedCatalog] primary: served list replaces the compiled picker; every compiled row is served
+2026-11-20T09:48:10.173Z [DEBUG] performBackgroundPluginInstallations called
+2026-11-20T09:48:10.175Z [DEBUG] [event-loop-stall] detector started (interval=200ms, at rest 1000ms, threshold=500ms)
+2026-11-20T09:48:10.179Z [DEBUG] [keybindings] Watching for changes to /Users/uhd/.claude/keybindings.json
+2026-11-20T09:48:10.179Z [DEBUG] [claudeai-mcp] Fetching from https://api.anthropic.com/v1/mcp_servers?limit=1000&include_additional_installs=true
+2026-11-20T09:48:10.181Z [DEBUG] Loaded 20 installed plugins from /Users/uhd/.claude/plugins/installed_plugins.json
+2026-11-20T09:48:10.183Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-20T09:48:10.198Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/skills: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/skills'
+2026-11-20T09:48:10.203Z [DEBUG] Total plugin workflows loaded: 0
+2026-11-20T09:48:10.203Z [DEBUG] getSkills returning: 31 skill dir commands, 0 plugin skills, 31 bundled skills, 1 builtin plugin skills
+2026-11-20T09:48:10.204Z [DEBUG] [auto-mode] verifyAutoModeGateAccess: enabledState=enabled disabledBySettings=false model=claude-opus-5-5 modelSupported=true disableFastModeBreakerFires=false carouselAvailable=true canEnterAuto=true
+2026-11-20T09:48:10.205Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-flightdeck/flightdeck: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.211Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-flightdeck: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.219Z [DEBUG] [FileIndex] getProjectFiles called, respectGitignore=true
+2026-11-20T09:48:10.219Z [DEBUG] [FileIndex] getFilesUsingGit called
+2026-11-20T09:48:10.219Z [DEBUG] [FileIndex] not a git repo, returning null
+2026-11-20T09:48:10.219Z [DEBUG] [FileIndex] git ls-files returned null, falling back to ripgrep
+2026-11-20T09:48:10.223Z [DEBUG] Watching for changes in skill/command directories: /Users/uhd/.claude/skills, /Users/uhd/.claude/skills/synced...
+2026-11-20T09:48:10.228Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/output-styles: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/output-styles'
+2026-11-20T09:48:10.228Z [DEBUG] Failed to stat directory /Users/uhd/.claude/output-styles: ENOENT: no such file or directory, stat '/Users/uhd/.claude/output-styles'
+2026-11-20T09:48:10.228Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/routines: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/routines'
+2026-11-20T09:48:10.228Z [DEBUG] Failed to stat directory /Users/uhd/.claude/routines: ENOENT: no such file or directory, stat '/Users/uhd/.claude/routines'
+2026-11-20T09:48:10.229Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/workflows: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/workflows'
+2026-11-20T09:48:10.229Z [DEBUG] Failed to stat directory /Users/uhd/.claude/workflows: ENOENT: no such file or directory, stat '/Users/uhd/.claude/workflows'
+2026-11-20T09:48:10.240Z [DEBUG] "Loaded 1 CLAUDE.md/rules files:\n  [User] /Users/uhd/.claude/CLAUDE.md (27307 chars)"
+2026-11-20T09:48:10.241Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-image-view/image-view: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.242Z [DEBUG] Watching /Users/uhd/.claude/scratch/pane-grid-matcher/vproj for /Users/uhd/.claude/scratch/pane-grid-matcher/vproj/.claude to appear
+2026-11-20T09:48:10.242Z [DEBUG] Watching for changes in setting files /Users/uhd/.claude/settings.json...
+2026-11-20T09:48:10.243Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-image-view: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.243Z [DEBUG] Preserving file permissions: 100644
+2026-11-20T09:48:10.243Z [DEBUG] Writing to temp file: /Users/uhd/.claude.json.tmp.41113.0e0a2d6d1e29
+2026-11-20T09:48:10.243Z [DEBUG] [engine] send seed_read_state path=/Users/uhd/.claude/CLAUDE.md
+2026-11-20T09:48:10.245Z [DEBUG] Ripgrep version check: PASSED (mode=embedded, path=/opt/homebrew/Caskroom/claude-code@latest/2.1.329/claude)
+2026-11-20T09:48:10.246Z [DEBUG] [FileIndex] ripgrep: 0 files in 27ms
+2026-11-20T09:48:10.247Z [DEBUG] Applied original permissions to temp file
+2026-11-20T09:48:10.248Z [DEBUG] Temp file written successfully, size: 284471 bytes
+2026-11-20T09:48:10.248Z [DEBUG] Renaming /Users/uhd/.claude.json.tmp.41113.0e0a2d6d1e29 to /Users/uhd/.claude.json
+2026-11-20T09:48:10.249Z [DEBUG] File /Users/uhd/.claude.json written atomically
+2026-11-20T09:48:10.253Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/pending-questions/pending-questions: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.253Z [DEBUG] XTVERSION: terminal identified as "tmux 3.7c"
+2026-11-20T09:48:10.254Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/pending-questions: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.254Z [DEBUG] systemTheme: OSC 11 query (via=mux-bare) got no response
+2026-11-20T09:48:10.254Z [DEBUG] tmux images: passthrough off, focus events off, kitty no, iTerm2 no, pane's top-left at row 0, column 0 (from 0)
+2026-11-20T09:48:10.254Z [DEBUG] Terminal capabilities: extendedKeys=yes (env: terminal=tmux); synchronizedOutput=yes (probe: DECRPM 2026 status=2); kittyKeyboard=no (probe: no reply to CSI ? u); kittyGraphics=no (probe: tmux does not know which terminal is outside it, so Claude Code draws no images here: attach tmux from kitty 0.28 or later, Ghostty, or iTerm2 3.5 or later, run `tmux set -g allow-passthrough on` and `tmux set -g focus-events on`, detach and attach again, then restart Claude Code); itermImages=no (probe: tmux does not know which terminal is outside it, so Claude Code draws no images here: attach tmux from kitty 0.28 or later, Ghostty, or iTerm2 3.5 or later, run `tmux set -g allow-passthrough on` and `tmux set -g focus-events on`, detach and attach again, then restart Claude Code); mousePixels=no (env: inside tmux or screen); programStatus=no (probe: no reply to OSC 7501 ; ?); terminal said: no reply to CSI ? u
+2026-11-20T09:48:10.254Z [DEBUG] DECSTBM: gated (TMUX=set ZELLIJ=unset TERM_PROGRAM=tmux TERM=tmux-256color)
+2026-11-20T09:48:10.254Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/vmq/vmq-view: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.254Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/vmq: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.255Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-code-mods/md-preview: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.255Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-code-mods: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.256Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/terminal-browser/terminal-browser: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.257Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/terminal-browser: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.259Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/alexgreensh-token-optimizer/token-optimizer: [REDACTED] still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.259Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/alexgreensh-token-optimizer: [REDACTED] still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.259Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-plugins-official/feature-dev: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.259Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-plugins-official/claude-md-management: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.260Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-plugins-official/firecrawl: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.261Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-plugins-official/code-review: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.262Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-plugins-official/skill-creator: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.262Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-plugins-official/security-guidance: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.262Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-plugins-official/frontend-design: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.262Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-plugins-official/code-modernization: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.262Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-plugins-official/code-simplifier: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.262Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-plugins-official: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.263Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/skill-kanban/uhd-kanban: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.263Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/skill-kanban: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.263Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-code-filetree/filetree: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.263Z [DEBUG] Keeping /Users/uhd/.claude/plugins/cache/claude-code-filetree: it still holds a directory, a symlink, a versioned archive or an entry of unknown type
+2026-11-20T09:48:10.266Z [DEBUG] [FileIndex] cache refresh completed in 47ms
+2026-11-20T09:48:10.274Z [DEBUG] [mcp-registry] Loaded 1108 official MCP URLs
+2026-11-20T09:48:10.332Z [DEBUG] Org fast mode: disabled (extra_usage_disabled)
+2026-11-20T09:48:10.340Z [DEBUG] cc-plugin-telemetry: hooks telemetry for: anthropic, collector
+2026-11-20T09:48:10.341Z [DEBUG] plugin cc-plugin-easel: no pluginConfigs["easel@builtin" or "cc-plugin-easel@builtin"].options in user, --settings or managed settings (project settings are not read); every option is its default
+2026-11-20T09:48:10.341Z [DEBUG] hooks worker spawned (one for every plugin)
+2026-11-20T09:48:10.362Z [DEBUG] hooks module usage-gauge@inline loaded (worker, environment 1, tier user); events: session.start,session.measure,command.run,ui.render
+2026-11-20T09:48:10.364Z [DEBUG] hooks module flow-probe@inline loaded (worker, environment 2, tier user); events: ui.render
+2026-11-20T09:48:10.376Z [DEBUG] hooks module pane-grid@inline loaded (worker, environment 3, tier user); events: session.start,command.run,ui.scroll,ui.press,ui.message,ui.render
+2026-11-20T09:48:10.376Z [DEBUG] hooks native host made (for the plugins the binary carries)
+2026-11-20T09:48:10.376Z [DEBUG] hooks module cc-plugin-agents-md@builtin loaded (native, environment 4, tier builtin); events: session.start,prompt.context,command.run,session.compact,prompt.submit,turn.start,turn.complete,agent.spawn,tool.call,prompt.mention
+2026-11-20T09:48:10.377Z [DEBUG] hooks module cc-plugin-telemetry@builtin loaded (native, environment 5, tier builtin); events: telemetry.*,telemetry.log,telemetry.mark,session.start,session.end,engine.create
+2026-11-20T09:48:10.377Z [DEBUG] hooks module cc-plugin-plugin-authoring@builtin loaded (native, environment 6, tier builtin); events: skill.prompt,tool.check,tool.call
+2026-11-20T09:48:10.377Z [DEBUG] hooks module cc-plugin-diff@builtin loaded (native, environment 7, tier builtin); events: session.start,ui.render,command.run,ui.close,ui.focus,ui.scroll,tool.call,prompt.submit
+2026-11-20T09:48:10.378Z [DEBUG] hooks module cc-plugin-easel@builtin loaded (native, environment 8, tier builtin); events: session.start,session.attach,prompt.section,tool.call,ui.render
+2026-11-20T09:48:10.378Z [DEBUG] hooks module cc-plugin-privacy@builtin loaded (native, environment 9, tier builtin); events: tool.check,session.identity
+2026-11-20T09:48:10.379Z [DEBUG] hooks module cc-plugin-telemetry@builtin engine.create settled in 0.5ms (native hop, next() included)
+2026-11-20T09:48:10.380Z [DEBUG] engine.create: no plugin-provided interfaces; $ built for usage-gauge,flow-probe,pane-grid,cc-plugin-agents-md,cc-plugin-telemetry,cc-plugin-plugin-authoring,cc-plugin-diff,cc-plugin-easel,cc-plugin-privacy
+2026-11-20T09:48:10.380Z [DEBUG] plugin.register: cc-plugin-agents-md (builtin, cc-plugin-agents-md@builtin), judged by core alone: admitted
+2026-11-20T09:48:10.380Z [DEBUG] plugin.register: cc-plugin-telemetry (builtin, cc-plugin-telemetry@builtin), judged by core alone: admitted
+2026-11-20T09:48:10.380Z [DEBUG] plugin.register: cc-plugin-plugin-authoring (builtin, cc-plugin-plugin-authoring@builtin), judged by core alone: admitted
+2026-11-20T09:48:10.380Z [DEBUG] plugin.register: cc-plugin-diff (builtin, cc-plugin-diff@builtin), judged by core alone: admitted
+2026-11-20T09:48:10.380Z [DEBUG] plugin.register: cc-plugin-easel (builtin, cc-plugin-easel@builtin), judged by core alone: admitted
+2026-11-20T09:48:10.380Z [DEBUG] plugin.register: cc-plugin-privacy (builtin, cc-plugin-privacy@builtin), judged by core alone: admitted
+2026-11-20T09:48:10.380Z [DEBUG] plugin.register: usage-gauge (user, usage-gauge@inline), judged by core alone: admitted
+2026-11-20T09:48:10.380Z [DEBUG] plugin.register: flow-probe (user, flow-probe@inline), judged by core alone: admitted
+2026-11-20T09:48:10.380Z [DEBUG] plugin.register: pane-grid (user, pane-grid@inline), judged by core alone: admitted
+2026-11-20T09:48:10.384Z [DEBUG] plugin-dir watch: watching usage-gauge, flow-probe, pane-grid; folders of plugins none
+2026-11-20T09:48:10.393Z [DEBUG] Artifact publish edits offer frozen: edit_hook=true
+2026-11-20T09:48:10.393Z [DEBUG] Artifact input schema built: assets=true copy_from=true publish_edits=false assets_source=disk
+2026-11-20T09:48:10.407Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/agents: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/agents'
+2026-11-20T09:48:10.407Z [DEBUG] Failed to stat directory /Users/uhd/.claude/agents: ENOENT: no such file or directory, stat '/Users/uhd/.claude/agents'
+2026-11-20T09:48:10.408Z [DEBUG] Loaded 1 commands from plugin code-review default directory
+2026-11-20T09:48:10.408Z [DEBUG] Loaded 1 commands from plugin claude-md-management default directory
+2026-11-20T09:48:10.408Z [DEBUG] Loaded 1 commands from plugin feature-dev default directory
+2026-11-20T09:48:10.408Z [DEBUG] Total plugin commands loaded: 3
+2026-11-20T09:48:10.408Z [DEBUG] Loaded 3 agents from plugin feature-dev default directory
+2026-11-20T09:48:10.408Z [DEBUG] Loaded 1 agents from plugin code-simplifier default directory
+2026-11-20T09:48:10.408Z [DEBUG] Total plugin agents loaded: 4
+2026-11-20T09:48:10.413Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.5ms (native link, next() included)
+2026-11-20T09:48:10.418Z [DEBUG] getPluginSkills: Processing 17 enabled plugins
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin usage-gauge: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin flow-probe: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin pane-grid: skillsPath=exists, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Attempting to load skills from plugin pane-grid default skillsPath: /Users/uhd/LOCAL/01-01_Projects/plugin-pane-grid/.claude/worktrees/k37-member-id/skills
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin claude-md-management: skillsPath=exists, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Attempting to load skills from plugin claude-md-management default skillsPath: /Users/uhd/.claude/plugins/cache/claude-plugins-official/claude-md-management/1.0.0/skills
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin code-review: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin code-simplifier: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin feature-dev: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin firecrawl: skillsPath=exists, skillsPaths=3 paths
+2026-11-20T09:48:10.418Z [DEBUG] Attempting to load skills from plugin firecrawl default skillsPath: /Users/uhd/.claude/plugins/cache/claude-plugins-official/firecrawl/2.0.0/skills
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin frontend-design: skillsPath=exists, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Attempting to load skills from plugin frontend-design default skillsPath: /Users/uhd/.claude/plugins/cache/claude-plugins-official/frontend-design/1.1.1/skills
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin security-guidance: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin skill-creator: skillsPath=exists, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Attempting to load skills from plugin skill-creator default skillsPath: /Users/uhd/.claude/plugins/cache/claude-plugins-official/skill-creator/d7d32797e7e0/skills
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin cc-plugin-agents-md: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin cc-plugin-telemetry: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin cc-plugin-privacy: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin cc-plugin-plugin-authoring: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin cc-plugin-diff: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Checking plugin cc-plugin-easel: skillsPath=none, skillsPaths=0 paths
+2026-11-20T09:48:10.418Z [DEBUG] Total plugin workflows loaded: 0
+2026-11-20T09:48:10.419Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/uhd/.claude/skills, project=[]
+2026-11-20T09:48:10.420Z [DEBUG] [Bootstrap] Fetch ok
+2026-11-20T09:48:10.420Z [DEBUG] [Bootstrap] Cache unchanged, skipping write
+2026-11-20T09:48:10.420Z [DEBUG] [skills] skipping reserved dir name 'synced' under /Users/uhd/.claude/skills: 'synced' is the sync-owned root
+2026-11-20T09:48:10.420Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/commands: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/commands'
+2026-11-20T09:48:10.420Z [DEBUG] Failed to stat directory /Users/uhd/.claude/commands: ENOENT: no such file or directory, stat '/Users/uhd/.claude/commands'
+2026-11-20T09:48:10.421Z [DEBUG] Loaded 1 commands from plugin code-review default directory
+2026-11-20T09:48:10.421Z [DEBUG] Loaded 1 commands from plugin claude-md-management default directory
+2026-11-20T09:48:10.421Z [DEBUG] Loaded 1 commands from plugin feature-dev default directory
+2026-11-20T09:48:10.421Z [DEBUG] Total plugin commands loaded: 3
+2026-11-20T09:48:10.426Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 14.5ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:10.427Z [DEBUG] Loaded 1 skills from plugin claude-md-management default directory
+2026-11-20T09:48:10.427Z [DEBUG] [claudeai-mcp] Fetching from https://api.anthropic.com/v1/mcp_servers?limit=1000&include_additional_installs=true
+2026-11-20T09:48:10.427Z [DEBUG] Loaded 1 skills from plugin frontend-design default directory
+2026-11-20T09:48:10.427Z [DEBUG] Loaded 1 skills from plugin skill-creator default directory
+2026-11-20T09:48:10.427Z [DEBUG] Loaded 3 skills from plugin firecrawl default directory
+2026-11-20T09:48:10.427Z [DEBUG] Attempting to load skills from plugin firecrawl skillsPaths: /Users/uhd/.claude/plugins/cache/claude-plugins-official/firecrawl/2.0.0/skills/firecrawl, /Users/uhd/.claude/plugins/cache/claude-plugins-official/firecrawl/2.0.0/skills/firecrawl-developer-index, /Users/uhd/.claude/plugins/cache/claude-plugins-official/firecrawl/2.0.0/skills/firecrawl-research-index
+2026-11-20T09:48:10.427Z [DEBUG] Loading from skillPath: /Users/uhd/.claude/plugins/cache/claude-plugins-official/firecrawl/2.0.0/skills/firecrawl for plugin firecrawl
+2026-11-20T09:48:10.427Z [DEBUG] Loading from skillPath: /Users/uhd/.claude/plugins/cache/claude-plugins-official/firecrawl/2.0.0/skills/firecrawl-developer-index for plugin firecrawl
+2026-11-20T09:48:10.427Z [DEBUG] Loading from skillPath: /Users/uhd/.claude/plugins/cache/claude-plugins-official/firecrawl/2.0.0/skills/firecrawl-research-index for plugin firecrawl
+2026-11-20T09:48:10.428Z [DEBUG] Loaded 31 unique skills (31 unconditional, 0 conditional, managed: 0, user: 13, project: 0, additional: 0, legacy commands: 0)
+2026-11-20T09:48:10.429Z [DEBUG] Loaded 0 skills from plugin firecrawl custom path: /Users/uhd/.claude/plugins/cache/claude-plugins-official/firecrawl/2.0.0/skills/firecrawl-research-index
+2026-11-20T09:48:10.429Z [DEBUG] Loaded 0 skills from plugin firecrawl custom path: /Users/uhd/.claude/plugins/cache/claude-plugins-official/firecrawl/2.0.0/skills/firecrawl
+2026-11-20T09:48:10.429Z [DEBUG] Loaded 0 skills from plugin firecrawl custom path: /Users/uhd/.claude/plugins/cache/claude-plugins-official/firecrawl/2.0.0/skills/firecrawl-developer-index
+2026-11-20T09:48:10.483Z [DEBUG] Loaded 1 skills from plugin pane-grid default directory
+2026-11-20T09:48:10.483Z [DEBUG] Total plugin skills loaded: 7 (0 duplicate/user-owned entries skipped)
+2026-11-20T09:48:10.484Z [DEBUG] getSkills returning: 31 skill dir commands, 7 plugin skills, 31 bundled skills, 1 builtin plugin skills
+2026-11-20T09:48:10.516Z [DEBUG] [claudeai-mcp] Fetched 5 servers
+2026-11-20T09:48:10.522Z [DEBUG] [remote-bridge] Created session cse_01BQMofsQUHLRumZnLyRKAP8
+2026-11-20T09:48:10.550Z [DEBUG] [fs.watch probe] verdict: delivers
+2026-11-20T09:48:10.659Z [DEBUG] Preserving file permissions: 100644
+2026-11-20T09:48:10.660Z [DEBUG] Writing to temp file: /Users/uhd/.claude.json.tmp.41113.653e4bfcf199
+2026-11-20T09:48:10.662Z [DEBUG] Applied original permissions to temp file
+2026-11-20T09:48:10.665Z [DEBUG] Temp file written successfully, size: 284645 bytes
+2026-11-20T09:48:10.665Z [DEBUG] Renaming /Users/uhd/.claude.json.tmp.41113.653e4bfcf199 to /Users/uhd/.claude.json
+2026-11-20T09:48:10.666Z [DEBUG] File /Users/uhd/.claude.json written atomically
+2026-11-20T09:48:10.673Z [DEBUG] [claudeai-mcp] Fetched 5 servers
+2026-11-20T09:48:10.735Z [DEBUG] hooks module usage-gauge@inline session.measure settled in 53.6ms (worker hop, next() included)
+2026-11-20T09:48:10.736Z [DEBUG] usage-gauge (user) answered ui.render without next() in 1.9ms; nothing beneath it ran for this dispatch
+2026-11-20T09:48:10.736Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 2.1ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:10.741Z [DEBUG] [remote-bridge] Fetched bridge credentials (expires_in=46800s)
+2026-11-20T09:48:10.741Z [DEBUG] [presence session=cse_01BQMofsQUHLRumZnLyRKAP8] wired
+2026-11-20T09:48:10.741Z [DEBUG] [remote-bridge] v2 session URL: https://api.anthropic.com/v1/code/sessions/cse_01BQMofsQUHLRumZnLyRKAP8
+2026-11-20T09:48:10.742Z [DEBUG] [bridge:repl] CCR v2: worker sessionId=[REDACTED] epoch=1 (from /bridge)
+2026-11-20T09:48:10.742Z [DEBUG] SSETransport: SSE URL = https://api.anthropic.com/v1/code/sessions/cse_01BQMofsQUHLRumZnLyRKAP8/worker/events/stream
+2026-11-20T09:48:10.742Z [DEBUG] SSETransport: POST URL = https://api.anthropic.com/v1/code/sessions/cse_01BQMofsQUHLRumZnLyRKAP8/worker/events
+2026-11-20T09:48:10.742Z [DEBUG] [remote-bridge] v2 transport created (epoch=1)
+2026-11-20T09:48:10.742Z [DEBUG] [bridge:repl] handleStateChange state=ready detail="undefined" kind=undefined cancelled=false outboundOnly=false
+2026-11-20T09:48:10.743Z [DEBUG] [remote:token] Scheduled token refresh for sessionId=[REDACTED] in 755m (expires_in=46800s, buffer=1500s)
+2026-11-20T09:48:10.746Z [DEBUG] [bridge:repl] Hook initialized, session=cse_01BQMofsQUHLRumZnLyRKAP8
+2026-11-20T09:48:10.751Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:10.763Z [DEBUG] Git remote URL: null
+2026-11-20T09:48:10.763Z [DEBUG] No git remote URL found
+2026-11-20T09:48:10.769Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 1.0ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:10.817Z [DEBUG] type root of flow-probe at /Users/uhd/.claude/scratch/pane-grid-k37/plugins/flow-probe-nooffer/.claude-plugin/types: entries claude-code, claude-code-tools, claude-code-mcp; wrote nothing
+2026-11-20T09:48:10.821Z [DEBUG] type root of usage-gauge at /Users/uhd/.claude/plugins/cache/usage-gauge/usage-gauge/0.4.1/.claude-plugin/types: entries claude-code, claude-code-tools, claude-code-mcp; wrote nothing
+2026-11-20T09:48:10.893Z [DEBUG] CCRClient: no subscribers reported; dropping stream deltas until one is
+2026-11-20T09:48:10.951Z [DEBUG] type root of pane-grid at /Users/uhd/LOCAL/01-01_Projects/plugin-pane-grid/.claude/worktrees/k37-member-id/.claude-plugin/types: entries claude-code, claude-code-tools, claude-code-mcp; wrote nothing
+2026-11-20T09:48:10.951Z [DEBUG] Registered 9 hooks from 17 plugins
+2026-11-20T09:48:10.951Z [DEBUG] session.start: raised (surface terminal, interactive)
+2026-11-20T09:48:10.954Z [DEBUG] settings.read: the engine's merge was raised (the loaded plugins changed) in 2.4 ms; 0 keys answered otherwise than the files.
+2026-11-20T09:48:10.955Z [DEBUG] settings.read: the engine's merge is not raised again (the loaded plugins changed): neither the loaded plugins nor the settings changed.
+2026-11-20T09:48:10.956Z [DEBUG] MCP server "claude-artifacts": Initializing HTTP transport to https://api.anthropic.com/api/artifacts/mcp
+2026-11-20T09:48:10.956Z [DEBUG] MCP server "claude-artifacts": Node version: v26.12.1, Platform: darwin
+2026-11-20T09:48:10.956Z [DEBUG] MCP server "claude-artifacts": Environment: {"NODE_OPTIONS":"not set","UV_THREADPOOL_SIZE":"default","HTTP_PROXY":"not set","HTTPS_PROXY":"not set","NO_PROXY":"not set"}
+2026-11-20T09:48:10.957Z [DEBUG] MCP server "claude-artifacts": HTTP transport options: {"url":"https://api.anthropic.com/api/artifacts/mcp","headers":{"User-Agent":"claude-code/2.1.329 (cli)","Accept-Encoding":"identity","anthropic-beta":"[REDACTED]"},"hasAuthProvider":false,"timeoutMs":60000}
+2026-11-20T09:48:10.957Z [DEBUG] MCP server "claude-artifacts": HTTP transport created successfully
+2026-11-20T09:48:10.957Z [DEBUG] MCP server "claude-artifacts": Starting connection with timeout of 30000ms
+2026-11-20T09:48:10.957Z [DEBUG] MCP server "claude-artifacts": Testing basic HTTP connectivity to https://api.anthropic.com/api/artifacts/mcp
+2026-11-20T09:48:10.957Z [DEBUG] MCP server "claude-artifacts": Parsed URL: host=api.anthropic.com, port=default, protocol=https:
+2026-11-20T09:48:10.959Z [DEBUG] MCP server "claude.ai Claude Docs": Initializing claude.ai proxy transport for server mcpsrv_014Fj7srWvLMyCuRCS8J9W3d
+2026-11-20T09:48:10.959Z [DEBUG] MCP server "claude.ai Claude Docs": Using claude.ai proxy at https://mcp-proxy.anthropic.com/v1/mcp/mcpsrv_014Fj7srWvLMyCuRCS8J9W3d
+2026-11-20T09:48:10.959Z [DEBUG] MCP server "claude.ai Claude Docs": GET notification stream disabled for claude.ai connectors; a GET the SDK sends to the proxy URL is answered locally with 405
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Claude Docs": claude.ai proxy transport created successfully
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Google Calendar": Initializing claude.ai proxy transport for server mcpsrv_0139DGq4EZtc5iWxVWUmU2V3
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Google Calendar": Using claude.ai proxy at https://mcp-proxy.anthropic.com/v1/mcp/mcpsrv_0139DGq4EZtc5iWxVWUmU2V3
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Google Calendar": GET notification stream disabled for claude.ai connectors; a GET the SDK sends to the proxy URL is answered locally with 405
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Google Calendar": claude.ai proxy transport created successfully
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Google Drive": Initializing claude.ai proxy transport for server mcpsrv_01QSTNQ5wNXnibsBpy69C2JB
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Google Drive": Using claude.ai proxy at https://mcp-proxy.anthropic.com/v1/mcp/mcpsrv_01QSTNQ5wNXnibsBpy69C2JB
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Google Drive": GET notification stream disabled for claude.ai connectors; a GET the SDK sends to the proxy URL is answered locally with 405
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Google Drive": claude.ai proxy transport created successfully
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Gmail": Initializing claude.ai proxy transport for server mcpsrv_016B9Wp1JCxkwNFyMyjZebXy
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Gmail": Using claude.ai proxy at https://mcp-proxy.anthropic.com/v1/mcp/mcpsrv_016B9Wp1JCxkwNFyMyjZebXy
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Gmail": GET notification stream disabled for claude.ai connectors; a GET the SDK sends to the proxy URL is answered locally with 405
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Gmail": claude.ai proxy transport created successfully
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Google Calendar": Starting connection with timeout of 30000ms
+2026-11-20T09:48:10.960Z [DEBUG] MCP server "claude.ai Google Calendar": Stateless claudeai-proxy — resolving MCP initialize from cached projection
+2026-11-20T09:48:10.961Z [DEBUG] MCP server "claude.ai Google Drive": Starting connection with timeout of 30000ms
+2026-11-20T09:48:10.961Z [DEBUG] MCP server "claude.ai Google Drive": Stateless claudeai-proxy — resolving MCP initialize from cached projection
+2026-11-20T09:48:10.961Z [DEBUG] MCP server "claude.ai Gmail": Starting connection with timeout of 30000ms
+2026-11-20T09:48:10.961Z [DEBUG] MCP server "claude.ai Gmail": Stateless claudeai-proxy — resolving MCP initialize from cached projection
+2026-11-20T09:48:10.961Z [DEBUG] MCP server "bin_ninja": Initializing HTTP transport to http://127.0.0.1:24642/mcp
+2026-11-20T09:48:10.961Z [DEBUG] MCP server "bin_ninja": Node version: v26.12.1, Platform: darwin
+2026-11-20T09:48:10.961Z [DEBUG] MCP server "bin_ninja": Environment: {"NODE_OPTIONS":"not set","UV_THREADPOOL_SIZE":"default","HTTP_PROXY":"not set","HTTPS_PROXY":"not set","NO_PROXY":"not set"}
+2026-11-20T09:48:10.961Z [DEBUG] MCP server "bin_ninja": HTTP transport options: {"url":"http://127.0.0.1:24642/mcp","headers":{"User-Agent":"claude-code/2.1.329 (cli)","Accept-Encoding":"identity"},"hasAuthProvider":true,"timeoutMs":60000}
+2026-11-20T09:48:10.961Z [DEBUG] MCP server "bin_ninja": HTTP transport created successfully
+2026-11-20T09:48:10.961Z [DEBUG] MCP server "bin_ninja": Starting connection with timeout of 30000ms
+2026-11-20T09:48:10.962Z [DEBUG] MCP server "bin_ninja": Testing basic HTTP connectivity to http://127.0.0.1:24642/mcp
+2026-11-20T09:48:10.962Z [DEBUG] MCP server "bin_ninja": Parsed URL: host=127.0.0.1, port=24642, protocol=http:
+2026-11-20T09:48:10.962Z [DEBUG] MCP server "bin_ninja": Using loopback address: 127.0.0.1
+2026-11-20T09:48:10.963Z [DEBUG] MCP server "bin_ninja": No token data found
+2026-11-20T09:48:10.963Z [DEBUG] MCP server "claude.ai Google Calendar": Successfully connected (transport: claudeai-proxy) in 3ms
+2026-11-20T09:48:10.963Z [DEBUG] MCP server "claude.ai Google Calendar": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"hasResourceSubscribe":false,"serverVersion":{"name":"StatelessServer","version":"ESF"},"protocolEra":"legacy","negotiatedProtocolVersion":"2025-11-25"}
+2026-11-20T09:48:10.963Z [DEBUG] [MCP] Server "claude.ai Google Calendar" connected with subscribe=false
+2026-11-20T09:48:10.963Z [DEBUG] MCP server "claude.ai Google Drive": Successfully connected (transport: claudeai-proxy) in 3ms
+2026-11-20T09:48:10.963Z [DEBUG] MCP server "claude.ai Google Drive": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":true,"hasResourceSubscribe":false,"serverVersion":{"name":"StatelessServer","version":"ESF"},"protocolEra":"legacy","negotiatedProtocolVersion":"2025-11-25"}
+2026-11-20T09:48:10.963Z [DEBUG] [MCP] Server "claude.ai Google Drive" connected with subscribe=false
+2026-11-20T09:48:10.963Z [DEBUG] MCP server "claude.ai Gmail": Successfully connected (transport: claudeai-proxy) in 3ms
+2026-11-20T09:48:10.963Z [DEBUG] MCP server "claude.ai Gmail": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"hasResourceSubscribe":false,"serverVersion":{"name":"StatelessServer","version":"ESF"},"protocolEra":"legacy","negotiatedProtocolVersion":"2025-11-25"}
+2026-11-20T09:48:10.963Z [DEBUG] [MCP] Server "claude.ai Gmail" connected with subscribe=false
+2026-11-20T09:48:10.965Z [DEBUG] MCP server "bin_ninja": version negotiation probe failed on the http transport; reconnecting pinned legacy
+2026-11-20T09:48:10.966Z [DEBUG] MCP server "bin_ninja": No token data found
+2026-11-20T09:48:10.966Z [DEBUG] $.command.register (pane-grid): /grid listed
+2026-11-20T09:48:10.969Z [DEBUG] MCP server "bin_ninja": HTTP Connection failed after 8ms: ECONNREFUSED: Unable to connect. Is the computer able to access the url? (code: ECONNREFUSED, errno: none)
+2026-11-20T09:48:10.969Z [ERROR] MCP server "bin_ninja" TypeError: ECONNREFUSED: Unable to connect. Is the computer able to access the url?
+2026-11-20T09:48:10.970Z [DEBUG] MCP server "bin_ninja": Connection failed after 9ms, 9ms of it awake (ECONNREFUSED): ECONNREFUSED: Unable to connect. Is the computer able to access the url?
+2026-11-20T09:48:10.970Z [ERROR] MCP server "bin_ninja" Connection failed (ECONNREFUSED): ECONNREFUSED: Unable to connect. Is the computer able to access the url?
+2026-11-20T09:48:10.970Z [DEBUG] MCP server "bin_ninja": Transient ECONNREFUSED on initial connect — retry 1/3 in 971ms
+2026-11-20T09:48:10.970Z [DEBUG] MCP server "bin_ninja": Transient ECONNREFUSED on initial connect — retry 2/3 in 2307ms
+2026-11-20T09:48:10.974Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:10.975Z [DEBUG] MCP server "agent-browser": Starting connection with timeout of 30000ms
+2026-11-20T09:48:10.975Z [DEBUG] MCP server "rea": Starting connection with timeout of 30000ms
+2026-11-20T09:48:10.978Z [DEBUG] MCP server "doghoodie": Starting connection with timeout of 30000ms
+2026-11-20T09:48:10.979Z [DEBUG] MCP server "claude.ai Claude Docs": Starting connection with timeout of 30000ms
+2026-11-20T09:48:10.980Z [DEBUG] Loaded plugins - Enabled: 17, Disabled: 10, Commands: 3, Agents: 4, Errors: 0
+2026-11-20T09:48:10.983Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:10.984Z [DEBUG] Hooks: SessionStart:startup [command hook 1] finished with status 0 (26ms)
+2026-11-20T09:48:10.984Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-11-20T09:48:10.984Z [DEBUG] "Hook SessionStart:startup (SessionStart) success:\n# DIGEST — 부트스트랩 다이제스트\n\n> 자동 생성(2026-11-19). 새 프로젝트 SessionStart hook이 이 파일만 주입한다.\n\n## tech 패턴 (재사용)\n- [[tech/config-as-code-with-live-sidecar]] — 설정=선언파일(GitOps)+동기화 사이드카, UI 직접 write 금지. n=1 prov.\n- [[tech/container-repo-worktree-lifecycle]] — repo 1개=멀티히스토리 컨테이너, 전부 worktree, proto orphan 영구거주+FINDINGS 필수. n=1 prov.\n- [[tech/exclusive-rename-with-proof]]: 덮어쓰기 없는 이동. `renamex_np` RENAME_EXCL 로 커널이 거부하게 하고, 옮기기 전후 SHA-256·inode 비교. n=1 prov.\n- [[tech/measure-free-space-not-du-sum]]: 용량 변화는 `du` 합이 아니라 여유 공간을 전후로 측정. 클론·스냅숏·purgeable·늦은 해제로 어긋난다. n=1 prov.\n- [[tech/measured-table-over-tuned-heuristic]] — 물리값 검사는 어림 상수 대신 한 번 재서 굳힌 표. 깨 보고 믿고, 자를 두 개 댄다. n=1 prov.\n- [[tech/per-file-deletion-evidence]]: 지우기 전 근거는 파일마다. 이름 대조·정규형·패키지·dataless 읽기가 틀리는 경우와 지우기 직전 재확인. n=1 prov.\n- [[tech/rebind-rules-after-tool-migration]]: 도구를 옮기면 운영 규칙은 로드되지만 실행 수단이 없는 규칙은 조용히 멈춘다. 규칙마다 실행 수단을 다시 묶는다. n=1 prov.\n- [[tech/referential-vs-narrative-register]] — 기술 문서엔 지시층/서술층 둘. 지시층에 문체 자유 0. 준수 선언 대신 열거 강제. n=1 prov.\n- [[tech/ssot-baseline-variant]]: 변종 · 사본이 여럿이면 하나를 기준으로 정하고 수렴. n=2 (Helldyinger · 두 Mac 저장 공간 정리).\n- [[tech/themed-assets-live-in-the-document]] — 테마를 따라갈 자산은 <img> 가 아니라 인라인. 밖에 두면 OS 취향을 보게 된다. n=1 prov.\n- [[tech/tool-emits-data-not-logic]] — 툴=데이터 산출만, 로직은 코드. 단방향. n=1 prov.\n\n## syntheses 원칙 (n≥2 융합)\n- [[syntheses/single-baseline-convergence]]: 여러 벌은 하나를 기준으로 정하고, 기준에 모은 뒤 기준 대비 차이로 확인한다. 기준은 완전한 쪽이 아니라 남길 쪽. n=2 (Helldyinger · 두 Mac 저장 공간 정리).\n- [[syntheses/verify-by-breaking-and-cross-checking]]: 결함을 일부러 만들어 실패를 확인하고, 두 측정 경로로 대조한다. n=2 (블로그 도식 검사 · 두 Mac 저장 공간 정리).\n\n## playbook 요점 (승격된 프롬프트 원칙)\n- P1. 탐색·분석 프롬프트는 *다운스트림 목적*을 명시하라  `n≥5` ★최강\n- P2. 분석만 원하면 *행동범위 0*을 선행 선언하라  `n≥4`\n- P3. 범위 개방어(\"모두/전부\")를 버리고 타겟 명시 + 주변은 종속  `n≥3`\n- P4. 충격적·단정적 주장은 *교차검증·전수조사*를 프롬프트에 선제 포함  `n≥3`\n- P5. 구조적 불변식·요구사항은 선두 배치하거나 *문서를 가리켜라*  `n≥2`\n- P6. 자기 준수를 물을 때는 *선언이 아니라 열거*를 요구하라  `n=1` ☜휴먼 승인\n\n## 위키 운영 리마인더\n프로젝트 끝나면 harvest, 주 1회 evaluate+lint+playbook 합성. 언제 뭘 할지 = ~/wiki/RUNBOOK.md.\n\n## 포인터\n깊은 지식은 `~/wiki` 검색. 카탈로그 `index.md`. 운영 `RUNBOOK.md`."
+2026-11-20T09:48:10.984Z [DEBUG] Hooks: Checking first line for async: {}
+2026-11-20T09:48:10.984Z [DEBUG] Hooks: Parsed initial response: {}
+2026-11-20T09:48:10.984Z [DEBUG] Hooks: Initial response is not async, continuing normal processing
+2026-11-20T09:48:10.984Z [DEBUG] Hooks: SessionStart:startup [command hook 3] finished with status 0 (26ms)
+2026-11-20T09:48:10.985Z [DEBUG] Successfully parsed and validated hook JSON output
+2026-11-20T09:48:10.985Z [DEBUG] "Hook SessionStart:startup (SessionStart) success:\n{}"
+2026-11-20T09:48:10.989Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:10.990Z [DEBUG] MCP server "doghoodie": Successfully connected (transport: stdio) in 35ms
+2026-11-20T09:48:10.990Z [DEBUG] MCP server "doghoodie": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"hasResourceSubscribe":false,"serverVersion":{"name":"doghoodie","version":"1.0"},"protocolEra":"legacy","negotiatedProtocolVersion":"2025-11-25"}
+2026-11-20T09:48:10.990Z [DEBUG] [MCP] Server "doghoodie" connected with subscribe=false
+2026-11-20T09:48:10.993Z [INFO] Bridge URL: wss://bridge.claudeusercontent.com
+2026-11-20T09:48:10.994Z [DEBUG] MCP server "claude-in-chrome": In-process Chrome MCP server started
+2026-11-20T09:48:10.994Z [DEBUG] MCP server "claude-in-chrome": Starting connection with timeout of 30000ms
+2026-11-20T09:48:10.995Z [DEBUG] MCP server "claude-in-chrome": Successfully connected (transport: stdio) in 4ms
+2026-11-20T09:48:10.995Z [DEBUG] MCP server "claude-in-chrome": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"hasResourceSubscribe":false,"serverVersion":{"name":"Claude in Chrome","version":"1.0.0"},"protocolEra":"legacy","negotiatedProtocolVersion":"2025-11-25"}
+2026-11-20T09:48:10.995Z [DEBUG] [MCP] Server "claude-in-chrome" connected with subscribe=false
+2026-11-20T09:48:10.998Z [DEBUG] MCP server "claude-in-chrome": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:10.998Z [DEBUG] MCP server "claude-in-chrome": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:10.999Z [DEBUG] CCRClient: initialized, epoch=1
+2026-11-20T09:48:10.999Z [DEBUG] [bridge:repl] v2 transport ready for writes (epoch=1); opening the read stream
+2026-11-20T09:48:10.999Z [DEBUG] [remote-bridge] v2 transport connected
+2026-11-20T09:48:10.999Z [DEBUG] [bridge:repl] handleStateChange state=connected detail="undefined" kind=undefined cancelled=false outboundOnly=false
+2026-11-20T09:48:11.000Z [DEBUG] SSETransport: Opening https://api.anthropic.com/v1/code/sessions/cse_01BQMofsQUHLRumZnLyRKAP8/worker/events/stream
+2026-11-20T09:48:11.001Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:11.003Z [DEBUG] MCP server "doghoodie": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.003Z [DEBUG] MCP server "doghoodie": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.007Z [DEBUG] Hooks: SessionStart:startup [command hook 2] finished with status 0 (49ms)
+2026-11-20T09:48:11.007Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-11-20T09:48:11.007Z [DEBUG] MCP server "agent-browser": Successfully connected (transport: stdio) in 53ms
+2026-11-20T09:48:11.008Z [DEBUG] MCP server "agent-browser": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"hasResourceSubscribe":false,"serverVersion":{"name":"agent-browser","title":"agent-browser","version":"0.38.1"},"protocolEra":"legacy","negotiatedProtocolVersion":"2025-11-25"}
+2026-11-20T09:48:11.008Z [DEBUG] [MCP] Server "agent-browser" connected with subscribe=false
+2026-11-20T09:48:11.012Z [DEBUG] MCP server "agent-browser": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.012Z [DEBUG] MCP server "agent-browser": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.018Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:11.021Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/scratch/pane-grid-matcher/vproj/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/scratch/pane-grid-matcher/vproj/.git'
+2026-11-20T09:48:11.024Z [DEBUG] Hooks: Checking first line for async: {"async": true, "asyncTimeout": 180000}
+2026-11-20T09:48:11.024Z [DEBUG] Hooks: Parsed initial response: {"async":true,"asyncTimeout":180000}
+2026-11-20T09:48:11.024Z [DEBUG] Hooks: Detected async hook, backgrounding process async_hook_41157
+2026-11-20T09:48:11.024Z [DEBUG] Hooks: Registering async hook async_hook_41157 (SessionStart:startup) with timeout 180000ms
+2026-11-20T09:48:11.024Z [DEBUG] Hooks: SessionStart:startup [command hook 4] (plugin security-guidance@claude-plugins-official) moved to the background (66ms)
+2026-11-20T09:48:11.080Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/scratch/pane-grid-matcher/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/scratch/pane-grid-matcher/.git'
+2026-11-20T09:48:11.098Z [DEBUG] SSETransport: Connected
+2026-11-20T09:48:11.102Z [DEBUG] MCP server "claude-artifacts": Successfully connected (transport: http) in 147ms
+2026-11-20T09:48:11.102Z [DEBUG] MCP server "claude-artifacts": no auto-opened subscriptions/listen on a modern connection; running the listen open through the reopen machinery (no-op if the server advertises no listChanged capability)
+2026-11-20T09:48:11.103Z [DEBUG] MCP server "claude-artifacts": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"hasResourceSubscribe":false,"serverVersion":{"name":"artifacts","version":"0.2.0"},"protocolEra":"modern","negotiatedProtocolVersion":"2026-07-28"}
+2026-11-20T09:48:11.103Z [DEBUG] [MCP] Server "claude-artifacts" connected with subscribe=false
+2026-11-20T09:48:11.223Z [DEBUG] MCP server "claude.ai Claude Docs": Successfully connected (transport: claudeai-proxy) in 264ms
+2026-11-20T09:48:11.223Z [DEBUG] MCP server "claude.ai Claude Docs": no auto-opened subscriptions/listen on a modern connection; running the listen open through the reopen machinery (no-op if the server advertises no listChanged capability)
+2026-11-20T09:48:11.223Z [DEBUG] MCP server "claude.ai Claude Docs": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"hasResourceSubscribe":false,"serverVersion":{"name":"Claude Docs","version":"0.1.0"},"protocolEra":"modern","negotiatedProtocolVersion":"2026-07-28"}
+2026-11-20T09:48:11.223Z [DEBUG] [MCP] Server "claude.ai Claude Docs" connected with subscribe=false
+2026-11-20T09:48:11.282Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/scratch/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/scratch/.git'
+2026-11-20T09:48:11.315Z [DEBUG] MCP server "claude-artifacts": tool "authorize_upload" is kept from the model (its _meta.ui.visibility omits "model" or cannot be read); hosts still see it in mcp_status
+2026-11-20T09:48:11.317Z [DEBUG] MCP server "claude-artifacts": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.317Z [DEBUG] MCP server "claude-artifacts": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.339Z [DEBUG] Total plugin workflows loaded: 0
+2026-11-20T09:48:11.339Z [DEBUG] getSkills returning: 31 skill dir commands, 7 plugin skills, 31 bundled skills, 1 builtin plugin skills
+2026-11-20T09:48:11.422Z [DEBUG] MCP server "claude.ai Google Drive": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.447Z [DEBUG] MCP server "claude.ai Gmail": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.551Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:11.552Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:11.553Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:11.578Z [DEBUG] Hooks: Found sync response from async_hook_41157: {"metrics":{"sdk_bootstrap":1,"sdk_bootstrap_ms":514,"sdk_hook_py":312,"sdk_no_git":1,"pv":20020}}
+2026-11-20T09:48:11.578Z [DEBUG] Hook JSON output had unrecognized keys (ignored): metrics.
+2026-11-20T09:48:11.578Z [DEBUG] "Hook SessionStart:startup (SessionStart) success:\n{\"async\": true, \"asyncTimeout\": 180000}\n{\"metrics\": {\"sdk_bootstrap\": 1, \"sdk_bootstrap_ms\": 514, \"sdk_hook_py\": 312, \"sdk_no_git\": 1, \"pv\": 20020}}"
+2026-11-20T09:48:11.578Z [DEBUG] Hooks: async_hook_41157 (SessionStart:startup) produced no response payload — skipping attachment
+2026-11-20T09:48:11.585Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.claude/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.claude/.git'
+2026-11-20T09:48:11.597Z [DEBUG] $.fs.stat (pane-grid): /Users/uhd/.git failed: ENOENT: no such file or directory, lstat '/Users/uhd/.git'
+2026-11-20T09:48:11.598Z [DEBUG] $.fs.stat (pane-grid): /Users/.git failed: ENOENT: no such file or directory, lstat '/Users/.git'
+2026-11-20T09:48:11.600Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: project /Users/uhd/.claude/scratch/pane-grid-matcher/vproj (root /Users/uhd/.claude/scratch/pane-grid-matcher/vproj) -> /Users/uhd/.claude/pane-grid/projects/vproj-fc536cb3cfdd6dbd
+2026-11-20T09:48:11.653Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=usage-gauge
+2026-11-20T09:48:11.654Z [DEBUG] ui.open pane-grid grid-main (unasked, 260 columns): placed
+2026-11-20T09:48:11.655Z [DEBUG] hooks module cc-plugin-telemetry@builtin (native): telemetry.log nested in cc-plugin-agents-md#0
+2026-11-20T09:48:11.656Z [DEBUG] $.command.register (cc-plugin-diff): /diff listed
+2026-11-20T09:48:11.657Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 2.1ms (native link, next() included)
+2026-11-20T09:48:11.657Z [DEBUG] cc-plugin-telemetry (builtin) answered telemetry.log without next() in 2.2ms; nothing beneath it ran for this dispatch
+2026-11-20T09:48:11.659Z [DEBUG] $.tool.register: loopback MCP server listening on 127.0.0.1:52316
+2026-11-20T09:48:11.659Z [DEBUG] $.tool.register (cc-plugin-easel): 1 tool(s) served at 127.0.0.1:52316/cc-plugin-easel v1
+2026-11-20T09:48:11.660Z [DEBUG] $.tool.register (cc-plugin-easel): mcp__easel__chart (1 tool(s) on server "easel"); connecting
+2026-11-20T09:48:11.661Z [DEBUG] hooks module cc-plugin-easel@builtin session.start settled in 3.0ms (native link, next() included)
+2026-11-20T09:48:11.661Z [DEBUG] hooks module cc-plugin-diff@builtin session.start settled in 6.1ms (native link, next() included)
+2026-11-20T09:48:11.661Z [DEBUG] hooks module cc-plugin-telemetry@builtin session.start settled in 6.5ms (native link, next() included)
+2026-11-20T09:48:11.661Z [DEBUG] hooks module cc-plugin-agents-md@builtin session.start settled in 6.9ms (native link, next() included)
+2026-11-20T09:48:11.665Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 12.4ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:11.666Z [DEBUG] $.command.register (usage-gauge): /usage-gauge listed
+2026-11-20T09:48:11.681Z [DEBUG] MCP server "claude.ai Claude Docs": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.689Z [DEBUG] High write ratio: blit=0, write=8640 (100.0% writes), screen=70x260
+2026-11-20T09:48:11.692Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:11.693Z [DEBUG] [claudeai-mcp] Fetching from https://api.anthropic.com/v1/mcp_servers?limit=1000&include_additional_installs=true
+2026-11-20T09:48:11.696Z [DEBUG] MCP server "agent-browser": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.697Z [DEBUG] MCP server "doghoodie": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.697Z [DEBUG] MCP server "bin_ninja": Transient ECONNREFUSED on initial connect — retry 3/3 in 4220ms
+2026-11-20T09:48:11.697Z [DEBUG] MCP server "claude-artifacts": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.697Z [DEBUG] MCP server "easel": Initializing HTTP transport to http://127.0.0.1:52316/cc-plugin-easel?v=REDACTED
+2026-11-20T09:48:11.697Z [DEBUG] MCP server "easel": Node version: v26.12.1, Platform: darwin
+2026-11-20T09:48:11.697Z [DEBUG] MCP server "easel": Environment: {"NODE_OPTIONS":"not set","UV_THREADPOOL_SIZE":"default","HTTP_PROXY":"not set","HTTPS_PROXY":"not set","NO_PROXY":"not set"}
+2026-11-20T09:48:11.697Z [DEBUG] MCP server "easel": HTTP transport options: {"url":"http://127.0.0.1:52316/cc-plugin-easel?v=REDACTED","headers":{"User-Agent":"claude-code/2.1.329 (cli)","Accept-Encoding":"identity","Authorization":"[REDACTED]"},"hasAuthProvider":false,"timeoutMs":60000}
+2026-11-20T09:48:11.697Z [DEBUG] MCP server "easel": HTTP transport created successfully
+2026-11-20T09:48:11.697Z [DEBUG] MCP server "easel": Starting connection with timeout of 30000ms
+2026-11-20T09:48:11.697Z [DEBUG] MCP server "easel": Testing basic HTTP connectivity to http://127.0.0.1:52316/cc-plugin-easel?v=REDACTED
+2026-11-20T09:48:11.697Z [DEBUG] MCP server "easel": Parsed URL: host=127.0.0.1, port=52316, protocol=http:
+2026-11-20T09:48:11.697Z [DEBUG] MCP server "easel": Using loopback address: 127.0.0.1
+2026-11-20T09:48:11.697Z [DEBUG] MCP server "claude-in-chrome": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.698Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 13.0ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:11.705Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:11.708Z [DEBUG] hooks module usage-gauge@inline, pane-grid@inline session.start settled in 756.8ms (worker hop, next() included)
+2026-11-20T09:48:11.709Z [DEBUG] MCP server "easel": Successfully connected (transport: http) in 12ms
+2026-11-20T09:48:11.709Z [DEBUG] MCP server "easel": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"hasResourceSubscribe":false,"serverVersion":{"name":"cc-plugin-easel","version":"plugin-tools-1"},"protocolEra":"legacy","negotiatedProtocolVersion":"2025-11-25"}
+2026-11-20T09:48:11.709Z [DEBUG] [MCP] Server "easel" connected with subscribe=false
+2026-11-20T09:48:11.711Z [DEBUG] MCP server "easel": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.711Z [DEBUG] hooks module usage-gauge@inline, flow-probe@inline, pane-grid@inline ui.render settled in 24.0ms (worker hop, next() included) key=grid-main
+2026-11-20T09:48:11.720Z [DEBUG] surface environment of pane-grid (environment 3) loaded hooks/activate.tsx, hooks/divider.tsx, hooks/measure.tsx
+2026-11-20T09:48:11.730Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:11.733Z [DEBUG] hooks module usage-gauge@inline, flow-probe@inline, pane-grid@inline ui.render settled in 14.2ms (worker hop, next() included) key=grid-main
+2026-11-20T09:48:11.742Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=2 tabs=main placed=usage-gauge
+2026-11-20T09:48:11.742Z [DEBUG] hooks module pane-grid@inline ui.message settled in 3.1ms (worker hop, next() included) key=grid-main
+2026-11-20T09:48:11.742Z [DEBUG] ui.message pane-grid/measure:main (hooks/measure.tsx) in Pane from terminal: dispatched, settled in 3.3ms
+2026-11-20T09:48:11.749Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 0.7ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:11.752Z [DEBUG] hooks module usage-gauge@inline, flow-probe@inline, pane-grid@inline ui.render settled in 3.6ms (worker hop, next() included) key=grid-main
+2026-11-20T09:48:11.761Z [DEBUG] $.tool.register (cc-plugin-easel): mcp__easel__chart visible after 101ms
+2026-11-20T09:48:11.789Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.2ms (native link, next() included)
+2026-11-20T09:48:11.949Z [DEBUG] [claudeai-mcp] Fetched 5 servers
+2026-11-20T09:48:11.951Z [DEBUG] MCP server "claude.ai Claude Docs": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.951Z [DEBUG] MCP server "claude.ai Google Drive": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.951Z [DEBUG] MCP server "claude.ai Gmail": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:11.971Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:12.632Z [DEBUG] MCP server "claude.ai Google Calendar": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:12.632Z [DEBUG] MCP server "claude.ai Google Calendar": Channel notifications skipped: server did not declare claude/channel capability
+2026-11-20T09:48:12.652Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:12.677Z [DEBUG] MCP server "rea": version negotiation probe closed the stdio server (rmcp-class pre-init hard close); respawning pinned legacy
+2026-11-20T09:48:12.677Z [DEBUG] "MCP server \"rea\": stderr of the stdio server before restarting it: npm notice run npx\nnpm notice run 'rea' mcp\nREA requires Node.js 22.x (>=22.23.4), 24.x (>=24.22.1), 26.12.1+; this process runs Node.js 26.10.0. Install a supported release, then retry."
+2026-11-20T09:48:13.802Z [ERROR] "MCP server \"rea\" Server stderr: npm notice run npx\nnpm notice run 'rea' mcp\nREA requires Node.js 22.x (>=22.23.4), 24.x (>=24.22.1), 26.12.1+; this process runs Node.js 26.10.0. Install a supported release, then retry."
+2026-11-20T09:48:13.803Z [DEBUG] MCP server "rea": Connection failed after 2848ms, 2848ms of it awake (CONNECTION_CLOSED): Connection closed
+2026-11-20T09:48:13.803Z [ERROR] MCP server "rea" Connection failed (CONNECTION_CLOSED): Connection closed
+2026-11-20T09:48:13.824Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:15.920Z [DEBUG] MCP server "bin_ninja": Initializing HTTP transport to http://127.0.0.1:24642/mcp
+2026-11-20T09:48:15.920Z [DEBUG] MCP server "bin_ninja": Node version: v26.12.1, Platform: darwin
+2026-11-20T09:48:15.920Z [DEBUG] MCP server "bin_ninja": Environment: {"NODE_OPTIONS":"not set","UV_THREADPOOL_SIZE":"default","HTTP_PROXY":"not set","HTTPS_PROXY":"not set","NO_PROXY":"not set"}
+2026-11-20T09:48:15.921Z [DEBUG] MCP server "bin_ninja": HTTP transport options: {"url":"http://127.0.0.1:24642/mcp","headers":{"User-Agent":"claude-code/2.1.329 (cli)","Accept-Encoding":"identity"},"hasAuthProvider":true,"timeoutMs":60000}
+2026-11-20T09:48:15.921Z [DEBUG] MCP server "bin_ninja": HTTP transport created successfully
+2026-11-20T09:48:15.921Z [DEBUG] MCP server "bin_ninja": Starting connection with timeout of 30000ms
+2026-11-20T09:48:15.921Z [DEBUG] MCP server "bin_ninja": Testing basic HTTP connectivity to http://127.0.0.1:24642/mcp
+2026-11-20T09:48:15.921Z [DEBUG] MCP server "bin_ninja": Parsed URL: host=127.0.0.1, port=24642, protocol=http:
+2026-11-20T09:48:15.921Z [DEBUG] MCP server "bin_ninja": Using loopback address: 127.0.0.1
+2026-11-20T09:48:15.934Z [DEBUG] MCP server "bin_ninja": No token data found
+2026-11-20T09:48:15.934Z [DEBUG] MCP server "bin_ninja": version negotiation probe failed on the http transport; reconnecting pinned legacy
+2026-11-20T09:48:15.934Z [DEBUG] MCP server "bin_ninja": No token data found
+2026-11-20T09:48:15.934Z [DEBUG] MCP server "bin_ninja": HTTP Connection failed after 14ms: ECONNREFUSED: Unable to connect. Is the computer able to access the url? (code: ECONNREFUSED, errno: none)
+2026-11-20T09:48:15.935Z [ERROR] MCP server "bin_ninja" TypeError: ECONNREFUSED: Unable to connect. Is the computer able to access the url?
+2026-11-20T09:48:15.935Z [DEBUG] MCP server "bin_ninja": Connection failed after 15ms, 15ms of it awake (ECONNREFUSED): ECONNREFUSED: Unable to connect. Is the computer able to access the url?
+2026-11-20T09:48:15.935Z [ERROR] MCP server "bin_ninja" Connection failed (ECONNREFUSED): ECONNREFUSED: Unable to connect. Is the computer able to access the url?
+2026-11-20T09:48:15.956Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:15.957Z [DEBUG] [FileIndex] getProjectFiles called, respectGitignore=true
+2026-11-20T09:48:15.957Z [DEBUG] [FileIndex] getFilesUsingGit called
+2026-11-20T09:48:15.957Z [DEBUG] [FileIndex] not a git repo, returning null
+2026-11-20T09:48:15.957Z [DEBUG] [FileIndex] git ls-files returned null, falling back to ripgrep
+2026-11-20T09:48:15.957Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/routines: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/routines'
+2026-11-20T09:48:15.957Z [DEBUG] Failed to stat directory /Users/uhd/.claude/routines: ENOENT: no such file or directory, stat '/Users/uhd/.claude/routines'
+2026-11-20T09:48:15.957Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/agents: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/agents'
+2026-11-20T09:48:15.957Z [DEBUG] Failed to stat directory /Users/uhd/.claude/agents: ENOENT: no such file or directory, stat '/Users/uhd/.claude/agents'
+2026-11-20T09:48:15.957Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/workflows: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/workflows'
+2026-11-20T09:48:15.957Z [DEBUG] Failed to stat directory /Users/uhd/.claude/workflows: ENOENT: no such file or directory, stat '/Users/uhd/.claude/workflows'
+2026-11-20T09:48:15.958Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/output-styles: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/output-styles'
+2026-11-20T09:48:15.958Z [DEBUG] Failed to stat directory /Users/uhd/.claude/output-styles: ENOENT: no such file or directory, stat '/Users/uhd/.claude/output-styles'
+2026-11-20T09:48:15.958Z [DEBUG] Failed to stat directory /Library/Application Support/ClaudeCode/.claude/skills: ENOENT: no such file or directory, stat '/Library/Application Support/ClaudeCode/.claude/skills'
+2026-11-20T09:48:15.967Z [DEBUG] [FileIndex] ripgrep: 0 files in 10ms
+2026-11-20T09:48:15.967Z [DEBUG] [FileIndex] skipped index rebuild — tracked paths unchanged
+2026-11-20T09:48:15.967Z [DEBUG] [FileIndex] cache refresh completed in 11ms
+2026-11-20T09:48:16.658Z [DEBUG] $.http.fetch (cc-plugin-telemetry): POST https://api.anthropic.com/api/event_logging/v2/batch
+2026-11-20T09:48:16.770Z [DEBUG] $.http.fetch (cc-plugin-telemetry): 200 in 112ms, 39 chars
+2026-11-20T09:48:16.771Z [DEBUG] [cc-plugin-telemetry] $.ui.log (to debug): telemetry: sent 1 row(s)
+2026-11-20T09:48:18.865Z [DEBUG] High write ratio: blit=0, write=9346 (100.0% writes), screen=70x260
+2026-11-20T09:48:18.866Z [DEBUG] [presence session=cse_01BQMofsQUHLRumZnLyRKAP8] pulse → https://api.anthropic.com/v1/code/sessions/cse_01BQMofsQUHLRumZnLyRKAP8/client/presence
+2026-11-20T09:48:19.180Z [DEBUG] High write ratio: blit=0, write=9346 (100.0% writes), screen=70x260
+2026-11-20T09:48:19.842Z [DEBUG] Detected Homebrew cask installation: /opt/homebrew/Caskroom/claude-code@latest/2.1.329/claude
+2026-11-20T09:48:19.843Z [DEBUG] AutoUpdaterWrapper: Installation type: package-manager
+2026-11-20T09:48:19.848Z [DEBUG] Detected Homebrew cask installation: /opt/homebrew/Caskroom/claude-code@latest/2.1.329/claude
+2026-11-20T09:48:19.856Z [DEBUG] CA certs: Building the list for hosts that aren't ours
+2026-11-20T09:48:19.856Z [DEBUG] CA certs: stores=bundled,system, extraCertsPath=undefined
+2026-11-20T09:48:19.856Z [DEBUG] CA certs: Loaded 118 bundled root certificates
+2026-11-20T09:48:19.856Z [DEBUG] CA certs: Loaded 6 system CA certificates
+2026-11-20T09:48:19.857Z [DEBUG] CA certs: Dropped blocked certificate 40f6af0346a99aa1cd1d555a4e9cce62c7f9634603ee406615833dc8c8d00367 from bundled
+2026-11-20T09:48:19.861Z [DEBUG] mTLS: Creating HTTPS agent with custom certificates
+2026-11-20T09:48:20.162Z [DEBUG] Preserving file permissions: 100644
+2026-11-20T09:48:20.162Z [DEBUG] Writing to temp file: /Users/uhd/.claude.json.tmp.41113.a8e6d3ca1356
+2026-11-20T09:48:20.162Z [DEBUG] Applied original permissions to temp file
+2026-11-20T09:48:20.162Z [DEBUG] Temp file written successfully, size: 284456 bytes
+2026-11-20T09:48:20.162Z [DEBUG] Renaming /Users/uhd/.claude.json.tmp.41113.a8e6d3ca1356 to /Users/uhd/.claude.json
+2026-11-20T09:48:20.163Z [DEBUG] File /Users/uhd/.claude.json written atomically
+2026-11-20T09:48:20.163Z [DEBUG] fullscreen boot canary: healthy
+2026-11-20T09:48:20.737Z [DEBUG] usage-gauge (user) answered ui.render without next() 1 more times in the last 10s (the last in 0.8ms)
+2026-11-20T09:48:20.776Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.6ms (native link, next() included)
+2026-11-20T09:48:20.776Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.5ms (native link, next() included)
+2026-11-20T09:48:21.305Z [DEBUG] Started caffeinate to prevent sleep
+2026-11-20T09:48:21.308Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.4ms (native link, next() included)
+2026-11-20T09:48:21.308Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.4ms (native link, next() included)
+2026-11-20T09:48:21.310Z [DEBUG] ui.open pane-grid grid-main (asked, 260 columns): placed
+2026-11-20T09:48:21.310Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 4.3ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:21.313Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action select main: showing main
+2026-11-20T09:48:21.313Z [DEBUG] pane-grid (user) answered command.run without next() in 15.2ms; nothing beneath it ran for this dispatch
+2026-11-20T09:48:21.313Z [DEBUG] hooks module pane-grid@inline command.run settled in 18.4ms (worker hop, next() included)
+2026-11-20T09:48:21.317Z [DEBUG] [remote-bridge] Sending 2 message(s)
+2026-11-20T09:48:21.318Z [DEBUG] [remote-bridge] Sent result success is_error=false num_turns=0
+2026-11-20T09:48:21.320Z [DEBUG] Total plugin output styles loaded: 0
+2026-11-20T09:48:21.322Z [DEBUG] act_dont_rederive_arm_active source=growthbook
+2026-11-20T09:48:21.324Z [DEBUG] hooks module cc-plugin-easel@builtin prompt.section settled in 0.6ms (native link, next() included)
+2026-11-20T09:48:21.324Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-20T09:48:21.343Z [DEBUG] High write ratio: blit=975, write=8983 (90.2% writes), screen=70x260
+2026-11-20T09:48:21.344Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:21.344Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 1.1ms (native link, next() included)
+2026-11-20T09:48:21.344Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.5ms (native link, next() included)
+2026-11-20T09:48:21.347Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 6.5ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:21.348Z [DEBUG] Preserving file permissions: 100644
+2026-11-20T09:48:21.348Z [DEBUG] Writing to temp file: /Users/uhd/.claude.json.tmp.41113.c7bf1cf2e7c3
+2026-11-20T09:48:21.349Z [DEBUG] Applied original permissions to temp file
+2026-11-20T09:48:21.349Z [DEBUG] Temp file written successfully, size: 284456 bytes
+2026-11-20T09:48:21.349Z [DEBUG] Renaming /Users/uhd/.claude.json.tmp.41113.c7bf1cf2e7c3 to /Users/uhd/.claude.json
+2026-11-20T09:48:21.349Z [DEBUG] File /Users/uhd/.claude.json written atomically
+2026-11-20T09:48:21.349Z [DEBUG] hooks module usage-gauge@inline, flow-probe@inline, pane-grid@inline ui.render settled in 36.3ms (worker hop, next() included) key=grid-main
+2026-11-20T09:48:27.317Z [DEBUG] High write ratio: blit=0, write=9473 (100.0% writes), screen=70x260
+2026-11-20T09:48:27.317Z [DEBUG] [presence session=cse_01BQMofsQUHLRumZnLyRKAP8] pulse → https://api.anthropic.com/v1/code/sessions/cse_01BQMofsQUHLRumZnLyRKAP8/client/presence
+2026-11-20T09:48:27.631Z [DEBUG] High write ratio: blit=0, write=9473 (100.0% writes), screen=70x260
+2026-11-20T09:48:28.652Z [DEBUG] flow-probe (core) answered ui.press without next() in 0.6ms; nothing beneath it ran for this dispatch
+2026-11-20T09:48:28.655Z [DEBUG] $.fs.write (pane-grid): /Users/uhd/.claude/pane-grid/projects/vproj-fc536cb3cfdd6dbd/layout.json (736 bytes)
+2026-11-20T09:48:28.661Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=3 tabs=main placed=usage-gauge,flow-probe.b
+2026-11-20T09:48:28.661Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action place flow-probe.b c2: placed flow-probe.b in c2
+2026-11-20T09:48:28.661Z [DEBUG] $.ui.toast (pane-grid): pane-grid: placed flow-probe.b in c2
+2026-11-20T09:48:28.661Z [DEBUG] $.ui.toast: stacked (1 up)
+2026-11-20T09:48:28.662Z [DEBUG] hooks module pane-grid@inline ui.press settled in 11.8ms (worker hop, next() included) key=grid-main
+2026-11-20T09:48:28.662Z [DEBUG] ui.press flow-probe/place:c2:flow-probe.b in Pane from terminal: settled in 12.3ms
+2026-11-20T09:48:28.663Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 3.5ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:28.669Z [DEBUG] hooks module usage-gauge@inline, flow-probe@inline, pane-grid@inline ui.render settled in 8.6ms (worker hop, next() included) key=grid-main
+2026-11-20T09:48:28.730Z [DEBUG] High write ratio: blit=0, write=9380 (100.0% writes), screen=70x260
+2026-11-20T09:48:28.781Z [DEBUG] High write ratio: blit=0, write=9423 (100.0% writes), screen=70x260
+2026-11-20T09:48:28.830Z [DEBUG] High write ratio: blit=0, write=9468 (100.0% writes), screen=70x260
+2026-11-20T09:48:28.885Z [DEBUG] High write ratio: blit=0, write=9508 (100.0% writes), screen=70x260
+2026-11-20T09:48:28.935Z [DEBUG] High write ratio: blit=0, write=9541 (100.0% writes), screen=70x260
+2026-11-20T09:48:31.962Z [DEBUG] CCRClient: Heartbeat sent
+2026-11-20T09:48:32.905Z [DEBUG] High write ratio: blit=0, write=9336 (100.0% writes), screen=70x260
+2026-11-20T09:48:33.682Z [DEBUG] High write ratio: blit=0, write=9336 (100.0% writes), screen=70x260
+2026-11-20T09:48:33.682Z [DEBUG] [presence session=cse_01BQMofsQUHLRumZnLyRKAP8] pulse → https://api.anthropic.com/v1/code/sessions/cse_01BQMofsQUHLRumZnLyRKAP8/client/presence
+2026-11-20T09:48:33.994Z [DEBUG] High write ratio: blit=0, write=9336 (100.0% writes), screen=70x260
+2026-11-20T09:48:34.002Z [DEBUG] hooks module usage-gauge@inline, flow-probe@inline, pane-grid@inline ui.render settled in 4.9ms (worker hop, next() included) key=grid-main
+2026-11-20T09:48:35.582Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.4ms (native link, next() included)
+2026-11-20T09:48:35.582Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.4ms (native link, next() included)
+2026-11-20T09:48:36.104Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.4ms (native link, next() included)
+2026-11-20T09:48:36.104Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.4ms (native link, next() included)
+2026-11-20T09:48:36.106Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 4.5ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:36.107Z [DEBUG] $.fs.write (pane-grid): /Users/uhd/.claude/pane-grid/projects/vproj-fc536cb3cfdd6dbd/layout.json (774 bytes)
+2026-11-20T09:48:36.110Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=4 tabs=main placed=usage-gauge,flow-probe.b,flow-probe
+2026-11-20T09:48:36.110Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action place flow-probe c3: placed flow-probe in c3
+2026-11-20T09:48:36.110Z [DEBUG] pane-grid (user) answered command.run without next() in 15.2ms; nothing beneath it ran for this dispatch
+2026-11-20T09:48:36.110Z [DEBUG] hooks module pane-grid@inline command.run settled in 17.1ms (worker hop, next() included)
+2026-11-20T09:48:36.113Z [DEBUG] [remote-bridge] Sending 2 message(s)
+2026-11-20T09:48:36.113Z [DEBUG] [remote-bridge] Sent result success is_error=false num_turns=0
+2026-11-20T09:48:36.122Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-20T09:48:36.123Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 12.8ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:36.130Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:36.130Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 1.0ms (native link, next() included)
+2026-11-20T09:48:36.130Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.4ms (native link, next() included)
+2026-11-20T09:48:36.132Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 3.8ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:36.133Z [DEBUG] hooks module usage-gauge@inline, flow-probe@inline, pane-grid@inline ui.render settled in 22.8ms (worker hop, next() included) key=grid-main
+2026-11-20T09:48:36.145Z [DEBUG] High write ratio: blit=0, write=9370 (100.0% writes), screen=70x260
+2026-11-20T09:48:42.139Z [DEBUG] High write ratio: blit=0, write=9370 (100.0% writes), screen=70x260
+2026-11-20T09:48:42.139Z [DEBUG] [presence session=cse_01BQMofsQUHLRumZnLyRKAP8] pulse → https://api.anthropic.com/v1/code/sessions/cse_01BQMofsQUHLRumZnLyRKAP8/client/presence
+2026-11-20T09:48:42.464Z [DEBUG] High write ratio: blit=0, write=9370 (100.0% writes), screen=70x260
+2026-11-20T09:48:44.100Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.6ms (native link, next() included)
+2026-11-20T09:48:44.100Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.5ms (native link, next() included)
+2026-11-20T09:48:44.622Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.4ms (native link, next() included)
+2026-11-20T09:48:44.622Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.4ms (native link, next() included)
+2026-11-20T09:48:44.623Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 3.6ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:44.624Z [DEBUG] $.fs.write (pane-grid): /Users/uhd/.claude/pane-grid/projects/vproj-fc536cb3cfdd6dbd/layout.json (735 bytes)
+2026-11-20T09:48:44.627Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=5 tabs=main placed=flow-probe.b,flow-probe
+2026-11-20T09:48:44.628Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action place - c1: emptied c1
+2026-11-20T09:48:44.628Z [DEBUG] hooks module pane-grid@inline command.run settled in 16.1ms (worker hop, next() included)
+2026-11-20T09:48:44.630Z [DEBUG] [remote-bridge] Sending 2 message(s)
+2026-11-20T09:48:44.630Z [DEBUG] [remote-bridge] Sent result success is_error=false num_turns=0
+2026-11-20T09:48:44.639Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-20T09:48:44.647Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:44.648Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 1.2ms (native link, next() included)
+2026-11-20T09:48:44.648Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.5ms (native link, next() included)
+2026-11-20T09:48:44.648Z [DEBUG] usage-gauge (user) answered ui.render without next() in 12.9ms; nothing beneath it ran for this dispatch
+2026-11-20T09:48:44.648Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 21.1ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:44.651Z [DEBUG] hooks module usage-gauge@inline, flow-probe@inline, pane-grid@inline ui.render settled in 23.8ms (worker hop, next() included) key=grid-main
+2026-11-20T09:48:44.652Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 6.5ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:44.661Z [DEBUG] High write ratio: blit=0, write=9621 (100.0% writes), screen=70x260
+2026-11-20T09:48:46.109Z [DEBUG] pane-grid (user) answered command.run without next() 1 more times in the last 10s (the last in 14.0ms)
+2026-11-20T09:48:50.624Z [DEBUG] High write ratio: blit=0, write=9621 (100.0% writes), screen=70x260
+2026-11-20T09:48:50.624Z [DEBUG] [presence session=cse_01BQMofsQUHLRumZnLyRKAP8] pulse → https://api.anthropic.com/v1/code/sessions/cse_01BQMofsQUHLRumZnLyRKAP8/client/presence
+2026-11-20T09:48:50.934Z [DEBUG] High write ratio: blit=0, write=9621 (100.0% writes), screen=70x260
+2026-11-20T09:48:52.533Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.3ms (native link, next() included)
+2026-11-20T09:48:52.533Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.3ms (native link, next() included)
+2026-11-20T09:48:53.045Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.3ms (native link, next() included)
+2026-11-20T09:48:53.045Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.3ms (native link, next() included)
+2026-11-20T09:48:53.046Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action select-cell c1: active cell c1
+2026-11-20T09:48:53.046Z [DEBUG] pane-grid (user) answered command.run without next() in 7.3ms; nothing beneath it ran for this dispatch
+2026-11-20T09:48:53.046Z [DEBUG] hooks module pane-grid@inline command.run settled in 7.5ms (worker hop, next() included)
+2026-11-20T09:48:53.048Z [DEBUG] [remote-bridge] Sending 2 message(s)
+2026-11-20T09:48:53.048Z [DEBUG] [remote-bridge] Sent result success is_error=false num_turns=0
+2026-11-20T09:48:53.070Z [DEBUG] [sessionRegistry] sweep permitted (domain darwin)
+2026-11-20T09:48:53.070Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 26.7ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:53.077Z [DEBUG] Fast mode unavailable: Fast mode requires usage credits · /usage-credits to turn them on
+2026-11-20T09:48:53.077Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.9ms (native link, next() included)
+2026-11-20T09:48:53.077Z [DEBUG] hooks module cc-plugin-diff@builtin ui.render settled in 0.4ms (native link, next() included)
+2026-11-20T09:48:53.078Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 3.2ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:48:53.618Z [DEBUG] CCRClient: Heartbeat sent
+2026-11-20T09:48:54.641Z [DEBUG] usage-gauge (user) answered ui.render without next() 3 more times in the last 10s (the last in 3.0ms)
+2026-11-20T09:48:59.065Z [DEBUG] High write ratio: blit=0, write=9696 (100.0% writes), screen=70x260
+2026-11-20T09:48:59.065Z [DEBUG] [presence session=cse_01BQMofsQUHLRumZnLyRKAP8] pulse → https://api.anthropic.com/v1/code/sessions/cse_01BQMofsQUHLRumZnLyRKAP8/client/presence
+2026-11-20T09:48:59.380Z [DEBUG] High write ratio: blit=0, write=9696 (100.0% writes), screen=70x260
+2026-11-20T09:48:59.385Z [DEBUG] hooks module usage-gauge@inline, flow-probe@inline, pane-grid@inline ui.render settled in 3.0ms (worker hop, next() included) key=grid-main
+2026-11-20T09:49:00.390Z [DEBUG] usage-gauge (core) answered ui.press without next() in 0.2ms; nothing beneath it ran for this dispatch
+2026-11-20T09:49:00.391Z [DEBUG] $.fs.write (pane-grid): /Users/uhd/.claude/pane-grid/projects/vproj-fc536cb3cfdd6dbd/layout.json (774 bytes)
+2026-11-20T09:49:00.394Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=6 tabs=main placed=usage-gauge,flow-probe.b,flow-probe
+2026-11-20T09:49:00.394Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: action place usage-gauge c1: placed usage-gauge in c1
+2026-11-20T09:49:00.394Z [DEBUG] $.ui.toast (pane-grid): pane-grid: placed usage-gauge in c1
+2026-11-20T09:49:00.394Z [DEBUG] $.ui.toast: stacked (1 up)
+2026-11-20T09:49:00.394Z [DEBUG] hooks module pane-grid@inline ui.press settled in 4.5ms (worker hop, next() included) key=grid-main
+2026-11-20T09:49:00.394Z [DEBUG] ui.press usage-gauge/place:c1:usage-gauge in Pane from terminal: settled in 4.6ms
+2026-11-20T09:49:00.395Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 1.6ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:49:00.398Z [DEBUG] hooks module usage-gauge@inline, flow-probe@inline, pane-grid@inline ui.render settled in 4.2ms (worker hop, next() included) key=grid-main
+2026-11-20T09:49:00.410Z [DEBUG] High write ratio: blit=0, write=9508 (100.0% writes), screen=70x260
+2026-11-20T09:49:00.461Z [DEBUG] High write ratio: blit=0, write=9552 (100.0% writes), screen=70x260
+2026-11-20T09:49:00.512Z [DEBUG] High write ratio: blit=0, write=9595 (100.0% writes), screen=70x260
+2026-11-20T09:49:00.563Z [DEBUG] High write ratio: blit=0, write=9635 (100.0% writes), screen=70x260
+2026-11-20T09:49:00.612Z [DEBUG] High write ratio: blit=0, write=9675 (100.0% writes), screen=70x260
+2026-11-20T09:49:00.662Z [DEBUG] High write ratio: blit=0, write=9708 (100.0% writes), screen=70x260
+2026-11-20T09:49:04.638Z [DEBUG] High write ratio: blit=0, write=9508 (100.0% writes), screen=70x260
+2026-11-20T09:49:05.414Z [DEBUG] nonBlockingStdout: uninstalling (Error: EIO: i/o error, write)
+2026-11-20T09:49:05.416Z [DEBUG] [uds-messaging] Shutting down
+2026-11-20T09:49:05.418Z [DEBUG] MCP server "doghoodie": Sending SIGINT to MCP server process
+2026-11-20T09:49:05.418Z [DEBUG] MCP server "agent-browser": Sending SIGINT to MCP server process
+2026-11-20T09:49:05.418Z [DEBUG] Stopped sleep inhibitor, allowing sleep
+2026-11-20T09:49:05.420Z [DEBUG] [closeSessionTabGroup] bridge not connected, skipping
+2026-11-20T09:49:05.420Z [DEBUG] LSP server manager shut down successfully
+2026-11-20T09:49:05.421Z [DEBUG] [presence session=cse_01BQMofsQUHLRumZnLyRKAP8] clear → https://api.anthropic.com/v1/code/sessions/cse_01BQMofsQUHLRumZnLyRKAP8/client/presence
+2026-11-20T09:49:05.422Z [DEBUG] cleanupSessionTeams: removing 1 orphan team dir(s): session-07aabb9d
+2026-11-20T09:49:05.424Z [DEBUG] [TeammateTool] Cleaned up team directory: /Users/uhd/.claude/teams/session-07aabb9d
+2026-11-20T09:49:05.468Z [DEBUG] MCP server "doghoodie": MCP server process exited cleanly
+2026-11-20T09:49:05.468Z [DEBUG] MCP server "agent-browser": MCP server process exited cleanly
+2026-11-20T09:49:05.767Z [DEBUG] [code-session] Archive cse_01BQMofsQUHLRumZnLyRKAP8 status=200
+2026-11-20T09:49:05.767Z [ERROR] SSETransport: Stream read error: The operation was aborted.
+2026-11-20T09:49:05.769Z [DEBUG] Preserving file permissions: 100644
+2026-11-20T09:49:05.769Z [DEBUG] Writing to temp file: /Users/uhd/.claude.json.tmp.41113.02bd4ea729fc
+2026-11-20T09:49:05.770Z [DEBUG] Applied original permissions to temp file
+2026-11-20T09:49:05.770Z [DEBUG] Temp file written successfully, size: 284277 bytes
+2026-11-20T09:49:05.770Z [DEBUG] Renaming /Users/uhd/.claude.json.tmp.41113.02bd4ea729fc to /Users/uhd/.claude.json
+2026-11-20T09:49:05.770Z [DEBUG] File /Users/uhd/.claude.json written atomically
+2026-11-20T09:49:05.899Z [DEBUG] [remote-bridge] Torn down (archive=200)
+2026-11-20T09:49:05.910Z [DEBUG] Hooks: Checking first line for async: {}
+2026-11-20T09:49:05.910Z [DEBUG] Hooks: Parsed initial response: {}
+2026-11-20T09:49:05.910Z [DEBUG] Hooks: Initial response is not async, continuing normal processing
+2026-11-20T09:49:05.911Z [DEBUG] SessionEnd:other [command hook] completed with status 0
+2026-11-20T09:49:05.911Z [DEBUG] Successfully parsed and validated hook JSON output
+2026-11-20T09:49:05.912Z [DEBUG] hooks module cc-plugin-telemetry@builtin session.end settled in 0.2ms (native link, next() included)
+2026-11-20T09:49:05.916Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 1.0ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:49:05.916Z [DEBUG] hooks module usage-gauge@inline, flow-probe@inline, pane-grid@inline ui.render settled in 1.5ms (worker hop, next() included) key=grid-main
+2026-11-20T09:49:05.917Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout state is empty (a /clear starts a new session state); loading the layout file again
+2026-11-20T09:49:05.919Z [DEBUG] [pane-grid] $.ui.log (to debug): pane-grid: layout revision=1 tabs=main placed=usage-gauge,flow-probe.b,flow-probe
+2026-11-20T09:49:05.919Z [DEBUG] ui.open pane-grid grid-main (unasked, 260 columns): placed
+2026-11-20T09:49:05.920Z [DEBUG] hooks module usage-gauge@inline ui.render settled in 0.6ms (worker hop, next() included) key=above-prompt
+2026-11-20T09:49:05.922Z [DEBUG] hooks module usage-gauge@inline, flow-probe@inline, pane-grid@inline ui.render settled in 2.4ms (worker hop, next() included) key=grid-main
+2026-11-20T09:49:05.931Z [DEBUG] High write ratio: blit=0, write=9438 (100.0% writes), screen=70x260
+2026-11-20T09:49:05.942Z [DEBUG] hooks module pane-grid@inline ui.message settled in 0.6ms (worker hop, next() included) key=grid-main
+2026-11-20T09:49:05.942Z [DEBUG] ui.message pane-grid/measure:main (hooks/measure.tsx) in Pane from terminal: dispatched, settled in 0.8ms
+2026-11-20T09:49:06.163Z [WARN] [stderr] \u001b[?25h
+2026-11-20T09:49:06.167Z [DEBUG] Preserving file permissions: 100644
+2026-11-20T09:49:06.167Z [DEBUG] Writing to temp file: /Users/uhd/.claude.json.tmp.41113.c2f7fbe719b4
+2026-11-20T09:49:06.167Z [DEBUG] Applied original permissions to temp file
+2026-11-20T09:49:06.167Z [DEBUG] Temp file written successfully, size: 284277 bytes
+2026-11-20T09:49:06.167Z [DEBUG] Renaming /Users/uhd/.claude.json.tmp.41113.c2f7fbe719b4 to /Users/uhd/.claude.json
+2026-11-20T09:49:06.168Z [DEBUG] File /Users/uhd/.claude.json written atomically
+2026-11-20T09:49:06.170Z [DEBUG] Preserving file permissions: 100644
+2026-11-20T09:49:06.170Z [DEBUG] Writing to temp file: /Users/uhd/.claude.json.tmp.41113.3783dbf0f20f
+2026-11-20T09:49:06.170Z [DEBUG] Applied original permissions to temp file
+2026-11-20T09:49:06.170Z [DEBUG] Temp file written successfully, size: 284278 bytes
+2026-11-20T09:49:06.170Z [DEBUG] Renaming /Users/uhd/.claude.json.tmp.41113.3783dbf0f20f to /Users/uhd/.claude.json
+2026-11-20T09:49:06.170Z [DEBUG] File /Users/uhd/.claude.json written atomically
+2026-11-20T09:49:06.172Z [DEBUG] Preserving file permissions: 100644
+2026-11-20T09:49:06.172Z [DEBUG] Writing to temp file: /Users/uhd/.claude.json.tmp.41113.efcf9d958002
+2026-11-20T09:49:06.172Z [DEBUG] Applied original permissions to temp file
+2026-11-20T09:49:06.172Z [DEBUG] Temp file written successfully, size: 284278 bytes
+2026-11-20T09:49:06.172Z [DEBUG] Renaming /Users/uhd/.claude.json.tmp.41113.efcf9d958002 to /Users/uhd/.claude.json
+2026-11-20T09:49:06.173Z [DEBUG] File /Users/uhd/.claude.json written atomically
+2026-11-20T09:49:06.174Z [DEBUG] High write ratio: blit=0, write=9438 (100.0% writes), screen=70x260
+2026-11-20T09:49:06.174Z [ERROR] unmount terminal cleanup writeSync failed: Error: EIO: i/o error, write
+2026-11-20T09:49:06.176Z [DEBUG] [bridge:repl] Hook cleanup: starting teardown for session=cse_01BQMofsQUHLRumZnLyRKAP8 reason=host_exit
+2026-11-20T09:49:06.177Z [DEBUG] [REPL:unmount] REPL unmounting

@@ -7,15 +7,18 @@ You can do every step by hand, or let Claude do them: paste the prompt in [Use t
 ## Contents
 
 - [What does pane-grid expect from a mod?](#what-does-pane-grid-expect-from-a-mod)
+- [Member ids](#member-ids)
 - [What does pane-grid publish?](#what-does-pane-grid-publish)
 - [Step 1: copy the reading module](#step-1-copy-the-reading-module)
 - [Step 2: draw with a width argument](#step-2-draw-with-a-width-argument)
 - [Step 3: add the grid render hook](#step-3-add-the-grid-render-hook)
+- [A mod with two or more panes](#a-mod-with-two-or-more-panes)
 - [Step 4: leave your own pane or band while placed](#step-4-leave-your-own-pane-or-band-while-placed)
 - [Step 5: accept Button presses from the grid pane](#step-5-accept-button-presses-from-the-grid-pane)
 - [Step 6: stop timers while the grid tab is hidden (optional)](#step-6-stop-timers-while-the-grid-tab-is-hidden-optional)
 - [Step 7: scroll your own rows in the cell (optional)](#step-7-scroll-your-own-rows-in-the-cell-optional)
 - [Step 8: check it](#step-8-check-it)
+- [Update a copy taken before member ids](#update-a-copy-taken-before-member-ids)
 - [Use the skill](#use-the-skill)
 - [FAQ](#faq)
 
@@ -27,21 +30,34 @@ pane-grid opens one engine pane per layout, with the id `grid-<layout name>`, an
 |---|---|
 | Hook | A `ui.render` hook on `{ component: 'Pane', requestId: /^grid-/, plugin: 'pane-grid' }`. Claude Code 2.1.325 and later need `plugin: 'pane-grid'` ([Why `plugin: 'pane-grid'`](#why-plugin-pane-grid)) |
 | Placement | Reads pane-grid's `layout` state and finds its own entry in `placed`. No entry, or an entry for another grid pane: return `next(e)` unchanged |
-| Content | Draws one `Box` with the key `cell:<plugin name>`. `fillSlot` puts it into the slot pane-grid drew for your mod; when there is no slot, your mod appends it after the result of `next(e)`. The plugin name is the `name` in your `.claude-plugin/plugin.json` |
-| Choice | Calls `offerChoice` on the result of `next(e)`, so empty cells list your mod |
+| Content | Draws one `Box` with the key `cell:<member id>`. `fillSlot` puts it into the slot pane-grid drew for that member id; when there is no slot, your mod appends it after the result of `next(e)`. For a mod with one pane the member id is the plugin name, the `name` in your `.claude-plugin/plugin.json` ([Member ids](#member-ids)) |
+| Choice | Calls `offerChoice` on the result of `next(e)` and appends an empty `Box` with the key `offer:<member id>` after it, so empty cells list your mod in both load orders |
 | Width | Draws that Box `placement.columns` wide. The value is 0 until pane-grid has measured the pane; fall back to `e.props.bodyColumns` |
 | One place | While it has a cell, it does not draw in its own pane or band. It goes back there when the cell is emptied |
 | Read only | It never writes pane-grid's state. `$.state` lets only the owner write |
 
 Without pane-grid installed, the `layout` read is `undefined` and your mod behaves as before. pane-grid is an optional companion, not a dependency.
 
-Load order does not matter. When your mod loads after pane-grid, pane-grid finds your hook in `next.trace` of the grid render and lists your mod in empty cells; it takes your `cell:` Box from the tree. When your mod loads before pane-grid, `next(e)` already holds pane-grid's grid: `offerChoice` adds your Button to each empty cell's `choices:<cell>` Box, and `fillSlot` puts your cell into the `slot:<plugin name>` Box. Either way your hook runs on every grid render, so no registration is needed.
+Load order does not matter. When your mod loads after pane-grid, pane-grid takes your `offer:` Boxes from the tree and lists those member ids in empty cells, and takes your `cell:` Box into its cell. When your mod loads before pane-grid, `next(e)` already holds pane-grid's grid: `offerChoice` adds your Button to each empty cell's `choices:<cell>` Box, and `fillSlot` puts your cell into the `slot:<member id>` Box. Either way your hook runs on every grid render, so no registration is needed.
+
+A copy of the reading module that draws no `offer:` Box still shows up in empty cells when it loads after pane-grid: pane-grid also lists the plugin names in `next.trace` of the grid render. It adds a plugin name `p` from the trace only when no `offer:` Box names `p` or a member id starting with `p.`. So that path lists only the plugin name, never a `<plugin>.<view>` member id.
+
+## Member ids
+
+A member id names one pane your mod puts in a grid cell. pane-grid keys every cell by it: `placed`, `slot:`, `cell:`, `offer:`, `scrolls:`, the choice Button `place:<cell>:<member id>` and `/grid place <member id> [<cell>]`.
+
+| Your mod | Member ids |
+|---|---|
+| Draws one pane or band | One: the plugin name, the `name` in `.claude-plugin/plugin.json` |
+| Draws two or more panes that go in different cells | One per pane: `<plugin>` for one of them and `<plugin>.<view>` for each other one, such as `uhd-kanban` and `uhd-kanban.flow`. `<view>` uses `a`-`z`, `0`-`9`, `_` and `-` |
+
+Each member id goes in one cell, so a mod with two member ids can fill two cells. A layout file written before member ids keeps working: its cells name plugin names, which are the member ids of mods with one pane. The cell's field in the file is still called `plugin`.
 
 ### Why `plugin: 'pane-grid'`
 
 From Claude Code 2.1.325, a hook whose matcher has no `plugin` key matches only events whose `plugin` is the plugin that registered the hook. The engine does this for five events: `ui.render`, `ui.press`, `ui.focus`, `ui.input` and `ui.select`. `ui.scroll` and `ui.message` are not affected. `claude plugin validate` shows this as `(default matcher key: plugin)` after the list of hooks. `plugin: '*'` matches every plugin.
 
-For `ui.render`, `plugin` is the plugin that opened the pane. pane-grid opens every grid pane, so a grid render hook without `plugin: 'pane-grid'` is never called for a grid pane: placed cells read `<plugin> is not loaded, its ui.render matcher lacks plugin: 'pane-grid', …` and empty cells read `no grid-ready mod is loaded`, in both load orders. Claude Code 2.1.322 called the same hook, and its `claude plugin validate` accepts the `plugin` key in this matcher; this guide has not run a session with the new matcher on 2.1.322.
+For `ui.render`, `plugin` is the plugin that opened the pane. pane-grid opens every grid pane, so a grid render hook without `plugin: 'pane-grid'` is never called for a grid pane: placed cells read `<member id> is not loaded, its ui.render matcher lacks plugin: 'pane-grid', …` and empty cells read `no grid-ready mod is loaded`, in both load orders. Claude Code 2.1.322 called the same hook, and its `claude plugin validate` accepts the `plugin` key in this matcher; this guide has not run a session with the new matcher on 2.1.322.
 
 For `ui.press`, `plugin` is the plugin that drew the pressed Button. That is why the hook in [Step 5](#step-5-accept-button-presses-from-the-grid-pane) names `plugin: PLUGIN`, and why pane-grid's own press hook uses `plugin: '*'`: the choice Button your mod adds with `offerChoice` is drawn by your mod, and pane-grid places your mod when it is pressed.
 
@@ -51,27 +67,28 @@ Two values in `$.state`, owned by the plugin `pane-grid`.
 
 | Key | Type | Meaning |
 |---|---|---|
-| `layout` | `{ version: 1, revision, tabs, placed }` | `placed` maps a plugin name to `{ tab, requestId, cell, column, row, columns, rows, isActive }`. `requestId` is the grid pane id, `columns` and `rows` are the cell's inner size, `column` and `row` its top left in the grid pane's body (0.4.0), `isActive` whether it is the active or zoomed cell (0.4.0) |
+| `layout` | `{ version: 1, revision, tabs, placed }` | `placed` maps a member id to `{ tab, requestId, cell, column, row, columns, rows, isActive }`. `requestId` is the grid pane id, `columns` and `rows` are the cell's inner size, `column` and `row` its top left in the grid pane's body (0.4.0), `isActive` whether it is the active or zoomed cell (0.4.0) |
 | `shown` | `string \| null` | The name of the grid layout on screen; `null` when no grid pane is shown |
 
 The values are declared in pane-grid's own contract (`types/index.d.ts`), which your mod does not import. The reading module in Step 1 reads them as `unknown` and checks them at run time.
 
 ## Step 1: copy the reading module
 
-Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pane-grid.ts) to `hooks/pane-grid.ts` in your mod. Do not edit the exports you keep; delete only the ones the table below says you may delete. It exports seven functions and eight constants.
+Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pane-grid.ts) to `hooks/pane-grid.ts` in your mod. Do not edit the exports you keep; delete only the ones the table below says you may delete. It exports eight functions and nine constants. Every function takes the member id where a copy taken before member ids took the plugin name; for a mod with one pane that is the same string.
 
 | Export | Use |
 |---|---|
-| `placementIn(layout, plugin)` | Finds your cell in a layout value. Pure; use it on a `state.set` hook's `value` and `previous` |
-| `readPlacement($, plugin)` | Reads the current layout and finds your cell. Called while drawing, it makes the drawing redraw when the layout changes. Needs Claude Code 2.1.299 or later; delete it if your mod supports an older engine ([Engine floor](#engine-floor-claude-code-21299)) |
+| `placementIn(layout, memberId)` | Finds the cell of a member id in a layout value. Pure; use it on a `state.set` hook's `value` and `previous` |
+| `readPlacement($, memberId)` | Reads the current layout and finds the cell of a member id. Called while drawing, it makes the drawing redraw when the layout changes. Needs Claude Code 2.1.299 or later; delete it if your mod supports an older engine ([Engine floor](#engine-floor-claude-code-21299)) |
 | `readShownTab($)` | Reads `shown`. Only Step 6 needs it; delete it if you skip Step 6. Needs Claude Code 2.1.299 or later, as `readPlacement` does |
-| `offerChoice(below, plugin, placement, makeButton)` | Adds your Button, made by `makeButton`, to each empty cell's choices in `below`. Returns `below` unchanged when it holds no choices |
-| `fillSlot(below, plugin, cell)` | Puts `cell` into your slot in `below`. Returns `undefined` when `below` holds no slot |
-| `scrollsKey(plugin)` | The key of the Box that tells pane-grid your mod scrolls its own rows. Only Step 7 needs it; delete it if you skip Step 7 |
+| `offerChoice(below, memberId, placement, makeButton)` | Adds the member id's Button, made by `makeButton`, to each empty cell's choices in `below`. Returns `below` unchanged when it holds no choices |
+| `fillSlot(below, memberId, cell)` | Puts `cell` into the member id's slot in `below`. Returns `undefined` when `below` holds no slot |
+| `offerKey(memberId)` | The key of the empty Box that lists the member id in empty cells when your mod loads after pane-grid (Step 3) |
+| `scrollsKey(memberId)` | The key of the Box that tells pane-grid your mod scrolls its own rows. Only Step 7 needs it; delete it if you skip Step 7 |
 | `isScrollIn(placement, e)` | Whether a `ui.scroll` on a grid pane is for your cell. Only Step 7 needs it; delete it if you skip Step 7 |
 | `TOOLBAR_KEYS` | The letters of pane-grid's toolbar hotkeys. Only Step 5 needs it, when your cell draws Button `hotkey`s; delete it otherwise |
 | `GRID_VERSION` | The layout format's version. pane-grid writes its layout value from this constant. `placementIn` uses it, so keep it even though your mod does not import it |
-| `SLOT_KEY`, `CHOICES_KEY`, `ACTIVE_SUFFIX`, `NONE_KEY`, `PLACE_KEY`, `CHOICE_HOTKEYS` | The render key prefixes pane-grid draws and the number of choice hotkeys. pane-grid draws from these constants. `fillSlot` and `offerChoice` use them, so keep them even though your mod does not import them |
+| `SLOT_KEY`, `CHOICES_KEY`, `ACTIVE_SUFFIX`, `NONE_KEY`, `PLACE_KEY`, `CHOICE_HOTKEYS`, `OFFER_KEY` | The render key prefixes pane-grid draws or reads and the number of choice hotkeys. pane-grid draws and reads with these constants. `fillSlot`, `offerChoice` and `offerKey` use them, so keep them even though your mod does not import them |
 
 `readPlacement` and `readShownTab` are `function` declarations on purpose. From Claude Code 2.1.299, `claude plugin validate` follows `$` across an import only through function declarations.
 
@@ -101,9 +118,9 @@ The second shape, declared in the file whose hooks call it:
 import type { EngineInterface } from 'claude-code'
 import { placementIn } from './pane-grid'
 
-async function readPlacement($: EngineInterface, plugin: string) {
+async function readPlacement($: EngineInterface, memberId: string) {
   const read = await $.state.get({ plugin: 'pane-grid', key: 'layout' } as never) as { value?: unknown }
-  return placementIn(read.value, plugin)
+  return placementIn(read.value, memberId)
 }
 
 // Step 6 only.
@@ -140,33 +157,72 @@ on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e) => drawBoar
 
 ## Step 3: add the grid render hook
 
-```tsx
-import { fillSlot, offerChoice, readPlacement } from './pane-grid'
+The code is for a mod with one pane, whose member id is `PLUGIN`. A mod with two or more panes runs the body once per member id ([A mod with two or more panes](#a-mod-with-two-or-more-panes)).
 
-const PLUGIN = 'your-mod' // the name in .claude-plugin/plugin.json
+```tsx
+import { fillSlot, offerChoice, offerKey, readPlacement } from './pane-grid'
+
+const PLUGIN = 'your-mod' // the name in .claude-plugin/plugin.json, also the member id of a mod with one pane
 
 on('ui.render', { component: 'Pane', requestId: /^grid-/, plugin: 'pane-grid' }, async ($, e, next) => {
   const placement = await readPlacement($, PLUGIN)
   const below = await next(e)
   const { Box, Button } = $.ui.resolve(e)
   const offered = offerChoice(below, PLUGIN, placement, choice => <Button key={choice.key} plain label={choice.label} hotkey={choice.hotkey} onPress={() => {}} />)
-  if (!placement || placement.requestId != e.requestId) return offered
+  const offer = <Box key={offerKey(PLUGIN)} />
+  if (!placement || placement.requestId != e.requestId) return <Box flexDirection="column">{offered}{offer}</Box>
   const columns = placement.columns > 0 ? placement.columns : e.props.bodyColumns
   const cell = (
     <Box key={`cell:${PLUGIN}`} flexDirection="column">
       {await drawBoard($, e, columns)}
     </Box>
   )
-  return fillSlot(offered, PLUGIN, cell) ?? <Box flexDirection="column">{offered}{cell}</Box>
+  return fillSlot(offered, PLUGIN, cell) ?? <Box flexDirection="column">{offered}{offer}{cell}</Box>
 })
 ```
 
-Four details:
+Five details:
 
 - Keep `plugin: 'pane-grid'` in the matcher. Without it Claude Code 2.1.325 and later never call the hook for a grid pane ([Why `plugin: 'pane-grid'`](#why-plugin-pane-grid)).
 - Call `next(e)` before checking the placement, and return `offered` when your mod has no cell here. Other grid-ready mods and pane-grid itself draw beneath yours, and `offerChoice` is how empty cells list your mod when it loads first.
-- The Button's `onPress` does nothing. Its key is `place:<cell>:<plugin>`, and pane-grid's `ui.press` hook places your mod when it is pressed. Your mod drew the Button, so on Claude Code 2.1.325 the engine dispatches the press with your plugin name, and pane-grid's press hook matches it with `plugin: '*'`. A pane-grid whose press hook has no `plugin: '*'` (every release up to 0.5.1) is not called for that press, so the press does not place your mod when your mod loads before pane-grid.
-- Keep `{offered}` in the fallback tree: pane-grid collects every `cell:` Box from the whole tree.
+- The Button's `onPress` does nothing. Its key is `place:<cell>:<member id>`, and pane-grid's `ui.press` hook places your mod when it is pressed. Your mod drew the Button, so on Claude Code 2.1.325 the engine dispatches the press with your plugin name, and pane-grid's press hook matches it with `plugin: '*'`. A pane-grid whose press hook has no `plugin: '*'` (every release up to 0.5.1) is not called for that press, so the press does not place your mod when your mod loads before pane-grid.
+- Keep `{offered}` in the fallback tree: pane-grid collects every `cell:` and `offer:` Box from the whole tree.
+- Draw the `offer:` Box whether or not the member id is placed, next to the `cell:` Box and not inside it. pane-grid does not show it: it reads it from `next(e)` and draws its own tree. When your mod loads before pane-grid the Box is not read, and `offerChoice` lists the member id instead.
+
+## A mod with two or more panes
+
+Give each pane a member id ([Member ids](#member-ids)) and run the Step 3 body for each, on the tree the previous member id returned:
+
+```tsx
+import type { RenderElement } from 'claude-code'
+import { fillSlot, offerChoice, offerKey, readPlacement } from './pane-grid'
+
+const MEMBERS = [PLUGIN, `${PLUGIN}.flow`]
+const DRAW: Record<string, typeof drawBoard> = { [PLUGIN]: drawBoard, [`${PLUGIN}.flow`]: drawFlow }
+
+on('ui.render', { component: 'Pane', requestId: /^grid-/, plugin: 'pane-grid' }, async ($, e, next) => {
+  const below = await next(e)
+  const { Box, Button } = $.ui.resolve(e)
+  const appended: RenderElement[] = []
+  let tree = below
+  for (const memberId of MEMBERS) {
+    const placement = await readPlacement($, memberId)
+    tree = offerChoice(tree, memberId, placement, choice => <Button key={choice.key} plain label={choice.label} hotkey={choice.hotkey} onPress={() => {}} />)
+    appended.push(<Box key={offerKey(memberId)} />)
+    if (!placement || placement.requestId != e.requestId) continue
+    const columns = placement.columns > 0 ? placement.columns : e.props.bodyColumns
+    const cell = <Box key={`cell:${memberId}`} flexDirection="column">{await DRAW[memberId]($, e, columns)}</Box>
+    const filled = fillSlot(tree, memberId, cell)
+    if (filled) tree = filled
+    else appended.push(cell)
+  }
+  return <Box flexDirection="column">{tree}{appended}</Box>
+})
+```
+
+The other steps take the member id of the pane they are about: Step 4 checks `readPlacement($, memberId)` for the pane that member id replaces, and Step 7 draws `scrollsKey(memberId)` in that member id's `cell:` Box. The `ui.press` matcher of Step 5 keeps `plugin: PLUGIN`, the plugin name, since the engine dispatches a press with the plugin name.
+
+Check it as in Step 8, in both load orders: an empty cell lists the two member ids as two choices, and each draws in its own cell. pane-grid's own run of this shape is round 12 in [`docs/grid-and-tabs.md`](grid-and-tabs.md) §4.1, with the test mod in [`verification/logs/k37-flow-probe-register.tsx`](../verification/logs/k37-flow-probe-register.tsx).
 
 ## Step 4: leave your own pane or band while placed
 
@@ -301,7 +357,7 @@ Load order does not matter here either. When your mod loads before pane-grid, yo
    claude --plugin-dir <path to pane-grid> --plugin-dir <path to your mod>
    ```
 
-   Run it once more with the two `--plugin-dir` options swapped. Your mod should behave the same in both orders. If a placed cell reads `<plugin> is not loaded, its ui.render matcher lacks plugin: 'pane-grid', or its hooks/pane-grid.ts is older than pane-grid 0.3.0`:
+   Run it once more with the two `--plugin-dir` options swapped. Your mod should behave the same in both orders. If a placed cell reads `<member id> is not loaded, its ui.render matcher lacks plugin: 'pane-grid', or its hooks/pane-grid.ts is older than pane-grid 0.3.0`:
 
    | When | Cause |
    |---|---|
@@ -315,13 +371,25 @@ Load order does not matter here either. When your mod loads before pane-grid, yo
    | Do | Expect |
    |---|---|
    | `/grid split -h` | A new empty cell lists your mod among its choices, in both load orders |
-   | Press its digit, or `/grid place <your mod>` | Your content in the cell; your own pane or band is gone |
+   | Press its digit, or `/grid place <member id>` | Your content in the cell; your own pane or band is gone |
    | `/grid resize 30` | Your content redraws at the new width |
    | Wheel over your cell (Step 7 only) | Your rows scroll under your header; the wheel over another cell scrolls that cell |
    | `/grid place -` | Your own pane or band is back |
    | Run without pane-grid | Your mod behaves as before |
 
    Start Claude Code with `--debug` to read hook failures: a hook whose tree the engine refused is logged as `<plugin>: ui.render hook skipped: …`. The same log shows which plugins' hooks ran for a grid render: a line `hooks module <plugin>@<source>, … ui.render settled in … key=grid-<layout name>` lists every plugin whose hook ran, so check that your plugin name is on it. With only pane-grid's hook the line reads `hooks module pane-grid@… ui.render settled in … key=grid-main`. If it is not, the hook was not called; check the matcher first.
+
+## Update a copy taken before member ids
+
+usage-gauge, pending-questions and uhd-kanban hold a copy of `hooks/pane-grid.ts` taken before member ids. These copies keep working with the pane-grid that keys cells by member id: their member id is their plugin name, and pane-grid lists them from `next.trace` when they load after it. A mod that adds a second pane needs the new copy.
+
+| What changed in `skills/add-pane-grid-cell/pane-grid.ts` | What to change in your mod |
+|---|---|
+| The parameter `plugin` of `placementIn`, `readPlacement`, `fillSlot`, `offerChoice` and `scrollsKey` is now `memberId` | Nothing for a mod with one pane: pass the plugin name as before. A mod with two or more panes passes each pane's member id |
+| New exports `OFFER_KEY` and `offerKey(memberId)` | In the grid render hook, append `<Box key={offerKey(<member id>)} />` after the result of `next(e)` for each member id, in the return for "not placed here" and in the fallback tree (Step 3) |
+| The comments name the member id | Nothing |
+
+Copy the file again, then make the change in the second row. Check it with Step 8, both load orders included.
 
 ## Use the skill
 
@@ -350,7 +418,7 @@ No. Every pane-grid read returns `undefined` without it, and the hooks of Steps 
 
 ### Can my mod be in two cells at once?
 
-No. pane-grid keeps one cell per mod. Placing a mod in a second cell empties the first.
+One cell per member id. pane-grid keeps one cell per member id, and placing a member id in a second cell empties the first. A mod with two member ids can fill two cells ([A mod with two or more panes](#a-mod-with-two-or-more-panes)).
 
 ### Why a `Box` key instead of a component or a registration call?
 
@@ -358,4 +426,4 @@ The engine has no call that lets one mod draw inside another mod's pane. Every `
 
 ### My mod hooks every `ui.render` without a matcher. Will it show up in empty cells?
 
-Not from Claude Code 2.1.325. A matcher without `plugin` matches only panes your mod opened ([Why `plugin: 'pane-grid'`](#why-plugin-pane-grid)), so the hook does not run for a grid pane and pane-grid does not list your mod. On Claude Code 2.1.322 it did: pane-grid lists every installed mod whose `ui.render` hook runs for the grid pane, and placing a mod that draws no `cell:` Box shows `<plugin> draws nothing here` in the cell.
+Not from Claude Code 2.1.325. A matcher without `plugin` matches only panes your mod opened ([Why `plugin: 'pane-grid'`](#why-plugin-pane-grid)), so the hook does not run for a grid pane and pane-grid does not list your mod. On Claude Code 2.1.322 it did: pane-grid lists every installed mod whose `ui.render` hook runs for the grid pane, and placing a mod that draws no `cell:` Box shows `<member id> draws nothing here` in the cell.

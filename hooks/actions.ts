@@ -19,11 +19,11 @@ export type Outcome = {
 export const VERBS = ['split', 'kill', 'next', 'select-cell', 'place', 'swap', 'zoom', 'resize', 'layout', 'new', 'select', 'rename', 'close', 'break', 'list', 'reload', 'help'] as const
 
 const USAGE = [
-  'split -h|-v [plugin]     split the active cell left-right (-h) or top-bottom (-v)',
+  'split -h|-v [member]     split the active cell left-right (-h) or top-bottom (-v)',
   'kill                     remove the active cell',
   'next                     make the next cell active',
   'select-cell <id>         make that cell active',
-  'place <plugin>|- [<id>]  put a plugin in the active cell (or that cell), or empty it',
+  'place <member>|- [<id>]  put a member (<plugin> or <plugin>.<view>) in the active cell (or that cell), or empty it',
   'swap [<id>]              swap the active cell with that cell (default: the next one)',
   'zoom                     draw the active cell alone, or undo it',
   `resize <${SHARE_MIN}-${SHARE_MAX}>            set the active cell's share of its parent in percent`,
@@ -47,9 +47,9 @@ const replaceTab = (tabs: GridTab[], tab: GridTab) => tabs.map(item => (item.nam
 // 칸 `id` 를 활성으로 한다. zoom 한 탭이면 zoom 도 그 칸으로 옮긴다(보이지 않는 칸이 활성이 되지 않게).
 const activate = (tab: GridTab, id: string): GridTab => (tab.zoomed ? { ...tab, active: id, zoomed: id } : { ...tab, active: id })
 
-// mod 하나는 한 칸에만 놓인다(결정 6). 다른 칸에 있던 같은 mod 를 비운다.
-const unplace = (tabs: GridTab[], plugin: string) =>
-  tabs.map(tab => ({ ...tab, root: mapCells(tab.root, cell => (cell.plugin == plugin ? { kind: 'cell', id: cell.id } : cell)) }))
+// member id 하나는 한 칸에만 놓인다(결정 6). 다른 칸에 있던 같은 member id 를 비운다.
+const unplace = (tabs: GridTab[], memberId: string) =>
+  tabs.map(tab => ({ ...tab, root: mapCells(tab.root, cell => (cell.plugin == memberId ? { kind: 'cell', id: cell.id } : cell)) }))
 
 const unusedTabName = (tabs: GridTab[]) => {
   let index = tabs.length + 1
@@ -72,11 +72,11 @@ const applyVerb = (tabs: GridTab[], current: string, words: string[]): Outcome =
   if (verb == 'list') return same(tabs, tab.name, listText(tabs, tab.name))
 
   if (verb == 'split') {
-    const [flag, plugin] = rest
-    if (flag != '-h' && flag != '-v') return same(tabs, tab.name, 'usage: split -h|-v [plugin]')
+    const [flag, memberId] = rest
+    if (flag != '-h' && flag != '-v') return same(tabs, tab.name, 'usage: split -h|-v [member]')
     const id = newCellId(tabs)
-    const added: GridCell = plugin ? { kind: 'cell', id, plugin } : { kind: 'cell', id }
-    const base = plugin ? unplace(tabs, plugin) : tabs
+    const added: GridCell = memberId ? { kind: 'cell', id, plugin: memberId } : { kind: 'cell', id }
+    const base = memberId ? unplace(tabs, memberId) : tabs
     const own = base.find(item => item.name == tab.name) ?? tab
     const root = split(own.root, own.active, flag == '-h' ? 'row' : 'column', added)
     return changed(replaceTab(base, { name: own.name, root, active: id }), tab.name, `split ${own.active} into ${own.active} and ${id}`)
@@ -96,13 +96,13 @@ const applyVerb = (tabs: GridTab[], current: string, words: string[]): Outcome =
   }
 
   if (verb == 'place') {
-    const [plugin, id = tab.active] = rest
-    if (!plugin) return same(tabs, tab.name, 'usage: place <plugin>|- [<id>]')
+    const [memberId, id = tab.active] = rest
+    if (!memberId) return same(tabs, tab.name, 'usage: place <member>|- [<id>]')
     if (!findCell(tab.root, id)) return same(tabs, tab.name, `no cell ${id} in ${tab.name}`)
-    const base = plugin == '-' ? tabs : unplace(tabs, plugin)
+    const base = memberId == '-' ? tabs : unplace(tabs, memberId)
     const own = base.find(item => item.name == tab.name) ?? tab
-    const root = mapCells(own.root, cell => (cell.id != id ? cell : plugin == '-' ? { kind: 'cell', id } : { kind: 'cell', id, plugin }))
-    return changed(replaceTab(base, activate({ ...own, root }, id)), tab.name, plugin == '-' ? `emptied ${id}` : `placed ${plugin} in ${id}`)
+    const root = mapCells(own.root, cell => (cell.id != id ? cell : memberId == '-' ? { kind: 'cell', id } : { kind: 'cell', id, plugin: memberId }))
+    return changed(replaceTab(base, activate({ ...own, root }, id)), tab.name, memberId == '-' ? `emptied ${id}` : `placed ${memberId} in ${id}`)
   }
 
   if (verb == 'swap') {
@@ -177,5 +177,5 @@ export const apply = (tabs: GridTab[], current: string, words: string[]): Outcom
   return outcome.isChanged && JSON.stringify(outcome.tabs) == JSON.stringify(tabs) ? { ...outcome, isChanged: false } : outcome
 }
 
-// 동작 뒤에도 파일 규칙(이름 · id · plugin 이름 · mod 한 칸)이 지켜지는지 본다. 어기면 그 이유.
+// 동작 뒤에도 파일 규칙(이름 · id · member id · member id 한 칸)이 지켜지는지 본다. 어기면 그 이유.
 export const checkOutcome = (outcome: Outcome) => checkTabs(outcome.tabs)

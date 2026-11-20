@@ -9,12 +9,13 @@ import { allCells, cellsOf, normalize } from './tree'
 const FILE_VERSION = 1
 export const TAB_NAME = /^[a-z0-9][a-z0-9_-]{0,31}$/
 const CELL_ID = /^[a-z0-9][a-z0-9_-]{0,31}$/
-const PLUGIN_NAME = /^[a-z0-9][a-z0-9_.-]{0,127}$/
+// 칸의 `plugin` 필드에 적는 member id(`<plugin>` 또는 `<plugin>.<view>`). member id 를 들이기 전의 plugin 이름 규칙과 값이 같아 그때 쓴 파일도 맞는다.
+const MEMBER_ID = /^[a-z0-9][a-z0-9_.-]{0,127}$/
 
 // 이름 규칙. 맞지 않으면 이유(앞에 자리를 붙이지 않은 글). 파일을 읽을 때와 동작 뒤의 탭 목록을 검사할 때 함께 쓴다.
 const tabNameProblem = (value: unknown) => (typeof value == 'string' && TAB_NAME.test(value) ? undefined : `name must match ${TAB_NAME}`)
 const cellIdProblem = (value: unknown) => (typeof value == 'string' && CELL_ID.test(value) ? undefined : `cell id must match ${CELL_ID}`)
-const pluginProblem = (value: unknown) => (typeof value == 'string' && PLUGIN_NAME.test(value) ? undefined : `plugin must match ${PLUGIN_NAME}`)
+const memberIdProblem = (value: unknown) => (typeof value == 'string' && MEMBER_ID.test(value) ? undefined : `member id must match ${MEMBER_ID}`)
 
 export type Parsed = { isValid: true; tabs: GridTab[] } | { isValid: false; reason: string }
 
@@ -30,8 +31,8 @@ const parseNode = (value: unknown, where: string): GridNode | string => {
     const idProblem = cellIdProblem(value.id)
     if (idProblem || typeof value.id != 'string') return `${where}: ${idProblem}`
     if (value.plugin == undefined) return { kind: 'cell', id: value.id }
-    const plugin = pluginProblem(value.plugin)
-    if (plugin || typeof value.plugin != 'string') return `${where}: ${plugin}`
+    const memberProblem = memberIdProblem(value.plugin)
+    if (memberProblem || typeof value.plugin != 'string') return `${where}: ${memberProblem}`
     return { kind: 'cell', id: value.id, plugin: value.plugin }
   }
   const kind = value.kind == 'row' ? 'row' : value.kind == 'column' ? 'column' : undefined
@@ -63,32 +64,32 @@ const parseTab = (value: unknown, where: string): GridTab | string => {
   return zoomed ? { name: value.name, root, active, zoomed } : { name: value.name, root, active }
 }
 
-// 탭 이름 · 칸 id 는 파일 전체에서 하나씩, mod 는 한 칸에만 놓인다.
+// 탭 이름 · 칸 id 는 파일 전체에서 하나씩, member id 는 한 칸에만 놓인다.
 const checkUnique = (tabs: GridTab[]): string | undefined => {
   const names = tabs.map(tab => tab.name)
   const cells = allCells(tabs)
   const ids = cells.map(cell => cell.id)
-  const plugins = cells.flatMap(cell => (cell.plugin ? [cell.plugin] : []))
+  const members = cells.flatMap(cell => (cell.plugin ? [cell.plugin] : []))
   const twice = (list: string[]) => list.find((item, index) => list.indexOf(item) != index)
   const name = twice(names)
   if (name) return `tab name ${name} is used twice`
   const id = twice(ids)
   if (id) return `cell id ${id} is used twice`
-  const plugin = twice(plugins)
-  if (plugin) return `plugin ${plugin} is placed in two cells`
+  const member = twice(members)
+  if (member) return `member ${member} is placed in two cells`
   return undefined
 }
 
 // 노드 아래 칸의 이름 규칙. 자리는 parseNode 와 같은 꼴로 적는다.
 const checkNames = (node: GridNode, where: string): string | undefined => {
   if (node.kind == 'cell') {
-    const problem = cellIdProblem(node.id) ?? (node.plugin == undefined ? undefined : pluginProblem(node.plugin))
+    const problem = cellIdProblem(node.id) ?? (node.plugin == undefined ? undefined : memberIdProblem(node.plugin))
     return problem ? `${where}: ${problem}` : undefined
   }
   return node.children.reduce<string | undefined>((found, child, index) => found ?? checkNames(child.node, `${where}.children[${index}].node`), undefined)
 }
 
-// 탭 목록이 파일 규칙(이름 · id · plugin 이름 · mod 한 칸)을 지키는지 본다. 어기면 그 이유. 파일을 읽을 때와 동작 뒤에 함께 쓴다.
+// 탭 목록이 파일 규칙(이름 · id · member id · member id 한 칸)을 지키는지 본다. 어기면 그 이유. 파일을 읽을 때와 동작 뒤에 함께 쓴다.
 // 동작 뒤에도 보아야 한다: `/grid place Foo` 처럼 규칙에 맞지 않는 이름을 쓴 파일은 다음에 읽을 때 통째로 거부된다.
 export const checkTabs = (tabs: GridTab[]): string | undefined => {
   for (const [index, tab] of tabs.entries()) {

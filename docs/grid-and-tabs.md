@@ -59,6 +59,16 @@
     - 2.1.322 의 `claude plugin validate` 도 `plugin: 'pane-grid'` 가 든 matcher 를 받는다(출력 `ui.render{component=Pane, requestId=/"^grid-"/, plugin=pane-grid}`). 2.1.322 에서 이 matcher 로 세션을 실행하지는 않았다.
     - 놓인 칸의 안내 문구(`hooks/register.tsx` 의 `UNFILLED_HINT`)에 이 원인을 더했다(§3.7 「안내 문구」).
 
+2026-11-20 카드 k37 로 정한 것 한 가지(세션 `kanban-main` 의 요청, 사용자 승인 결정 A):
+
+22. **칸 주인 키를 plugin 이름에서 member id 로 넓힌다**(§3.7 「member id」).
+    - member id 는 칸 하나에 놓이는 pane 의 이름이다. plugin 이 pane 하나만 내면 `<plugin>`, 둘 이상 내면 pane 마다 `<plugin>.<view>` 다(예: uhd-kanban 의 보드 `uhd-kanban` 과 세션 흐름 view `uhd-kanban.flow`). member id 마다 칸 하나에 놓인다(결정 6 을 member id 단위로 읽는다).
+    - 키가 member id 인 자리: `layout.placed`, render key `slot:` · `cell:` · `scrolls:` · `offer:` · `place:<칸 id>:<member id>`, `/grid place <member id> [<칸 id>]` · `/grid split -h|-v [<member id>]`, layout 파일 검사 문구 `member <id> is placed in two cells` · `member id must match …`.
+    - layout 파일과 `GridCell` 타입의 필드 이름 `plugin` 은 그대로 두고 값을 member id 로 읽는다. 이름 규칙(`hooks/layout-file.ts` 의 `MEMBER_ID`)도 값이 전과 같다(`.` 을 이미 받았다). 그래서 member id 를 들이기 전에 쓴 파일을 그대로 읽고, 그 전 판 pane-grid 도 새 파일을 읽는다.
+    - pane 을 둘 이상 내는 mod 는 빈 칸 선택지에 member id 를 알릴 자리가 필요해 `offer:<member id>` Box 를 더했다(§3.6 「선택지의 출처」).
+    - 이름만 `uhd-kanban.flow` 로 붙이고 pane-grid 를 고치지 않는 방법은 쓰지 않았다. trace 의 선택지는 plugin 이름만 내므로 pane-grid 보다 뒤에 로드되면 `uhd-kanban.flow` 가 선택지에 빠지고, 안내 문구 판정(`ready.includes`)도 그 member id 를 찾지 못한다.
+    - 실행 검증(Claude Code 2.1.329): 시험 장치 `verification/logs/k37-harness.py`, 시험 mod `verification/logs/k37-flow-probe-register.tsx`(member id `flow-probe` · `flow-probe.b`), 증거 `verification/logs/k37-<시나리오>-*`. 결과는 §4.1 12회차다.
+
 | mod | 저장소 | 그리는 곳 |
 |---|---|---|
 | `usage-gauge` 0.2.0 | `/Users/uhd/LOCAL/01-01_Projects/plugin-usage-gauge` | `AbovePrompt`(prompt 위 band). pane 이 없다 |
@@ -165,8 +175,9 @@ tmux 글자 중 `hotkey` 로 쓸 수 없는 것을 대신하는 글자(결정 10
 |---|---|
 | ① | `{ component: 'Pane', requestId: /^grid-/, plugin: 'pane-grid' }` 를 hook 한다. `plugin: 'pane-grid'` 는 Claude Code 2.1.325 부터 필요하다(결정 21) |
 | ② | `pane-grid` 의 `layout` 을 읽고 `next(e)` 를 부른다. 그 결과에 `offerChoice` 로 자기 선택지 Button 을 더한다(§3.7). 이 배치에 자기 칸이 없으면 그것을 반환한다 |
-| ③ | 자기 pane 을 그리는 함수와 **같은 함수**를 칸 너비로 불러 `key="cell:<plugin>"` Box 를 만든다 |
-| ④ | `fillSlot` 으로 그 Box 를 pane-grid 가 그린 `slot:<plugin>` Box 에 넣는다. slot 이 없으면(pane-grid 보다 뒤에 로드) `next(e)` 결과 뒤에 덧붙여 반환하고, pane-grid 가 그 Box 를 받아 칸 자리에 놓는다(§3.7) |
+| ③ | 자기 pane 을 그리는 함수와 **같은 함수**를 칸 너비로 불러 `key="cell:<member id>"` Box 를 만든다 |
+| ④ | `fillSlot` 으로 그 Box 를 pane-grid 가 그린 `slot:<member id>` Box 에 넣는다. slot 이 없으면(pane-grid 보다 뒤에 로드) `next(e)` 결과 뒤에 덧붙여 반환하고, pane-grid 가 그 Box 를 받아 칸 자리에 놓는다(§3.7) |
+| ⑤ | `next(e)` 결과 뒤에 member id 마다 빈 Box `offer:<member id>` 를 덧붙인다. pane-grid 보다 뒤에 로드되면 pane-grid 가 이것으로 빈 칸 선택지를 만든다(§3.6). pane 을 둘 이상 내는 mod 는 ② ~ ⑤ 를 member id 마다 한다 |
 
 ③ 때문에 세 mod 모두 render 본문을 「너비를 받아 트리를 반환하는 함수」로 떼어 내야 한다. 자기 pane hook 과 `grid` hook 은 그 함수를 함께 쓴다.
 
@@ -195,9 +206,9 @@ tmux 글자 중 `hotkey` 로 쓸 수 없는 것을 대신하는 글자(결정 10
 
 | 단계 | 하는 쪽 | 하는 일 |
 |---|---|---|
-| ① | 규약 mod | `cell:<plugin>` Box 안에 빈 Box `scrollsKey(plugin)`(`scrolls:<plugin>`)를 그린다 |
+| ① | 규약 mod | `cell:<member id>` Box 안에 빈 Box `scrollsKey(memberId)`(`scrolls:<member id>`)를 그린다 |
 | ② | pane-grid | grid render 에서 `next(e)` 결과의 `cell:` Box 마다 그 Box 가 있는지 보고 `run.scrolling` 에 모은다. 모듈 변수라 다시 불러오면 비고, 다음 render 에서 다시 모인다 |
-| ③ | pane-grid | `layout.placed[plugin]` 에 `column` · `row`(칸 내용의 왼쪽 위, pane 본문 좌표)와 `isActive`(활성 칸이거나 zoom 한 칸)를 더 쓴다 |
+| ③ | pane-grid | `layout.placed[<member id>]` 에 `column` · `row`(칸 내용의 왼쪽 위, pane 본문 좌표)와 `isActive`(활성 칸이거나 zoom 한 칸)를 더 쓴다 |
 | ④ | 양쪽 | 읽기 모듈의 `isScrollIn(placement, e)` 로 그 `ui.scroll` 이 그 칸의 것인지 정한다. 휠이면 `e.pointer` 가 칸 내용 안에 있는가, 스크롤 키면 `isActive` 다. 두 쪽이 같은 함수를 쓴다(pane-grid 는 `skills/add-pane-grid-cell/pane-grid.ts` 를 import 한다) |
 | ⑤ | pane-grid | 휠 아래 칸이 `run.scrolling` 의 mod 칸이면 `isScrollIn` 이 참일 때 `next(e)` 를 부르고, 거짓일 때(칸 제목 줄) `{}` 를 반환한다. 그 칸의 `scroll` 값은 바꾸지 않는다 |
 | ⑥ | 규약 mod | `ui.scroll` hook 의 matcher 에 `/^grid-/` 를 더하고, `isScrollIn` 이 참이면 지금처럼 자기 행을 움직이고 `{}` 를 반환한다. 거짓이면 `next(e)` 다 |
@@ -247,34 +258,42 @@ on('state.set', { plugin: 'pane-grid', key: 'layout' }, async ($, e, next) => {
 
 | 항목 | 정한 것 |
 |---|---|
-| 선택지의 출처 | 두 곳이다. pane-grid 보다 뒤에 로드된 mod 는 pane-grid 의 grid pane `ui.render` hook 이 `await next(e)` 뒤 읽는 `next.trace` 에서 고른다(그 render 에서 실행된 hook 의 plugin 이름 중 tier 가 `prepend` · `user` · `append` 이고 `pane-grid` · `engine` 이 아닌 것). 먼저 로드된 mod 는 trace 에 남지 않으므로 그 mod 가 `offerChoice` 로 `choices:<칸 id>` Box 에 자기 Button 을 더한다(§3.7) |
-| 누르면 | `place <plugin> <칸 id>`. 그 칸에 놓고 그 칸을 활성으로 한다. 다른 칸에 있던 같은 mod 는 비운다(결정 6). 다른 칸에 있는 mod 는 `(move from c1)` 처럼 지금 칸을 붙여 적는다 |
+| 선택지의 출처 | 선택지 하나가 member id 하나다(결정 22). 먼저 로드된 mod 는 그 mod 가 `offerChoice` 로 `choices:<칸 id>` Box 에 member id 마다 Button 을 더한다(§3.7). pane-grid 보다 뒤에 로드된 mod 는 pane-grid 의 grid pane `ui.render` hook 이 `await next(e)` 뒤 두 곳에서 모은다(`hooks/render-keys.ts` 의 `gridReady`). ① `next(e)` 결과의 `offer:<member id>` Box. 규약 mod 가 member id 마다 그리는 빈 Box 다. ② `next.trace` 의 plugin 이름(그 render 에서 실행된 hook 의 plugin 이름 중 tier 가 `prepend` · `user` · `append` 이고 `pane-grid` · `engine` 이 아닌 것). ② 는 `offer:` 를 그리지 않는 옛 사본을 위해 남겼다. 규칙: trace 의 plugin 이름 `p` 는 ① 의 member id 중 `p` 와 같거나 `p.` 로 시작하는 것이 하나도 없을 때만 member id `p` 로 더한다 |
+| 누르면 | `place <member id> <칸 id>`. 그 칸에 놓고 그 칸을 활성으로 한다. 다른 칸에 있던 같은 member id 는 비운다(결정 6). 다른 칸에 있는 member id 는 `(move from c1)` 처럼 지금 칸을 붙여 적는다 |
 | hotkey | 활성 칸의 선택지에만 `1` ~ `9`. 칸마다 붙이면 같은 숫자가 겹치고, 엔진은 같은 hotkey 의 Button 중 나중에 그린 것을 누른다. 활성이 아닌 칸의 선택지는 클릭으로 누른다 |
 | 선택지가 0개 | `no grid-ready mod is loaded`. 이 Text 는 key 를 받지 못하므로 key `none:<칸 id>` 의 Box 에 담는다. `offerChoice` 는 Button 을 더할 때 그 Box 를 뺀다 |
-| 한계 | grid pane 의 `ui.render` 에 걸리는 hook 을 가진 mod 는 규약 mod 가 아니어도 선택지에 나온다. 그런 mod 를 놓으면 칸에 `<plugin> draws nothing here` 가 그려진다. Claude Code 2.1.322 에서는 matcher 없이 모든 `ui.render` 를 hook 하는 mod 가 여기에 들었다. 2.1.325 부터는 matcher 에 `plugin` 이 없으면 자기가 연 pane 에만 맞으므로(결정 21) `plugin: 'pane-grid'` 나 `plugin: '*'` 를 적은 mod 만 든다 |
+| 한계 | grid pane 의 `ui.render` 에 걸리는 hook 을 가진 mod 는 규약 mod 가 아니어도 선택지에 나온다. 그런 mod 를 놓으면 칸에 `<plugin> draws nothing here` 가 그려진다. `offer:` 를 그리지 않는 옛 사본이 pane 을 둘 이상 내면 trace 의 plugin 이름 하나만 선택지에 나오고 `<plugin>.<view>` 는 나오지 않는다(§4.1 12회차 `B-nooffer`) Claude Code 2.1.322 에서는 matcher 없이 모든 `ui.render` 를 hook 하는 mod 가 여기에 들었다. 2.1.325 부터는 matcher 에 `plugin` 이 없으면 자기가 연 pane 에만 맞으므로(결정 21) `plugin: 'pane-grid'` 나 `plugin: '*'` 를 적은 mod 만 든다 |
 
-`/grid place` 는 칸 id 를 두 번째 인자로 받도록 넓혔다(`place <plugin>|- [<id>]`). 생략하면 전처럼 활성 칸이다.
+`/grid place` 는 칸 id 를 두 번째 인자로 받도록 넓혔다(`place <member>|- [<id>]`). 생략하면 전처럼 활성 칸이다.
 
 ### 3.7 로드 순서와 무관한 칸 채우기(slot)
 
 결정 15 에 따라 넣었다. §4.1 7회차에서 규약 mod 가 pane-grid 보다 먼저 로드되면 칸이 비었다. 먼저 로드된 mod 의 hook 이 바깥에서 실행되어, pane-grid 가 칸을 모을 때 그 mod 의 `cell:` Box 가 아직 없기 때문이다.
 
-pane-grid 가 그리는 key 는 다섯 가지다(`skills/add-pane-grid-cell/pane-grid.ts` 의 `SLOT_KEY` 등. 규약 mod 와 pane-grid 가 이 파일의 상수를 함께 쓴다).
+#### member id
+
+칸 주인 키는 member id 다(결정 22). plugin 이 pane 하나만 내면 `<plugin>`(`.claude-plugin/plugin.json` 의 `name`), 둘 이상 내면 pane 마다 `<plugin>.<view>` 다. 아래 표의 `<member id>` 가 그것이고, pane 하나뿐인 mod 의 member id 는 plugin 이름과 같아 member id 를 들이기 전의 사본이 그대로 동작한다.
+
+#### key
+
+pane-grid 가 그리는 key 는 다섯 가지이고, 뒤에 로드된 규약 mod 가 그리는 key 는 두 가지다(`skills/add-pane-grid-cell/pane-grid.ts` 의 `SLOT_KEY` · `OFFER_KEY` 등. 규약 mod 와 pane-grid 가 이 파일의 상수를 함께 쓴다).
 
 | key | 그리는 곳 | 누가 채우나 |
 |---|---|---|
-| `slot:<plugin>` | mod 가 놓인 칸. 그 mod 의 `cell:` Box 를 아래에서 모았으면 그것을, 못 모았으면 안내 Text 를 담는다 | 먼저 로드된 mod 가 `fillSlot` 으로 자기 칸을 넣는다 |
-| `choices:<칸 id>` · `choices:<칸 id>:active` | 빈 칸. `place:<칸 id>:<plugin>` Button 을 담는다. `:active` 는 활성 칸이라 hotkey `1` ~ `9` 를 붙인다는 표시다 | 먼저 로드된 mod 가 `offerChoice` 로 자기 Button 을 더한다 |
+| `slot:<member id>` | member id 가 놓인 칸. 그 mod 의 `cell:` Box 를 아래에서 모았으면 그것을, 못 모았으면 안내 Text 를 담는다 | 먼저 로드된 mod 가 `fillSlot` 으로 자기 칸을 넣는다 |
+| `choices:<칸 id>` · `choices:<칸 id>:active` | 빈 칸. `place:<칸 id>:<member id>` Button 을 담는다. `:active` 는 활성 칸이라 hotkey `1` ~ `9` 를 붙인다는 표시다 | 먼저 로드된 mod 가 `offerChoice` 로 자기 Button 을 더한다 |
 | `none:<칸 id>` | 선택지가 0개인 빈 칸의 안내 | `offerChoice` 가 Button 을 더할 때 뺀다 |
-| `place:<칸 id>:<plugin>` | 선택지 Button | pane-grid 의 `ui.press` hook 이 key 를 읽어 `place <plugin> <칸 id>` 를 실행한다 |
+| `place:<칸 id>:<member id>` | 선택지 Button | pane-grid 의 `ui.press` hook 이 key 를 읽어 `place <member id> <칸 id>` 를 실행한다. 칸 id 와 member id 에는 `:` 가 없다 |
 | `hotkey:<글자>` | 도구줄의 hotkey Button | 같은 `ui.press` hook |
+| `cell:<member id>` | 뒤에 로드된 규약 mod 가 `next(e)` 결과 뒤에 덧붙인다. 놓인 member id 의 칸 내용이다 | pane-grid 가 `collectCells` 로 모아 `slot:<member id>` 에 넣는다 |
+| `offer:<member id>` | 뒤에 로드된 규약 mod 가 member id 마다 `next(e)` 결과 뒤에 덧붙이는 빈 Box. 놓였든 아니든 그린다 | pane-grid 가 `gridReady` 로 모아 빈 칸 선택지로 쓴다(§3.6). 화면에는 그려지지 않는다. pane-grid 의 render 는 `next(e)` 결과를 반환하지 않기 때문이다 |
 
 정한 것:
 
 - **누름은 `ui.press` hook 하나가 받는다.** 먼저 로드된 mod 가 그린 Button 의 `onPress` 는 그 mod 의 것이라 pane-grid 의 함수를 부를 수 없다. 그래서 pane-grid 의 Button 도 규약 mod 의 Button 도 `onPress` 는 아무것도 하지 않고, pane-grid 의 `ui.press` hook(`{ component: 'Pane', requestId: /^grid-/, element: PRESS_KEY, plugin: '*' }`. `PRESS_KEY` 는 `place:` · `hotkey:` 로 시작하는 key 와 맞는다)이 key 로 동작을 정한다. 어느 순서든 같은 입구다. `plugin: '*'` 는 Claude Code 2.1.325 부터 필요하다. 엔진이 누름을 그 Button 을 그린 plugin 이름으로 보내므로, 이것이 없으면 먼저 로드된 mod 가 그린 선택지 Button 의 누름에서 이 hook 이 불리지 않는다(결정 21).
 - **트리는 고쳐 쓴다.** `next(e)` 가 준 트리는 frozen 이므로 `fillSlot` · `offerChoice` 는 바꾸는 노드까지의 경로만 복사한다(템플릿의 `rewrite`). 옮긴 원소의 `part` 표시는 그대로 두었다. 엔진은 바깥 hook 이 다른 plugin 의 원소를 옮겨도 그 원소의 주인을 바꾸지 않았다(Button 이 각자 눌렸다, §4.1 8회차).
 - **칸 크기 측정.** 먼저 로드된 mod 가 있으면 pane-grid 의 render 는 그 mod 의 hook 안에서 실행된다. 이때 `$.clock.after(0)` 로 미룬 `layout` 쓰기가 render 실행 중에 불려 `denied: it was made while ui.render is being dispatched` 로 거부됐고, `placement.columns` 가 0 으로 남아 usage-gauge 가 pane 전체 너비(89열)로 그렸다. 그래서 트리 끝에 너비 · 높이 0 의 `Client`(`hooks/measure.tsx`)를 두고, 그 surface module 이 잰 칸 크기를 `post` 하면 `ui.message` hook 이 `layout` 을 쓴다. `ui.message` 는 render 밖이다. `Client` 가 없는 surface 에서는 전처럼 `$.clock.after(0)` 이다.
-- **안내 문구.** 놓인 칸에 `cell:` Box 도 채운 slot 도 없으면 trace 를 보고 두 가지로 적는다. trace 에 이름이 있으면 `<plugin> draws nothing here`, 없으면 `<plugin> is not loaded, its ui.render matcher lacks plugin: 'pane-grid', or its hooks/pane-grid.ts is older than pane-grid 0.3.0` 이다(`hooks/register.tsx` 의 `UNFILLED_HINT`). trace 에 이름이 없는 원인은 세 가지이고 render 안에서는 가를 수 없다. 설치하지 않았거나, matcher 에 `plugin: 'pane-grid'` 가 없어 Claude Code 2.1.325 부터 그 hook 이 불리지 않거나(결정 21), 먼저 로드된 mod 의 `hooks/pane-grid.ts` 가 `fillSlot` 이 없는 옛 사본이다. 2026-11-14 에 matcher 원인을 더했다. 빈 칸의 `no grid-ready mod is loaded` 는 그대로 두었다.
+- **안내 문구.** 놓인 칸에 `cell:` Box 도 채운 slot 도 없으면 `gridReady` 의 member id 목록(§3.6 「선택지의 출처」의 ① · ②)을 보고 두 가지로 적는다. 목록에 그 member id 가 있으면 `<member id> draws nothing here`, 없으면 `<member id> is not loaded, its ui.render matcher lacks plugin: 'pane-grid', or its hooks/pane-grid.ts is older than pane-grid 0.3.0` 이다(`hooks/register.tsx` 의 `UNFILLED_HINT`). 목록에 없는 원인은 세 가지이고 render 안에서는 가를 수 없다. 설치하지 않았거나, matcher 에 `plugin: 'pane-grid'` 가 없어 Claude Code 2.1.325 부터 그 hook 이 불리지 않거나(결정 21), 먼저 로드된 mod 의 `hooks/pane-grid.ts` 가 `fillSlot` 이 없는 옛 사본이다. 2026-11-14 에 matcher 원인을 더했다. 빈 칸의 `no grid-ready mod is loaded` 는 그대로 두었다.
 
 ### 3.8 분할선과 클릭으로 활성화
 
@@ -491,6 +510,20 @@ tsc 로 고친 것(4회차 전):
 - hotkey 줄의 `q: list` 같은 글자는 Button 이다. 그 자리를 클릭하면 그 동작이 실행되고 포커스는 prompt 에 남아 다음 글자 키가 prompt 에 입력됐다. Button 이 없는 자리(hotkey 줄의 오른쪽 끝)를 클릭하면 포커스가 grid pane 으로 옮겨졌다.
 - `c`(`/grid new`)로 연 탭은 숨은 탭으로 열렸고 보이는 탭은 바뀌지 않았다. 탭 표시줄의 이름을 클릭하자 보였다.
 - 칸에 놓이지 않은 규약 mod 가 자기 pane 을 열면 grid 탭이 숨은 탭이 될 수 있었다. 이때 `/grid select main` 으로 보이게 했다.
+
+12회차 결과(2026-11-20, 2.1.329): 결정 22 를 구현한 작업판(worktree `k37-member-id`)을 `--plugin-dir` 로 불렀다. member 는 두 가지다. `flow-probe` 는 member id `flow-probe` · `flow-probe.b` 두 개를 내고 member id 마다 `offer:` Box 를 그리는 시험 mod(`verification/logs/k37-flow-probe-register.tsx`)이고, usage-gauge 는 `offer:` 를 그리지 않는 설치본 0.4.1 이다. 다른 설치 mod 는 `--settings` 의 `enabledPlugins` 로 껐다. 260열 × 70행 `tmux` 세션이다. 시작 배치는 칸 c1 usage-gauge · c2 빈 칸 · c3 빈 칸, 활성 칸 c2 이고, 프로젝트 파일의 칸 `plugin` 필드에 plugin 이름 `usage-gauge` 를 적었다(member id 를 들이기 전의 파일 꼴). 장치는 `verification/logs/k37-harness.py`, 증거는 `verification/logs/k37-<시나리오>-{result.json,debug.log,<단계>.txt}` 다.
+
+| 시나리오 | `--plugin-dir` 차례 | c2 의 첫 선택지 | `flow-probe.b` 선택지 누름 | `/grid place flow-probe c3` 뒤 | usage-gauge 를 빼고 빈 c1 의 선택지 누름 |
+|---|---|---|---|---|---|
+| `A` | usage-gauge · flow-probe → pane-grid | `1 flow-probe` · `2 flow-probe.b` · `3 usage-gauge (move from c1)` | `2` 로 c2 에 놓였다. c2 에 `PROBE-B body 37x58` | c3 에 `PROBE-A body`, c2 는 그대로 | `3` 으로 c1 에 놓였고 usage-gauge 막대를 그렸다 |
+| `B` | pane-grid → usage-gauge · flow-probe | `A` 와 같다 | `A` 와 같다 | `A` 와 같다 | `A` 와 같다 |
+| `A-nooffer` | `A` 의 flow-probe 를 `offer:` 를 그리지 않는 사본으로 | `A` 와 같다 | `A` 와 같다 | `A` 와 같다 | `A` 와 같다 |
+| `B-nooffer` | `B` 의 flow-probe 를 같은 사본으로 | `1 flow-probe` · `2 usage-gauge (move from c1)`. `flow-probe.b` 가 없다 | 선택지가 없어 `/grid place flow-probe.b c2` 로 놓았다. c2 에 `PROBE-B body` | `A` 와 같다 | `2` 로 c1 에 놓였다 |
+
+- 네 시나리오 모두 시작 화면 c1 에 usage-gauge 막대(`Weekly 7-day window`)가 그려졌고 `is not loaded` · `draws nothing here` 는 없었다. plugin 이름으로 적은 프로젝트 파일을 그대로 읽었다.
+- `B` 의 c2 선택지에는 `flow-probe` 와 `flow-probe.b` 가 `offer:` Box 로, usage-gauge 가 trace 로 나왔다. trace 의 `flow-probe` 는 `offer:` 의 member id 가 있어 따로 더해지지 않았다(선택지 세 개).
+- 깨 보기: `B-nooffer` 에서 `offer:` Box 를 지우자 그 mod 는 trace 경로로 돌아가 plugin 이름 `flow-probe` 하나만 선택지에 나왔고 `flow-probe.b` 는 빠졌다. 이미 놓인 `flow-probe.b` 의 칸은 `cell:` Box 로 그려졌다. `A-nooffer` 는 `A` 와 같았다. pane-grid 보다 먼저 로드되면 `offerChoice` 가 선택지를 더하므로 `offer:` Box 를 쓰지 않는다.
+- 시험 뒤 프로젝트 디렉터리 `~/.claude/pane-grid/projects/vproj-fc536cb3cfdd6dbd` 를 지웠다.
 
 ### 4.2 남은 확인
 

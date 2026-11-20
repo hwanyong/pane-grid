@@ -1,0 +1,147 @@
+{
+  "scenario": "A",
+  "cmd": "claude --plugin-dir /Users/uhd/.claude/plugins/cache/usage-gauge/usage-gauge/0.4.1 --plugin-dir /Users/uhd/.claude/scratch/pane-grid-k37/plugins/flow-probe --plugin-dir /Users/uhd/LOCAL/01-01_Projects/plugin-pane-grid/.claude/worktrees/k37-member-id --settings '{\"enabledPlugins\": {\"uhd-kanban@skill-kanban\": false, \"inbox@inbox\": false, \"flightdeck@claude-flightdeck\": false, \"md-preview@claude-code-mods\": false, \"terminal-browser@terminal-browser\": false, \"vmq-view@vmq\": false, \"image-view@claude-image-view\": false, \"token-optimizer@alexgreensh-token-optimizer\": false}}' --debug-file /Users/uhd/.claude/scratch/pane-grid-k37/out/A/debug.log",
+  "1-start": {
+    "choices": [
+      {
+        "id": "flow-probe",
+        "hotkey": "1",
+        "from": null
+      },
+      {
+        "id": "flow-probe.b",
+        "hotkey": "2",
+        "from": null
+      },
+      {
+        "id": "usage-gauge",
+        "hotkey": "3",
+        "from": "c1"
+      }
+    ],
+    "bodies": {
+      "PROBE-A body": false,
+      "PROBE-B body": false,
+      "usage-gauge is not loaded": false,
+      "draws nothing here": false
+    },
+    "cells": {
+      "c1": "usage-gauge",
+      "c2": null,
+      "c3": null
+    }
+  },
+  "press_b": "2",
+  "2-place-b": {
+    "choices": [
+      {
+        "id": "flow-probe",
+        "hotkey": null,
+        "from": null
+      },
+      {
+        "id": "flow-probe.b",
+        "hotkey": null,
+        "from": "c2"
+      },
+      {
+        "id": "usage-gauge",
+        "hotkey": null,
+        "from": "c1"
+      }
+    ],
+    "bodies": {
+      "PROBE-A body": false,
+      "PROBE-B body": true,
+      "usage-gauge is not loaded": false,
+      "draws nothing here": false
+    },
+    "cells": {
+      "c1": "usage-gauge",
+      "c2": "flow-probe.b",
+      "c3": null
+    }
+  },
+  "3-place-a": {
+    "choices": null,
+    "bodies": {
+      "PROBE-A body": true,
+      "PROBE-B body": true,
+      "usage-gauge is not loaded": false,
+      "draws nothing here": false
+    },
+    "cells": {
+      "c1": "usage-gauge",
+      "c2": "flow-probe.b",
+      "c3": "flow-probe"
+    }
+  },
+  "4-c1-empty": {
+    "choices": [
+      {
+        "id": "flow-probe",
+        "hotkey": "1",
+        "from": "c3"
+      },
+      {
+        "id": "flow-probe.b",
+        "hotkey": "2",
+        "from": "c2"
+      },
+      {
+        "id": "usage-gauge",
+        "hotkey": "3",
+        "from": null
+      }
+    ],
+    "bodies": {
+      "PROBE-A body": true,
+      "PROBE-B body": true,
+      "usage-gauge is not loaded": false,
+      "draws nothing here": false
+    },
+    "cells": {
+      "c1": null,
+      "c2": "flow-probe.b",
+      "c3": "flow-probe"
+    }
+  },
+  "press_old": "3",
+  "5-place-old": {
+    "choices": null,
+    "bodies": {
+      "PROBE-A body": true,
+      "PROBE-B body": true,
+      "usage-gauge is not loaded": false,
+      "draws nothing here": false
+    },
+    "cells": {
+      "c1": "usage-gauge",
+      "c2": "flow-probe.b",
+      "c3": "flow-probe"
+    }
+  },
+  "pane_grid_log": [
+    "pane-grid: action select main: showing main",
+    "pane-grid: layout revision=3 tabs=main placed=usage-gauge,flow-probe.b",
+    "pane-grid: action place flow-probe.b c2: placed flow-probe.b in c2",
+    "pane-grid: layout revision=4 tabs=main placed=usage-gauge,flow-probe.b,flow-probe",
+    "pane-grid: action place flow-probe c3: placed flow-probe in c3",
+    "pane-grid: layout revision=5 tabs=main placed=flow-probe.b,flow-probe",
+    "pane-grid: action place - c1: emptied c1",
+    "pane-grid: action select-cell c1: active cell c1",
+    "pane-grid: layout revision=6 tabs=main placed=usage-gauge,flow-probe.b,flow-probe",
+    "pane-grid: action place usage-gauge c1: placed usage-gauge in c1"
+  ],
+  "loaded": [
+    "cc-plugin-agents-md",
+    "cc-plugin-diff",
+    "cc-plugin-easel",
+    "cc-plugin-plugin-authoring",
+    "cc-plugin-privacy",
+    "cc-plugin-telemetry",
+    "flow-probe",
+    "pane-grid",
+    "usage-gauge"
+  ]
+}
