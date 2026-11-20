@@ -5,13 +5,13 @@ import { VERBS, apply, checkOutcome } from './actions'
 import type { ActivatePost, DividerPost, DividerProps, MeasurePost, MeasureProps } from './client-messages'
 import { HORIZONTAL, VERTICAL } from './glyphs'
 import { defaultTabs, dirName, parseLayoutFile, serializeLayoutFile } from './layout-file'
-import { RULE_ROWS, TOOLBAR_ROWS, activeOf, cellAt, contentArea, contentSize, gridRect, visibleRects } from './pane-area'
+import { CELL_CHROME_ROWS, RULE_ROWS, TOOLBAR_ROWS, activeOf, cellAt, contentArea, contentSize, gridRect, visibleRects } from './pane-area'
 import {
   ACTIVATE_KEY, DIVIDER_KEY, HOTKEY_KEY, HOTKEYS, MEASURE_KEY, PRESS_KEY,
-  collectCells, dividerKey, gridReady, holdsKey, parseDividerKey, pressWords,
+  activateKey, activatedCell, collectCells, dividerKey, gridReady, parseDividerKey, pressWords,
 } from './render-keys'
 import {
-  ACTIVE_SUFFIX, CHOICE_HOTKEYS, CHOICES_KEY, GRID_VERSION, NONE_KEY, PLACE_KEY, SLOT_KEY, isScrollIn, scrollsKey,
+  ACTIVE_SUFFIX, CHOICE_HOTKEYS, CHOICES_KEY, COVER_KEY, GRID_VERSION, NONE_KEY, PLACE_KEY, SLOT_KEY, holdsKey, hoversKey, isScrollIn, scrollsKey,
 } from '../skills/add-pane-grid-cell/pane-grid'
 import { ROOT_PATH, allCells, cellsOf, childPath, findCell, moveDivider, rectAt, replaceAt, splitAt, splitRects } from './tree'
 import type { Rect } from './tree'
@@ -499,13 +499,13 @@ export const register: Register = on => {
     return next.called ? next(e) : { element: e.element }
   })
 
-  // 칸 누름(activate:<cell>)과 분할선 끌기(divider:<path>:<index>). data 는 surface module 이 보낸 것이므로 형식을 검사한다.
+  // 칸 누름(activate:<cell>[:content])과 분할선 끌기(divider:<path>:<index>). data 는 surface module 이 보낸 것이므로 형식을 검사한다.
   on('ui.message', { component: 'Pane', requestId: /^grid-/ }, async ($, e, next) => {
     const tabName = tabOf(e.requestId)
     // 필드 이름을 client-messages.ts 의 타입 키로 적는다. 한쪽 이름이 바뀌면 tsc 가 실패한다.
     const data: Partial<Record<keyof (DividerPost & MeasurePost & ActivatePost), unknown>> = typeof e.data == 'object' && e.data != null ? e.data : {}
     if (e.element.startsWith(MEASURE_KEY) && Number.isInteger(data.columns) && Number.isInteger(data.rows)) await publishPlacements($)
-    if (e.element.startsWith(ACTIVATE_KEY) && data.activate == true) await activateCell($, tabName, e.element.slice(ACTIVATE_KEY.length))
+    if (e.element.startsWith(ACTIVATE_KEY) && data.activate == true) await activateCell($, tabName, activatedCell(e.element))
     const divider = e.element.startsWith(DIVIDER_KEY) ? parseDividerKey(e.element) : undefined
     if (divider && typeof data.at == 'number' && Number.isInteger(data.at)) await dragDivider($, e.surface, tabName, divider.path, divider.index, data.at, data.isFinal == true)
     return next(e)
@@ -562,21 +562,33 @@ export const register: Register = on => {
       return <Box key={`${SLOT_KEY}${memberId}`} flexDirection="column">{content ?? <Text dimColor>{note}</Text>}</Box>
     }
 
-    // 칸: 제목 1행과 내용. 활성이 아닌 칸에는 그 칸 전체를 덮는 activate Client 를 마지막에 그려(위에 칠해진다) 어디를 눌러도 활성이 되게 한다.
+    // 칸: 제목 1행과 내용. 활성이 아닌 칸에는 activate Client 를 마지막에 그려(위에 칠해진다) 덮은 곳을 누르면 활성이 되게 한다.
+    // 덮개는 제목 줄(activateKey(id, false))과 내용(activateKey(id, true)) 둘이다. 놓인 member 가 `hovers:` Box 를 그렸으면 내용 덮개를 빼서
+    // 내용 위의 포인터가 member 의 Box 에 가고 hover 툴팁이 뜬다. 그 칸은 내용을 눌러도 활성이 되지 않고 제목 줄 누름 · hotkey 로 활성이 된다.
+    // pane-grid 보다 아래(뒤에 로드)의 member 는 여기서 `cells` 로 보고 빼고, 위(먼저 로드)의 member 는 이 render 가 끝난 뒤 칸을 넣으므로
+    // 읽기 모듈의 fillSlot 이 `cover:<member id>` Box 를 뺀다. 놓인 member 가 없는 칸의 내용 덮개 Box 에는 key 가 없다.
     const drawCell = (id: string, rect: Rect): RenderElement => {
       const cell = findCell(tab.root, id)
       const isActive = id == activeOf(tab)
       const size = contentSize(rect)
       const title = `${id} ${cell?.plugin ?? '-'}`
+      const member = cell?.plugin
+      const content = member ? cells.get(member) : undefined
+      const isHovered = member != undefined && content != undefined && holdsKey(content, hoversKey(member))
       return (
         <Box key={`cellbox:${id}`} width={rect.width} height={rect.height} flexDirection="column" position="relative">
           {isActive ? <Text color={ACTIVE_COLOR} bold wrap="truncate">{title}</Text> : <Text dimColor wrap="truncate">{title}</Text>}
           <Box width={size.columns} height={size.rows} overflow="hidden" flexDirection="column">
-            <Box marginTop={-(scroll[id] ?? 0)} flexShrink={0} flexDirection="column">{cell?.plugin ? drawSlot(cell.plugin) : drawChoices(id, isActive)}</Box>
+            <Box marginTop={-(scroll[id] ?? 0)} flexShrink={0} flexDirection="column">{member ? drawSlot(member) : drawChoices(id, isActive)}</Box>
           </Box>
           {isActive || !hasClient ? null : (
-            <Box position="absolute" top={0} left={0} width={rect.width} height={rect.height}>
-              {h('Client', { key: `${ACTIVATE_KEY}${id}`, module: './activate.tsx', props: null, width: rect.width, height: rect.height })}
+            <Box position="absolute" top={0} left={0} width={rect.width} height={CELL_CHROME_ROWS}>
+              {h('Client', { key: activateKey(id, false), module: './activate.tsx', props: null, width: rect.width, height: CELL_CHROME_ROWS })}
+            </Box>
+          )}
+          {isActive || !hasClient || isHovered ? null : (
+            <Box key={member ? `${COVER_KEY}${member}` : undefined} position="absolute" top={CELL_CHROME_ROWS} left={0} width={size.columns} height={size.rows}>
+              {h('Client', { key: activateKey(id, true), module: './activate.tsx', props: null, width: size.columns, height: size.rows })}
             </Box>
           )}
         </Box>

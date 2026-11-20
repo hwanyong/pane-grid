@@ -17,6 +17,7 @@ You can do every step by hand, or let Claude do them: paste the prompt in [Use t
 - [Step 5: accept Button presses from the grid pane](#step-5-accept-button-presses-from-the-grid-pane)
 - [Step 6: stop timers while the grid tab is hidden (optional)](#step-6-stop-timers-while-the-grid-tab-is-hidden-optional)
 - [Step 7: scroll your own rows in the cell (optional)](#step-7-scroll-your-own-rows-in-the-cell-optional)
+- [Show hover tooltips while your cell is not the active one (optional)](#show-hover-tooltips-while-your-cell-is-not-the-active-one-optional)
 - [Step 8: check it](#step-8-check-it)
 - [Update a copy taken before member ids](#update-a-copy-taken-before-member-ids)
 - [Use the skill](#use-the-skill)
@@ -44,7 +45,7 @@ A copy of the reading module that draws no `offer:` Box still shows up in empty 
 
 ## Member ids
 
-A member id names one pane your mod puts in a grid cell. pane-grid keys every cell by it: `placed`, `slot:`, `cell:`, `offer:`, `scrolls:`, the choice Button `place:<cell>:<member id>` and `/grid place <member id> [<cell>]`.
+A member id names one pane your mod puts in a grid cell. pane-grid keys every cell by it: `placed`, `slot:`, `cell:`, `offer:`, `scrolls:`, `hovers:`, `cover:`, the choice Button `place:<cell>:<member id>` and `/grid place <member id> [<cell>]`.
 
 | Your mod | Member ids |
 |---|---|
@@ -74,7 +75,7 @@ The values are declared in pane-grid's own contract (`types/index.d.ts`), which 
 
 ## Step 1: copy the reading module
 
-Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pane-grid.ts) to `hooks/pane-grid.ts` in your mod. Do not edit the exports you keep; delete only the ones the table below says you may delete. It exports eight functions and nine constants. Every function takes the member id where a copy taken before member ids took the plugin name; for a mod with one pane that is the same string.
+Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pane-grid.ts) to `hooks/pane-grid.ts` in your mod. Do not edit the exports you keep; delete only the ones the table below says you may delete. It exports ten functions and ten constants. Every function takes the member id where a copy taken before member ids took the plugin name; for a mod with one pane that is the same string.
 
 | Export | Use |
 |---|---|
@@ -82,13 +83,15 @@ Copy [`skills/add-pane-grid-cell/pane-grid.ts`](../skills/add-pane-grid-cell/pan
 | `readPlacement($, memberId)` | Reads the current layout and finds the cell of a member id. Called while drawing, it makes the drawing redraw when the layout changes. Needs Claude Code 2.1.299 or later; delete it if your mod supports an older engine ([Engine floor](#engine-floor-claude-code-21299)) |
 | `readShownTab($)` | Reads `shown`. Only Step 6 needs it; delete it if you skip Step 6. Needs Claude Code 2.1.299 or later, as `readPlacement` does |
 | `offerChoice(below, memberId, placement, makeButton)` | Adds the member id's Button, made by `makeButton`, to each empty cell's choices in `below`. Returns `below` unchanged when it holds no choices |
-| `fillSlot(below, memberId, cell)` | Puts `cell` into the member id's slot in `below`. Returns `undefined` when `below` holds no slot |
+| `fillSlot(below, memberId, cell)` | Puts `cell` into the member id's slot in `below`. Returns `undefined` when `below` holds no slot. When `cell` holds the `hoversKey` Box it also removes the member id's `cover:` Box from `below` |
 | `offerKey(memberId)` | The key of the empty Box that lists the member id in empty cells when your mod loads after pane-grid (Step 3) |
 | `scrollsKey(memberId)` | The key of the Box that tells pane-grid your mod scrolls its own rows. Only Step 7 needs it; delete it if you skip Step 7 |
 | `isScrollIn(placement, e)` | Whether a `ui.scroll` on a grid pane is for your cell. Only Step 7 needs it; delete it if you skip Step 7 |
+| `hoversKey(memberId)` | The key of the Box that tells pane-grid your cell shows hover tooltips ([Show hover tooltips](#show-hover-tooltips-while-your-cell-is-not-the-active-one-optional)). `fillSlot` uses it, so keep it even if your cell draws no hover style |
+| `holdsKey(node, key)` | Whether `node` or a Box under it has the key `key`. `fillSlot` uses it, and pane-grid reads its members' cells with it; keep it |
 | `TOOLBAR_KEYS` | The letters of pane-grid's toolbar hotkeys. Only Step 5 needs it, when your cell draws Button `hotkey`s; delete it otherwise |
 | `GRID_VERSION` | The layout format's version. pane-grid writes its layout value from this constant. `placementIn` uses it, so keep it even though your mod does not import it |
-| `SLOT_KEY`, `CHOICES_KEY`, `ACTIVE_SUFFIX`, `NONE_KEY`, `PLACE_KEY`, `CHOICE_HOTKEYS`, `OFFER_KEY` | The render key prefixes pane-grid draws or reads and the number of choice hotkeys. pane-grid draws and reads with these constants. `fillSlot`, `offerChoice` and `offerKey` use them, so keep them even though your mod does not import them |
+| `SLOT_KEY`, `CHOICES_KEY`, `ACTIVE_SUFFIX`, `NONE_KEY`, `PLACE_KEY`, `CHOICE_HOTKEYS`, `OFFER_KEY`, `COVER_KEY` | The render key prefixes pane-grid draws or reads and the number of choice hotkeys. pane-grid draws and reads with these constants. `fillSlot`, `offerChoice` and `offerKey` use them, so keep them even though your mod does not import them |
 
 `readPlacement` and `readShownTab` are `function` declarations on purpose. From Claude Code 2.1.299, `claude plugin validate` follows `$` across an import only through function declarations.
 
@@ -347,6 +350,44 @@ Load order does not matter here either. When your mod loads before pane-grid, yo
 
 `isScrollIn` is false with pane-grid before 0.4.0, which does not write `column`, `row` and `isActive`: your hook then calls `next(e)` and that pane-grid moves the cell as before.
 
+## Show hover tooltips while your cell is not the active one (optional)
+
+Skip this section if your cell draws no `hover` style. pane-grid covers a cell that is not the active one with a Client (`hooks/activate.tsx`) so that a click anywhere in it makes it the active one. The Client takes the pointer, so your Boxes' `hover` styles and tooltips show only in the active cell. Draw the `hoversKey` Box in your `cell:` Box, next to the `scrollsKey` Box if you draw one:
+
+```tsx
+import { hoversKey } from './pane-grid'
+
+<Box key={`cell:${PLUGIN}`} flexDirection="column">
+  <Box key={hoversKey(PLUGIN)} />
+  {drawPane(columns)}
+</Box>
+```
+
+| Part | What it does |
+|---|---|
+| `hoversKey` Box | An empty Box inside your `cell:` Box. While the cell is not the active one, pane-grid covers its title row only. Without it pane-grid covers the whole cell, so an older copy of the module is unaffected |
+| Load order | pane-grid draws the cover of the content rows in a Box keyed `cover:<member id>`. When your mod loads after pane-grid, pane-grid finds your `hoversKey` Box and leaves that Box out. When your mod loads before pane-grid, your cell goes into the slot after pane-grid has drawn, and `fillSlot` removes the `cover:<member id>` Box. Call `fillSlot` with the cell that holds the `hoversKey` Box |
+| What it costs | A click on your rows no longer makes the cell the active one. A click on the cell's title row, the hotkey `o` and `/grid select-cell <cell>` do |
+| Button in the cell | Pressed while the cell is not the active one too; the press goes to your `ui.press` hook and does not make the cell the active one |
+| Wheel and dividers | Unchanged. The wheel goes to `ui.scroll` whatever covers the cell, and a divider drag keeps the pointer from press to release when it passes over your rows |
+
+Draw each tooltip inside your cell's content area and last in your `cell:` Box. pane-grid cuts the cell at its content area (`overflow="hidden"`), so a `position="absolute"` tooltip that reaches past it is cut. A Box drawn after the tooltip is painted over it. Tie the tooltip to its node with `hover.scope` instead of nesting it in the node:
+
+```tsx
+<Box key={`cell:${PLUGIN}`} flexDirection="column">
+  <Box key={hoversKey(PLUGIN)} />
+  <Box borderStyle="round" width={24} hover={{ scope: 'node-a', borderColor: 'green' }}>
+    <Text>NODE-A</Text>
+  </Box>
+  {otherRows}
+  <Box position="absolute" top={3} left={26} display="none" hover={{ display: 'flex', scope: 'node-a' }} borderStyle="single">
+    <Text>tooltip of NODE-A</Text>
+  </Box>
+</Box>
+```
+
+pane-grid's own run of this section is round 13 in [`docs/grid-and-tabs.md`](grid-and-tabs.md) §4.1, with the test mod in [`verification/logs/k38-flow-probe-register.tsx`](../verification/logs/k38-flow-probe-register.tsx).
+
 ## Step 8: check it
 
 1. `claude plugin validate <your mod>`: the output lists `state reads: pane-grid.layout`, the `state.set{plugin=pane-grid, key=layout}` hook, and the grid render hook as `ui.render{component=Pane, requestId=/"^grid-"/, plugin=pane-grid}`. A `ui.render{component=Pane, requestId=/"^grid-"/}` without `plugin=pane-grid` is the hook that Claude Code 2.1.325 never calls for a grid pane. If your mod supports an engine older than 2.1.299, run it with that engine too: `npx -y @anthropic-ai/claude-code@<oldest version> plugin validate <your mod>`.
@@ -374,6 +415,7 @@ Load order does not matter here either. When your mod loads before pane-grid, yo
    | Press its digit, or `/grid place <member id>` | Your content in the cell; your own pane or band is gone |
    | `/grid resize 30` | Your content redraws at the new width |
    | Wheel over your cell (Step 7 only) | Your rows scroll under your header; the wheel over another cell scrolls that cell |
+   | Point at a Box with a hover style in your cell while another cell is the active one (hover section only) | Its tooltip shows; a click on your rows leaves the other cell active |
    | `/grid place -` | Your own pane or band is back |
    | Run without pane-grid | Your mod behaves as before |
 
@@ -387,6 +429,7 @@ usage-gauge, pending-questions and uhd-kanban hold a copy of `hooks/pane-grid.ts
 |---|---|
 | The parameter `plugin` of `placementIn`, `readPlacement`, `fillSlot`, `offerChoice` and `scrollsKey` is now `memberId` | Nothing for a mod with one pane: pass the plugin name as before. A mod with two or more panes passes each pane's member id |
 | New exports `OFFER_KEY` and `offerKey(memberId)` | In the grid render hook, append `<Box key={offerKey(<member id>)} />` after the result of `next(e)` for each member id, in the return for "not placed here" and in the fallback tree (Step 3) |
+| New exports `hoversKey(memberId)`, `holdsKey(node, key)` and `COVER_KEY` (pane-grid 0.6.0). `fillSlot` removes the member id's `cover:` Box when the cell holds the `hoversKey` Box | Nothing, unless your cell shows hover tooltips: then draw the `hoversKey` Box ([Show hover tooltips](#show-hover-tooltips-while-your-cell-is-not-the-active-one-optional)) |
 | The comments name the member id | Nothing |
 
 Copy the file again, then make the change in the second row. Check it with Step 8, both load orders included.
@@ -408,7 +451,7 @@ Do not commit. List what you changed and what I should check in a live session.
 
 With pane-grid already installed, running `/pane-grid:add-pane-grid-cell` alone does the same.
 
-The skill copies the reading module, finds where your mod draws, applies Steps 2 to 7 that match it, runs `claude plugin validate`, and lists what it changed and what you should check in a live session (Step 8.3). It does not commit.
+The skill copies the reading module, finds where your mod draws, applies Steps 2 to 7 and the hover section that match it, runs `claude plugin validate`, and lists what it changed and what you should check in a live session (Step 8.3). It does not commit.
 
 ## FAQ
 

@@ -33,6 +33,10 @@ export const ACTIVE_SUFFIX = ':active'
 export const NONE_KEY = 'none:'
 export const PLACE_KEY = 'place:'
 const SCROLLS_KEY = 'scrolls:'
+const HOVERS_KEY = 'hovers:'
+// The key prefix of the Box pane-grid draws over the content rows of a cell that is not the active one, in a cell where a
+// member id is placed: `cover:<member id>`. fillSlot removes it when your cell holds the hoversKey Box. Your mod need not import it.
+export const COVER_KEY = 'cover:'
 // The key prefix of the empty Box a mod loaded after pane-grid draws for each member id. pane-grid reads it with this
 // constant. Your mod need not import it; offerKey uses it.
 export const OFFER_KEY = 'offer:'
@@ -99,6 +103,10 @@ const keyOf = (node: RenderNode) => {
 
 const childrenOf = (node: RenderElement): readonly RenderNode[] => ('children' in node && Array.isArray(node.children) ? node.children : [])
 
+// Whether `node` or a Box under it has the key `key`. pane-grid reads its members' cells with it too.
+export const holdsKey = (node: RenderNode, key: string): boolean =>
+  keyOf(node) == key || (typeof node != 'string' && childrenOf(node).some(child => holdsKey(child, key)))
+
 // Copies the tree only along the path to each node `change` replaces; the drawing next(e) handed you is frozen.
 const rewrite = (element: RenderElement, change: (element: RenderElement) => RenderElement | undefined): RenderElement => {
   const changed = change(element)
@@ -110,6 +118,8 @@ const rewrite = (element: RenderElement, change: (element: RenderElement) => Ren
 
 // Puts `cell` into the slot pane-grid drew for this member id. undefined when next(e) holds no such slot (your mod loads
 // after pane-grid, so pane-grid has not drawn yet): append the cell after next(e) instead, keyed `cell:<member id>`.
+// When `cell` holds the hoversKey Box, it also removes the `cover:<member id>` Box: pane-grid drew the cover before your
+// cell was in the tree, so it could not see the Box. When your mod loads after pane-grid, pane-grid sees it and leaves the cover out.
 export const fillSlot = (below: RenderElement, memberId: string, cell: RenderElement): RenderElement | undefined => {
   let isFilled = false
   const filled = rewrite(below, element => {
@@ -117,7 +127,14 @@ export const fillSlot = (below: RenderElement, memberId: string, cell: RenderEle
     isFilled = true
     return { ...element, children: [cell] } as RenderElement
   })
-  return isFilled ? filled : undefined
+  if (!isFilled) return undefined
+  if (!holdsKey(cell, hoversKey(memberId))) return filled
+  const cover = `${COVER_KEY}${memberId}`
+  return rewrite(filled, element => {
+    const children = childrenOf(element)
+    if (!children.some(child => keyOf(child) == cover)) return undefined
+    return { ...element, children: children.filter(child => keyOf(child) != cover) } as RenderElement
+  })
 }
 
 // Adds this member id's Button to every empty cell's choices pane-grid drew. Unchanged when next(e) holds none (your mod
@@ -147,6 +164,12 @@ export const offerKey = (memberId: string) => `${OFFER_KEY}${memberId}`
 // A mod that scrolls its own rows in the cell draws an empty Box with this key inside its `cell:<member id>` Box.
 // pane-grid then hands that cell's `ui.scroll` to your hook instead of moving the cell itself. Without the Box pane-grid moves it.
 export const scrollsKey = (memberId: string) => `${SCROLLS_KEY}${memberId}`
+
+// A mod whose cell shows Box hover tooltips draws an empty Box with this key inside its `cell:<member id>` Box.
+// While the cell is not the active one pane-grid covers its title row only, not the whole cell (in either load order: see
+// fillSlot), so the pointer reaches your Boxes and their tooltips show. The cost: a click on your rows no longer makes the
+// cell the active one; a click on the title row or a hotkey (`o`) does. Without the Box pane-grid covers the whole cell.
+export const hoversKey = (memberId: string) => `${HOVERS_KEY}${memberId}`
 
 // Whether a `ui.scroll` on a grid pane is for this member id's cell: the wheel over the cell's area, or a scroll key while the
 // cell is the active one. The row in your cell is `e.pointer.row - placement.row`. false with pane-grid before 0.4.0.

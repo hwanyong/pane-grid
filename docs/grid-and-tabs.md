@@ -69,6 +69,15 @@
     - 이름만 `uhd-kanban.flow` 로 붙이고 pane-grid 를 고치지 않는 방법은 쓰지 않았다. trace 의 선택지는 plugin 이름만 내므로 pane-grid 보다 뒤에 로드되면 `uhd-kanban.flow` 가 선택지에 빠지고, 안내 문구 판정(`ready.includes`)도 그 member id 를 찾지 못한다.
     - 실행 검증(Claude Code 2.1.329): 시험 장치 `verification/logs/k37-harness.py`, 시험 mod `verification/logs/k37-flow-probe-register.tsx`(member id `flow-probe` · `flow-probe.b`), 증거 `verification/logs/k37-<시나리오>-*`. 결과는 §4.1 12회차다.
 
+2026-11-20 카드 k38 로 정한 것 한 가지(세션 `kanban-main` 의 요청, 사용자 승인 결정 B):
+
+23. **`hovers:` 를 선언한 칸은 활성이 아닐 때 제목 1행만 덮는다**(§3.8 「hover 툴팁을 쓰는 규약 mod」).
+    - 실측(kanban-main, 2026-11-20, Claude Code 2.1.329, pane-grid 0.5.2): 활성 칸에서는 Box hover 툴팁이 떴고, 다른 칸을 활성으로 바꾸자 같은 좌표에서 뜨지 않았다. 활성이 아닌 칸 전체를 덮은 `activate:<칸 id>` Client 가 포인터를 받기 때문이다.
+    - 규약 mod 가 `cell:<member id>` Box 안에 빈 Box `hovers:<member id>`(읽기 모듈의 `hoversKey`)를 그리면 그 칸의 내용 덮개를 빼고 제목 줄 덮개만 남긴다. 선언하지 않은 칸은 전과 같이 칸 전체를 덮는다.
+    - 대가: 그 칸은 내용을 눌러도 활성이 되지 않는다. 제목 줄 누름 · hotkey `o` · `/grid select-cell` 로 활성이 된다.
+    - 카드는 pane-grid 가 render 에서 `cell:` Box 의 선언을 모으는 방식(`scrolls:` 와 같은 방식)만 적었다. 실행해 보니 pane-grid 보다 먼저 로드된 mod 의 `cell:` Box 는 pane-grid 의 render 가 끝난 뒤 `fillSlot` 으로 slot 에 들어가 pane-grid 가 볼 수 없었다(§4.1 13회차). 그래서 덮개를 제목 줄 · 내용 두 개로 나누고, 내용 덮개를 `cover:<member id>` Box 에 넣어 읽기 모듈의 `fillSlot` 이 지우게 했다.
+    - 실행 검증(Claude Code 2.1.329): 시험 장치 `verification/logs/k38-harness.py`, 시험 mod `verification/logs/k38-flow-probe-register.tsx`, 증거 `verification/logs/k38-<시나리오>-*`. 결과는 §4.1 13회차다.
+
 | mod | 저장소 | 그리는 곳 |
 |---|---|---|
 | `usage-gauge` 0.2.0 | `/Users/uhd/LOCAL/01-01_Projects/plugin-usage-gauge` | `AbovePrompt`(prompt 위 band). pane 이 없다 |
@@ -276,7 +285,7 @@ on('state.set', { plugin: 'pane-grid', key: 'layout' }, async ($, e, next) => {
 
 #### key
 
-pane-grid 가 그리는 key 는 다섯 가지이고, 뒤에 로드된 규약 mod 가 그리는 key 는 두 가지다(`skills/add-pane-grid-cell/pane-grid.ts` 의 `SLOT_KEY` · `OFFER_KEY` 등. 규약 mod 와 pane-grid 가 이 파일의 상수를 함께 쓴다).
+pane-grid 가 그리는 key 는 여섯 가지이고, 뒤에 로드된 규약 mod 가 그리는 key 는 두 가지다. 규약 mod 가 `cell:` Box 안에 그리는 선언 Box `scrolls:<member id>` · `hovers:<member id>` 는 §3.4 「자기 행을 스스로 스크롤하는 규약 mod」와 §3.8 「hover 툴팁을 쓰는 규약 mod」에 적었다(`skills/add-pane-grid-cell/pane-grid.ts` 의 `SLOT_KEY` · `OFFER_KEY` 등. 규약 mod 와 pane-grid 가 이 파일의 상수를 함께 쓴다).
 
 | key | 그리는 곳 | 누가 채우나 |
 |---|---|---|
@@ -285,6 +294,7 @@ pane-grid 가 그리는 key 는 다섯 가지이고, 뒤에 로드된 규약 mod
 | `none:<칸 id>` | 선택지가 0개인 빈 칸의 안내 | `offerChoice` 가 Button 을 더할 때 뺀다 |
 | `place:<칸 id>:<member id>` | 선택지 Button | pane-grid 의 `ui.press` hook 이 key 를 읽어 `place <member id> <칸 id>` 를 실행한다. 칸 id 와 member id 에는 `:` 가 없다 |
 | `hotkey:<글자>` | 도구줄의 hotkey Button | 같은 `ui.press` hook |
+| `cover:<member id>` | member id 가 놓이고 활성이 아닌 칸의 내용 덮개(`activate:<칸 id>:content` Client)를 담는 Box | 먼저 로드된 mod 의 `cell:` Box 에 `hovers:<member id>` 가 있으면 `fillSlot` 이 뺀다(§3.8) |
 | `cell:<member id>` | 뒤에 로드된 규약 mod 가 `next(e)` 결과 뒤에 덧붙인다. 놓인 member id 의 칸 내용이다 | pane-grid 가 `collectCells` 로 모아 `slot:<member id>` 에 넣는다 |
 | `offer:<member id>` | 뒤에 로드된 규약 mod 가 member id 마다 `next(e)` 결과 뒤에 덧붙이는 빈 Box. 놓였든 아니든 그린다 | pane-grid 가 `gridReady` 로 모아 빈 칸 선택지로 쓴다(§3.6). 화면에는 그려지지 않는다. pane-grid 의 render 는 `next(e)` 결과를 반환하지 않기 때문이다 |
 
@@ -305,11 +315,26 @@ pane-grid 가 그리는 key 는 다섯 가지이고, 뒤에 로드된 규약 mod
 | 분할선 | 칸 사이 1칸(`hooks/tree.ts` 의 `DIVIDER`). 가로 나눔은 `│` 세로줄, 세로 나눔은 `─` 가로줄이다. `Client`(`hooks/divider.tsx`)로 그리고 key 는 `divider:<노드 경로>:<색인>` 이다. 노드 경로는 뿌리 `r` 에서 자식 색인을 붙인 것이다(`r.0.1`) |
 | 끌기 | 왼쪽 버튼 `down` 에서 잡고, `move` · `up` 마다 분할선 위치(나눈 노드 안의 칸 수)를 `post` 한다. pane-grid 의 `ui.message` hook 이 `moveDivider` 로 양옆 자식의 크기를 다시 계산해 `layout` 을 쓰고, `up` 에서 `layout.json` 에 쓴다. 양옆은 최소 1칸이다 |
 | 크기 단위 | `size` 는 백분율이고 소수 둘째 자리까지 둔다(`normalize` 의 `PRECISION`). `moveDivider` 가 칸 수에서 다시 계산한 크기를 정수로 반올림하지 않고 담기 위해서다 |
-| 클릭으로 활성화 | 활성이 아닌 칸 위에 그 칸 크기의 `Client`(`hooks/activate.tsx`, key `activate:<칸 id>`)를 덮는다. `down` 에서 `post` 하면 `ui.message` hook 이 `select-cell` 을 실행하고 `$.ui.open({ id, focus: true })` 로 grid pane 에 키보드 포커스를 준다. 활성 칸에는 덮지 않으므로 그 안의 Button 은 바로 눌린다 |
+| 클릭으로 활성화 | 활성이 아닌 칸 위에 `Client`(`hooks/activate.tsx`) 두 개를 덮는다. 제목 줄(key `activate:<칸 id>`)과 내용(key `activate:<칸 id>:content`)이고, 놓인 member 가 있으면 내용 덮개는 Box `cover:<member id>` 안에 있다. `hovers:` 를 선언한 칸은 내용 덮개를 뺀다(아래 「hover 툴팁을 쓰는 규약 mod」). `down` 에서 `post` 하면 `ui.message` hook 이 `select-cell` 을 실행하고 `$.ui.open({ id, focus: true })` 로 grid pane 에 키보드 포커스를 준다. 활성 칸에는 덮지 않으므로 그 안의 Button 은 바로 눌린다 |
 | Client 가 없는 surface | 분할선은 흐린 Text 줄이고, 크기는 `/grid resize`, 활성 칸은 `/grid select-cell` 로 바꾼다 |
 | 고정 구분선(결정 19) | pane 본문 맨 위(엔진의 탭 줄 바로 아래)와 hotkey 줄 아래에 `─` 한 줄씩이다. `Client` 가 아니라 흐린 Text 라 끌 수 없다. grid 위의 행 수는 `HEADER_ROWS`(구분선 1 · hotkey 줄 `TOOLBAR_ROWS` 2 · 구분선 1 = 4)이고, 칸 사각형(`gridRect`)과 휠의 `pointer.row`(`cellAt`)가 같은 값을 뺀다 |
 
 덮는 방식을 고른 이유는 §4.1 8회차의 측정이다. 칸 아래에 깐 `Client` 는 글자 줄을 누른 것을 받지 못했다.
+
+#### hover 툴팁을 쓰는 규약 mod(0.6.0)
+
+활성이 아닌 칸의 덮개 Client 는 포인터를 받으므로 그 아래 Box 의 `hover` 스타일이 적용되지 않는다. 결정 23 에 따라 규약 mod 가 선언한 칸은 내용 덮개를 뺀다.
+
+| 단계 | 하는 쪽 | 하는 일 |
+|---|---|---|
+| ① | 규약 mod | `cell:<member id>` Box 안에 빈 Box `hoversKey(memberId)`(`hovers:<member id>`)를 그린다 |
+| ② | pane-grid | 활성이 아닌 칸에 제목 줄 덮개(높이 `CELL_CHROME_ROWS`)와 내용 덮개(칸 내용 크기)를 그린다. 놓인 member 가 있으면 내용 덮개를 Box `cover:<member id>`(읽기 모듈의 `COVER_KEY`) 안에 둔다 |
+| ③ | pane-grid | `next(e)` 결과의 `cell:` Box 에 ① 의 Box 가 있으면(읽기 모듈의 `holdsKey`) 그 칸의 내용 덮개를 그리지 않는다. 규약 mod 가 pane-grid 보다 뒤에 로드된 경우다 |
+| ④ | 읽기 모듈 | `fillSlot(below, memberId, cell)` 은 `cell` 에 ① 의 Box 가 있으면 slot 을 채운 뒤 `cover:<member id>` Box 를 뺀다. 규약 mod 가 pane-grid 보다 먼저 로드되어 pane-grid 가 ① 을 볼 수 없는 경우다 |
+
+로드 순서마다 갈리는 것은 ③ · ④ 중 어느 쪽이 내용 덮개를 빼는가 하나이고, 두 순서의 결과 트리가 같다. `scrolls:` 와 달리 pane-grid 가 render 할 때 알아야 하므로 `run` 에 모으지 않고 그 render 의 `cells` 에서 본다.
+
+규약 mod 쪽 규칙 한 가지(kanban-main 실측): `position="absolute"` 툴팁은 칸 내용 영역(`overflow="hidden"`)을 넘으면 잘리고, 툴팁 뒤에 그린 형제가 툴팁 위에 덮어 그려진다. 그래서 툴팁을 `hover.scope` 로 노드와 묶어 칸 안에 두고 `cell:` Box 의 트리 끝에 그린다(`docs/add-pane-grid-cell.md` 「Show hover tooltips while your cell is not the active one」).
 
 #### 칸 안의 Button `hotkey`(0.4.1)
 
@@ -523,6 +548,24 @@ tsc 로 고친 것(4회차 전):
 - 네 시나리오 모두 시작 화면 c1 에 usage-gauge 막대(`Weekly 7-day window`)가 그려졌고 `is not loaded` · `draws nothing here` 는 없었다. plugin 이름으로 적은 프로젝트 파일을 그대로 읽었다.
 - `B` 의 c2 선택지에는 `flow-probe` 와 `flow-probe.b` 가 `offer:` Box 로, usage-gauge 가 trace 로 나왔다. trace 의 `flow-probe` 는 `offer:` 의 member id 가 있어 따로 더해지지 않았다(선택지 세 개).
 - 깨 보기: `B-nooffer` 에서 `offer:` Box 를 지우자 그 mod 는 trace 경로로 돌아가 plugin 이름 `flow-probe` 하나만 선택지에 나왔고 `flow-probe.b` 는 빠졌다. 이미 놓인 `flow-probe.b` 의 칸은 `cell:` Box 로 그려졌다. `A-nooffer` 는 `A` 와 같았다. pane-grid 보다 먼저 로드되면 `offerChoice` 가 선택지를 더하므로 `offer:` Box 를 쓰지 않는다.
+- 시험 뒤 프로젝트 디렉터리 `~/.claude/pane-grid/projects/vproj-fc536cb3cfdd6dbd` 를 지웠다.
+
+13회차 결과(2026-11-20, 2.1.329): 결정 23 을 구현한 작업판(worktree `k38-hovers`)을 `--plugin-dir` 로 불렀다. member 는 시험 mod `flow-probe`(`verification/logs/k38-flow-probe-register.tsx`) 하나이고 member id 두 개를 낸다. `flow-probe` 는 `hovers:` Box, hover 노드 NODE-A · NODE-B, 그 툴팁 TOOLTIP-A · TOOLTIP-B, Button `PRESS-ME`, 채움 30줄을 그린다. `flow-probe.scroll` 은 `scrolls:` Box 를 그리고 자기 `ui.scroll` hook 으로 40줄을 움직인다. 다른 설치 mod 는 `--settings` 의 `enabledPlugins` 로 껐다. 260열 × 40행 `tmux` 세션이다. 배치는 한 줄 c1 `flow-probe` 40 · c2 `flow-probe.scroll` 30 · c3 빈 칸 30, 활성 칸 c3 이다. 포인터 이동은 SGR motion `ESC[<35;x;yM`, 휠은 `ESC[<64|65;x;yM`, 끌기는 누름 · `ESC[<32;x;yM` · 뗌을 `tmux send-keys -H` 로 넣었다. 장치는 `verification/logs/k38-harness.py`, 증거는 `verification/logs/k38-<시나리오>-<단계>.txt` 와 `k38-<시나리오>-debug.log` 다. `A` 는 flow-probe → pane-grid, `B` 는 pane-grid → flow-probe 순서다.
+
+| 확인한 것 | `A` | `B` |
+|---|---|---|
+| 첫 구현(pane-grid 가 render 에서 `hovers:` 를 모으는 것만)으로 c1 NODE-A 위 포인터 | 툴팁이 뜨지 않았고 c1 본문 클릭으로 c1 이 활성이 됐다(칸 전체 덮개). pane-grid 가 c1 의 `cell:` Box 를 볼 수 없었다 | TOOLTIP-A 가 떴다 |
+| 고친 뒤 비활성 c1 의 NODE-A · NODE-B 위 포인터(6) | TOOLTIP-A · TOOLTIP-B 가 떴다. 활성 칸은 c3 그대로였다 | `A` 와 같다 |
+| 비활성 c1 위 휠 아래 3칸(1) | c1 내용이 3행 위로 밀렸다 | `A` 와 같다 |
+| c2(`scrolls:`) 위 휠 아래 2칸(2) | debug log 에 `k38probe: scroll by=1 offset=2` 가 찍혔고, 다음 render 에서 c2 머리 줄이 `offset=2` 가 됐다 | `A` 와 같다 |
+| c1 · c2 사이 분할선을 c1 내용 위로 31열 끌기(3) | c1 크기가 40 에서 13.15 가 됐다 | `A` 와 같다 |
+| 비활성 c1 의 Button `PRESS-ME` 누름(5) | debug log 에 `k38probe: press probe-btn count=1`. 활성 칸은 c3 그대로였다 | `A` 와 같다 |
+| 비활성 c1 의 채움 줄 누름 | 활성 칸은 c3 그대로였다 | `A` 와 같다 |
+| 비활성 c1 의 제목 줄 누름(4) | c1 이 활성이 됐다(`action select-cell c1`) | `A` 와 같다 |
+| `hovers:` 가 없는 비활성 c2 의 내용 누름 | c2 가 활성이 됐다(key `activate:c2:content` 의 칸 id 해석) | `A` 와 같다 |
+| 깨 보기: `hovers:` 를 그리지 않는 사본(`A-nohovers` · `B-nohovers`)(7) | 툴팁이 뜨지 않았고 c1 본문 클릭으로 c1 이 활성이 됐다 | `A` 와 같다 |
+
+- 네 실행의 debug log 에 `pane-grid` · `flow-probe` hook 실패 줄은 0건이다(`grep -cE 'pane-grid: .*fail|\[(pane-grid|flow-probe)\].*(error|threw|reject)'`).
 - 시험 뒤 프로젝트 디렉터리 `~/.claude/pane-grid/projects/vproj-fc536cb3cfdd6dbd` 를 지웠다.
 
 ### 4.2 남은 확인

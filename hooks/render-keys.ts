@@ -17,6 +17,10 @@ export const HOTKEY_KEY = 'hotkey:'
 export const PRESS_KEY = new RegExp(`^(${PLACE_KEY}|${HOTKEY_KEY})`)
 // pane-grid 의 Client(surface module) key 머리말. 누름 · 끌기는 ui.message hook 이 받는다.
 export const ACTIVATE_KEY = 'activate:'
+// 활성이 아닌 칸의 덮개 Client 는 둘이다. 제목 줄 `activate:<cell>` 과 내용 `activate:<cell>:content`. 칸 id 에는 ':' 가 없다.
+const CONTENT_SUFFIX = ':content'
+export const activateKey = (cell: string, isContent: boolean) => `${ACTIVATE_KEY}${cell}${isContent ? CONTENT_SUFFIX : ''}`
+export const activatedCell = (element: string) => element.slice(ACTIVATE_KEY.length).split(':')[0] ?? ''
 export const DIVIDER_KEY = 'divider:'
 export const MEASURE_KEY = 'measure:'
 
@@ -49,14 +53,6 @@ const TOOLBAR: Record<(typeof TOOLBAR_KEYS)[number], { label: string; words: str
 }
 export const HOTKEYS = TOOLBAR_KEYS.map(key => ({ key, ...TOOLBAR[key] }))
 
-// Box 아래에 key 가 `key` 인 노드가 있는가.
-export const holdsKey = (node: RenderNode, key: string): boolean => {
-  if (typeof node == 'string') return false
-  const props: Record<string, unknown> | undefined = 'props' in node ? node.props : undefined
-  if (props?.key == key) return true
-  return 'children' in node && (node.children ?? []).some(child => holdsKey(child, key))
-}
-
 // key 가 `prefix` 로 시작하는 Box 를 member id(머리말 뒤)마다 모은다. 찾은 Box 아래는 더 내려가지 않는다.
 const collectKeyed = (node: RenderNode, prefix: string, out: Map<string, RenderElement>): void => {
   if (typeof node == 'string') return
@@ -79,7 +75,7 @@ const collectOffers = (node: RenderNode): string[] => {
 // pane-grid 아래 규약 mod 의 member id(빈 칸 선택지와 안내 문구의 판정에 쓴다). 두 출처를 합친다.
 // ① `offer:<member id>` Box. pane 을 둘 이상 내는 mod 는 이것으로만 member id 를 모두 알린다.
 // ② next.trace 의 plugin 이름. grid pane 의 ui.render 에 hook 을 건 mod 는 놓이지 않았어도 trace 에 이름이 남는다. `offer:` 를
-//    그리지 않는 옛 사본(pane-grid 0.5.2 이전의 hooks/pane-grid.ts)을 위해 남긴다. 규칙: trace 의 plugin 이름 p 는 ① 의 member id 중
+//    그리지 않는 옛 사본(pane-grid 0.6.0 이전의 hooks/pane-grid.ts)을 위해 남긴다. 규칙: trace 의 plugin 이름 p 는 ① 의 member id 중
 //    p 와 같거나 `p.` 로 시작하는 것이 하나도 없을 때만 member id p 로 더한다. 새 사본은 ① 로 자기 member id 를 모두 내므로
 //    p 를 따로 더하지 않고, 옛 사본은 ① 이 없어 지금처럼 p 로 나온다. 같은 규칙을 docs/grid-and-tabs.md §3.6 「선택지의 출처」에 적었다.
 export const gridReady = (below: RenderNode, trace: readonly TraceEntry[]) => {

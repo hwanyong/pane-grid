@@ -48,7 +48,7 @@ Claude Code mods draw panes beside the chat: a kanban board, the questions Claud
 | tmux-style splits | Split the active cell left-right (`v`) or top-bottom (`s`), to any depth | [Split and place](#how-do-i-split-a-pane-and-place-a-mod) |
 | Mod picker in empty cells | An empty cell lists the grid-ready Claude Code mods that are loaded. A digit or a click places one | [Split and place](#how-do-i-split-a-pane-and-place-a-mod) |
 | Drag to resize | Cells have no borders; a one-cell divider sits between them. Drag a divider with the mouse to resize the cells on both sides | [Arrange](#how-do-i-resize-zoom-and-rearrange-cells) |
-| Click to focus | Click anywhere in a cell to make it active. The grid pane takes the keyboard, so hotkeys work right away | [Split and place](#how-do-i-split-a-pane-and-place-a-mod) |
+| Click to focus | Click anywhere in a cell to make it active. The grid pane takes the keyboard, so hotkeys work right away. A mod that shows hover tooltips in its cell can ask for its title row to be the only place to click, so its tooltips show while another cell is active ([guide](docs/add-pane-grid-cell.md#show-hover-tooltips-while-your-cell-is-not-the-active-one-optional)) | [Split and place](#how-do-i-split-a-pane-and-place-a-mod) |
 | Presets | `/grid layout` applies `even-horizontal`, `even-vertical`, `main-vertical`, `main-horizontal` or `tiled`. `/grid resize <1-99>` sets a share from the prompt | [Arrange](#how-do-i-resize-zoom-and-rearrange-cells) |
 | Zoom, next, swap | `z` draws the active cell alone, `o` moves to the next cell, `w` swaps two cells | [Arrange](#how-do-i-resize-zoom-and-rearrange-cells) |
 | Layout tabs | Each layout is a Claude Code pane tab. `c` opens one, `b` breaks a cell out into one, `k` closes one | [Tabs](#how-do-layout-tabs-work) |
@@ -126,7 +126,7 @@ Hotkeys work while the grid pane has focus. Commands work at the Claude Code pro
 | `1`-`9` | `/grid place <member id> [<cell>]` | Place a mod or one of its panes (digits: in the active empty cell) |
 | - | `/grid place - [<cell>]` | Empty a cell |
 | `o` | `/grid next` | Make the next cell active |
-| - | `/grid select-cell <cell>` | Make that cell active (or click anywhere in the cell) |
+| - | `/grid select-cell <cell>` | Make that cell active (or click anywhere in the cell; in a cell whose mod shows hover tooltips, click its title row) |
 | `w` | `/grid swap [<cell>]` | Swap the active cell with the next cell or that cell |
 | `z` | `/grid zoom` | Zoom the active cell, or restore |
 | `x` | `/grid kill` | Remove the active cell |
